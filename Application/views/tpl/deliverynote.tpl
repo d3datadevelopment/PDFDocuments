@@ -113,8 +113,12 @@
 			<td style="width: 30%" class="aligning">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_CUSTOMERNR"}] [{$user->oxuser__oxcustnr->value}]</td>
 		</tr>
 		<tr>
-			<td style="width: 70%"></td>
+			<td style="width: 70%; font-size: 14px">[{if $order->oxorder__d3pdftextkostenstelle_kunden->value}][{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_INVOICENOTE"}][{$order->oxorder__d3pdftextkostenstelle_kunden->value}][{/if}]</td>
 			<td style="width: 30%" class="aligning">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DATE"}][{$order->oxorder__oxbilldate->value|date_format:"%d. %m. %Y"}]</td>
+		</tr>
+		<tr>
+			<td style="width: 70%; font-size: 14px; padding-top: 20px"></td>
+			<td style="width: 30%" class="aligning"></td>
 		</tr>
 		<tr>
 			<td style="width: 70%">[{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSINCERELY"}][{$order->oxorder__oxorderdate->value|date_format:"%d. %m. %Y"}][{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSAT"}]</td>
