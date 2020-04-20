@@ -126,128 +126,128 @@
 	
 	<table style="width: 100%; border-bottom: solid 1px #000; margin-top: 10px;" cellspacing="0">
 		<tr>
-			<td style="width: 10%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_AMOUNT"}]</td>
-			<td style="width: 10%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}]</td>
+			<td style="width: 8%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_AMOUNT"}]</td>
+			<td style="width: 20%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}]</td>
 			<td style="width: 40%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DESCRIPTION"}]</td>
-			<td style="width: 10%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USTPERCENTAGE"}]</td>
-			<td style="width: 15%; text-align: right" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_UNITPRICE"}]</td>
+			<td style="width: 5%" class="sizing aligning">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USTPERCENTAGE"}]</td>
+			<td style="width: 12%; text-align: right" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_UNITPRICE"}]</td>
 			<td style="width: 15%" class="aligning sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_TOTALPRICE"}]</td>
 		</tr>
 		<tr>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
+			<td style="width: 8%; border-top: solid 1px #000;"></td>
+			<td style="width: 20%; border-top: solid 1px #000;"></td>
 			<td style="width: 40%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 15%; border-top: solid 1px #000;"></td>
+			<td style="width: 5%; border-top: solid 1px #000;"></td>
+			<td style="width: 12%; border-top: solid 1px #000;"></td>
 			<td style="width: 15%; border-top: solid 1px #000;"></td>
 		</tr>
 		
 [{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
 		<tr>
-			<td style="width: 10%" class='vertical-a sizing'>[{ $oOrderArticle->oxorderarticles__oxamount->value }]</td>
-			<td style="width: 10%" class='vertical-a sizing'>[{ $oOrderArticle->oxorderarticles__oxartnum->value }]</td>
-			<td style="width: 40%" class='vertical-a sizing'>[{ $oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]</td>
-			<td style="width: 10%" class='vertical-a sizing'>[{ $oOrderArticle->oxorderarticles__oxvat->value }]</td>
-			<td style="width: 15%; text-align: right" class='vertical-a sizing'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</td>
+			<td style="width: 8%" class='vertical-a sizing'>[{$oOrderArticle->oxorderarticles__oxamount->value }]</td>
+			<td style="width: 20%" class='vertical-a sizing'>[{$oOrderArticle->oxorderarticles__oxartnum->value }]</td>
+			<td style="width: 40%" class='vertical-a sizing'>[{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]</td>
+			<td style="width: 5%" class='vertical-a sizing aligning'>[{$oOrderArticle->oxorderarticles__oxvat->value }]</td>
+			<td style="width: 12%; text-align: right" class='vertical-a sizing'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</td>
 			<td style="width: 15%" class="aligning vertical-a sizing">[{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]</td>
 		</tr>
 [{/foreach}]
 		<tr>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
+			<td style="width: 8%; border-top: solid 1px #000;"></td>
+			<td style="width: 20%; border-top: solid 1px #000;"></td>
 			<td style="width: 40%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 15%; border-top: solid 1px #000;"></td>
+			<td style="width: 5%; border-top: solid 1px #000;"></td>
+			<td style="width: 12%; border-top: solid 1px #000;"></td>
 			<td style="width: 15%; border-top: solid 1px #000;"></td>
 		</tr>			
 		<tr>
-			<td style="width: 10%"></td>
-			<td style="width: 10%"></td>
+			<td style="width: 8%"></td>
+			<td style="width: 20%"></td>
 			<td style="width: 40%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_SUMBRUTTO"}]</td>
-			<td style="width: 10%"></td>
-			<td style="width: 15%"></td>
+			<td style="width: 5%"></td>
+			<td style="width: 12%"></td>
 			<td style="width: 15%" class="aligning sizing">[{$order->getFormattedTotalBrutSum()}] [{$currency->name}]</td>
 		</tr>
 		<tr>
-			<td style="width: 10%;"></td>
-			<td style="width: 10%;></td>
+			<td style="width: 8%;"></td>
+			<td style="width: 20%;"></td>
 			<td style="width: 40%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 15%; border-top: solid 1px #000;"></td>
+			<td style="width: 5%; border-top: solid 1px #000;"></td>
+			<td style="width: 12%; border-top: solid 1px #000;"></td>
 			<td style="width: 15%; border-top: solid 1px #000;"></td>
 		</tr>
 		<tr>
-			<td style="width: 10%"></td>
-			<td style="width: 10%"></td>
+			<td style="width: 8%"></td>
+			<td style="width: 20%"></td>
 			<td style="width: 40%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DISCOUNT"}]</td>
-			<td style="width: 10%"></td>
-			<td style="width: 15%"></td>
+			<td style="width: 5%"></td>
+			<td style="width: 12%"></td>
 			<td style="width: 15%" class="aligning sizing">[{$order->getFormattedDiscount()}] [{$currency->name}]</td>
 		</tr>
 		<tr>
-			<td style="width: 10%;"></td>
-			<td style="width: 10%;></td>
+			<td style="width: 8%;"></td>
+			<td style="width: 20%;"></td>
 			<td style="width: 40%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 15%; border-top: solid 1px #000;"></td>
+			<td style="width: 5%; border-top: solid 1px #000;"></td>
+			<td style="width: 12%; border-top: solid 1px #000;"></td>
 			<td style="width: 15%; border-top: solid 1px #000;"></td>
 		</tr>
 		<tr style="border-bottom: solid 2px #000">
-			<td style="width: 10%"></td>
-			<td style="width: 10%"></td>
+			<td style="width: 8%"></td>
+			<td style="width: 20%"></td>
 			<td style="width: 40%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_SUMNETTO"}]</td>
-			<td style="width: 10%"></td>
-			<td style="width: 15%"></td>
+			<td style="width: 5%"></td>
+			<td style="width: 12%"></td>
 			<td style="width: 15%" class="aligning sizing">[{$order->getFormattedTotalNetSum()}] [{$currency->name}]</td>
 		</tr>
 	[{foreach from=$order->getVats() key=VatKey item=oVat}]
 		<tr>
-			<td style="width: 10%"></td>
-			<td style="width: 10%">&nbsp;</td>
+			<td style="width: 8%"></td>
+			<td style="width: 20%">&nbsp;</td>
 			<td style="width: 40%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</td>
-			<td style="width: 10%"></td>
-			<td style="width: 15%"></td>
+			<td style="width: 5%%"></td>
+			<td style="width: 12%"></td>
 			<td style="width: 15%" class="aligning sizing">[{$lang->formatCurrency($oVat, $currency)}] [{$currency->name}]</td>
 		</tr>
 	[{/foreach}]
 		<tr>
-			<td style="width: 10%;"></td>
-			<td style="width: 10%;></td>
+			<td style="width: 8%;"></td>
+			<td style="width: 20%;"></td>
 			<td style="width: 40%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 15%; border-top: solid 1px #000;"></td>
+			<td style="width: 5%; border-top: solid 1px #000;"></td>
+			<td style="width: 12%; border-top: solid 1px #000;"></td>
 			<td style="width: 15%; border-top: solid 1px #000;"></td>
 		</tr>
 		<tr style="border-bottom: 2px solid #000">
-			<td style="width: 10%"></td>
-			<td style="width: 10%"></td>
+			<td style="width: 8%"></td>
+			<td style="width: 20%"></td>
 			<td style="width: 40%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DELIVERY"}]</td>
-			<td style="width: 10%"></td>
-			<td style="width: 15%"></td>
+			<td style="width: 5%"></td>
+			<td style="width: 12%"></td>
 			<td style="width: 15%" class="aligning sizing">[{$order->getFormattedeliveryCost()}] [{$currency->name}]</td>
 		</tr>
 		<tr>
-			<td style="width: 10%"></td>
-			<td style="width: 10%">&nbsp;</td>
+			<td style="width: 8%"></td>
+			<td style="width: 20%">&nbsp;</td>
 			<td style="width: 40%" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}]</td>
-			<td style="width: 10%"></td>
-			<td style="width: 15%"></td>
+			<td style="width: 5%"></td>
+			<td style="width: 12%"></td>
 			<td style="width: 15%" class="aligning sizing">[{$lang->formatCurrency($oVat, $currency)}] [{$currency->name}]</td>
 		</tr>
 		<tr>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
+			<td style="width: 8%; border-top: solid 1px #000;"></td>
+			<td style="width: 20%; border-top: solid 1px #000;"></td>
 			<td style="width: 40%; border-top: solid 1px #000;"></td>
-			<td style="width: 10%; border-top: solid 1px #000;"></td>
-			<td style="width: 15%; border-top: solid 1px #000;"></td>
+			<td style="width: 5%; border-top: solid 1px #000;"></td>
+			<td style="width: 12%; border-top: solid 1px #000;"></td>
 			<td style="width: 15%; border-top: solid 1px #000;"></td>
 		</tr>
 		<tr>
-			<td style="width: 10%;"></td>
-			<td style="width: 10%;"></td>
+			<td style="width: 8%;"></td>
+			<td style="width: 20%;"></td>
 			<td style="width: 40%;" class="sizing"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TOTALSUMBRUT"}]</strong></td>
-			<td style="width: 10%;"></td>
-			<td style="width: 15%;"></td>
+			<td style="width: 5%;"></td>
+			<td style="width: 12%;"></td>
 			<td style="width: 15%;" class="aligning sizing">[{$order->getFormattedTotalOrderSum()}] [{$currency->name}]<strong></strong></td>
 		</tr>		
 	</table>
