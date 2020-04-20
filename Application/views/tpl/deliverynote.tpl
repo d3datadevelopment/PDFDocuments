@@ -176,6 +176,7 @@
 			<td style="width: 12%; border-top: solid 1px #000;"></td>
 			<td style="width: 15%; border-top: solid 1px #000;"></td>
 		</tr>
+	[{if $order->getFormattedDiscount() != 0}]
 		<tr>
 			<td style="width: 8%"></td>
 			<td style="width: 20%"></td>
@@ -192,6 +193,7 @@
 			<td style="width: 12%; border-top: solid 1px #000;"></td>
 			<td style="width: 15%; border-top: solid 1px #000;"></td>
 		</tr>
+	[{/if}]
 		<tr style="border-bottom: solid 2px #000">
 			<td style="width: 8%"></td>
 			<td style="width: 20%"></td>
