@@ -84,7 +84,7 @@
 
 			[{* +++++++Lieferadressen dynamisch+++++++ *}]
 			[{if $order->oxorder__oxdelstreet->value}]
-				<div style="font-size: 10px; padding-bottom: 10px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYADDRESS"}]</div>
+				<div style="font-size: 10px; padding-bottom: 8px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYADDRESS"}]</div>
 			[{if $order->oxorder__oxdelcompany->value}]<div>[{$order->oxorder__oxdelcompany->value}]</div>[{/if}]
 				<div>[{$order->oxorder__oxdelfname->value}] [{$order->oxorder__oxdellname->value}]</div>
 				<div>[{$order->oxorder__oxdelstreet->value}] [{$order->oxorder__oxdelstreetnr->value}]</div>
@@ -110,44 +110,40 @@
 			</td>
 		</tr>
 	</table>
-	[{*<table style="width: 100%; font-size: 12px;" cellspacing="0">
-		<tr>
-			<td>
-				<div style="font-size: 15px; padding-top: 10px"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERNR"}][{$order->oxorder__oxordernr->value}]</strong></div>
-				<div>[{if $order->oxorder__d3pdftextkostenstelle_kunden->value}][{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_INVOICENOTE"}][{$order->oxorder__d3pdftextkostenstelle_kunden->value}][{/if}]</div>
-				<div>[{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSINCERELY"}][{$order->oxorder__oxorderdate->value|date_format:"%d.%m.%Y"}][{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSAT"}]</div>
-			</td>
-		</tr>
-	</table>*}]
 
-	<table style="width: 100%; margin-top: 10px;" cellspacing="0">
+	[{* +++++Artikeltabelle+++++*}]
+	<table style="margin-top: 10px;" cellspacing="0">
 		<tr>
-			<td style="width: 10%; padding-bottom: 5px; font-size: 11px;" class="sizing vertical-a">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_AMOUNT"}]</td>
-			<td style="width: 17%; padding-bottom: 5px; font-size: 11px;" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}]</td>
-			<td style="width: 43%; padding-bottom: 5px; font-size: 11px;" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DESCRIPTION"}]</td>
-			<td style="width: 5%; padding-bottom: 5px; font-size: 11px;" class="sizing aligning">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USTPERCENTAGE"}]</td>
-			<td style="width: 12%; text-align: right; padding-bottom: 5px; font-size: 11px;" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_UNITPRICE"}]</td>
-			<td style="width: 13%; padding-bottom: 5px; font-size: 11px;" class="aligning sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_TOTALPRICE"}]</td>
+			<td><div style="width: 20px; padding-bottom: 5px; font-size: 11px;" class="sizing vertical-a">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_AMOUNT"}]</div></td>
+			<td><div style="width: 120px; padding-bottom: 5px; font-size: 11px;" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DESCRIPTION"}]</div></td>
+			<td><div style="width: 20px; padding-bottom: 5px; font-size: 11px;" class="sizing aligning">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USTPERCENTAGE"}]</div></td>
+			<td><div style="width: 80px; text-align: right; padding-bottom: 5px; font-size: 11px;" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_UNITPRICE"}]</div></td>
+			<td><div style="width: 80px; padding-bottom: 5px; font-size: 11px;" class="aligning sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_TOTALPRICE"}]</div></td>
 		</tr>
 		<tr>
-			<td style="width: 10%; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
-			<td style="width: 17%; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
-			<td style="width: 43%; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
-			<td style="width: 5%; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
-			<td style="width: 12%; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
-			<td style="width: 13%; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
+			<td style="width: 20px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
+			<td style="width: 418px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
+			<td style="width: 20px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
+			<td style="width: 80px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
+			<td style="width: 80px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
 		</tr>
-[{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
+		[{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
 		<tr>
-			<td style="width: 10%; padding-bottom:  5px; padding-right: 45px; text-align: right;" class='vertical-a sizing'>[{$oOrderArticle->oxorderarticles__oxamount->value }]</td>
-			<td style="width: 17%; padding-bottom:  5px;" class='vertical-a sizing'>[{$oOrderArticle->oxorderarticles__oxartnum->value }]</td>
-			<td style="width: 43%; padding-bottom:  5px;" class='vertical-a sizing'>[{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]</td>
-			<td style="width: 5%; padding-bottom:  5px;" class='vertical-a sizing aligning'>[{$oOrderArticle->oxorderarticles__oxvat->value }]</td>
-			<td style="width: 12%; padding-bottom: 5px; text-align: right" class='vertical-a sizing'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</td>
-			<td style="width: 13%; padding-bottom:  5px;" class="aligning vertical-a sizing">[{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]</td>
+			<td><div style="width: 20px; padding-bottom:  5px; padding-right: 45px; text-align: right;" class='vertical-a sizing'>[{$oOrderArticle->oxorderarticles__oxamount->value }]</div></td>
+			<td>
+				<div style="width: 418px; padding-bottom:  5px;" class='vertical-a sizing'>
+					[{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
+					<br>
+					<span style="font-size: 9px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]</span>
+				</div>
+			</td>
+			<td><div style="width: 20px; padding-bottom:  5px;" class='vertical-a sizing aligning'>[{$oOrderArticle->oxorderarticles__oxvat->value }]</div></td>
+			<td><div style="width: 80px; padding-bottom: 5px; text-align: right;" class='vertical-a sizing'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</div></td>
+			<td><div style="width: 80px; padding-bottom:  5px;" class='aligning vertical-a sizing'>[{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]</div></td>
 		</tr>
-[{/foreach}]
+		[{/foreach}]
 	</table>
+
 	<nobreak>
 	<table style="width: 100%;" cellspacing="0">
 		<tr>
