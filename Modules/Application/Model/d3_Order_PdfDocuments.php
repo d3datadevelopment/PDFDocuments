@@ -67,6 +67,7 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
           $this->save();
         }
 
+
         switch (Registry::getRequest()->getRequestParameter('pdftype')) {
             case ('dnote'):
             case ('dnote_without_logo'):
@@ -76,6 +77,7 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
                 $sContent = $oSmarty->fetch($this->getDeliveryNoteTemplate());
         }
 
+        $sFilename = str_replace( $this->oxorder__oxordernr->value, $this->oxorder__oxbillnr->value, $sFilename);
 
         $oPdf = oxNew(Html2Pdf::class, 'P', 'A4', 'de');
         $oPdf->writeHTML($sContent);
