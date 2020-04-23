@@ -20,7 +20,7 @@
 	</style>
 	<page_header>
 		<div  style="position: absolute; top: 30px; right: 44px;">
-			<img src="[{$oViewConf->getImageUrl('d3pdf_logo.png')}]">
+			<img style="" src="[{$oViewConf->getImageUrl('pdf_logo.jpg')}]">
 		</div>
 	</page_header>
 	<page_footer>
@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td style="width: 33.33%">[{$shop->oxshops__oxname->value}]</td>
-				<td style="width: 33.33%">[{$shop->oxshops__oxfname->value}][{$shop->oxshops__oxlname->value}]</td>
+				<td style="width: 33.33%">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_MANAGINGDIRECTOR"}][{$shop->oxshops__oxfname->value}] [{$shop->oxshops__oxlname->value}]</td>
 				<td style="width: 33.33%">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_BANKVERBINDUNG"}]</td>
 			</tr>
 			<tr>
@@ -96,7 +96,7 @@
 			[{*Bestellnummer,Rechnungsvermerk, 'Ihre bestellung vom...'*}]
 				<div style="font-size: 15px; padding-top: 22px"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERNR"}][{$order->oxorder__oxordernr->value}]</strong></div>
 				<div>[{if $order->oxorder__d3pdftextkostenstelle_kunden->value}][{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_INVOICENOTE"}][{$order->oxorder__d3pdftextkostenstelle_kunden->value}][{/if}]</div>
-				<div>[{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSINCERELY"}][{$order->oxorder__oxorderdate->value|date_format:"%d.%m.%Y"}][{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSAT"}]</div>
+				<div style="padding-top: 1mm">[{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSINCERELY"}][{$order->oxorder__oxorderdate->value|date_format:"%d.%m.%Y"}][{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSAT"}]</div>
 			</td>
 			<td style="width: 35%; padding-top: -5px;" class="vertical-a">
 				<div style="padding-top: 10px" class="aligning"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_BANKVERBINDUNG"}]</strong></div>
@@ -131,7 +131,7 @@
 		<tr>
 			<td><div style="width: 20px; padding-bottom:  5px; padding-right: 45px; text-align: right;" class='vertical-a sizing'>[{$oOrderArticle->oxorderarticles__oxamount->value }]</div></td>
 			<td>
-				<div style="width: 418px; padding-bottom:  5px;" class='vertical-a sizing'>
+				<div style="width: 418px; margin-top: 10px; padding-bottom:  5px;" class='vertical-a sizing'>
 					[{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
 					<br>
 					<span style="font-size: 9px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]</span>
