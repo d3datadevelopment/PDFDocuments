@@ -49,7 +49,7 @@
 			</tr>
 		</table>
 	</page_footer>
-	<table style="width: 100%; font-size: 12px;" cellspacing="0">
+	<table style="width: 100%; font-size: 12px; margin-top: 8mm;" cellspacing="0">
 		<tr>
 			<td style="width: 65%;">
 				<div style="font-size: 8px;">[{$shop->oxshops__oxname->value}] - [{$shop->oxshops__oxstreet->value}] - [{$shop->oxshops__oxzip->value}] [{$shop->oxshops__oxcity->value}]</div>
@@ -107,14 +107,14 @@
 			<td><div style="width: 418px; padding-bottom: 5px; font-size: 11px;" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DESCRIPTION"}]</div></td>
 			<td><div style="width: 10px; padding-bottom: 5px; font-size: 11px;" class="sizing aligning">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USTPERCENTAGE"}]</div></td>
 			<td><div style="width: 80px; text-align: right; padding-bottom: 5px; font-size: 11px;" class="sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_UNITPRICE"}]</div></td>
-			<td><div style="width: 100px; padding-bottom: 5px; font-size: 11px;" class="aligning sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_TOTALPRICE"}]</div></td>
+			<td><div style="width: 90px; padding-bottom: 5px; font-size: 11px;" class="aligning sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_TOTALPRICE"}]</div></td>
 		</tr>
 		<tr>
 			<td style="width: 20px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
 			<td style="width: 418px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
 			<td style="width: 10px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
 			<td style="width: 80px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
-			<td style="width: 100px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
+			<td style="width: 90px; border-top: solid 0.15mm #000; padding-bottom: 5px"></td>
 		</tr>
 		[{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
 		<tr>
@@ -126,7 +126,7 @@
 				</div></td>
 			<td style="vertical-align: top;"><div style="width: 10px; padding-bottom:  5px;" class='vertical-a sizing aligning'>[{$oOrderArticle->oxorderarticles__oxvat->value }]</div></td>
 			<td style="vertical-align: top;"><div style="width: 80px; padding-bottom: 5px; text-align: right;" class='vertical-a sizing'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</div></td>
-			<td style="vertical-align: top;"><div style="width: 100px; padding-bottom:  5px;" class='aligning vertical-a sizing'>[{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]</div></td>
+			<td style="vertical-align: top;"><div style="width: 90px; padding-bottom:  5px;" class='aligning vertical-a sizing'>[{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]</div></td>
 		</tr>
 		[{/foreach}]
 	</table>
