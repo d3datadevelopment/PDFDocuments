@@ -88,8 +88,30 @@
 		.heading_order_paddingTopSub5{
 			padding-top: -5px;
 		}
-
-
+		.heading_order_paddingTop1{
+			padding-top: 1mm;
+		}
+		.heading_order_fontSize15{
+			font-size: 15px;
+		}
+		.heading_order_paddingTop22{
+			padding-top: 22px;
+		}
+		.heading_order_paddingBottom8{
+			padding-bottom: 8px;
+		}
+		.heading_order_paddingBottom15{
+			padding-bottom: 15px;
+		}
+		.heading_order_fontSize10{
+			font-size: 10px;
+		}
+		.heading_order_paddingTopSub5{
+			padding-top: -5px;
+		}
+		.heading_order_width65{
+			width: 65%;
+		}
 
 		{*order_article_listing*}
 		.order_article_listing_width_amount{
@@ -121,6 +143,15 @@
 		}
 		.order_article_marginTop10{
 			margin-top: 10px;
+		}
+		.order_article_costs_marginLeftSub3{
+			margin-left: -3px;
+		}
+		.order_article_costs_paddingRight66{
+			padding-right: 65.9px;
+		}
+		.order_article_listing_fontSize9{
+			font-size: 9px;
 		}
 		{* footer styling *}
 		.footer_parts{
@@ -185,18 +216,18 @@
 	[{/block}]
 	[{block name="heading_order_information"}]
 		<tr>
-			<td class="vertical-a" style="width: 65%; padding-top: -5px;">
+			<td class="vertical-a heading_order_width65 heading_order_paddingTopSub5">
 			[{if $order->oxorder__oxbillcompany->value}]
 				<div>[{$order->oxorder__oxbillcompany->value}]</div>
 			[{/if}]
 				<div>[{$order->oxorder__oxbillfname->value}] [{$order->oxorder__oxbilllname->value}]</div>
 				<div>[{$order->oxorder__oxbillstreet->value}] [{$order->oxorder__oxbillstreetnr->value}]</div>
 				<div><strong>[{$order->oxorder__oxbillzip->value}] [{$order->oxorder__oxbillcity->value}]</strong></div>
-				<div style="padding-bottom: 15px">[{$shop->oxshops__oxcountry->value}]</div>
+				<div class="heading_order_paddingBottom15">[{$shop->oxshops__oxcountry->value}]</div>
 
 			[{* +++++++Lieferadressen dynamisch+++++++ *}]
 			[{if $order->oxorder__oxdelstreet->value}]
-				<div style="font-size: 10px; padding-bottom: 8px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYADDRESS"}]</div>
+				<div class="heading_order_fontSize10 heading_order_paddingBottom8">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYADDRESS"}]</div>
 			[{if $order->oxorder__oxdelcompany->value}]<div>[{$order->oxorder__oxdelcompany->value}]</div>[{/if}]
 				<div>[{$order->oxorder__oxdelfname->value}] [{$order->oxorder__oxdellname->value}]</div>
 				<div>[{$order->oxorder__oxdelstreet->value}] [{$order->oxorder__oxdelstreetnr->value}]</div>
@@ -206,9 +237,9 @@
 			[{/if}]
 
 			[{*Bestellnummer,Rechnungsvermerk, 'Ihre bestellung vom...'*}]
-				<div style="font-size: 15px; padding-top: 22px"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERNR"}][{$order->oxorder__oxordernr->value}]</strong></div>
+				<div class="heading_order_paddingTop22 heading_order_fontSize15"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERNR"}][{$order->oxorder__oxordernr->value}]</strong></div>
 				<div>[{if $order->oxorder__d3pdftextkostenstelle_kunden->value}][{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_INVOICENOTE"}][{$order->oxorder__d3pdftextkostenstelle_kunden->value}][{/if}]</div>
-				<div style="padding-top: 1mm">[{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSINCERELY"}][{$order->oxorder__oxorderdate->value|date_format:"%d.%m.%Y"}][{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSAT"}]</div>
+				<div class="heading_order_paddingTop1">[{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSINCERELY"}][{$order->oxorder__oxorderdate->value|date_format:"%d.%m.%Y"}][{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSAT"}]</div>
 			</td>
 			<td class="vertical-a heading_order_width35 heading_order_paddingTopSub5">
 				<div class="aligning heading_order_paddingTop10"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_BANKVERBINDUNG"}]</strong></div>
@@ -240,7 +271,7 @@
 			<td class="order_article_PaddingTop5 vertical-a order_article_PaddingBottom5"><div class='sizing order_article_listing_width_desc'>
 					[{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
 					<br>
-					<span style="font-size: 9px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]</span>
+					<span class="order_article_listing_fontSize9">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]</span>
 				</div></td>
 			<td class="order_article_PaddingTop5 vertical-a order_article_PaddingBottom5"><div class='aligning sizing order_article_listing_width_ust'>[{$oOrderArticle->oxorderarticles__oxvat->value }]</div></td>
 			<td class="order_article_PaddingTop5 vertical-a order_article_PaddingBottom5"><div class='aligning sizing order_article_listing_width_unitPrice'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</div></td>
@@ -264,7 +295,7 @@
 					<div class="order_sum sizing border-bottom spacing_order_info">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
 				[{/foreach}]
 					<div class="order_sum sizing order_article_PaddingTop5">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DELIVERY"}]</div>
-					<div class="sizing border-bottom spacing_order_info aligning" style="padding-right: 65.9px; margin-left: -3px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
+					<div class="sizing border-bottom spacing_order_info aligning order_article_costs_paddingRight66 order_article_costs_marginLeftSub3">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
 					<div class="order_sum sizing order_article_PaddingTop5 order_article_PaddingBottom5"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TOTALSUMBRUT"}]</strong></div>
 				</td>
 				[{* ++++++Kosten der Bestellung++++++ *}]
