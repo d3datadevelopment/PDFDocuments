@@ -11,7 +11,6 @@
 		table{
 			font-family: "helvetica";
 		}
-
 		.aligning{
 				text-align: right;
 			}
@@ -40,42 +39,35 @@
 			padding-bottom: 5px;
 			padding-top: 5px;
 		}
-		{*---------------------*}
+
 		{*pdf_header*}
 		.pdf_header_positioning{
 			position: absolute;
 			top: 30px;
 			right: 44px;
 		}
-		{*---------------------*}
-		{*page_footer*}
-		.page_footer_table{
+
+		{*pdf_footer*}
+		.pdf_footer_table{
 			width: 688px;
 			font-size: 9px;
 			margin: 0 30px 0 30px;
 			border-top: solid 1px #000;
 		}
-		{*---------------------*}
+
 		{*pdf_heading*}
 		.pdf_heading_table{
 			width: 100%;
 			margin-top: 8mm;
 		}
-		{* order_article_costs *}
-		.article_costs_table{
-			width: 100%;
-			border-top: solid 0.15mm #000;
+		.pdf_heading_width35{
+			width: 35%;
 		}
-		.article_costs_table_td_width50{
-			width: 50%;
+		.pdf_heading_fontSize8{
+			font-size: 8px;
 		}
-		.article_costs_table_paddingRight{
-			padding-right: -3px;
-		}
-
-		{*order_shop_past_thank*}
-		.past_thank_width100{
-			width: 100%;
+		.pdf_heading_width65{
+			width: 65%;
 		}
 
 		{*heading_order_information*}
@@ -153,6 +145,24 @@
 		.order_article_listing_fontSize9{
 			font-size: 9px;
 		}
+
+		{* order_article_costs *}
+		.article_costs_table{
+			width: 100%;
+			border-top: solid 0.15mm #000;
+		}
+		.article_costs_table_td_width50{
+			width: 50%;
+		}
+		.article_costs_table_paddingRight{
+			padding-right: -3px;
+		}
+
+		{*order_shop_past_thank*}
+		.past_thank_width100{
+			width: 100%;
+		}
+
 		{* footer styling *}
 		.footer_parts{
 			width: 33.33%;
@@ -166,7 +176,7 @@
 		[{/block}]
 	</page_header>
 	<page_footer>
-		<table class="page_footer_table" style="cellspacing: 0;">
+		<table class="pdf_footer_table" cellspacing="0">
 			<tr>
 				[{block name="shop_basic_information"}]
 				<td class="footer_parts">
@@ -203,10 +213,10 @@
 	<table class="sizing pdf_heading_table" cellspacing="0">
 	[{block name="heading_owner_information"}]
 		<tr>
-			<td style="width: 65%;">
-				<div style="font-size: 8px;">[{$shop->oxshops__oxname->value}] - [{$shop->oxshops__oxstreet->value}] - [{$shop->oxshops__oxzip->value}] [{$shop->oxshops__oxcity->value}]</div>
+			<td class="pdf_heading_width65">
+				<div class="pdf_heading_fontSize8">[{$shop->oxshops__oxname->value}] - [{$shop->oxshops__oxstreet->value}] - [{$shop->oxshops__oxzip->value}] [{$shop->oxshops__oxcity->value}]</div>
 			</td>
-			<td style="width: 35%;">
+			<td class="pdf_heading_width35">
 				<div class="aligning"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_GET_IN_CONTACT"}]</strong></div>
 				<div class="aligning sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_TELEFON"}][{$shop->oxshops__oxtelefon->value}]</div>
 				<div class="aligning sizing">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_FAX"}][{$shop->oxshops__oxtelefax->value}]</div>
