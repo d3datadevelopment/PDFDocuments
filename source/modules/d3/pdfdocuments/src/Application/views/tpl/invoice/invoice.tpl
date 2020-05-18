@@ -7,19 +7,19 @@
 <page backtop="30mm" backbottom="30mm" backleft="10mm" backright="10mm" pageset="new">
 	<page_header>
         [{block name="pdfTopingFile"}]
-            [{include file="/home/elegltyp/schmidtshop.wkgisp.de/source/modules/d3/pdfdocuments/Application/views/tpl/includingFiles/pdfToping.tpl"}]
+            [{include file=$oViewConf('d3invoicePdf', 'Application/views/tpl/invoice/includingFiles/pdfTopping.tpl')}]
         [{/block}]
 	</page_header>
 	<page_footer>
         [{block name="pdfFooterFile"}]
-            [{include file="/home/elegltyp/schmidtshop.wkgisp.de/source/modules/d3/pdfdocuments/Application/views/tpl/includingFiles/pdfFooter.tpl"}]
+            [{include file=$oViewConf('d3invoicePdf', 'Application/views/tpl/includingFiles/pdfFooter.tpl')}]
         [{/block}]
 	</page_footer>
 
 	[{* +++++ main page part +++++ *}]
     [{block name="pdfHeadingFile"}]
         [{block name="pdfHeaderFile"}]
-            [{include file="/home/elegltyp/schmidtshop.wkgisp.de/source/modules/d3/pdfdocuments/Application/views/tpl/includingFiles/pdfHeader.tpl"}]
+            [{include file=$oViewConf('d3invoicePdf', 'Application/views/tpl/invoice/includingFiles/pdfHeader.tpl')}]
         [{/block}]
     [{/block}]
         [{* +++++Artikeltabelle+++++*}]
@@ -81,7 +81,7 @@
 		</table>
 	[{/block}]
 	[{block name="pdfPastThankFile"}]
-		[{include file="/home/elegltyp/schmidtshop.wkgisp.de/source/modules/d3/pdfdocuments/Application/views/tpl/includingFiles/pdfPastThank.tpl"}]
+		[{include file=$oViewConf('d3invoicePdf', 'Application/views/tpl/invoice/includingFiles/pdfPastThank.tpl')}]]
 	[{/block}]
 	</nobreak>
 </page>
