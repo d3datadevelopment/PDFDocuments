@@ -85,7 +85,7 @@
 		</table>*}]
 	[{/block}]
 	[{block name="pdfPastThankFile"}]
-		[{include file=$oViewConf->getModulePath('d3InvoicePdf', 'Application/views/tpl/deliveryNote/includingFiles/pdfPastThank.tpl')}]
+		[{include file=$oViewConf->getModulePath('d3invoicePdf', 'Application/views/tpl/deliveryNote/includingFiles/pdfPastThank.tpl')}]
 	[{/block}]
 	</nobreak>
 </page>
