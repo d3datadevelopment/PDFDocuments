@@ -17,7 +17,7 @@
 
 namespace D3\PdfDocuments\Modules\Application\Model;
 
-use D3\PdfDocuments\Modules\Application\Model\dev\deliverynotePdf;
+use D3\PdfDocuments\Modules\Application\Model\deliverynotePdf;
 use OxidEsales\EshopCommunity\Application\Model\User;
 use OxidEsales\EshopCommunity\Application\Model\Payment;
 use OxidEsales\Eshop\Core\Registry;
@@ -34,16 +34,33 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
     {
-      switch (Registry::getRequest()->getRequestParameter('pdftype')) {
-        case ('dnote'):
-        case ('dnote_without_logo'):
-          $Pdf = oxNew(deliverynotePdf::class);
-          break;
-        default:
-          $Pdf = oxNew(invoicePdf::class);
-      }
+      $Pdf= $this->getPdfClass();
+      die();
 
       $Pdf->setOrder($this);
       $Pdf->genPdf($sFilename, $iSelLang = 0, $target = 'I');
+    }
+    public function getPdfClass(){
+      switch (Registry::getRequest()->getRequestParameter('pdftype')) {
+        case ('dnote'):
+        case ('dnote_without_logo'):
+          return oxNew(deliverynotePdf::class);
+        case ('standart'):
+        case('standart_without_logo'):
+          return oxNew(invoicePdf::class);
+        default:
+          dumpVar(get_class($this));
+          return $this->getCustomPdfClass();
+      }
+    }
+
+  /**
+   * @return albatros
+   * @throws \OxidEsales\Eshop\Core\Exception\SystemComponentException
+   * @throws \oxSystemComponentException
+   */
+    public function getCustomPdfClass()
+    {
+      return oxNew(invoicePdf::class);
     }
 }
