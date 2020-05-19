@@ -1,17 +1,9 @@
 <?php
-namespace D3\PdfDocuments\Modules\Application\Model\dev;
+namespace D3\PdfDocuments\Modules\Application\Model;
 
 use \OxidEsales\Eshop\Application\Model\Order;
 
-interface albatros{
-  public function setFilename($sContent, $target, $sFilename);
-  public function setInvoiceNumber();
-  public function setInvoiceDate();
-  public function saveOrderOnChanges();
-  public function getDeliveryNoteTemplate();
-}
-
-abstract class pdfDocuments implements albatros, \pdfDocuments_interface
+abstract class pdfDocuments implements albatros
 {
 
   public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
@@ -40,10 +32,10 @@ abstract class pdfDocuments implements albatros, \pdfDocuments_interface
     switch (Registry::getRequest()->getRequestParameter('pdftype')) {
       case ('dnote'):
       case ('dnote_without_logo'):
-        $sContent = $oSmarty->fetch($this->getDeliveryNoteTemplate());
+        $sContent = $oSmarty->fetch($this->getTemplate());
         break;
       default:
-        $sContent = $oSmarty->fetch($this->getDeliveryNoteTemplate());
+        $sContent = $oSmarty->fetch($this->getTemplate());
     }
   }
 
@@ -100,19 +92,5 @@ abstract class pdfDocuments implements albatros, \pdfDocuments_interface
     if ($this->blIsNewOrder) {
       $this->getOrder()->save();
     }
-  }
-
-  abstract public function getDeliveryNoteTemplate();
-}
-
-class invoicePdf extends pdfDocuments{
-  public function getDeliveryNoteTemplate(){
-    return 'deliverynote.tpl';
-  }
-}
-
-class deliverynotePdf extends pdfDocuments{
-  public function getDeliveryNoteTemplate(){
-    return 'invoice.tpl';
   }
 }
