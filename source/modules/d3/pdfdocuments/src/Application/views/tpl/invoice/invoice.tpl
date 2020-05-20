@@ -1,5 +1,7 @@
 [{assign var= currency      value= $order->getOrderCurrency()}]
 [{assign var= deliveryPrice value= $order->getOrderDeliveryPrice()}]
+[{assign var= productVats value= $order->getProductVats(false)}]
+
 
 <style type="text/css">
 [{include file=$oViewConf->getModulePath('pdfDocuments', 'out/src/css/pdfStyling.css')}]
@@ -58,7 +60,7 @@
 					<div class="order_sum fontSize12 border-bottom spacing_order_info">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DISCOUNT"}]</div>
 				[{/if}]
 					<div class="order_sum fontSize12 order_article_PaddingTop5">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_SUMNETTO"}]</div>
-				[{foreach from=$order->getVats() key=VatKey item=oVat}]
+				[{foreach from=$productVats key=VatKey item=oVat}]
 					<div class="order_sum fontSize12 border-bottom spacing_order_info">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
 				[{/foreach}]
 					<div class="order_sum fontSize12 order_article_PaddingTop5">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DELIVERY"}]</div>
