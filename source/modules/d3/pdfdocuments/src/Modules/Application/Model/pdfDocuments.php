@@ -2,18 +2,23 @@
 namespace D3\PdfDocuments\Modules\Application\Model;
 
 use \OxidEsales\Eshop\Application\Model\Order;
+use OxidEsales\Eshop\Application\Model\Payment;
+use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\Eshop\Core\Base;
+use OxidEsales\Eshop\Core\Registry;
+use Spipu\Html2Pdf\Html2Pdf;
 
 abstract class pdfDocuments implements albatros
 {
+  public $oOrder;
+  protected $blIsNewOrder;
 
   public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
   {
-    self::$_blIsAdmin = 0;
-
     $oSmarty = Registry::getUtilsView()->getSmarty();
     $oSmarty->assign('oConfig', Registry::getSession()->getConfig());
     $oSmarty->assign('oViewConf', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
-    $oSmarty->assign('order', $this);
+    $oSmarty->assign('order', $this->getOrder());
     $oSmarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
     $oSmarty->assign('lang', Registry::getLang());
 
@@ -29,14 +34,8 @@ abstract class pdfDocuments implements albatros
     $this->setInvoiceDate();
     $this->saveOrderOnChanges();
 
-    switch (Registry::getRequest()->getRequestParameter('pdftype')) {
-      case ('dnote'):
-      case ('dnote_without_logo'):
-        $sContent = $oSmarty->fetch($this->getTemplate());
-        break;
-      default:
-        $sContent = $oSmarty->fetch($this->getTemplate());
-    }
+    $sContent = $oSmarty->fetch($this->getTemplate());
+    $this->setFilename($sContent, $target, $sFilename);
   }
 
   /**
@@ -48,7 +47,7 @@ abstract class pdfDocuments implements albatros
   }
 
   /**
-   * @return OrderModel
+   * @return Order
    */
   public function getOrder()
   {
