@@ -35,7 +35,6 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
     {
       $Pdf= $this->getPdfClass();
-      die();
 
       $Pdf->setOrder($this);
       $Pdf->genPdf($sFilename, $iSelLang = 0, $target = 'I');
@@ -44,12 +43,15 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
       switch (Registry::getRequest()->getRequestParameter('pdftype')) {
         case ('dnote'):
         case ('dnote_without_logo'):
-          return oxNew(deliverynotePdf::class);
+          $pdfInstance= oxNew(deliverynotePdf::class);
+          $pdfInstance->setOrder($this);
+          return $pdfInstance;
         case ('standart'):
         case('standart_without_logo'):
-          return oxNew(invoicePdf::class);
+            $pdfInvoice= oxNew(invoicePdf::class);
+            $pdfInvoice->setOrder($this);
+          return $pdfInvoice;
         default:
-          dumpVar(get_class($this));
           return $this->getCustomPdfClass();
       }
     }
@@ -61,6 +63,8 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
    */
     public function getCustomPdfClass()
     {
-      return oxNew(invoicePdf::class);
+      $pdfInvoice= oxNew(invoicePdf::class);
+      $pdfInvoice->setOrder($this);
+      return $pdfInvoice;
     }
 }
