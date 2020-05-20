@@ -2,24 +2,24 @@
 [{assign var= deliveryPrice value= $order->getOrderDeliveryPrice()}]
 
 <style type="text/css">
-	[{include file=$oViewConf->getModulePath('d3invoicePdf', 'out/src/css/offers.css')}]
-	[{include file=$oViewConf->getModulePath('d3invoicePdf', 'out/src/css/pdfStyling.css')}]
+	[{include file=$oViewConf->getModulePath('pdfDocuments', 'out/src/css/offers.css')}]
+	[{include file=$oViewConf->getModulePath('pdfDocuments', 'out/src/css/pdfStyling.css')}]
 </style>
 <page backtop="30mm" backbottom="30mm" backleft="10mm" backright="10mm" pageset="new">
 	<page_header>
 		[{block name="pdfTopingFile"}]
-			[{include file=$oViewConf->getModulePath('d3invoicePdf', 'Application/views/tpl/offers/includingFiles/pdfToping.tpl')}]
+			[{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/offers/includingFiles/pdfToping.tpl')}]
 		[{/block}]
 	</page_header>
 	<page_footer>
 		[{block name="pdfFooterFile"}]
-			[{include file=$oViewConf->getModulePath('d3invoicePdf', 'Application/views/tpl/offers/includingFiles/pdfFooter.tpl')}]
+			[{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/offers/includingFiles/pdfFooter.tpl')}]
 		[{/block}]
 	</page_footer>
 
 	[{* +++++ main page part +++++ *}]
 	[{block name="pdfHeaderFile"}]
-		[{include file=$oViewConf->getModulePath('d3invoicePdf', 'Application/views/tpl/offers/includingFiles/pdfHeader.tpl')}]
+		[{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/offers/includingFiles/pdfHeader.tpl')}]
 	[{/block}]
 	[{* +++++Artikeltabelle+++++*}]
 	[{block name="articleListing"}]
@@ -80,7 +80,7 @@
 		</table>
 		[{/block}]
 		[{block name="pdfPastThankFile"}]
-			[{include file=$oViewConf->getModulePath('d3invoicePdf', 'Application/views/tpl/offers/includingFiles/pdfPastThank.tpl')}]
+			[{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/offers/includingFiles/pdfPastThank.tpl')}]
 		[{/block}]
 	</nobreak>
 </page>
