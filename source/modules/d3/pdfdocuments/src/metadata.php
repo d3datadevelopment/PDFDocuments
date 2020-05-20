@@ -16,7 +16,9 @@
  */
 
 use D3\ModCfg\Application\Model\d3utils;
+use D3\PdfDocuments\Modules\Application\controllers\d3_overview_controller_pdfdocuments;
 use D3\PdfDocuments\Modules\Application\Model\d3_Order_PdfDocuments as d3_pdfdocs_OrderModel;
+use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
 use OxidEsales\Eshop\Application\Model as OxidModel;
 
 /**
@@ -43,13 +45,20 @@ $aModule = [
     'url'           => 'http://www.oxidmodule.com/',
     'extend'        => [
         OxidModel\Order::class             => d3_pdfdocs_OrderModel::class,
-        'oxorder'                          => d3_pdfdocs_OrderModel::class
+        OrderOverview::class => d3_overview_controller_pdfdocuments::class
     ],
     'controllers'           => [],
     'templates'             => [
         'd3deliverynote.tpl'               => 'd3/pdfdocuments/Application/views/tpl/deliverynote.tpl',
+        'invoice.tpl'                      => 'd3/pdfdocuments/Application/views/tpl/invoice/invoice.tpl',
         'd3tplheader.tpl'                  => 'd3/pdfdocuments/Application/views/tpl/header.tpl'
     ],
     'events'                => [],
-    'blocks'                => []
+    'blocks'                => [
+        [
+            'template' => 'order_overview.tpl',
+            'block'    => 'admin_order_overview_export',
+            'file'     => 'views/admin/blocks/order_overview.tpl'
+        ],
+    ]
 ];
