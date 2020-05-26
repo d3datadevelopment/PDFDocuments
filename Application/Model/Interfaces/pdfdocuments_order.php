@@ -17,6 +17,8 @@
 
 namespace D3\PdfDocuments\Application\Model\Interfaces;
 
+use OxidEsales\Eshop\Application\Model\Order;
+
 interface pdfdocuments_order extends pdfdocuments_generic
 {
     public function setOrder(Order $order);

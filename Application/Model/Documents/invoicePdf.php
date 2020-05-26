@@ -15,13 +15,42 @@
  * @link      http://www.oxidmodule.com
  */
 
-namespace D3\PdfDocuments\Modules\Application\Model;
+namespace D3\PdfDocuments\Modules\Application\Model\Documents;
 
+use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_orderinvoice;
-use D3\PdfDocuments\Application\Model\pdfDocuments_abstract;
 
-class invoicePdf extends pdfDocuments_abstract implements pdfdocuments_orderinvoice
+class invoicePdf extends pdfDocuments_order implements pdfdocuments_orderinvoice
 {
+    protected $blIsNewOrder = false;
+
+    public function setInvoiceNumber()
+    {
+        $this->blIsNewOrder = false;
+
+        if (!$this->getOrder()->getFieldData('oxbillnr')) {
+            $this->getOrder()->assign(['oxbillnr' => $this->getOrder()->getNextBillNum()]);
+
+            $this->blIsNewOrder = true;
+        }
+    }
+
+    public function setInvoiceDate()
+    {
+        if ($this->getOrder()->getFieldData('oxbilldate') == '0000-00-00') {
+            $this->getOrder()->assign([date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), date('Y')))]);
+
+            $this->blIsNewOrder = true;
+        }
+    }
+
+    public function saveOrderOnChanges()
+    {
+        if ($this->blIsNewOrder) {
+            $this->getOrder()->save();
+        }
+    }
+
     public function getTemplate(){
         return 'invoice.tpl';
     }
