@@ -17,12 +17,10 @@
 
 namespace D3\PdfDocuments\Modules\Application\Model;
 
-use D3\PdfDocuments\Modules\Application\Model\deliverynotePdf;
-use OxidEsales\EshopCommunity\Application\Model\User;
-use OxidEsales\EshopCommunity\Application\Model\Payment;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_generic;
+use D3\PdfDocuments\Modules\Application\Model\Documents\invoicePdf;
 use OxidEsales\Eshop\Core\Registry;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
-use Spipu\Html2Pdf\Html2Pdf;
 
 class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
 {
@@ -57,7 +55,7 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
     }
 
   /**
-   * @return albatros
+   * @return pdfdocuments_generic
    * @throws \OxidEsales\Eshop\Core\Exception\SystemComponentException
    * @throws \oxSystemComponentException
    */
@@ -65,6 +63,7 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
     {
       $pdfInvoice= oxNew(invoicePdf::class);
       $pdfInvoice->setOrder($this);
+
       return $pdfInvoice;
     }
 }
