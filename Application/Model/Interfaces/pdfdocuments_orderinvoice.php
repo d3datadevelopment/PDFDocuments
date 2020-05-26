@@ -17,15 +17,9 @@
 
 namespace D3\PdfDocuments\Application\Model\Interfaces;
 
-interface pdfdocuments_generic 
+interface pdfdocuments_orderinvoice extends pdfdocuments_order 
 {
-  public function setFilename($sContent, $target, $sFilename);
-  
   public function setInvoiceNumber();
   
   public function setInvoiceDate();
-  
-  public function saveOrderOnChanges();
-  
-  public function getTemplate();
 }
