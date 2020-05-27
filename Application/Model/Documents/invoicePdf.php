@@ -24,6 +24,15 @@ class invoicePdf extends pdfDocuments_order implements pdfdocuments_orderinvoice
 {
     protected $blIsNewOrder = false;
 
+    public function genPdf( $sFilename, $iSelLang = 0, $target = 'I' )
+    {
+        $this->setInvoiceNumber();
+        $this->setInvoiceDate();
+        $this->saveOrderOnChanges();
+
+        parent::genPdf( $sFilename, $iSelLang, $target );
+    }
+
     public function setInvoiceNumber()
     {
         $this->blIsNewOrder = false;

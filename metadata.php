@@ -49,7 +49,7 @@ $aModule = [
     ],
     'controllers'           => [],
     'templates'             => [
-        'd3deliverynote.tpl'               => 'd3/pdfdocuments/Application/views/tpl/deliverynote.tpl',
+        'd3deliverynote.tpl'               => 'd3/pdfdocuments/Application/views/tpl/deliverynote/deliverynote.tpl',
         'invoice.tpl'                      => 'd3/pdfdocuments/Application/views/tpl/invoice/invoice.tpl',
         'd3tplheader.tpl'                  => 'd3/pdfdocuments/Application/views/tpl/header.tpl'
     ],

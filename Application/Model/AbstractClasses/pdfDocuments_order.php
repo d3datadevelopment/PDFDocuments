@@ -19,24 +19,65 @@ namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order as orderInterface;
 use \OxidEsales\Eshop\Application\Model\Order;
+use OxidEsales\Eshop\Application\Model\Payment;
+use OxidEsales\Eshop\Application\Model\User;
+use Smarty;
 
 abstract class pdfDocuments_order extends pdfDocuments_generic implements orderInterface
 {
-  public $oOrder;
+    /** @var Order */
+    public $oOrder;
 
-  /**
-   * @param Order $order
-   */
-  public function setOrder(Order $order)
-  {
-    $this->oOrder = $order;
-  }
+    /**
+     * @param Order $order
+     */
+    public function setOrder(Order $order)
+    {
+        $this->oOrder = $order;
+    }
 
-  /**
-   * @return Order
-   */
-  public function getOrder()
-  {
-    return $this->oOrder;
-  }
+    /**
+     * @return Order
+     */
+    public function getOrder()
+    {
+        return $this->oOrder;
+    }
+
+    /**
+     * @param Smarty $smarty
+     *
+     * @return Smarty
+     */
+    public function setSmartyVars($smarty)
+    {
+        $smarty = parent::setSmartyVars($smarty);
+
+        $smarty->assign('order', $this->getOrder());
+
+        $oUser = oxNew(User::Class);
+        $oUser->load($this->getOrder()->getFieldData('oxuserid'));
+        $smarty->assign('user', $oUser);
+
+        $oPayment = oxNew(Payment::class);
+        $oPayment->load($this->getOrder()->getFieldData('oxpaymenttype'));
+        $smarty->assign('payment', $oPayment);
+
+        return $smarty;
+    }
+
+    /**
+     * @param string $sFilename
+     *
+     * @return string
+     */
+    public function getFilename($sFilename)
+    {
+        $sFilename = parent::getFilename( $sFilename);
+
+        $ordernr = $this->getOrder()->getFieldData('oxordernr');
+        $billnr = $this->getOrder()->getFieldData('oxbillnr');;
+
+        return str_replace($ordernr, $billnr, $sFilename);
+    }
 }
