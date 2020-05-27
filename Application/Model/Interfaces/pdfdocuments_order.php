@@ -21,7 +21,13 @@ use OxidEsales\Eshop\Application\Model\Order;
 
 interface pdfdocuments_order extends pdfdocuments_generic
 {
+    /**
+     * @param Order $order
+     */
     public function setOrder(Order $order);
 
+    /**
+     * @return Order
+     */
     public function getOrder();
 }

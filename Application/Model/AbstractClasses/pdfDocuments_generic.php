@@ -18,57 +18,89 @@
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_generic as genericInterface;
-use \OxidEsales\Eshop\Application\Model\Order;
-use OxidEsales\Eshop\Application\Model\Payment;
-use OxidEsales\Eshop\Application\Model\User;
-use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
+use Smarty;
 use Spipu\Html2Pdf\Html2Pdf;
 
 abstract class pdfDocuments_generic implements genericInterface
 {
-  public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
-  {
-    $oSmarty = Registry::getUtilsView()->getSmarty();
+    /**
+     * @param        $sFilename
+     * @param int    $iSelLang
+     * @param string $target
+     */
+    public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
+    {
+        $sFilename = $this->getFilename( $sFilename);
 
-    $oSmarty = $this->setSmartyVars($oSmarty);
+        $oPdf = call_user_func_array('oxNew', array_merge([Html2Pdf::class], $this->getPdfProperties()));
+        //$oPdf = oxNew(Html2Pdf::class, 'P', 'A4', 'de');
+        $oPdf->writeHTML($this->getHTMLContent($iSelLang));
+        $oPdf->output($sFilename, $target);
+    }
 
-    $this->setInvoiceNumber();
-    $this->setInvoiceDate();
-    $this->saveOrderOnChanges();
+    /**
+     * @param Smarty $smarty
+     *
+     * @return Smarty
+     */
+    public function setSmartyVars($smarty)
+    {
+        $smarty->assign('oConfig', Registry::getSession()->getConfig());
+        $smarty->assign('oViewConf', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
+        $smarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
+        $smarty->assign('lang', Registry::getLang());
 
-    $sContent = $oSmarty->fetch($this->getTemplate());
-    $this->setFilename($sContent, $target, $sFilename);
-  }
+        return $smarty;
+    }
 
-  public function setSmartyVars($smarty)
-  {
-      $smarty->assign('oConfig', Registry::getSession()->getConfig());
-      $smarty->assign('oViewConf', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
-      $smarty->assign('order', $this->getOrder());
-      $smarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
-      $smarty->assign('lang', Registry::getLang());
+    /**
+     * @param string $sFilename
+     *
+     * @return string
+     */
+    public function getFilename($sFilename)
+    {
+        return $sFilename;
+    }
 
-      $oUser = oxNew(User::Class);
-      $oUser->load($this->getOrder()->getFieldData('oxuserid'));
-      $smarty->assign('user', $oUser);
+    /**
+     * @param int $iSelLang
+     *
+     * @return mixed
+     */
+    public function getHTMLContent($iSelLang = 0)
+    {
+        $lang = Registry::getLang();
 
-      $oPayment = oxNew(Payment::class);
-      $oPayment->load($this->getOrder()->getFieldData('oxpaymenttype'));
-      $smarty->assign('payment', $oPayment);
+        /** @var Smarty $oSmarty */
+        $oSmarty = Registry::getUtilsView()->getSmarty();
 
-      return $smarty;
-  }
+        $currTplLang = $lang->getTplLanguage();
+        $lang->setTplLanguage($iSelLang);
 
-  public function setFilename($sContent, $target, $sFilename)
-  {
-    $ordernr = $this->getOrder()->getFieldData('oxordernr');
-    $billnr = $this->getOrder()->getFieldData('oxbillnr');;
+        $oSmarty = $this->setSmartyVars($oSmarty);
 
-    $sFilename = str_replace($ordernr, $billnr, $sFilename);
+        $content = $oSmarty->fetch($this->getTemplate());
 
-    $oPdf = oxNew(Html2Pdf::class, 'P', 'A4', 'de');
-    $oPdf->writeHTML($sContent);
-    $oPdf->output($sFilename, $target);
-  }
+        $lang->setTplLanguage($currTplLang);
+
+        return $content;
+    }
+
+    /**
+     * arguments for Html2Pdf class constructor
+     * - $orientation = 'P',
+     * - $format = 'A4',
+     * - $lang = 'fr',
+     * - $unicode = true,
+     * - $encoding = 'UTF-8',
+     * - $margins = array(5, 5, 5, 8),
+     * - $pdfa = false
+     * @return string[]
+     */
+    public function getPdfProperties()
+    {
+        return ['P', 'A4', 'de'];
+    }
 }

@@ -19,11 +19,22 @@ namespace D3\PdfDocuments\Application\Model\Interfaces;
 
 interface pdfdocuments_generic 
 {
-    public function setFilename($sContent, $target, $sFilename);
-  
-    public function saveOrderOnChanges();
-  
+    /**
+     * @return string
+     */
     public function getTemplate();
 
+    /**
+     * @return mixed
+     */
+    public function getHTMLContent();
+
+    /**
+     * @param        $sFilename
+     * @param int    $iSelLang
+     * @param string $target
+     *
+     * @return mixed
+     */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I');
 }
