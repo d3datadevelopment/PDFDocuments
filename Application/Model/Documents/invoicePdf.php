@@ -18,9 +18,9 @@
 namespace D3\PdfDocuments\Modules\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_orderinvoice;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_orderinvoice_interface;
 
-class invoicePdf extends pdfDocuments_order implements pdfdocuments_orderinvoice
+class invoicePdf extends pdfDocuments_order implements pdfdocuments_orderinvoice_interface
 {
     protected $blIsNewOrder = false;
 
