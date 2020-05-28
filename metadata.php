@@ -49,9 +49,18 @@ $aModule = [
     ],
     'controllers'           => [],
     'templates'             => [
-        'd3deliverynote_pdf.tpl'    => 'd3/pdfdocuments/Application/views/tpl/deliverynote/deliverynote.tpl',
-        'd3invoice_pdf.tpl'         => 'd3/pdfdocuments/Application/views/tpl/invoice/invoice.tpl',
-        'd3tplheader.tpl'                  => 'd3/pdfdocuments/Application/views/tpl/header.tpl'
+        'd3deliverynote_pdf.tpl'        => 'd3/pdfdocuments/Application/views/tpl/deliverynote/deliverynote.tpl',
+        'd3delnote_pdf_addressarea.tpl' => 'd3/pdfdocuments/Application/views/tpl/deliverynote/includingFiles/pdfHeader.tpl',
+        'd3delnote_pdf_conclusion.tpl'  => 'd3/pdfdocuments/Application/views/tpl/deliverynote/includingFiles/pdfPastThank.tpl',
+        'd3delnote_pdf_style.css'       => 'd3/pdfdocuments/out/src/css/deliverynote.css',
+
+        'd3invoice_pdf.tpl'             => 'd3/pdfdocuments/Application/views/tpl/invoice/invoice.tpl',
+        'd3invoice_pdf_addressarea.tpl' => 'd3/pdfdocuments/Application/views/tpl/invoice/includingFiles/pdfHeader.tpl',
+        'd3invoice_pdf_conclusion.tpl'  => 'd3/pdfdocuments/Application/views/tpl/invoice/includingFiles/pdfPastThank.tpl',
+
+        'd3pdfheader.tpl'               => 'd3/pdfdocuments/Application/views/tpl/inc/header.tpl',
+        'd3pdffooter.tpl'               => 'd3/pdfdocuments/Application/views/tpl/inc/footer.tpl',
+        'd3pdfstyle.css'                => 'd3/pdfdocuments/out/src/css/pdfStyling.css'
     ],
     'events'                => [],
     'blocks'                => [

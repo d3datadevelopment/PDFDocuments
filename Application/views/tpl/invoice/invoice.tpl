@@ -2,31 +2,31 @@
 [{assign var= deliveryPrice value= $order->getOrderDeliveryPrice()}]
 [{assign var= productVats value= $order->getProductVats(false)}]
 
-
 <style type="text/css">
-[{include file=$oViewConf->getModulePath('pdfDocuments', 'out/src/css/pdfStyling.css')}]
+	[{include file="d3pdfstyle.css"}]
 </style>
+
 <page backtop="30mm" backbottom="30mm" backleft="10mm" backright="10mm" pageset="new">
 	<page_header>
         [{block name="pdfTopingFile"}]
-            [{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/invoice/includingFiles/pdfTopping.tpl')}]
+			[{include file="d3pdfheader.tpl"}]
         [{/block}]
 	</page_header>
 	<page_footer>
         [{block name="pdfFooterFile"}]
-            [{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/invoice/includingFiles/pdfFooter.tpl')}]
+			[{include file="d3pdffooter.tpl"}]
         [{/block}]
 	</page_footer>
 
 	[{* +++++ main page part +++++ *}]
     [{block name="pdfHeadingFile"}]
         [{block name="pdfHeaderFile"}]
-            [{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/invoice/includingFiles/pdfHeader.tpl')}]
+			[{include file="d3invoice_pdf_addressarea.tpl"}]
         [{/block}]
     [{/block}]
         [{* +++++Artikeltabelle+++++*}]
     [{block name="articleListing"}]
-        <table class="order_article_marginTop10" cellspacing="0">
+        <table class="order_article_marginTop10">
             <tr>
                 <td class="border-bottom order_article_PaddingBottom5 "><div class="vertical-a order_article_listing_fontSize order_article_listing_width_amount">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_AMOUNT"}]</div></td>
                 <td class="border-bottom order_article_PaddingBottom5 "><div class="order_article_listing_fontSize order_article_listing_width_desc">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DESCRIPTION"}]</div></td>
@@ -83,7 +83,7 @@
 		</table>
 	[{/block}]
 	[{block name="pdfPastThankFile"}]
-		[{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/invoice/includingFiles/pdfPastThank.tpl')}]
+		[{include file="d3invoice_pdf_conclusion.tpl"}]
 	[{/block}]
 	</nobreak>
 </page>
