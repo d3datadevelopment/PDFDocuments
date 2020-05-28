@@ -17,13 +17,25 @@
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_generic as genericInterface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_generic_interface as genericInterface;
 use OxidEsales\Eshop\Core\Registry;
 use Smarty;
 use Spipu\Html2Pdf\Html2Pdf;
 
 abstract class pdfDocuments_generic implements genericInterface
 {
+    /** @var Smarty  */
+    public $oSmarty;
+
+    /**
+     * pdfDocuments_generic constructor.
+     */
+    public function __construct()
+    {
+        /** @var Smarty $oSmarty */
+        $this->oSmarty = Registry::getUtilsView()->getSmarty();
+    }
+
     /**
      * @param        $sFilename
      * @param int    $iSelLang
@@ -33,25 +45,17 @@ abstract class pdfDocuments_generic implements genericInterface
     {
         $sFilename = $this->getFilename( $sFilename);
 
-        $oPdf = call_user_func_array('oxNew', array_merge([Html2Pdf::class], $this->getPdfProperties()));
-        //$oPdf = oxNew(Html2Pdf::class, 'P', 'A4', 'de');
+        $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
         $oPdf->writeHTML($this->getHTMLContent($iSelLang));
         $oPdf->output($sFilename, $target);
     }
 
-    /**
-     * @param Smarty $smarty
-     *
-     * @return Smarty
-     */
-    public function setSmartyVars($smarty)
+    public function setSmartyVars()
     {
-        $smarty->assign('oConfig', Registry::getSession()->getConfig());
-        $smarty->assign('oViewConf', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
-        $smarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
-        $smarty->assign('lang', Registry::getLang());
-
-        return $smarty;
+        $this->oSmarty->assign('oConfig', Registry::getSession()->getConfig());
+        $this->oSmarty->assign('oViewConf', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
+        $this->oSmarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
+        $this->oSmarty->assign('lang', Registry::getLang());
     }
 
     /**
@@ -73,15 +77,12 @@ abstract class pdfDocuments_generic implements genericInterface
     {
         $lang = Registry::getLang();
 
-        /** @var Smarty $oSmarty */
-        $oSmarty = Registry::getUtilsView()->getSmarty();
-
         $currTplLang = $lang->getTplLanguage();
         $lang->setTplLanguage($iSelLang);
 
-        $oSmarty = $this->setSmartyVars($oSmarty);
+        $this->setSmartyVars();
 
-        $content = $oSmarty->fetch($this->getTemplate());
+        $content = $this->oSmarty->fetch($this->getTemplate());
 
         $lang->setTplLanguage($currTplLang);
 

@@ -17,7 +17,7 @@
 
 namespace D3\PdfDocuments\Modules\Application\Model;
 
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order as OrderPdfInterface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_orderInterface as OrderPdfInterface;
 use D3\PdfDocuments\Modules\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Modules\Application\Model\Documents\deliverynotePdf;
 use OxidEsales\Eshop\Core\Registry;

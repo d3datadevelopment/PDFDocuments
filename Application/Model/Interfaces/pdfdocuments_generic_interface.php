@@ -17,9 +17,24 @@
 
 namespace D3\PdfDocuments\Application\Model\Interfaces;
 
-interface pdfdocuments_orderinvoice extends pdfdocuments_order 
+interface pdfdocuments_generic_interface
 {
-    public function setInvoiceNumber();
-  
-    public function setInvoiceDate();
+    /**
+     * @return string
+     */
+    public function getTemplate();
+
+    /**
+     * @return mixed
+     */
+    public function getHTMLContent();
+
+    /**
+     * @param        $sFilename
+     * @param int    $iSelLang
+     * @param string $target
+     *
+     * @return mixed
+     */
+    public function genPdf($sFilename, $iSelLang = 0, $target = 'I');
 }

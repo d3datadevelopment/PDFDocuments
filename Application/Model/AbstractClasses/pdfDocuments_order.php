@@ -17,11 +17,10 @@
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order as orderInterface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as orderInterface;
 use \OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
-use Smarty;
 
 abstract class pdfDocuments_order extends pdfDocuments_generic implements orderInterface
 {
@@ -44,26 +43,19 @@ abstract class pdfDocuments_order extends pdfDocuments_generic implements orderI
         return $this->oOrder;
     }
 
-    /**
-     * @param Smarty $smarty
-     *
-     * @return Smarty
-     */
-    public function setSmartyVars($smarty)
+    public function setSmartyVars()
     {
-        $smarty = parent::setSmartyVars($smarty);
+        parent::setSmartyVars();
 
-        $smarty->assign('order', $this->getOrder());
+        $this->oSmarty->assign('order', $this->getOrder());
 
         $oUser = oxNew(User::Class);
         $oUser->load($this->getOrder()->getFieldData('oxuserid'));
-        $smarty->assign('user', $oUser);
+        $this->oSmarty->assign('user', $oUser);
 
         $oPayment = oxNew(Payment::class);
         $oPayment->load($this->getOrder()->getFieldData('oxpaymenttype'));
-        $smarty->assign('payment', $oPayment);
-
-        return $smarty;
+        $this->oSmarty->assign('payment', $oPayment);
     }
 
     /**

@@ -19,7 +19,7 @@ namespace D3\PdfDocuments\Application\Model\Interfaces;
 
 use OxidEsales\Eshop\Application\Model\Order;
 
-interface pdfdocuments_order extends pdfdocuments_generic
+interface pdfdocuments_order_interface extends pdfdocuments_generic_interface
 {
     /**
      * @param Order $order
