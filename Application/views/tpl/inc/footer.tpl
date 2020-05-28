@@ -1,9 +1,9 @@
 [{block name="pdfFooter"}]
-<table class="pdf_footer_table" cellspacing="0">
+<table class="pdf_footer_table">
     <tr>
         [{block name="shop_basic_information"}]
         <td class="footer_parts">
-            <div>[{*$shop->oxshops__oxname->value*}][{$pdfdocumentsCSS}]</div>
+            <div>[{$shop->oxshops__oxname->value}]</div>
             <div>[{$shop->oxshops__oxstreet->value}]</div>
             <div>[{$shop->oxshops__oxzip->value}] [{$shop->oxshops__oxcity->value}]</div>
             <div>[{$shop->oxshops__oxcountry->value}]</div>
