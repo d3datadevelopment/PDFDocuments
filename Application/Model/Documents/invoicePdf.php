@@ -61,6 +61,6 @@ class invoicePdf extends pdfDocuments_order implements pdfdocuments_orderinvoice
     }
 
     public function getTemplate(){
-        return 'invoice.tpl';
+        return 'd3invoice_pdf.tpl';
     }
 }

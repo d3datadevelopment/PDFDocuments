@@ -14,7 +14,7 @@
 	</page_header>
 	<page_footer>
         [{block name="pdfFooterFile"}]
-            [{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/includingFiles/pdfFooter.tpl')}]
+            [{include file=$oViewConf->getModulePath('pdfDocuments', 'Application/views/tpl/invoice/includingFiles/pdfFooter.tpl')}]
         [{/block}]
 	</page_footer>
 

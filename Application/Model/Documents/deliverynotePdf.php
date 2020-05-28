@@ -22,6 +22,6 @@ use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
 class deliverynotePdf extends pdfDocuments_order
 {
     public function getTemplate(){
-        return 'deliverynote.tpl';
+        return 'd3deliverynote_pdf.tpl';
     }
 }
