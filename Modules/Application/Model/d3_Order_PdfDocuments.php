@@ -17,9 +17,9 @@
 
 namespace D3\PdfDocuments\Modules\Application\Model;
 
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_orderInterface as OrderPdfInterface;
-use D3\PdfDocuments\Modules\Application\Model\Documents\invoicePdf;
-use D3\PdfDocuments\Modules\Application\Model\Documents\deliverynotePdf;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as OrderPdfInterface;
+use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
+use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
 use OxidEsales\Eshop\Core\Registry;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 

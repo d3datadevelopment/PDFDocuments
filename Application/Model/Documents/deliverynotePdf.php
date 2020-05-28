@@ -15,7 +15,7 @@
  * @link      http://www.oxidmodule.com
  */
 
-namespace D3\PdfDocuments\Modules\Application\Model\Documents;
+namespace D3\PdfDocuments\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
 
