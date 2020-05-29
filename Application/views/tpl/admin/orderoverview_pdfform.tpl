@@ -15,10 +15,10 @@
                     [{oxmultilang ident="ORDER_OVERVIEW_PDF_TYPE"}]:&nbsp;
                     <select name="pdftype" class="editinput" style="width:80px;">
                         [{block name="d3_pdfdocuments_order_overview_pdfTypeOptions"}]
-                            <option value="standart" SELECTED>[{oxmultilang ident="ORDER_OVERVIEW_PDF_STANDART"}]</option>
-                            <option value="dnote">[{oxmultilang ident="ORDER_OVERVIEW_PDF_DNOTE"}]</option>
-                            <option value="standart_without_logo">[{oxmultilang ident="ORDER_OVERVIEW_PDF_STANDART_WITHOUT_LOGO" }]</option>
-                            <option value="dnote_without_logo">[{oxmultilang ident="ORDER_OVERVIEW_PDF_DNOTE_WITHOUT_LOGO" }]</option>
+                            [{assign var="generatorList" value=$oView->d3getGeneratorList()}]
+                            [{foreach from=$generatorList->getList() item="generator"}]
+                                <option value="[{$generator->getRequestId()}]">[{oxmultilang ident=$generator->getTitleIdent()}]</option>
+                            [{/foreach}]
                         [{/block}]
                     </select>
                 </td>
