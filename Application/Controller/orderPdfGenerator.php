@@ -17,6 +17,7 @@ namespace D3\PdfDocuments\Application\Controller;
 
 use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
+use D3\PdfDocuments\Application\Model\Exceptions\d3noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as OrderPdfInterface;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
@@ -60,16 +61,17 @@ echo __CLASS__." - ".__FUNCTION__." - ".__LINE__."<br>";
     }
 
     /**
+     * @param Order $order
+     *
      * @return OrderPdfInterface
-     * @throws \OxidEsales\Eshop\Core\Exception\SystemComponentException
-     * @throws \oxSystemComponentException
+     * @throws d3noPdfHandlerFoundException
      */
     public function getCustomPdfClass(Order $order)
     {
-echo __CLASS__." - ".__FUNCTION__." - ".__LINE__."<br>";
-        $pdfInvoice= oxNew(invoicePdf::class);
-        $pdfInvoice->setOrder($order);
+        unset($order);
 
-        return $pdfInvoice;
+        /** @var d3noPdfHandlerFoundException $e */
+        $e = oxNew(d3noPdfHandlerFoundException::class, Registry::getRequest()->getRequestParameter('pdftype'));
+        throw($e);
     }
 }
