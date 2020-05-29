@@ -15,13 +15,10 @@
 
 namespace D3\PdfDocuments\Application\Controller;
 
-use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
-use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as OrderPdfInterface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
@@ -48,7 +45,7 @@ class orderOverviewPdfGenerator
     /**
      * @param Order $order
      *
-     * @return OrderPdfInterface
+     * @return pdfdocumentsOrderInterface
      * @throws noPdfHandlerFoundException
      */
     public function getPdfClass(Order $order)
@@ -56,7 +53,7 @@ class orderOverviewPdfGenerator
         $requestedType = Registry::getRequest()->getRequestParameter('pdftype');
 
         $generatorList = oxNew(registryOrderoverview::class);
-        /** @var pdfdocuments_order_interface $generator */
+        /** @var pdfdocumentsOrderInterface $generator */
         foreach ($generatorList->getList() as $generator) {
             if ($generator->getRequestId() == $requestedType) {
                 return $generator;

@@ -17,11 +17,11 @@
 
 namespace D3\PdfDocuments\Application\Model\Documents;
 
-use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
+use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
 use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_orderinvoice_interface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderinvoiceInterface;
 
-class invoicePdf extends pdfDocuments_order implements pdfdocuments_orderinvoice_interface
+class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceInterface
 {
     protected $blIsNewOrder = false;
 

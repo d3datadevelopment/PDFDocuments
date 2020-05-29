@@ -18,18 +18,18 @@
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_generic_interface as genericInterface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
 use OxidEsales\Eshop\Core\Registry;
 use Smarty;
 use Spipu\Html2Pdf\Html2Pdf;
 
-abstract class pdfDocuments_generic implements genericInterface
+abstract class pdfdocumentsGeneric implements genericInterface
 {
     /** @var Smarty  */
     public $oSmarty;
 
     /**
-     * pdfDocuments_generic constructor.
+     * pdfDocumentsGeneric constructor.
      */
     public function __construct()
     {

@@ -17,7 +17,7 @@
 
 namespace D3\PdfDocuments\Application\Model\Registries;
 
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_generic_interface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface;
 
 abstract class registryAbstract implements registryGenericInterface
 {
@@ -25,9 +25,9 @@ abstract class registryAbstract implements registryGenericInterface
 
     /**
      * @param $className * generator fully qualified class name
-     * @param pdfdocuments_generic_interface $item
+     * @param pdfdocumentsGenericInterface $item
      */
-    protected function addItem($className, pdfdocuments_generic_interface $item)
+    protected function addItem($className, pdfdocumentsGenericInterface $item)
     {
         $this->_aRegistry[$className] = $item;
     }
