@@ -29,7 +29,7 @@ class d3noPdfHandlerFoundException extends StandardException
      */
     public function __construct( $requestId, $sMessage = "no pdf handler defined for given request id", $iCode = 0, \Exception $previous = null )
     {
-        $sMessage .= '"'.$requestId.'"';
+        $sMessage .= ' "'.$requestId.'"';
         parent::__construct( $sMessage, $iCode, $previous );
     }
 }
