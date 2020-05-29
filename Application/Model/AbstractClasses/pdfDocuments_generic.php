@@ -44,7 +44,6 @@ abstract class pdfDocuments_generic implements genericInterface
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
     {
         $sFilename = $this->getFilename( $sFilename);
-
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
         $oPdf->writeHTML($this->getHTMLContent($iSelLang));
         $oPdf->output($sFilename, $target);
