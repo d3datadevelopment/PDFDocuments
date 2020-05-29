@@ -21,7 +21,7 @@ use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
 use D3\PdfDocuments\Application\Model\Documents\deliverynotewithoutlogoPdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicewithoutlogoPdf;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
 
 class registryOrderoverview extends registryAbstract implements registryOrderoverviewInterface
 {
@@ -35,16 +35,16 @@ class registryOrderoverview extends registryAbstract implements registryOrderove
 
     /**
      * @param $className
-     * @param pdfdocuments_order_interface $pdfGenerator
+     * @param pdfdocumentsOrderInterface $pdfGenerator
      */
-    public function addGenerator($className, pdfdocuments_order_interface $pdfGenerator)
+    public function addGenerator($className, pdfdocumentsOrderInterface $pdfGenerator)
     {
         $this->addItem($className, $pdfGenerator);
     }
 
     /**
      * @param $className * generator fully qualified class name
-     * @return pdfdocuments_order_interface
+     * @return pdfdocumentsOrderInterface
      */
     public function getGenerator($className)
     {

@@ -17,17 +17,9 @@
 
 namespace D3\PdfDocuments\Application\Model\Interfaces;
 
-use OxidEsales\Eshop\Application\Model\Order;
-
-interface pdfdocuments_order_interface extends pdfdocuments_generic_interface
+interface pdfdocumentsOrderinvoiceInterface extends pdfdocumentsOrderInterface
 {
-    /**
-     * @param Order $order
-     */
-    public function setOrder(Order $order);
-
-    /**
-     * @return Order
-     */
-    public function getOrder();
+    public function setInvoiceNumber();
+  
+    public function setInvoiceDate();
 }

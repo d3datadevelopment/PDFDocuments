@@ -17,9 +17,9 @@
 
 namespace D3\PdfDocuments\Application\Model\Documents;
 
-use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
+use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
 
-class deliverynotePdf extends pdfDocuments_order
+class deliverynotePdf extends pdfdocumentsOrder
 {
     /**
      * @return string

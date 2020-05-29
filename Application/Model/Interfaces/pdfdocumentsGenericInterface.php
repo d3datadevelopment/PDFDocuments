@@ -19,7 +19,7 @@ namespace D3\PdfDocuments\Application\Model\Interfaces;
 
 use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 
-interface pdfdocuments_generic_interface
+interface pdfdocumentsGenericInterface
 {
     /**
      * @return string

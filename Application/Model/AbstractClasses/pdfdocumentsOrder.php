@@ -18,12 +18,12 @@
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as orderInterface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface as orderInterface;
 use \OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
 
-abstract class pdfDocuments_order extends pdfDocuments_generic implements orderInterface
+abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInterface
 {
     /** @var Order */
     public $oOrder;
