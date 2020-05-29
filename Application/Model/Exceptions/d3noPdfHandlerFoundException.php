@@ -19,6 +19,14 @@ use OxidEsales\Eshop\Core\Exception\StandardException;
 
 class d3noPdfHandlerFoundException extends StandardException
 {
+    /**
+     * d3noPdfHandlerFoundException constructor.
+     *
+     * @param                 $requestId
+     * @param string          $sMessage
+     * @param int             $iCode
+     * @param \Exception|null $previous
+     */
     public function __construct( $requestId, $sMessage = "no pdf handler defined for given request id", $iCode = 0, \Exception $previous = null )
     {
         $sMessage .= '"'.$requestId.'"';
