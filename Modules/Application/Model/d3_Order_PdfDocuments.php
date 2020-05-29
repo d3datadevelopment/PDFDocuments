@@ -17,11 +17,7 @@
 
 namespace D3\PdfDocuments\Modules\Application\Model;
 
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as OrderPdfInterface;
-use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
-use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
-use OxidEsales\Eshop\Core\Registry;
-use Spipu\Html2Pdf\Exception\Html2PdfException;
+use D3\PdfDocuments\Application\Controller\orderPdfGenerator;
 
 class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
 {
@@ -29,44 +25,10 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
      * @param string $sFilename
      * @param int $iSelLang
      * @param string $target
-     * @throws Html2PdfException
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
     {
-        $Pdf= $this->getPdfClass();
-
-        $Pdf->setOrder($this);
-        $Pdf->genPdf($sFilename, $iSelLang = 0, $target = 'I');
-    }
-
-    public function getPdfClass()
-    {
-        switch (Registry::getRequest()->getRequestParameter('pdftype')) {
-            case ('dnote'):
-            case ('dnote_without_logo'):
-                $pdfInstance= oxNew(deliverynotePdf::class);
-                $pdfInstance->setOrder($this);
-                return $pdfInstance;
-            case ('standart'):
-            case('standart_without_logo'):
-                $pdfInvoice= oxNew(invoicePdf::class);
-                $pdfInvoice->setOrder($this);
-                return $pdfInvoice;
-            default:
-                return $this->getCustomPdfClass();
-        }
-    }
-
-  /**
-   * @return OrderPdfInterface
-   * @throws \OxidEsales\Eshop\Core\Exception\SystemComponentException
-   * @throws \oxSystemComponentException
-   */
-    public function getCustomPdfClass()
-    {
-        $pdfInvoice= oxNew(invoicePdf::class);
-        $pdfInvoice->setOrder($this);
-
-        return $pdfInvoice;
+        $generator = oxNew( orderPdfGenerator::class );
+        $generator->generatePdf($this, $sFilename, $iSelLang, $target);
     }
 }
