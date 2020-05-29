@@ -22,7 +22,7 @@ use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as OrderPdfInterface;
-use D3\PdfDocuments\Application\Model\Registries\registry_orderoverview;
+use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
 
@@ -55,7 +55,7 @@ class orderOverviewPdfGenerator
     {
         $requestedType = Registry::getRequest()->getRequestParameter('pdftype');
 
-        $generatorList = oxNew(registry_orderoverview::class);
+        $generatorList = oxNew(registryOrderoverview::class);
         /** @var pdfdocuments_order_interface $generator */
         foreach ($generatorList->getList() as $generator) {
             if ($generator->getRequestId() == $requestedType) {

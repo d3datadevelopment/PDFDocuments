@@ -17,9 +17,8 @@
 
 namespace D3\PdfDocuments\Modules\Application\controllers;
 
-use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
-use D3\PdfDocuments\Application\Model\Registries\registry_orderoverview;
+use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use D3\PdfDocuments\Modules\Application\Model\d3_Order_PdfDocuments;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\DatabaseProvider;
@@ -76,10 +75,10 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
   }
 
     /**
-     * @return registry_orderoverview
+     * @return registryOrderoverview
      */
   public function d3getGeneratorList()
   {
-      return oxNew(registry_orderoverview::class);
+      return oxNew(registryOrderoverview::class);
   }
 }
