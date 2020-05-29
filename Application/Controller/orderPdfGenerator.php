@@ -29,6 +29,8 @@ class orderPdfGenerator
      * @param        $sFilename
      * @param int    $iSelLang
      * @param string $target
+     *
+     * @throws d3noPdfHandlerFoundException
      */
     public function generatePdf(Order $order, $sFilename, $iSelLang = 0, $target = 'I')
     {
@@ -38,24 +40,26 @@ class orderPdfGenerator
         $Pdf->genPdf($sFilename, $iSelLang, $target);
     }
 
+    /**
+     * @param Order $order
+     *
+     * @return OrderPdfInterface
+     * @throws d3noPdfHandlerFoundException
+     */
     public function getPdfClass(Order $order)
     {
-echo __CLASS__." - ".__FUNCTION__." - ".__LINE__."<br>";
         switch (Registry::getRequest()->getRequestParameter('pdftype')) {
             case ('dnote'):
             case ('dnote_without_logo'):
-echo __CLASS__." - ".__FUNCTION__." - ".__LINE__."<br>";
                 $pdfInstance= oxNew(deliverynotePdf::class);
                 $pdfInstance->setOrder($order);
                 return $pdfInstance;
             case ('standart'):
             case('standart_without_logo'):
-echo __CLASS__." - ".__FUNCTION__." - ".__LINE__."<br>";
                 $pdfInvoice= oxNew(invoicePdf::class);
                 $pdfInvoice->setOrder($order);
                 return $pdfInvoice;
             default:
-echo __CLASS__." - ".__FUNCTION__." - ".__LINE__."<br>";
                 return $this->getCustomPdfClass($order);
         }
     }
