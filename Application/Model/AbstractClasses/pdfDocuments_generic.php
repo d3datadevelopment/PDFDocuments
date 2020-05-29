@@ -17,6 +17,7 @@
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
+use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_generic_interface as genericInterface;
 use OxidEsales\Eshop\Core\Registry;
 use Smarty;
@@ -40,6 +41,7 @@ abstract class pdfDocuments_generic implements genericInterface
      * @param        $sFilename
      * @param int    $iSelLang
      * @param string $target
+     * @throws noBaseObjectSetException
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
     {

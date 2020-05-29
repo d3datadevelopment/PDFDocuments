@@ -17,6 +17,7 @@
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
+use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as orderInterface;
 use \OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
@@ -71,5 +72,21 @@ abstract class pdfDocuments_order extends pdfDocuments_generic implements orderI
         $billnr = $this->getOrder()->getFieldData('oxbillnr');;
 
         return str_replace($ordernr, $billnr, $sFilename);
+    }
+
+    /**
+     * @param $sFilename
+     * @param int $iSelLang
+     * @param string $target
+     * @throws noBaseObjectSetException
+     */
+    public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
+    {
+        if (false == $this->getOrder()) {
+            $e = oxNew(noBaseObjectSetException::class);
+            throw $e;
+        }
+
+        parent::genPdf($sFilename, $iSelLang, $target);
     }
 }

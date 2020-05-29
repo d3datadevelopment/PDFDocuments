@@ -17,16 +17,15 @@
 
 namespace D3\PdfDocuments\Application\Model\Documents;
 
-use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
-
-class deliverynotePdf extends pdfDocuments_order
+class invoicewithoutlogoPdf extends invoicePdf
 {
     /**
      * @return string
      */
     public function getRequestId()
     {
-        return 'dnote';
+        // same like in OXID PDF module
+        return 'standart_without_logo';
     }
 
     /**
@@ -34,14 +33,13 @@ class deliverynotePdf extends pdfDocuments_order
      */
     public function getTitleIdent()
     {
-        return "ORDER_OVERVIEW_PDF_DNOTE";
+        return "ORDER_OVERVIEW_PDF_STANDART_WITHOUT_LOGO";
     }
 
     /**
      * @return string
      */
-    public function getTemplate()
-    {
-        return 'd3deliverynote_pdf.tpl';
+    public function getTemplate(){
+        return 'd3invoice_pdf.tpl';
     }
 }
