@@ -17,16 +17,14 @@
 
 namespace D3\PdfDocuments\Application\Model\Documents;
 
-use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
-
-class deliverynotePdf extends pdfDocuments_order
+class deliverynotewithoutlogoPdf extends deliverynotePdf
 {
     /**
      * @return string
      */
     public function getRequestId()
     {
-        return 'dnote';
+        return 'dnote_without_logo';
     }
 
     /**
@@ -34,7 +32,7 @@ class deliverynotePdf extends pdfDocuments_order
      */
     public function getTitleIdent()
     {
-        return "ORDER_OVERVIEW_PDF_DNOTE";
+        return "ORDER_OVERVIEW_PDF_DNOTE_WITHOUT_LOGO";
     }
 
     /**

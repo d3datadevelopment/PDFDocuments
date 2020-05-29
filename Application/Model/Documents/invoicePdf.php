@@ -18,12 +18,37 @@
 namespace D3\PdfDocuments\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfDocuments_order;
+use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_orderinvoice_interface;
 
 class invoicePdf extends pdfDocuments_order implements pdfdocuments_orderinvoice_interface
 {
     protected $blIsNewOrder = false;
 
+    /**
+     * @return string
+     */
+    public function getRequestId()
+    {
+        // same like in OXID PDF module
+        return 'standart';
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitleIdent()
+    {
+        return "ORDER_OVERVIEW_PDF_STANDART";
+    }
+
+    /**
+     * @param $sFilename
+     * @param int $iSelLang
+     * @param string $target
+     * @return void
+     * @throws noBaseObjectSetException
+     */
     public function genPdf( $sFilename, $iSelLang = 0, $target = 'I' )
     {
         $this->setInvoiceNumber();
