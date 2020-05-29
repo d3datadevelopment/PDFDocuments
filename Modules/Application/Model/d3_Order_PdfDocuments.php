@@ -17,7 +17,10 @@
 
 namespace D3\PdfDocuments\Modules\Application\Model;
 
-use D3\PdfDocuments\Application\Controller\orderPdfGenerator;
+use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
+use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
+use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
+use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 
 class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
 {
@@ -25,10 +28,13 @@ class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
      * @param string $sFilename
      * @param int $iSelLang
      * @param string $target
+     * @throws noBaseObjectSetException
+     * @throws noPdfHandlerFoundException
+     * @throws pdfGeneratorExceptionAbstract
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
     {
-        $generator = oxNew( orderPdfGenerator::class );
+        $generator = oxNew( orderOverviewPdfGenerator::class );
         $generator->generatePdf($this, $sFilename, $iSelLang, $target);
     }
 }

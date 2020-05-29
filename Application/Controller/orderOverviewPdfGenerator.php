@@ -17,20 +17,25 @@ namespace D3\PdfDocuments\Application\Controller;
 
 use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
-use D3\PdfDocuments\Application\Model\Exceptions\d3noPdfHandlerFoundException;
+use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
+use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
+use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface as OrderPdfInterface;
+use D3\PdfDocuments\Application\Model\Registries\registry_orderoverview;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
 
-class orderPdfGenerator
+class orderOverviewPdfGenerator
 {
     /**
-     * @param Order  $order
-     * @param        $sFilename
-     * @param int    $iSelLang
+     * @param Order $order
+     * @param $sFilename
+     * @param int $iSelLang
      * @param string $target
-     *
-     * @throws d3noPdfHandlerFoundException
+     * @throws noPdfHandlerFoundException
+     * @throws noBaseObjectSetException
+     * @throws pdfGeneratorExceptionAbstract
      */
     public function generatePdf(Order $order, $sFilename, $iSelLang = 0, $target = 'I')
     {
@@ -44,38 +49,22 @@ class orderPdfGenerator
      * @param Order $order
      *
      * @return OrderPdfInterface
-     * @throws d3noPdfHandlerFoundException
+     * @throws noPdfHandlerFoundException
      */
     public function getPdfClass(Order $order)
     {
-        switch (Registry::getRequest()->getRequestParameter('pdftype')) {
-            case ('dnote'):
-            case ('dnote_without_logo'):
-                $pdfInstance= oxNew(deliverynotePdf::class);
-                $pdfInstance->setOrder($order);
-                return $pdfInstance;
-            case ('standart'):
-            case('standart_without_logo'):
-                $pdfInvoice= oxNew(invoicePdf::class);
-                $pdfInvoice->setOrder($order);
-                return $pdfInvoice;
-            default:
-                return $this->getCustomPdfClass($order);
+        $requestedType = Registry::getRequest()->getRequestParameter('pdftype');
+
+        $generatorList = oxNew(registry_orderoverview::class);
+        /** @var pdfdocuments_order_interface $generator */
+        foreach ($generatorList->getList() as $generator) {
+            if ($generator->getRequestId() == $requestedType) {
+                return $generator;
+            }
         }
-    }
 
-    /**
-     * @param Order $order
-     *
-     * @return OrderPdfInterface
-     * @throws d3noPdfHandlerFoundException
-     */
-    public function getCustomPdfClass(Order $order)
-    {
-        unset($order);
-
-        /** @var d3noPdfHandlerFoundException $e */
-        $e = oxNew(d3noPdfHandlerFoundException::class, Registry::getRequest()->getRequestParameter('pdftype'));
+        /** @var noPdfHandlerFoundException $e */
+        $e = oxNew(noPdfHandlerFoundException::class, Registry::getRequest()->getRequestParameter('pdftype'));
         throw($e);
     }
 }
