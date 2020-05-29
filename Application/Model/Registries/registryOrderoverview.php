@@ -23,7 +23,7 @@ use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicewithoutlogoPdf;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_order_interface;
 
-class registry_orderoverview extends registry_abstract implements registry_orderoverview_interface
+class registryOrderoverview extends registryAbstract implements registryOrderoverviewInterface
 {
     public function __construct()
     {

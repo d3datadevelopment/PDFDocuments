@@ -19,7 +19,7 @@ namespace D3\PdfDocuments\Application\Model\Registries;
 
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocuments_generic_interface;
 
-abstract class registry_abstract implements registry_generic_interface
+abstract class registryAbstract implements registryGenericInterface
 {
     protected $_aRegistry = array();
 
