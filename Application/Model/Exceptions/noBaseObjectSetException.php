@@ -15,19 +15,10 @@
 
 namespace D3\PdfDocuments\Application\Model\Exceptions;
 
-class noPdfHandlerFoundException extends pdfGeneratorExceptionAbstract
+class noBaseObjectSetException extends pdfGeneratorExceptionAbstract
 {
-    /**
-     * d3noPdfHandlerFoundException constructor.
-     *
-     * @param                 $requestId
-     * @param string          $sMessage
-     * @param int             $iCode
-     * @param \Exception|null $previous
-     */
-    public function __construct( $requestId, $sMessage = "no pdf handler defined for given request id", $iCode = 0, \Exception $previous = null )
+    public function __construct( $sMessage = "no base object (e.g. order) for pdf generator set", $iCode = 0, \Exception $previous = null )
     {
-        $sMessage .= ' "'.$requestId.'"';
         parent::__construct( $sMessage, $iCode, $previous );
     }
 }
