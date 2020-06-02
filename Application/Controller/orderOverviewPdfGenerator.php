@@ -36,19 +36,17 @@ class orderOverviewPdfGenerator
      */
     public function generatePdf(Order $order, $sFilename, $iSelLang = 0, $target = 'I')
     {
-        $Pdf= $this->getPdfClass($order);
+        $Pdf= $this->getPdfClass();
 
         $Pdf->setOrder($order);
         $Pdf->genPdf($sFilename, $iSelLang, $target);
     }
 
     /**
-     * @param Order $order
-     *
      * @return pdfdocumentsOrderInterface
      * @throws noPdfHandlerFoundException
      */
-    public function getPdfClass(Order $order)
+    public function getPdfClass()
     {
         $requestedType = Registry::getRequest()->getRequestParameter('pdftype');
 

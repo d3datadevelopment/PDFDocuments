@@ -15,6 +15,8 @@
 
 namespace D3\PdfDocuments\Application\Model\Exceptions;
 
+use Exception;
+
 class noPdfHandlerFoundException extends pdfGeneratorExceptionAbstract
 {
     /**
@@ -23,9 +25,9 @@ class noPdfHandlerFoundException extends pdfGeneratorExceptionAbstract
      * @param                 $requestId
      * @param string          $sMessage
      * @param int             $iCode
-     * @param \Exception|null $previous
+     * @param Exception|null $previous
      */
-    public function __construct( $requestId, $sMessage = "no pdf handler defined for given request id", $iCode = 0, \Exception $previous = null )
+    public function __construct( $requestId, $sMessage = "no pdf handler defined for given request id", $iCode = 0, Exception $previous = null )
     {
         $sMessage .= ' "'.$requestId.'"';
         parent::__construct( $sMessage, $iCode, $previous );

@@ -15,9 +15,11 @@
 
 namespace D3\PdfDocuments\Application\Model\Exceptions;
 
+use Exception;
+
 class wrongPdfGeneratorInterface extends pdfGeneratorExceptionAbstract
 {
-    public function __construct( $requiredInterface, $sMessage = "generator class doesn't fulfilled the interface", $iCode = 0, \Exception $previous = null ) {
+    public function __construct( $requiredInterface, $sMessage = "generator class doesn't fulfilled the interface", $iCode = 0, Exception $previous = null ) {
 
         $sMessage .= $requiredInterface;
 
