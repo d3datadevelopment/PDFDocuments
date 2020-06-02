@@ -27,19 +27,18 @@ class registryOrderoverview extends registryAbstract implements registryOrderove
 {
     public function __construct()
     {
-        $this->addGenerator(invoicePdf::class, oxNew(invoicePdf::class));
-        $this->addGenerator(deliverynotePdf::class, oxNew(deliverynotePdf::class));
-        $this->addGenerator(invoicewithoutlogoPdf::class, oxNew(invoicewithoutlogoPdf::class));
-        $this->addGenerator(deliverynotewithoutlogoPdf::class, oxNew(deliverynotewithoutlogoPdf::class));
+        $this->addGenerator(invoicePdf::class);
+        $this->addGenerator(deliverynotePdf::class);
+        $this->addGenerator(invoicewithoutlogoPdf::class);
+        $this->addGenerator(deliverynotewithoutlogoPdf::class);
     }
 
     /**
-     * @param $className
-     * @param pdfdocumentsOrderInterface $pdfGenerator
+     * @return string
      */
-    public function addGenerator($className, pdfdocumentsOrderInterface $pdfGenerator)
+    public function getRequiredGeneratorInterfaceClassName()
     {
-        $this->addItem($className, $pdfGenerator);
+        return pdfdocumentsOrderInterface::class;
     }
 
     /**

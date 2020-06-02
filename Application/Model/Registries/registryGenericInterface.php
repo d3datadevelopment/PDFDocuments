@@ -19,6 +19,8 @@ namespace D3\PdfDocuments\Application\Model\Registries;
 
 interface registryGenericInterface
 {
+    public function getRequiredGeneratorInterfaceClassName();
+
     /**
      * @param $className * generator fully qualified class name
      */
