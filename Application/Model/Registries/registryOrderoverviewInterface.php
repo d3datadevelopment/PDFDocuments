@@ -17,13 +17,10 @@
 
 namespace D3\PdfDocuments\Application\Model\Registries;
 
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
-
 interface registryOrderoverviewInterface extends registryGenericInterface
 {
     /**
      * @param $className * generator fully qualified class name
-     * @param pdfdocumentsOrderInterface $pdfGenerator
      */
-    public function addGenerator($className, pdfdocumentsOrderInterface $pdfGenerator);
+    public function addGenerator($className);
 }

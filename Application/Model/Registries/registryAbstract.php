@@ -17,11 +17,36 @@
 
 namespace D3\PdfDocuments\Application\Model\Registries;
 
+use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface;
+use OxidEsales\Eshop\Core\Exception\StandardException;
 
 abstract class registryAbstract implements registryGenericInterface
 {
     protected $_aRegistry = array();
+
+    /**
+     * @return string
+     */
+    public function getRequiredGeneratorInterfaceClassName()
+    {
+        return pdfdocumentsGenericInterface::class;
+    }
+
+    /**
+     * @param $className
+     */
+    public function addGenerator($className)
+    {
+        if (false == $this->hasGenerator($className)) {
+            /** @var pdfdocumentsGenericInterface $generator */
+            $generator = oxNew( $className );
+
+            $this->addItem( $className, $generator );
+        } else {
+            throw oxNew(StandardException::class, 'generator still exists in registry');
+        }
+    }
 
     /**
      * @param $className * generator fully qualified class name
@@ -29,6 +54,12 @@ abstract class registryAbstract implements registryGenericInterface
      */
     protected function addItem($className, pdfdocumentsGenericInterface $item)
     {
+        $requiredInterface = $this->getRequiredGeneratorInterfaceClassName();
+
+        if (false == $item instanceof $requiredInterface) {
+            throw oxNew(wrongPdfGeneratorInterface::class, $requiredInterface);
+        }
+
         $this->_aRegistry[$className] = $item;
     }
 
@@ -37,7 +68,9 @@ abstract class registryAbstract implements registryGenericInterface
      */
     public function removeGenerator($className)
     {
-        // TODO: Implement removeGenerator() method.
+        if ($this->hasGenerator($className)) {
+            unset( $this->_aRegistry[ $className ] );
+        }
     }
 
     /**
@@ -45,7 +78,7 @@ abstract class registryAbstract implements registryGenericInterface
      */
     public function hasGenerator($className)
     {
-        // TODO: Implement hasGenerator() method.
+        return array_key_exists($className, $this->_aRegistry);
     }
 
     /**
@@ -58,6 +91,6 @@ abstract class registryAbstract implements registryGenericInterface
 
     public function clearList()
     {
-        // TODO: Implement clearList() method.
+        $this->_aRegistry = [];
     }
 }
