@@ -26,7 +26,7 @@
     [{/block}]
         [{* +++++Artikeltabelle+++++*}]
     [{block name="articleListing"}]
-        <table class="order_article_marginTop10">
+        <table class="order_article_marginTop10" cellspacing="0">
             <tr>
                 <td class="border-bottom order_article_PaddingBottom5 "><div class="vertical-a order_article_listing_fontSize order_article_listing_width_amount">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_AMOUNT"}]</div></td>
                 <td class="border-bottom order_article_PaddingBottom5 "><div class="order_article_listing_fontSize order_article_listing_width_desc">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DESCRIPTION"}]</div></td>
