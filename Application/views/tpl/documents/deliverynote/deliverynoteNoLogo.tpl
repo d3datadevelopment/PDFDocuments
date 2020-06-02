@@ -9,7 +9,7 @@
 <page backtop="30mm" backbottom="30mm" backleft="10mm" backright="10mm" pageset="new">
 	<page_header>
         [{block name="pdfTopingFile"}]
-		    [{include file="d3pdfheader.tpl" showLogo=true}]
+		    [{include file="d3pdfheader.tpl" showLogo=false}]
         [{/block}]
 	</page_header>
 	<page_footer>

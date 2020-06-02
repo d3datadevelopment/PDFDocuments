@@ -1,6 +1,6 @@
-[{assign var= currency      value= $order->getOrderCurrency()}]
-[{assign var= deliveryPrice value= $order->getOrderDeliveryPrice()}]
-[{assign var= productVats value= $order->getProductVats(false)}]
+[{assign var="currency"      value=$order->getOrderCurrency()}]
+[{assign var="deliveryPrice" value= $order->getOrderDeliveryPrice()}]
+[{assign var="productVats"   value= $order->getProductVats(false)}]
 
 <style type="text/css">
 	[{include file="d3pdfstyle.css"}]
@@ -9,7 +9,7 @@
 <page backtop="30mm" backbottom="30mm" backleft="10mm" backright="10mm" pageset="new">
 	<page_header>
         [{block name="pdfTopingFile"}]
-			[{include file="d3pdfheader.tpl"}]
+			[{include file="d3pdfheader.tpl" showLogo=true}]
         [{/block}]
 	</page_header>
 	<page_footer>
