@@ -54,7 +54,8 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
               self::$_blIsAdmin = 0;
               $oUtils = Registry::getUtils();
               $sTrimmedBillName = trim($oOrder->oxorder__oxbilllname->getRawValue());
-              $sFilename = $oOrder->oxorder__oxordernr->value . "_" . $sTrimmedBillName . ".pdf";
+              //oxbillr nicht so eingeschrieben lassen
+              $sFilename = $oOrder->oxorder__oxbillnr->value . "_" . $sTrimmedBillName . ".pdf";
               $sFilename = $this->makeValidFileName($sFilename);
               ob_start();
               $oOrder->genPdf($sFilename, Registry::getConfig()->getRequestParameter("pdflanguage"));
