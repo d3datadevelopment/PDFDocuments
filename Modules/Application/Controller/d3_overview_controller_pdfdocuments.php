@@ -51,7 +51,6 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
       /** @var d3_Order_PdfDocuments $oOrder */
       $oOrder = oxNew(Order::class);
       if ($oOrder->load($soxId)) {
-          self::$_blIsAdmin = 0;
           $generator = oxNew( orderOverviewPdfGenerator::class );
           $generator->generatePdf($oOrder, Registry::getRequest()->getRequestEscapedParameter("pdflanguage"));
       }
