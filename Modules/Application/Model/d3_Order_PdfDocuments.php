@@ -25,6 +25,7 @@ use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 class d3_Order_PdfDocuments extends d3_Order_PdfDocuments_parent
 {
     /**
+     * compatibility to OXID Invoice PDF module
      * @param string $sFilename
      * @param int $iSelLang
      * @param string $target

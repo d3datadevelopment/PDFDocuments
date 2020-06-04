@@ -34,12 +34,12 @@ class orderOverviewPdfGenerator
      * @throws noBaseObjectSetException
      * @throws pdfGeneratorExceptionAbstract
      */
-    public function generatePdf(Order $order, $sFilename, $iSelLang = 0, $target = 'I')
+    public function generatePdf(Order $order, $iSelLang = 0)
     {
         $Pdf= $this->getPdfClass();
 
         $Pdf->setOrder($order);
-        $Pdf->genPdf($sFilename, $iSelLang, $target);
+        $Pdf->downloadPdf($iSelLang);
     }
 
     /**

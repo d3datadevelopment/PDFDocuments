@@ -16,7 +16,7 @@
  */
 
 use D3\ModCfg\Application\Model\d3utils;
-use D3\PdfDocuments\Modules\Application\controllers\d3_overview_controller_pdfdocuments;
+use D3\PdfDocuments\Modules\Application\Controller\d3_overview_controller_pdfdocuments;
 use D3\PdfDocuments\Modules\Application\Model\d3_Order_PdfDocuments as d3_pdfdocs_OrderModel;
 use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
 use OxidEsales\Eshop\Application\Model as OxidModel;

@@ -15,8 +15,9 @@
  * @link      http://www.oxidmodule.com
  */
 
-namespace D3\PdfDocuments\Modules\Application\controllers;
+namespace D3\PdfDocuments\Modules\Application\Controller;
 
+use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use D3\PdfDocuments\Modules\Application\Model\d3_Order_PdfDocuments;
@@ -50,27 +51,9 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
       /** @var d3_Order_PdfDocuments $oOrder */
       $oOrder = oxNew(Order::class);
       if ($oOrder->load($soxId)) {
-          try {
-              self::$_blIsAdmin = 0;
-              $oUtils = Registry::getUtils();
-              $sTrimmedBillName = trim($oOrder->oxorder__oxbilllname->getRawValue());
-              //oxbillr nicht so eingeschrieben lassen
-              $sFilename = $oOrder->oxorder__oxbillnr->value . "_" . $sTrimmedBillName . ".pdf";
-              $sFilename = $this->makeValidFileName($sFilename);
-              ob_start();
-              $oOrder->genPdf($sFilename, Registry::getConfig()->getRequestParameter("pdflanguage"));
-              $sPDF = ob_get_contents();
-              ob_end_clean();
-              $oUtils->setHeader("Pragma: public");
-              $oUtils->setHeader("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-              $oUtils->setHeader("Expires: 0");
-              $oUtils->setHeader("Content-type: application/pdf");
-              $oUtils->setHeader("Content-Disposition: attachment; filename=" . $sFilename);
-              Registry::getUtils()->showMessageAndExit($sPDF);
-          } catch (pdfGeneratorExceptionAbstract $e) {
-              Registry::get(UtilsView::class)->addErrorToDisplay($e);
-              Registry::getLogger()->error($e);
-          }
+          self::$_blIsAdmin = 0;
+          $generator = oxNew( orderOverviewPdfGenerator::class );
+          $generator->generatePdf($oOrder, Registry::getRequest()->getRequestEscapedParameter("pdflanguage"));
       }
     }
   }

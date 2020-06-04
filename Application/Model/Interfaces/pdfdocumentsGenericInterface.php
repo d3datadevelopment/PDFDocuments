@@ -42,6 +42,11 @@ interface pdfdocumentsGenericInterface
     public function getHTMLContent();
 
     /**
+     * @param int $iLanguage
+     */
+    public function downloadPdf($iLanguage = 0);
+
+    /**
      * @param        $sFilename
      * @param int    $iSelLang
      * @param string $target
@@ -50,4 +55,9 @@ interface pdfdocumentsGenericInterface
      * @throws noBaseObjectSetException
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I');
+
+    /**
+     * @return string
+     */
+    public function getFilename();
 }

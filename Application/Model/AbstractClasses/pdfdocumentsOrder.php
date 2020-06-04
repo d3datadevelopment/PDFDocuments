@@ -64,14 +64,18 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
      *
      * @return string
      */
-    public function getFilename($sFilename)
+    public function getFilename()
     {
-        $sFilename = parent::getFilename( $sFilename);
+        $sTrimmedBillName = trim($this->getOrder()->getFieldData('oxbilllname'));
 
-        $ordernr = $this->getOrder()->getFieldData('oxordernr');
-        $billnr = $this->getOrder()->getFieldData('oxbillnr');;
-
-        return str_replace($ordernr, $billnr, $sFilename);
+        return implode(
+            '_',
+            [
+                $this->getTypeForFilename(),
+                $this->getOrder()->getFieldData('oxordernr'),
+                $sTrimmedBillName . ".pdf"
+            ]
+        );
     }
 
     /**
