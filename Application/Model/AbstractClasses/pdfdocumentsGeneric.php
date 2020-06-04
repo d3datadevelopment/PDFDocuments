@@ -17,18 +17,24 @@
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
-use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
 use Smarty;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
 {
-    const PDF_DOWNLOAD = 'I';
+    const PDF_DESTINATION_DOWNLOAD = 'D';   // force download in browser
+    const PDF_DESTINATION_STDOUT = 'I';     // show in browser plugin if available, otherwise download
+    const PDF_DESTINATION_FILE = 'F';       // save as local file
+    const PDF_DESTINATION_STRING = 'S';     // output as string
+
+    const PDF_ORIENTATION_PORTRAIT = 'P';
+    const PDF_ORIENTATION_LANDSCAPE = 'L';
 
     /** @var Smarty  */
     public $oSmarty;
@@ -48,9 +54,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @param        $sFilename
      * @param int    $iSelLang
      * @param string $target
-     * @throws noBaseObjectSetException
+     * @throws Html2PdfException
      */
-    public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
+    public function genPdf($sFilename, $iSelLang = 0, $target = self::PDF_DESTINATION_STDOUT)
     {
         $sFilename = $this->getFilename();
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
@@ -58,21 +64,15 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $oPdf->output($sFilename, $target);
     }
 
+    /**
+     * @param int $iLanguage
+     */
     public function downloadPdf($iLanguage = 0)
     {
         try {
-            $oUtils = Registry::getUtils();
-            $sFilename = $this->makeValidFileName($this->getFilename());
-            ob_start();
-            $this->genPdf($sFilename, $iLanguage, self::PDF_DOWNLOAD);
-            $sPDF = ob_get_contents();
-            ob_end_clean();
-            $oUtils->setHeader("Pragma: public");
-            $oUtils->setHeader("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-            $oUtils->setHeader("Expires: 0");
-            $oUtils->setHeader("Content-type: application/pdf");
-            $oUtils->setHeader("Content-Disposition: attachment; filename=" . $sFilename);
-            Registry::getUtils()->showMessageAndExit($sPDF);
+            $sFilename = $this->getFilename();
+            $this->genPdf($sFilename, $iLanguage, self::PDF_DESTINATION_DOWNLOAD);
+            Registry::getUtils()->showMessageAndExit('');
         } catch (pdfGeneratorExceptionAbstract $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
@@ -123,7 +123,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function getPdfProperties()
     {
-        return ['P', 'A4', 'de'];
+        return [self::PDF_ORIENTATION_PORTRAIT, 'A4', 'de'];
     }
 
     /**
