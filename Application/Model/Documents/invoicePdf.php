@@ -80,7 +80,9 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
     public function setInvoiceDate()
     {
         if ($this->getOrder()->getFieldData('oxbilldate') == '0000-00-00') {
-            $this->getOrder()->assign([date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), date('Y')))]);
+            $this->getOrder()->assign([
+                "oxbilldate" => date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), date('Y')))
+            ]);
 
             $this->blIsNewOrder = true;
         }
