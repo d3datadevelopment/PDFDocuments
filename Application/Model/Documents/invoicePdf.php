@@ -43,6 +43,14 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
     }
 
     /**
+     * @return string
+     */
+    public function getTypeForFilename()
+    {
+        return 'invoice';
+    }
+
+    /**
      * @param $sFilename
      * @param int $iSelLang
      * @param string $target
@@ -87,5 +95,21 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
 
     public function getTemplate(){
         return 'd3invoice_pdf.tpl';
+    }
+
+    /**
+     * @param string $sFilename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        $filename = parent::getFilename();
+
+        return str_replace(
+            $this->getOrder()->getFieldData('oxordernr'),
+            $this->getOrder()->getFieldData('oxbillnr'),
+            $filename
+        );
     }
 }

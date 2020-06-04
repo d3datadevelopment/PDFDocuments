@@ -40,6 +40,14 @@ class deliverynotePdf extends pdfdocumentsOrder
     /**
      * @return string
      */
+    public function getTypeForFilename()
+    {
+        return 'delnote';
+    }
+
+    /**
+     * @return string
+     */
     public function getTemplate()
     {
         return 'd3deliverynote_pdf.tpl';

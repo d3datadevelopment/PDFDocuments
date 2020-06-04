@@ -13,7 +13,7 @@
  * @link          http://www.oxidmodule.com
  */
 
-namespace D3\PdfDocuments\Modules\Application\controllers {
+namespace D3\PdfDocuments\Modules\Application\Controller {
 
     use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
 

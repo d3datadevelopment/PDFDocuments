@@ -30,4 +30,9 @@ interface pdfdocumentsOrderInterface extends pdfdocumentsGenericInterface
      * @return Order
      */
     public function getOrder();
+
+    /**
+     * @return string
+     */
+    public function getTypeForFilename();
 }
