@@ -39,6 +39,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /** @var Smarty  */
     public $oSmarty;
 
+    /** @var string */
+    public $filename;
+
     /**
      * pdfDocumentsGeneric constructor.
      */
@@ -124,6 +127,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function getPdfProperties()
     {
         return [self::PDF_ORIENTATION_PORTRAIT, 'A4', 'de'];
+    }
+
+    /**
+     * @param $filename
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
     }
 
     /**
