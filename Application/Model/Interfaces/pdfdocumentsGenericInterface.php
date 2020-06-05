@@ -65,4 +65,11 @@ interface pdfdocumentsGenericInterface
      * @return string
      */
     public function getFilename();
+
+    /**
+     * @param string $filename
+     *
+     * @return string
+     */
+    public function addFilenameExtension($filename);
 }

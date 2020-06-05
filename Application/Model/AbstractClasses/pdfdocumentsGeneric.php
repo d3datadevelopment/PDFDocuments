@@ -36,6 +36,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     const PDF_ORIENTATION_PORTRAIT = 'P';
     const PDF_ORIENTATION_LANDSCAPE = 'L';
 
+    public $filenameExtension = 'pdf';
+
     /** @var Smarty  */
     public $oSmarty;
 
@@ -135,6 +137,37 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function setFilename($filename)
     {
         $this->filename = $filename;
+    }
+
+    /**
+     * @param string $sFilename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        // forced filename from setFilename()
+        if ($this->filename) {
+            return $this->addFilenameExtension($this->filename);
+        }
+
+        return $this->addFilenameExtension($this->getTypeForFilename());
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return string
+     */
+    public function addFilenameExtension($filename)
+    {
+        $extension = $this->filenameExtension;
+        $extensionLength = (strlen($extension) + 1) * -1;
+        if ((bool) strlen($extension) && substr($filename, $extensionLength) != '.'.$extension) {
+            $filename .= '.'.$extension;
+        }
+
+        return $filename;
     }
 
     /**
