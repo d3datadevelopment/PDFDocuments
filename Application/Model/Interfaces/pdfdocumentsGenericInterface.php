@@ -57,6 +57,11 @@ interface pdfdocumentsGenericInterface
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I');
 
     /**
+     * @param string $filename
+     */
+    public function setFilename($filename);
+
+    /**
      * @return string
      */
     public function getFilename();
