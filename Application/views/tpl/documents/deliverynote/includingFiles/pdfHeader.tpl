@@ -42,7 +42,7 @@
 			<td class="vertical-a heading_order_width35 heading_order_paddingTopSub5">
 				<div class="aligning" style="font-size: 7px; padding-top: 50px">[{oxmultilang ident="D3_DELIVERYNOTE_PDF_QUOTECUSTMNR"}]</div>
 				<div class="aligning" style="padding-bottom: 50px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_CUSTOMERNR"}] [{$user->oxuser__oxcustnr->value}]</div>
-				<div class="aligning">[{$shop->oxshops__oxcity->value}], [{$order->oxorder__oxbilldate->value|date_format:"%d.%m.%Y"}]</div>
+				<div class="aligning">[{$shop->oxshops__oxcity->value}], [{$smarty.now|date_format:"%d.%m.%G"}]</div>
 				<div class="aligning">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USTIDNR"}][{$shop->oxshops__oxvatnumber->value}]</div>
 				<div class="aligning">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILLNR"}][{$order->oxorder__oxbillnr->value}]</div>
 			</td>
