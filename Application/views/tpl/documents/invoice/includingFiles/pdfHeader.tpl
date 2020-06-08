@@ -1,5 +1,5 @@
 [{block name="pdfHeading"}]
-	<table class="fontSize12 pdf_heading_table" cellspacing="0">
+	<table class="fontSize12 pdf_heading_table marginBottom15" cellspacing="0">
 	[{block name="heading_owner_information"}]
 		<tr>
 			<td class="pdf_heading_width65">
