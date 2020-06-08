@@ -24,12 +24,20 @@ table{
 .border-bottom{
   border-bottom: solid 0.15mm #000;
 }
-.hermes{
+.paddingTop{
   padding-top: 5px;
 }
-.mercurius{
+.paddingBottom{
   padding-bottom: 5px;
 }
+
+.paddingTop15{
+  padding-top: 10px;
+}
+.marginTop5{
+  padding-top: 5px;
+}
+
 .spacing_order_info{
   padding-bottom: 5px;
   padding-top: 5px;
@@ -50,10 +58,17 @@ table{
   border-top: solid 1px #000;
 }
 
+.borderSpacingUnset{
+ border-spacing: 0;
+}
+
 /*pdf_heading*/
 .pdf_heading_table{
   width: 100%;
   margin-top: 8mm;
+}
+.marginBottom15{
+  margin-bottom: 15px;
 }
 .pdf_heading_width35{
   width: 35%;
