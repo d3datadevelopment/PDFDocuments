@@ -24,10 +24,10 @@ table{
 .border-bottom{
   border-bottom: solid 0.15mm #000;
 }
-.hermes{
+.paddingTop{
   padding-top: 5px;
 }
-.mercurius{
+.paddingBottom{
   padding-bottom: 5px;
 }
 .spacing_order_info{
