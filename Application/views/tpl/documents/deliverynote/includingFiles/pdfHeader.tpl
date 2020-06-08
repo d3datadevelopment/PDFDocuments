@@ -34,12 +34,9 @@
 				<div>[{$shop->oxshops__oxcountry->value}]</div>
 				<div>[{$shop->oxshops__oxdeladdinfo->value}]</div>
 			[{/if}]
-
 			[{*Bestellnummer,Rechnungsvermerk, 'Ihre bestellung vom...'*}]
-				<div class="heading_order_paddingTop22 heading_order_fontSize15"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYNOTE"}][{$order->oxorder__oxordernr->value}]</strong></div>
-				<div class="heading_order_paddingTop1">[{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSINCERELY"}][{$order->oxorder__oxorderdate->value|date_format:"%d.%m.%Y"}][{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSAT"}]</div>
 			</td>
-			<td class="vertical-a heading_order_width35 heading_order_paddingTopSub5">
+			<td class="vertical-a heading_order_width35 heading_order_paddingTopSub5 eraseBug" style="margin-bottom: 0">
 				<div class="aligning" style="font-size: 7px; padding-top: 50px">[{oxmultilang ident="D3_DELIVERYNOTE_PDF_QUOTECUSTMNR"}]</div>
 				<div class="aligning" style="padding-bottom: 50px">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_CUSTOMERNR"}] [{$user->oxuser__oxcustnr->value}]</div>
 				<div class="aligning">[{$shop->oxshops__oxcity->value}], [{$smarty.now|date_format:"%d.%m.%G"}]</div>
@@ -48,5 +45,17 @@
 			</td>
 		</tr>
     [{/block}]
+	</table>
+	<table class="fontSize12" cellspacing="0">
+		<tr>
+			<td>
+				<div style="width: 300px" class="eraseBug heading_order_paddingTop22 heading_order_fontSize15"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYNOTE"}][{$order->oxorder__oxordernr->value}]</strong></div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="eraseBug">[{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSINCERELY"}][{$order->oxorder__oxorderdate->value|date_format:"%d.%m.%Y"}][{oxmultilang ident="ORDER_OVERVIEW_PDF_ORDERSAT"}]</div>
+			</td>
+		</tr>
 	</table>
 [{/block}]
