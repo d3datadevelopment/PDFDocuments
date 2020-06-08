@@ -66,7 +66,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $sFilename = $this->getFilename();
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
         $oPdf->writeHTML($this->getHTMLContent($iSelLang));
-        $oPdf->output($sFilename, $target);
+        return $oPdf->output($sFilename, $target);
     }
 
     /**
@@ -82,6 +82,30 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
         }
+    }
+
+    /**
+     * @param int $iLanguage
+     *
+     * @return null|string
+     * @throws Html2PdfException
+     */
+    public function getPdfContent($iLanguage = 0)
+    {
+        try {
+            $sFilename = $this->getFilename();
+            ob_start();
+            //$this->genPdf( $sFilename, $iLanguage, self::PDF_DESTINATION_STDOUT );
+            $this->genPdf( $sFilename, $iLanguage, self::PDF_DESTINATION_STRING );
+            return ob_get_contents();
+        } catch (pdfGeneratorExceptionAbstract $e) {
+            Registry::get(UtilsView::class)->addErrorToDisplay($e);
+            Registry::getLogger()->error($e);
+        } catch (\Exception $e) {
+            dumpvar($e->getMessage());
+        }
+
+        return null;
     }
 
     public function setSmartyVars()
