@@ -18,6 +18,11 @@
         [{/block}]
 	</page_footer>
 
+	[{* +++++ fold and punch marks +++++ *}]
+	[{block name="pdfDIN5008Markings"}]
+		[{include file="d3din5008.tpl"}]
+	[{/block}]
+
 	[{* +++++ main page part +++++ *}]
     [{block name="pdfHeadingFile"}]
         [{block name="pdfHeaderFile"}]

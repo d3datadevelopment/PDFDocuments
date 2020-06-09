@@ -63,6 +63,7 @@ $aModule = [
 
         'd3pdfheader.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/header.tpl',
         'd3pdffooter.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/footer.tpl',
+        'd3din5008.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/din5008.tpl',
         'd3pdfstyle.css'                => 'd3/pdfdocuments/out/src/css/pdfStyling.css'
     ],
     'events'                => [],
