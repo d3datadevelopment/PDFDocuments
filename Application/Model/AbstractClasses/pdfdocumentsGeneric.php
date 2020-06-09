@@ -68,7 +68,12 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function genPdf($sFilename, $iSelLang = 0, $target = self::PDF_DESTINATION_STDOUT)
     {
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
+        $oPdf->setTestIsImage(false);
         $oPdf->writeHTML($this->getHTMLContent($iSelLang));
+        $oPdf->pdf->SetAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
+        $oPdf->pdf->SetTitle(Registry::getLang()->translateString($this->getTitleIdent()));
+        $oPdf->pdf->SetCreator('D³ PDF Documents for OXID eShop');
+        $oPdf->pdf->SetSubject(NULL);
         return $oPdf->output($sFilename, $target);
     }
 
@@ -142,6 +147,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function getHTMLContent($iSelLang = 0)
     {
+        $blCurrentRenderFromAdmin = self::$_blIsAdmin;
         self::$_blIsAdmin = $this->renderTemplateFromAdmin();
 
         $lang = Registry::getLang();
@@ -154,6 +160,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $content = $this->oSmarty->fetch($this->getTemplate());
 
         $lang->setTplLanguage($currTplLang);
+
+        self::$_blIsAdmin = $blCurrentRenderFromAdmin;
 
         return $content;
     }
