@@ -54,6 +54,12 @@ interface pdfdocumentsGenericInterface
     public function getPdfContent($iLanguage = 0);
 
     /**
+     * @param string $path
+     * @param int $iLanguage
+     */
+    public function savePdfFile($path, $iLanguage = 0);
+
+    /**
      * @param        $sFilename
      * @param int    $iSelLang
      * @param string $target
