@@ -6,7 +6,7 @@
 	[{include file="d3pdfstyle.css"}]
 </style>
 
-<page backtop="30mm" backbottom="30mm" backleft="10mm" backright="10mm" pageset="new">
+<page backtop="30mm" backbottom="30mm" backleft="10mm" backright="10mm" pageset="new" orientation="P" format="A4">
 	<page_header>
         [{block name="pdfTopingFile"}]
 			[{include file="d3pdfheader.tpl" showLogo=true}]
@@ -17,6 +17,11 @@
 			[{include file="d3pdffooter.tpl"}]
         [{/block}]
 	</page_footer>
+
+	[{* +++++ fold and punch marks +++++ *}]
+	[{block name="pdfDIN5008Markings"}]
+		[{include file="d3din5008.tpl"}]
+	[{/block}]
 
 	[{* +++++ main page part +++++ *}]
     [{block name="pdfHeadingFile"}]

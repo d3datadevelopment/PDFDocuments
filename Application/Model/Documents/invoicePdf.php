@@ -20,6 +20,7 @@ namespace D3\PdfDocuments\Application\Model\Documents;
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
 use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderinvoiceInterface;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
 
 class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceInterface
 {
@@ -51,10 +52,12 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
     }
 
     /**
-     * @param $sFilename
-     * @param int $iSelLang
+     * @param        $sFilename
+     * @param int    $iSelLang
      * @param string $target
-     * @return void
+     *
+     * @return mixed|string|void
+     * @throws Html2PdfException
      * @throws noBaseObjectSetException
      */
     public function genPdf( $sFilename, $iSelLang = 0, $target = 'I' )
@@ -63,7 +66,7 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
         $this->setInvoiceDate();
         $this->saveOrderOnChanges();
 
-        parent::genPdf( $sFilename, $iSelLang, $target );
+        return parent::genPdf( $sFilename, $iSelLang, $target );
     }
 
     public function setInvoiceNumber()
