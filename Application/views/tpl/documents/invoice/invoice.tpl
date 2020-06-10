@@ -85,7 +85,7 @@
 					<div class="order_article_PaddingTop5 order_article_PaddingBottom5 order_sumNum aligning fontSize12 border-bottom">[{$lang->formatCurrency($deliveryPrice->getVATValue(), $currency)}] [{$currency->name}]</div>
 					<div class="order_article_PaddingTop5 order_article_PaddingBottom5 order_sumNum aligning fontSize12"><strong>[{$order->getFormattedTotalOrderSum()}] [{$currency->name}]</strong></div>
 				</td>
-				{/block}
+				[{/block}]
 			</tr>
 		</table>
 	[{/block}]
