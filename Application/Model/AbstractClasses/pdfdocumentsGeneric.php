@@ -69,12 +69,13 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
         $oPdf->setTestIsImage(false);
-        $oPdf->writeHTML($this->getHTMLContent($iSelLang));
+        $htmlContent = $this->getHTMLContent($iSelLang);
+        $oPdf->writeHTML($htmlContent);
         $oPdf->pdf->SetAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
         $oPdf->pdf->SetTitle(Registry::getLang()->translateString($this->getTitleIdent()));
         $oPdf->pdf->SetCreator('D³ PDF Documents for OXID eShop');
         $oPdf->pdf->SetSubject(NULL);
-        return $oPdf->output($sFilename, $target);
+        return $this->output($oPdf, $sFilename, $target, $htmlContent);
     }
 
     /**
@@ -179,7 +180,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function getPdfProperties()
     {
-        return [self::PDF_ORIENTATION_PORTRAIT, 'A4', 'de'];
+        $orientation = self::PDF_ORIENTATION_PORTRAIT;
+        $format = 'A4';
+        $lang = 'de';
+        $unicode = true;
+        $encoding = 'UTF-8';
+        $margins = [0, 0, 0, 0];
+        $pdfa = true;
+        return [$orientation, $format, $lang, $unicode, $encoding, $margins, $pdfa];
     }
 
     /**
@@ -242,5 +250,92 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function renderTemplateFromAdmin()
     {
         return false;
+    }
+
+    public function output(Html2Pdf $oPdf, $sFilename, $target, $html)
+    {
+        if ((bool) Registry::getConfig()->getConfigParam('d3PdfDocumentsbDev') === true) {
+            return $this->outputDev($oPdf, $sFilename, $target, $html);
+        } else {
+            return $oPdf->output($sFilename, $target);
+        }
+    }
+
+    /**
+     * @param Html2Pdf $oPdf
+     * @param $sFilename
+     * @param $target
+     * @param $html
+     * @return mixed
+     */
+    public function outputDev(Html2Pdf $oPdf, $sFilename, $target, $html)
+    {
+        $sFilename = str_replace('.pdf', '.html', $sFilename);
+
+        switch($target) {
+            case 'I': {
+                // Send PDF to the standard output
+                if (ob_get_contents()) {
+                    $oPdf->pdf->Error('Some data has already been output, can\'t send PDF file');
+                }
+                if (php_sapi_name() != 'cli') {
+                    //We send to a browser
+                    header('Content-Type: text/html');
+                    if (headers_sent()) {
+                        $oPdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
+                    }
+                    header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
+                    header('Pragma: public');
+                    header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+                    header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+                    header('Content-Length: '.strlen($html));
+                    header('Content-Disposition: inline; filename="'.basename($sFilename).'";');
+                }
+                echo $html;
+                break;
+            }
+            case 'D': {
+                // Download PDF as file
+                if (ob_get_contents()) {
+                    $oPdf->pdf->Error('Some data has already been output, can\'t send PDF file');
+                }
+                header('Content-Description: File Transfer');
+                if (headers_sent()) {
+                    $oPdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
+                }
+                header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
+                header('Pragma: public');
+                header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+                header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+                // force download dialog
+                header('Content-Type: application/force-download');
+                header('Content-Type: application/octet-stream', false);
+                header('Content-Type: application/download', false);
+                header('Content-Type: text/html', false);
+                // use the Content-Disposition header to supply a recommended filename
+                header('Content-Disposition: attachment; filename="'.basename($sFilename).'";');
+                header('Content-Transfer-Encoding: binary');
+                header('Content-Length: '.strlen($html));
+                echo $html;
+                break;
+            }
+            case 'F': {
+                // Save PDF to a local file
+                $f = fopen($sFilename, 'wb');
+                if (!$f) {
+                    $oPdf->pdf->Error('Unable to create output file: '.$sFilename);
+                }
+                fwrite($f, $html, strlen($html));
+                fclose($f);
+                break;
+            }
+            case 'S': {
+                // Returns PDF as a string
+                return $html;
+            }
+            default: {
+                $oPdf->pdf->Error('Incorrect output destination: '.$target);
+            }
+        }
     }
 }

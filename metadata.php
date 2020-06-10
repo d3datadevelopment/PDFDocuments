@@ -72,7 +72,10 @@ $aModule = [
         [
             'template' => 'order_overview.tpl',
             'block'    => 'admin_order_overview_export',
-            'file'     => 'views/admin/blocks/order_overview.tpl'
+            'file'     => 'Application/views/admin/blocks/order_overview.tpl'
         ],
+    ],
+    'settings' => [
+        ['group' => $sModuleId.'main', 'name' => $sModuleId.'bDev', 'type' => 'bool',      'value' => false],
     ]
 ];
