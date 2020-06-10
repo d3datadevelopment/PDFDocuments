@@ -53,8 +53,9 @@
 		[{block name="articleCosts"}]
 		<table class="article_costs_table border-bottom">
 			<tr>
-				[{* ++++++Artikelzusammenfassung++++++ *}]
-				<td class="article_costs_table_paddingRight article_costs_table_td_width50 ">
+				[{block name="d3_article_costs_summary"}]
+				[{* ++++++Beschreibung der Kostensummierung++++++ *}]
+				<td class="article_costs_table_paddingRight article_costs_table_desc_width70 ">
 					<div class="order_sum fontSize12 border-bottom  order_article_PaddingBottom5">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_SUMBRUTTO"}]</div>
 				[{if $order->getFormattedDiscount() != 0}]
 					<div class="order_sum fontSize12 border-bottom spacing_order_info">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DISCOUNT"}]</div>
@@ -64,11 +65,11 @@
 					<div class="order_sum fontSize12 border-bottom spacing_order_info">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
 				[{/foreach}]
 					<div class="order_sum fontSize12 order_article_PaddingTop5">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DELIVERY"}]</div>
-					<div class="fontSize12 border-bottom spacing_order_info aligning order_article_costs_paddingRight66 order_article_costs_marginLeftSub3">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
+					<div class="order_sum fontSize12 border-bottom spacing_order_info">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
 					<div class="order_sum fontSize12 order_article_PaddingTop5 order_article_PaddingBottom5"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TOTALSUMBRUT"}]</strong></div>
 				</td>
-				[{* ++++++Kosten der Bestellung++++++ *}]
-				<td class="article_costs_table_td_width50">
+				[{* ++++++Kostensummierung++++++ *}]
+				<td class="article_costs_table_sum_width30">
 					<div class="order_sumNum aligning fontSize12 border-bottom  order_article_PaddingBottom5">[{$order->getFormattedTotalBrutSum()}] [{$currency->name}]</div>
 				[{if $order->getFormattedDiscount() != 0}]
 					<div class="spacing_order_info order_sumNum aligning fontSize12 border-bottom">-[{$order->getFormattedDiscount()}] [{$currency->name}]</div>
@@ -79,6 +80,7 @@
 					<div class="order_article_PaddingTop5 order_article_PaddingBottom5 order_sumNum aligning fontSize12 border-bottom">[{$lang->formatCurrency($deliveryPrice->getVATValue(), $currency)}] [{$currency->name}]</div>
 					<div class="order_article_PaddingTop5 order_article_PaddingBottom5 order_sumNum aligning fontSize12"><strong>[{$order->getFormattedTotalOrderSum()}] [{$currency->name}]</strong></div>
 				</td>
+				{/block}
 			</tr>
 		</table>
 	[{/block}]
