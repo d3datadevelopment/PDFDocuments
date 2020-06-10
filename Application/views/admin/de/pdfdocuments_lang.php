@@ -15,6 +15,10 @@
 $sLangName = "Deutsch";
 $aLang     = array(
     'charset'                                            => 'utf-8',
+
+    'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Grundeinstellungen',
+    'SHOP_MODULE_d3PdfDocumentsbDev'                     => 'Entwicklermodus',
+
     'ORDER_OVERVIEW_PDF_auftragsbestaetigung'            => 'Auftragsbestätigung',
     'ORDER_OVERVIEW_PDF_auftragsbestaetigung_TEXTAREA'   => 'Text für Auftragsbestätigung',
     'ORDER_OVERVIEW_PDF_AUFTRAGSNUMMER'                  => 'Auftragsbestätigung:',
