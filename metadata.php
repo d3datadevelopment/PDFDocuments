@@ -62,9 +62,13 @@ $aModule = [
         'd3invoice_pdf_conclusion.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/pdfPastThank.tpl',
         'd3_article_costs_summary.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/d3_article_costs_summary.tpl',
 
+        'd3pdfbase.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/base.tpl',
         'd3pdfheader.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/header.tpl',
         'd3pdffooter.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/footer.tpl',
+        'd3pdfaddressarea.tpl'          => 'd3/pdfdocuments/Application/views/tpl/documents/inc/addressarea.tpl',
+        'd3pdfbackaddress.tpl'          => 'd3/pdfdocuments/Application/views/tpl/documents/inc/backaddress.tpl',
         'd3din5008.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/din5008.tpl',
+        'd3pdfrulers.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/rulers.tpl',
         'd3pdfstyle.css'                => 'd3/pdfdocuments/out/src/css/pdfStyling.css'
     ],
     'events'                => [],

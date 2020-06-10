@@ -1,0 +1,1 @@
+[{$shop->getFielddata('oxname')}] - [{$shop->getFielddata('oxstreet')}] - [{$shop->getFielddata('oxzip')}] [{$shop->getFielddata('oxcity')}]
