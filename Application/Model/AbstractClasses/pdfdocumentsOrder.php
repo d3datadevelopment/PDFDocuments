@@ -22,6 +22,7 @@ use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface as o
 use \OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
 
 abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInterface
 {
@@ -86,9 +87,12 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     }
 
     /**
-     * @param $sFilename
-     * @param int $iSelLang
+     * @param        $sFilename
+     * @param int    $iSelLang
      * @param string $target
+     *
+     * @return mixed|string|void
+     * @throws Html2PdfException
      * @throws noBaseObjectSetException
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
@@ -98,6 +102,6 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
             throw $e;
         }
 
-        parent::genPdf($sFilename, $iSelLang, $target);
+        return parent::genPdf($sFilename, $iSelLang, $target);
     }
 }

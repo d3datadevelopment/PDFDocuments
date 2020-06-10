@@ -28,7 +28,7 @@ $sMetadataVersion = '2.0';
 
 $logo = (class_exists(d3utils::class) ? d3utils::getInstance()->getD3Logo() : 'D&sup3;');
 
-$sModuleId = 'pdfDocuments';
+$sModuleId = 'd3PdfDocuments';
 /**
  * Module information
  */
@@ -38,7 +38,6 @@ $aModule = [
         'de'        => $logo.' PDF-Dokumente aus HTML-Templates',
         'en'        => $logo.' PDF documents from HTML templates',
     ],
-    'thumbnail'     => 'picture.png',
     'version'       => '1.0',
     'author'        => 'D&sup3; Data Development (Inh.: Thomas Dartsch)',
     'email'         => 'support@shopmodule.com',
@@ -64,6 +63,7 @@ $aModule = [
 
         'd3pdfheader.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/header.tpl',
         'd3pdffooter.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/footer.tpl',
+        'd3din5008.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/din5008.tpl',
         'd3pdfstyle.css'                => 'd3/pdfdocuments/out/src/css/pdfStyling.css'
     ],
     'events'                => [],
