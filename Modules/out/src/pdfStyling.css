@@ -16,7 +16,7 @@ table{
   font-size: 12px;
 }
 .order_sum{
-  margin-left: 181px;
+  margin-left: 300px;
 }
 .order_sumNum{
   margin-right: -2.2px;
@@ -30,7 +30,7 @@ table{
 .paddingBottom{
   padding-bottom: 5px;
 }
-.spacing_order_info{
+.paddingTopBottom5{
   padding-bottom: 5px;
   padding-top: 5px;
 }

@@ -24,13 +24,18 @@ table{
 .border-bottom{
   border-bottom: solid 0.15mm #000;
 }
-.hermes{
+.paddingTop10{
+  padding-top: 10px
+}
+
+.paddingTop{
   padding-top: 5px;
 }
-.mercurius{
+.paddingBottom{
   padding-bottom: 5px;
 }
-.spacing_order_info{
+
+.paddingTopBottom5{
   padding-bottom: 5px;
   padding-top: 5px;
 }
@@ -55,6 +60,10 @@ table{
   width: 100%;
   margin-top: 8mm;
 }
+.paddingTop10{
+  padding-top: 10px;
+}
+
 .pdf_heading_width35{
   width: 35%;
 }
