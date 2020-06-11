@@ -1,5 +1,5 @@
 [{block name="pdfPastThankFile"}]
-    <table class="past_thank_width100 borderSpacingUnset">
+    <table class="past_thank_width100 borderSpacingUnset paddingTop10">
         <tr><td class="paddingTop15 past_thank_width100 fontSize12">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USED_PAYMENTMETHOD"}] [{$payment->getFieldData('oxdesc')}]</td></tr>
     [{* +++++++Individueller Zahlungstext+++++++ *}]
     [{if $order->oxorder__d3pdftextbestellbestaetigung->value}]

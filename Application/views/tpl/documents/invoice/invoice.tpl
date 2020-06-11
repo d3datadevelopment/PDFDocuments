@@ -36,15 +36,15 @@
             </tr>
         [{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
             <tr>
-                <td class="order_article_PaddingTop5 vertical-a order_article_PaddingBottom5"><div class='fontSize12 aligning order_article_listing_width_amount order_article_listing_paddingRight52'>[{$oOrderArticle->oxorderarticles__oxamount->value }]</div></td>
-                <td class="order_article_PaddingTop5 vertical-a order_article_PaddingBottom5"><div class='fontSize12 order_article_listing_width_desc'>
-                        [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
+                <td class="paddingTopBottom5 vertical-a"><div class='fontSize12 aligning order_article_listing_width_amount order_article_listing_paddingRight52'>[{$oOrderArticle->oxorderarticles__oxamount->value }]</div></td>
+                <td class="paddingTopBottom5 vertical-a"><div class='fontSize12 order_article_listing_width_desc'>
+                        [{$oOrderArticle->getFieldData('oxtitle')}] [{$oOrderArticle->getFieldData('oxselvariant')}]
                         <br>
-                        <span class="order_article_listing_fontSize9">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]</span>
+                        <span class="order_article_listing_fontSize9">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->getFieldData('oxartnum')}]</span>
                     </div></td>
-                <td class="order_article_PaddingTop5 vertical-a order_article_PaddingBottom5"><div class='aligning fontSize12 order_article_listing_width_ust'>[{$oOrderArticle->oxorderarticles__oxvat->value }]</div></td>
-                <td class="order_article_PaddingTop5 vertical-a order_article_PaddingBottom5"><div class='aligning fontSize12 order_article_listing_width_unitPrice'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</div></td>
-                <td class="order_article_PaddingTop5 vertical-a order_article_PaddingBottom5"><div class='aligning fontSize12 order_article_listing_width_total_Price'>[{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]</div></td>
+                <td class="paddingTopBottom5 vertical-a"><div class='aligning fontSize12 order_article_listing_width_ust'>[{$oOrderArticle->getFieldData('oxvat')}]</div></td>
+                <td class="paddingTopBottom5 vertical-a"><div class='aligning fontSize12 order_article_listing_width_unitPrice'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</div></td>
+                <td class="paddingTopBottom5 vertical-a"><div class='aligning fontSize12 order_article_listing_width_total_Price'>[{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]</div></td>
             </tr>
         [{/foreach}]
         </table>
@@ -54,7 +54,32 @@
 		<table class="article_costs_table border-bottom">
 			<tr>
 				[{block name="d3_article_costs_summary"}]
-					[{include file="d3_article_costs_summary.tpl"}]
+          [{* ++++++Beschreibung der Kostensummierung++++++ *}]
+          <td class="article_costs_table_paddingRight article_costs_table_desc_width70 ">
+              <div class="order_sum paddingTopBottom5 fontSize12 border-bottom">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_SUMBRUTTO"}]</div>
+              [{if $order->getFormattedDiscount() != 0}]
+              <div class="order_sum paddingTopBottom5 fontSize12 border-bottom">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DISCOUNT"}]</div>
+              [{/if}]
+              <div class="order_sum order_article_PaddingTop5 fontSize12">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_SUMNETTO"}]</div>
+              [{foreach from=$productVats key=VatKey item=oVat}]
+              <div class="order_sum paddingTopBottom5 fontSize12 border-bottom">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
+              [{/foreach}]
+              <div class="order_sum order_article_PaddingTop5 fontSize12">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_DELIVERY"}]</div>
+              <div class="order_sum paddingTopBottom5 fontSize12 border-bottom">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAX"}] [{$VatKey}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_PERCENTAGE"}] [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TAXPERCVALUE"}]</div>
+              <div class="order_sum paddingTopBottom5 fontSize12"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ORDERBILL_TOTALSUMBRUT"}]</strong></div>
+          </td>
+          [{* ++++++Kostensummierung++++++ *}]
+          <td class="article_costs_table_sum_width30">
+              <div class="order_sumNum paddingTopBottom5 aligning fontSize12 border-bottom">[{$order->getFormattedTotalBrutSum()}] [{$currency->name}]</div>
+              [{if $order->getFormattedDiscount() != 0}]
+              <div class="order_sumNum paddingTopBottom5 aligning fontSize12 border-bottom">-[{$order->getFormattedDiscount()}] [{$currency->name}]</div>
+              [{/if}]
+              <div class="order_sumNum order_article_PaddingTop5 aligning fontSize12">[{$order->getFormattedTotalNetSum()}] [{$currency->name}]</div>
+              <div class="order_sumNum paddingTopBottom5 aligning fontSize12 border-bottom">[{$lang->formatCurrency($oVat, $currency)}] [{$currency->name}]</div>
+              <div class="order_sumNum order_article_PaddingTop5 aligning fontSize12">[{$lang->formatCurrency($deliveryPrice->getNettoPrice(), $currency)}] [{$currency->name}]</div>
+              <div class="order_sumNum paddingTopBottom5 aligning fontSize12 border-bottom">[{$lang->formatCurrency($deliveryPrice->getVATValue(), $currency)}] [{$currency->name}]</div>
+              <div class="order_sumNum paddingTopBottom5 aligning fontSize12"><strong>[{$order->getFormattedTotalOrderSum()}] [{$currency->name}]</strong></div>
+          </td>
 				[{/block}]
 			</tr>
 		</table>
