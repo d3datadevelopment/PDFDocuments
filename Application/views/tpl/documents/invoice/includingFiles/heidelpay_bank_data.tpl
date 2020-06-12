@@ -5,7 +5,7 @@
     [{assign var="oPrePaymentData" value=$order->getHeidelpayBankTransferData()}]
         [{if $oPrePaymentData}]
             <div>
-                <h3 style="font-size: 16px;"><strong>[{oxmultilang ident="BANK_DETAILS"}]</strong></h3>
+                <h3 style="font-size: 16px; margin-bottom: -10px"><strong>[{oxmultilang ident="BANK_DETAILS"}]</strong></h3>
                 <p>
                     [{oxmultilang ident="D3_HEIDELPAY_BANK_INFO"}]<br>
                     [{oxmultilang ident="D3_HEIDELPAY_PURPOSE_OF_USE"}]<br/><br/>
@@ -16,7 +16,7 @@
                     <strong class="color">[{oxmultilang ident="D3HEIDELPAY_EMAIL_PREPAYMENT_REASON"}] [{$oPrePaymentData->Reference}]</strong>
                 </p>
             </div>
-            <br><br>
+            <br>
         [{/if}]
     [{/if}]
 [{/block}]
