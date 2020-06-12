@@ -179,6 +179,9 @@ table{
 .past_thank_width100{
   width: 100%;
 }
+.paddingBottomSub10{
+  padding-bottom: -10px;
+}
 .marginTop0{
   margin-top: 0;
 }
