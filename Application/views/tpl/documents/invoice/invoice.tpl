@@ -37,11 +37,15 @@
         [{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
             <tr>
                 <td class="paddingTopBottom5 vertical-a"><div class='fontSize12 aligning order_article_listing_width_amount order_article_listing_paddingRight52'>[{$oOrderArticle->oxorderarticles__oxamount->value }]</div></td>
-                <td class="paddingTopBottom5 vertical-a"><div class='fontSize12 order_article_listing_width_desc'>
+                <td class="paddingTopBottom5 vertical-a">
+                    <div class='fontSize12 order_article_listing_width_desc'>
                         [{$oOrderArticle->getFieldData('oxtitle')}] [{$oOrderArticle->getFieldData('oxselvariant')}]
                         <br>
-                        <span class="order_article_listing_fontSize9">[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->getFieldData('oxartnum')}]</span>
-                    </div></td>
+                        <span class="order_article_listing_fontSize9">
+                            [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->getFieldData('oxartnum')}]
+                        </span>
+                    </div>
+                </td>
                 <td class="paddingTopBottom5 vertical-a"><div class='aligning fontSize12 order_article_listing_width_ust'>[{$oOrderArticle->getFieldData('oxvat')}]</div></td>
                 <td class="paddingTopBottom5 vertical-a"><div class='aligning fontSize12 order_article_listing_width_unitPrice'>[{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]</div></td>
                 <td class="paddingTopBottom5 vertical-a"><div class='aligning fontSize12 order_article_listing_width_total_Price'>[{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]</div></td>

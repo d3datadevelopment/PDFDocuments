@@ -12,7 +12,6 @@
                     [{oxmultilang ident="D3HEIDELPAY_EMAIL_PREPAYMENT_ACCOUNTHOLDER"}] [{$oPrePaymentData->Holder}]<br/>
                     [{oxmultilang ident="D3HEIDELPAY_EMAIL_PREPAYMENT_IBAN"}] [{$oPrePaymentData->Iban}]<br/>
                     [{oxmultilang ident="D3HEIDELPAY_EMAIL_PREPAYMENT_BIC"}] [{$oPrePaymentData->Bic}]<br/>
-                    hier shortID: [{$oPrePaymentData->getShortId()}]
                     <strong>[{oxmultilang ident="D3HEIDELPAY_EMAIL_PREPAYMENT_AMOUNT"}] [{$order->getFormattedTotalOrderSum()}] [{$oPrePaymentData->Currency}]</strong><br/>
                     <strong class="color">[{oxmultilang ident="D3HEIDELPAY_EMAIL_PREPAYMENT_REASON"}] [{$oPrePaymentData->Reference}]</strong>
                 </p>
