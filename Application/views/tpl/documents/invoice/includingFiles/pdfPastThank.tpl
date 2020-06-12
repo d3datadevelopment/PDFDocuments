@@ -17,7 +17,7 @@
         [{d3modcfgcheck modid="d3heidelpay"}][{/d3modcfgcheck}]
         [{if $order->getHeidelpayBankTransferData()}]
             <tr>
-                <td class="eraseBug past_thank_width100 paddingTop10 fontSize12">
+                <td class="past_thank_width100 paddingTop10 fontSize12">
                     [{include file="d3Heidelpay_bank_data.tpl"}]
                 </td>
             </tr>
@@ -30,7 +30,7 @@
         [{/if}]
         [{**Schlusstext/ Abschied***}]
         <tr>
-            <td class="eraseBug past_thank_width100 fontSize12">
+            <td class="past_thank_width100 fontSize12">
                 [{oxmultilang ident="ORDER_OVERVIEW_PDF_GREETINGS_AUFTRAG_1"}]
             </td>
         </tr>
