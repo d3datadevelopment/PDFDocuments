@@ -15,7 +15,7 @@
         </tr>
     [{/if}]
         [{d3modcfgcheck modid="d3heidelpay"}][{/d3modcfgcheck}]
-        [{if $mod_d3heidelpay}]
+        [{if $order->getHeidelpayBankTransferData()}]
             <tr>
                 <td class="past_thank_width100 paddingTop10 fontSize12">
                     [{include file="d3Heidelpay_bank_data.tpl"}]
