@@ -179,6 +179,15 @@ table{
 .past_thank_width100{
   width: 100%;
 }
+.marginTop0{
+  margin-top: 0;
+}
+.marginLeftSub3{
+  padding-left: -3.5px;
+}
+.marginLeft3{
+  margin-left: 3px;
+}
 
 /* footer styling */
 .footer_parts{
