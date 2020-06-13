@@ -1,6 +1,8 @@
 [{assign var="pageset" value=$pageset|default:"new"}]
 [{assign var="orientation" value=$orientation|default:"P"}]
 [{assign var="format" value=$format|default:"A4"}]
+[{assign var="defaultPagePadding" value=","|explode:"45,20,20,25"}]
+[{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
 
 <style type="text/css">
     [{foreach from=$pdfBlock_style item="_block"}]
@@ -8,7 +10,7 @@
     [{/foreach}]
 </style>
 
-<page pageset="[{$pageset}]" orientation="[{$orientation}]" format="[{$format}]">
+<page backtop="[{$pagePadding.0}]mm" backright="[{$pagePadding.1}]mm" backbottom="[{$pagePadding.2}]mm" backleft="[{$pagePadding.3}]mm" pageset="[{$pageset}]" orientation="[{$orientation}]" format="[{$format}]">
     <page_header>
         [{foreach from=$pdfBlock_header item="_block"}]
             [{$_block}]

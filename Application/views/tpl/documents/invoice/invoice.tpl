@@ -1,33 +1,31 @@
 [{assign var="currency"      value=$order->getOrderCurrency()}]
 [{assign var="deliveryPrice" value= $order->getOrderDeliveryPrice()}]
 [{assign var="productVats"   value= $order->getProductVats(false)}]
+[{assign var="pagePadding"   value=","|explode:"45,20,20,25"}]
 
 [{capture append="pdfBlock_style"}]
-    [{include file="d3pdfstyle.css"}]
+    [{block name="pdfStyles"}]
+        [{include file="d3pdfstyles.css"}]
+    [{/block}]
 [{/capture}]
 
 [{capture append="pdfBlock_header"}]
-    [{block name="pdfTopingFile"}]
+    [{block name="pdfHeader"}]
         [{include file="d3pdfheader.tpl" showLogo=true}]
     [{/block}]
 [{/capture}]
 
 [{capture append="pdfBlock_content"}]
-    [{include file="d3pdfrulers.tpl"}]
-    [{include file="d3din5008.tpl"}]
+    [{*include file="d3pdfrulers.tpl" pagePadding=$pagePadding*}]
+    [{include file="d3foldmarks.tpl" pagePadding=$pagePadding}]
 
-    [{* +++++ main page part +++++ *}]
-    [{block name="pdfHeadingFile"}]
-        [{block name="pdfHeaderFile"}]
-            [{include file="d3pdfaddressarea.tpl" addressfile="d3invoice_pdf_addressarea.tpl"}]
-        [{/block}]
+    [{block name="pdfAddressArea"}]
+        [{include file="d3pdfaddressarea.tpl" addressfile="d3invoice_pdf_addressarea.tpl"}]
     [{/block}]
 
-
-
-    [{block name="pdfHeading"}]
+    [{block name="pdfInformations"}]
         <table class="fontSize12 pdf_heading_table marginBottom15" cellspacing="0">
-            [{block name="heading_owner_information"}]
+            [{block name="pdfContactInformations"}]
                 <tr>
                     <td class="pdf_heading_width35">
                         <div class="aligning"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_GET_IN_CONTACT"}]</strong></div>
@@ -116,9 +114,9 @@
 [{/capture}]
 
 [{capture append="pdfBlock_footer"}]
-    [{block name="pdfFooterFile"}]
+    [{block name="pdfFooter"}]
         [{include file="d3pdffooter.tpl"}]
     [{/block}]
 [{/capture}]
 
-[{include file="d3pdfbase.tpl"}]
+[{include file="d3pdfbase.tpl" pagePadding=$pagePadding}]

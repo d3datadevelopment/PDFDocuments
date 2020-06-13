@@ -1,12 +1,12 @@
-[{assign var="backaddressfile" value=$backaddressfile|default:"d3pdfbackaddress.tpl"}]
+[{assign var="backaddressfile" value=$backaddressfile|default:"d3pdfreturnaddress.tpl"}]
 
 <div class="addressarea">
-    <div class="backaddress">
+    <div class="returnAddress">
         <div>
             [{include file=$backaddressfile}]
         </div>
     </div>
-    <div class="recipientaddress">
+    <div class="recipientAddress">
         [{include file=$addressfile}]
     </div>
 </div>
