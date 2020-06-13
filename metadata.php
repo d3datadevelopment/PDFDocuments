@@ -35,8 +35,8 @@ $sModuleId = 'd3PdfDocuments';
 $aModule = [
     'id'            => $sModuleId,
     'title'         => [
-        'de'        => $logo.' PDF-Dokumente aus HTML-Templates',
-        'en'        => $logo.' PDF documents from HTML templates',
+        'de'        => $logo.' PDF-Dokumente',
+        'en'        => $logo.' PDF documents',
     ],
     'version'       => '1.0',
     'author'        => 'D&sup3; Data Development (Inh.: Thomas Dartsch)',
@@ -62,14 +62,17 @@ $aModule = [
         'd3invoice_pdf_conclusion.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/pdfPastThank.tpl',
         'd3_article_costs_summary.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/d3_article_costs_summary.tpl',
 
-        'd3pdfbase.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/base.tpl',
-        'd3pdfheader.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/header.tpl',
-        'd3pdffooter.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/footer.tpl',
-        'd3pdfaddressarea.tpl'          => 'd3/pdfdocuments/Application/views/tpl/documents/inc/addressarea.tpl',
-        'd3pdfbackaddress.tpl'          => 'd3/pdfdocuments/Application/views/tpl/documents/inc/backaddress.tpl',
-        'd3din5008.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/din5008.tpl',
-        'd3pdfrulers.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/rulers.tpl',
-        'd3pdfstyle.css'                => 'd3/pdfdocuments/out/src/css/pdfStyling.css'
+        'd3pdfbase.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/base.tpl',
+        'd3pdfheader.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/header.tpl',
+        'd3pdffooter.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/footer.tpl',
+        'd3pdfreturnaddress.tpl'        => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/returnaddress.tpl',
+
+        'd3pdfaddressarea.tpl'          => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/addressarea.tpl',
+        'd3foldmarks.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/foldmarks.tpl',
+
+        'd3pdfstyles.css'               => 'd3/pdfdocuments/out/src/css/pdfStyling.css',
+
+        'd3pdfrulers.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/helper/rulers.tpl',
     ],
     'events'                => [],
     'blocks'                => [

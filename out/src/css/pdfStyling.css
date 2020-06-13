@@ -1,3 +1,44 @@
+.header {
+  padding: 5mm;
+  height: 35mm;
+  width: 100%;
+  background-color: lightgreen;
+  position: relative;
+}
+
+.header img.logo {
+  float: right;
+  margin: 10mm;
+}
+
+.addressarea {
+  left: 0;
+  width: 80mm;
+  height: 45mm;
+  background-color: lightpink;
+  position: relative;
+}
+
+.addressarea .returnAddress,
+.addressarea .recipientAddress {
+  position: relative;
+}
+
+.addressarea .returnAddress {
+  height: 17.7mm;
+  background-color: lightyellow;
+  font-size: 8px;
+}
+
+.addressarea .returnAddress div {
+  padding-top: 3mm;
+}
+
+.addressarea .recipientAddress {
+  height: 27.3mm;
+  background-color: lightcyan;
+}
+
 /*debug hilfe*/
 .eraseBug{
   border: dashed blueviolet 1px;
@@ -35,48 +76,6 @@ table{
   padding-top: 5px;
 }
 
-/*pdf_header*/
-.pdf_header_positioning{
-  padding: 5mm;
-  height: 35mm;
-  width: 100%;
-  background-color: lightgreen;
-  position: relative;
-}
-
-.pdf_header_positioning img {
-  float: right;
-  margin: 10mm;
-}
-
-.addressarea {
-  left: 20mm;
-  width: 85mm;
-  height: 45mm;
-  background-color: lightpink;
-  position: relative;
-}
-
-page .addressarea .backaddress,
-page .addressarea .recipientaddress {
-  position: relative;
-  margin-left: 5mm;
-}
-
-page .addressarea .backaddress {
-  height: 17.7mm;
-  background-color: lightyellow;
-  font-size: 8px;
-}
-
-page .addressarea .backaddress div {
-  padding-top: 3mm;
-}
-
-page .addressarea .recipientaddress {
-  height: 27.3mm;
-  background-color: lightcyan;
-}
 
 /*pdf_footer*/
 .pdf_footer_table{
