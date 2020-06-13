@@ -39,6 +39,34 @@
   background-color: lightcyan;
 }
 
+.informations {
+  width: 75mm;
+  background-color: greenyellow;
+  left: 100mm;
+  top: 5mm;
+  position: absolute;
+}
+
+.footer{
+  width: 100%;
+  font-size: 9px;
+  margin: 0;
+  position: relative;
+}
+
+.footer table {
+  border-top: solid 1px #000;
+  width: 165mm;
+  position: relative;
+}
+
+.footerLeft,
+.footerCenter,
+.footerRight {
+  width: 33%;
+  padding: 0 2mm;
+}
+
 /*debug hilfe*/
 .eraseBug{
   border: dashed blueviolet 1px;
@@ -78,12 +106,6 @@ table{
 
 
 /*pdf_footer*/
-.pdf_footer_table{
-  width: 688px;
-  font-size: 9px;
-  margin: 0 30px 0 30px;
-  border-top: solid 1px #000;
-}
 
 /*pdf_heading*/
 .pdf_heading_table{

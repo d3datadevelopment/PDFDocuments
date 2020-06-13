@@ -1,4 +1,4 @@
-[{assign var="defaultPagePadding" value=","|explode:"45,20,20,25"}]
+[{assign var="defaultPagePadding" value=","|explode:"45,20,10,25"}]
 [{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
 
 [{* rulers *}]
