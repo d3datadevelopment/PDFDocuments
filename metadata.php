@@ -68,7 +68,8 @@ $aModule = [
         'd3pdfreturnaddress.tpl'        => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/returnaddress.tpl',
 
         'd3pdfaddressarea.tpl'          => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/addressarea.tpl',
-        'd3foldmarks.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/foldmarks.tpl',
+        'd3pdfinformations.tpl'         => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/informations.tpl',
+        'd3pdffoldmarks.tpl'            => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/foldmarks.tpl',
 
         'd3pdfstyles.css'               => 'd3/pdfdocuments/out/src/css/pdfStyling.css',
 

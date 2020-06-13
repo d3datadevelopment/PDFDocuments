@@ -1,12 +1,5 @@
-[{assign var="defaultPagePadding" value=","|explode:"45,20,20,25"}]
+[{assign var="defaultPagePadding" value=","|explode:"45,20,10,25"}]
 [{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
-
-[{* fold marks *}]
-<div class="marks foldtop">a</div>
-<div class="marks foldbottom">b</div>
-
-[{* punch mark *}]
-<div class="marks punch">c</div>
 
 <style type="text/css">
     .marks {
@@ -18,15 +11,22 @@
         border-top: 1px solid silver;
     }
 
-    .marks.foldtop {
+    .foldtop {
         top: [{math equation="top - padding" top=105 padding=$pagePadding.0}]mm
     }
 
-    .marks.foldbottom {
+    .foldbottom {
         top: [{math equation="top - padding" top=210 padding=$pagePadding.0}]mm
     }
 
-    .marks.punch {
+    .punch {
         top: [{math equation="top - padding" top=148.5 padding=$pagePadding.0}]mm
     }
 </style>
+
+[{* fold marks *}]
+<div class="marks foldtop"></div>
+<div class="marks foldbottom"></div>
+
+[{* punch mark *}]
+<div class="marks punch"></div>
