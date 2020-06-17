@@ -199,10 +199,18 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         // forced filename from setFilename()
         if ($this->filename) {
-            return $this->addFilenameExtension($this->filename);
+            return $this->addFilenameExtension(
+                $this->makeValidFileName(
+                    $this->filename
+                )
+            );
         }
 
-        return $this->addFilenameExtension($this->getTypeForFilename());
+        return $this->addFilenameExtension(
+            $this->makeValidFileName(
+                $this->getTypeForFilename()
+            )
+        );
     }
 
     /**
