@@ -60,7 +60,6 @@ $aModule = [
         'd3invoiceNoLogo_pdf.tpl'       => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/invoiceNoLogo.tpl',
         'd3invoice_pdf_addressarea.tpl' => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/pdfHeader.tpl',
         'd3invoice_pdf_conclusion.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/pdfPastThank.tpl',
-        'd3_article_costs_summary.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/d3_article_costs_summary.tpl',
 
         'd3pdfbase.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/base.tpl',
         'd3pdfheader.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/header.tpl',

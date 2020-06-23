@@ -111,10 +111,12 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
     {
         $filename = parent::getFilename();
 
-        return str_replace(
+        $filename = str_replace(
             $this->getOrder()->getFieldData('oxordernr'),
             $this->getOrder()->getFieldData('oxbillnr'),
             $filename
         );
+
+        return $this->makeValidFileName($filename);
     }
 }

@@ -69,19 +69,25 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     {
         // forced filename from setFilename()
         if ($this->filename) {
-            return $this->addFilenameExtension($this->filename);
+            return $this->addFilenameExtension(
+                $this->makeValidFileName(
+                    $this->filename
+                )
+            );
         }
 
         $sTrimmedBillName = trim($this->getOrder()->getFieldData('oxbilllname'));
 
         return $this->addFilenameExtension(
-            implode(
-                '_',
-                [
-                    $this->getTypeForFilename(),
-                    $this->getOrder()->getFieldData('oxordernr'),
-                    $sTrimmedBillName
-                ]
+            $this->makeValidFileName(
+                implode(
+                    '_',
+                    [
+                        $this->getTypeForFilename(),
+                        $this->getOrder()->getFieldData('oxordernr'),
+                        $sTrimmedBillName
+                    ]
+                )
             )
         );
     }
