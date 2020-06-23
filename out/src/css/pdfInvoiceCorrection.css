@@ -1,9 +1,27 @@
-.invoiceCorrection_width_40{
-  width: 40%;
+.invoiceCorrection_pdf_heading_table{
+  width: 678px;
+  margin-top: 8mm;
 }
-.invoiceCorrection_width_60{
+.invoiceCorrection_width_20{
+  width: 20%;
+}
+.invoiceCorrection_width_80{
+  width: 80%
+}
+.iC_width11{
+  width: 11%;
+}
+.iC_width29{
+  width: 29%;
+}
+.iC_width60{
   width: 60%;
 }
+
+.iC_paddingBottom10{
+  padding-bottom: 10px;
+}
+
 .invoiceCorrection_font8{
   font-size: 8px;
 }
@@ -16,12 +34,18 @@
 .invoiceCorrection_spacingLeft20{
   margin-left: 73.6px;
 }
+.margin-top7{
+  margin-top: 7px;
+}
 
 .invoiceCorrectionPaddingTop4{
   padding-top: 4px;
 }
 .invoiceCorrectionPaddingTop5{
   padding-top: 5px;
+}
+.paddingTop20{
+  padding-top: 20px;
 }
 
 .invoiceCorrectionPaddingBottom20{
