@@ -26,7 +26,7 @@ use OxidEsales\Eshop\Application\Model as OxidModel;
  */
 $sMetadataVersion = '2.0';
 
-$logo = (class_exists(d3utils::class) ? d3utils::getInstance()->getD3Logo() : 'D&sup3;');
+$logo = '<svg style="height:1em;width:1em"><image xlink:href="https://logos.oxidmodule.com/d3logo.svg" style="height:1em;width:1em" /></svg>';
 
 $sModuleId = 'd3PdfDocuments';
 /**
@@ -38,7 +38,7 @@ $aModule = [
         'de'        => $logo.' PDF-Dokumente',
         'en'        => $logo.' PDF documents',
     ],
-    'version'       => '1.0',
+    'version'       => '0.1',
     'author'        => 'D&sup3; Data Development (Inh.: Thomas Dartsch)',
     'email'         => 'support@shopmodule.com',
     'url'           => 'http://www.oxidmodule.com/',
@@ -81,9 +81,14 @@ $aModule = [
             'template' => 'order_overview.tpl',
             'block'    => 'admin_order_overview_export',
             'file'     => 'Application/views/admin/blocks/order_overview.tpl'
-        ],
+        ]
     ],
     'settings' => [
-        ['group' => $sModuleId.'main', 'name' => $sModuleId.'bDev', 'type' => 'bool',      'value' => false],
+        [
+            'group' => $sModuleId.'main', 
+            'name' => $sModuleId.'bDev', 
+            'type' => 'bool',
+            'value' => false
+        ]
     ]
 ];
