@@ -14,20 +14,6 @@
             </td>
         </tr>
     [{/if}]
-        [{d3modcfgcheck modid="d3heidelpay"}][{/d3modcfgcheck}]
-        [{if $order->getHeidelpayBankTransferData()}]
-            <tr>
-                <td class="past_thank_width100 paddingTop10 fontSize12">
-                    [{include file="d3Heidelpay_bank_data.tpl"}]
-                </td>
-            </tr>
-        [{else}]
-            <tr>
-                <td class="past_thank_width100 paddingTop10 fontSize12">
-                    [{$payment->getFieldData('d3shortdescpdf')|nl2br}]
-                </td>
-            </tr>
-        [{/if}]
         [{**Schlusstext/ Abschied***}]
         <tr>
             <td class="past_thank_width100 fontSize12">
