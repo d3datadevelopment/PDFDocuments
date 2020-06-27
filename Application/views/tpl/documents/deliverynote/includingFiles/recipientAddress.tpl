@@ -45,7 +45,7 @@
 	<table class="fontSize12" cellspacing="0">
 		<tr>
 			<td>
-				<div style="width: 300px; padding-bottom: 20px" class="heading_order_paddingTop22 heading_order_fontSize15"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYNOTE"}][{$order->oxorder__oxordernr->value}]</strong></div>
+				<div style="width: 300px; padding-bottom: 20px"><strong>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYNOTE"}][{$order->oxorder__oxordernr->value}]</strong></div>
 			</td>
 		</tr>
 		<tr>

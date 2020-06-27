@@ -2,20 +2,20 @@
   padding: 5mm;
   height: 35mm;
   width: 100%;
-  background-color: lightgreen;
   position: relative;
 }
 
 .header img.logo {
   float: right;
   margin: 10mm;
+  margin-right: 0;
 }
 
-.addressarea {
+.addressarea,
+.deliveryaddress {
   left: 0;
   width: 80mm;
   height: 45mm;
-  background-color: lightpink;
   position: relative;
 }
 
@@ -26,7 +26,6 @@
 
 .addressarea .returnAddress {
   height: 17.7mm;
-  background-color: lightyellow;
   font-size: 8px;
 }
 
@@ -36,27 +35,39 @@
 
 .addressarea .recipientAddress {
   height: 27.3mm;
-  background-color: lightcyan;
 }
 
 .informations {
   width: 75mm;
-  background-color: greenyellow;
-  left: 100mm;
+  right: 0;
   top: 5mm;
   position: absolute;
 }
 
+.deliveryaddress {
+  margin-top: 10mm;
+  height: 27.3mm;
+}
+
+.salutation {
+  margin-top: 5mm;
+}
+
+.salutation .documentnumber {
+  font-weight: bold;
+}
+
 .footer{
-  width: 100%;
+  width: 173mm;
   font-size: 9px;
-  margin: 0;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 .footer table {
   border-top: solid 1px #000;
-  width: 165mm;
+  width: 100%;
   position: relative;
 }
 
@@ -144,9 +155,6 @@ table{
 .heading_order_paddingTopSub5{
   padding-top: -5px;
 }
-.heading_order_paddingTop1{
-  padding-top: 1mm;
-}
 .heading_order_fontSize15{
   font-size: 15px;
 }
@@ -170,6 +178,61 @@ table{
 }
 
 /*order_article_listing*/
+.article_table {
+  width: 100%;
+  margin-top: 5mm;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.article_table th,
+.article_table td {
+  padding-bottom: 2mm;
+  vertical-align: top;
+}
+.article_table th {
+  border-bottom: solid 0.15mm #000;
+  font-weight: normal;
+  font-size: 11px;
+}
+.article_table td {
+  padding-top: 2mm;
+  font-size: 12px;
+}
+.article_table th.amount,
+.article_table td.amount,
+.article_table th.tax,
+.article_table td.tax {
+  width: 10%;
+}
+.article_table th.tax,
+.article_table td.tax {
+  text-align: right;
+  padding-right: 0;
+}
+.article_table th.description,
+.article_table td.description {
+  width: 50%;
+}
+.article_table td.description .artnr {
+  font-size: 9px;
+}
+.article_table th.unitPrice,
+.article_table td.unitPrice,
+.article_table th.totalPrice,
+.article_table td.totalPrice {
+  width: 15%;
+  text-align: right;
+}
+.article_table td.amount {
+  text-align: right;
+  padding-right: 10mm;
+}
+.article_table td.unitPrice,
+.article_table td.totalPrice {
+  text-align: right;
+  padding-right: 0;
+}
+
 .order_article_listing_width_amount{
   width: 20px;
 }
