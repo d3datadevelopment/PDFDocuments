@@ -51,13 +51,15 @@ $aModule = [
 
         'd3deliverynote_pdf.tpl'        => 'd3/pdfdocuments/Application/views/tpl/documents/deliverynote/deliverynote.tpl',
         'd3deliverynoteNoLogo_pdf.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/deliverynote/deliverynoteNoLogo.tpl',
-        'd3delnote_pdf_addressarea.tpl' => 'd3/pdfdocuments/Application/views/tpl/documents/deliverynote/includingFiles/recipientAddress.tpl',
+        'd3delnote_pdf_informations.tpl'=> 'd3/pdfdocuments/Application/views/tpl/documents/deliverynote/includingFiles/informations.tpl',
+        'd3delnote_pdf_recipient.tpl'   => 'd3/pdfdocuments/Application/views/tpl/documents/deliverynote/includingFiles/recipientAddress.tpl',
+        'd3delnote_pdf_salutation.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/deliverynote/includingFiles/salutation.tpl',
         'd3delnote_pdf_conclusion.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/deliverynote/includingFiles/conclusion.tpl',
         'd3delnote_pdf_style.css'       => 'd3/pdfdocuments/out/src/css/deliverynote.css',
 
         'd3invoice_pdf.tpl'             => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/invoice.tpl',
         'd3invoiceNoLogo_pdf.tpl'       => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/invoiceNoLogo.tpl',
-        'd3invoice_pdf_addressarea.tpl' => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/recipientAddress.tpl',
+        'd3invoice_pdf_informations.tpl'=> 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/informations.tpl',
         'd3invoice_pdf_salutation.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/salutation.tpl',
         'd3invoice_pdf_conclusion.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/includingFiles/conclusion.tpl',
 
@@ -67,6 +69,7 @@ $aModule = [
         'd3pdfreturnaddress.tpl'        => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/returnaddress.tpl',
 
         'd3pdfaddressarea.tpl'          => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/addressarea.tpl',
+        'd3pdfrecipientaddress.tpl'     => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/recipientAddress.tpl',
         'd3pdfinformations.tpl'         => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/informations.tpl',
         'd3pdfdeladdress.tpl'           => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/deliveryaddress.tpl',
         'd3pdfarticlelist.tpl'          => 'd3/pdfdocuments/Application/views/tpl/documents/inc/elements/articlelist.tpl',

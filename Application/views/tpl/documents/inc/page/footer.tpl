@@ -1,8 +1,8 @@
-[{assign var="defaultPagePadding" value=","|explode:"45,20,10,25"}] [{* top, right, bottom, left *}]
+[{assign var="defaultPagePadding" value=","|explode:"45,15,25,25"}] [{* top, right, bottom, left *}]
 [{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
 
 [{block name="pdfFooter"}]
-    <div class="footer" style="margin: 0 [{$pagePadding.1}]mm [{$pagePadding.2}]mm [{$pagePadding.3}]mm">
+    <div class="footer" style="margin: 0 [{$pagePadding.1}]mm 10mm [{$pagePadding.3}]mm">
         <table>
             <tr>
                 [{block name="pdfFooterLeft"}]

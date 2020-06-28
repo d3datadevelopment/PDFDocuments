@@ -36,6 +36,17 @@
 .addressarea .recipientAddress {
   height: 27.3mm;
 }
+.addressarea .recipientAddress .location,
+.deliveryaddress .location {
+  font-weight: bold;
+}
+.addressarea .recipientAddress .country {
+  padding-top: 5mm;
+}
+.deliveryaddress .headline {
+  font-size: 10px;
+  padding-bottom: 2mm;
+}
 
 .informations {
   width: 75mm;
@@ -76,6 +87,23 @@
 .footerRight {
   width: 33%;
   padding: 0 2mm;
+}
+
+.contactinformations,
+.bankaccountinformations,
+.documentinformations {
+  margin-bottom: 5mm;
+}
+.contactinformations div,
+.bankaccountinformations div,
+.documentinformations div {
+  text-align: right;
+  font-size: 11px;
+}
+.contactinformations div.headline,
+.bankaccountinformations div.headline,
+.documentinformations div.headline {
+  font-weight: bold;
 }
 
 /*debug hilfe*/
@@ -178,61 +206,85 @@ table{
 }
 
 /*order_article_listing*/
-.article_table {
+.article_table,
+.article_table_prices {
   width: 100%;
   margin-top: 5mm;
   border-spacing: 0;
   border-collapse: collapse;
 }
 .article_table th,
-.article_table td {
+.article_table td,
+.article_table_prices th,
+.article_table_prices td {
   padding-bottom: 2mm;
   vertical-align: top;
 }
-.article_table th {
+.article_table th,
+.article_table_prices th {
   border-bottom: solid 0.15mm #000;
   font-weight: normal;
   font-size: 11px;
 }
-.article_table td {
+.article_table td,
+.article_table_prices td {
   padding-top: 2mm;
   font-size: 12px;
 }
 .article_table th.amount,
-.article_table td.amount,
-.article_table th.tax,
-.article_table td.tax {
+.article_table td.amount {
   width: 10%;
 }
-.article_table th.tax,
-.article_table td.tax {
+.article_table_prices th.amount,
+.article_table_prices td.amount,
+.article_table_prices th.tax,
+.article_table_prices td.tax {
+  width: 10%;
+}
+.article_table_prices th.tax,
+.article_table_prices td.tax {
   text-align: right;
   padding-right: 0;
 }
 .article_table th.description,
 .article_table td.description {
+  width: 90%;
+}
+.article_table_prices th.description,
+.article_table_prices td.description {
   width: 50%;
 }
-.article_table td.description .artnr {
+.article_table td.description .artnr,
+.article_table_prices td.description .artnr {
   font-size: 9px;
 }
-.article_table th.unitPrice,
-.article_table td.unitPrice,
-.article_table th.totalPrice,
-.article_table td.totalPrice {
+.article_table_prices th.unitPrice,
+.article_table_prices td.unitPrice,
+.article_table_prices th.totalPrice,
+.article_table_prices td.totalPrice {
   width: 15%;
   text-align: right;
 }
-.article_table td.amount {
+.article_table td.amount,
+.article_table_prices td.amount {
   text-align: right;
   padding-right: 10mm;
 }
-.article_table td.unitPrice,
-.article_table td.totalPrice {
+.article_table_prices td.unitPrice,
+.article_table_prices td.totalPrice {
   text-align: right;
   padding-right: 0;
 }
 
+.conclusion_table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  padding-top: 10mm
+}
+.conclusion_table td {
+  font-size: 12px;
+}
 .order_article_listing_width_amount{
   width: 20px;
 }
@@ -280,6 +332,7 @@ table{
 .article_costs_table{
   width: 100%;
   border-top: solid 0.15mm #000;
+  border-bottom: solid 0.15mm #000;
 }
 .article_costs_table_desc_width70{
   width: 70%;
