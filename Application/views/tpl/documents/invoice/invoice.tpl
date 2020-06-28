@@ -1,7 +1,8 @@
 [{assign var="currency"      value=$order->getOrderCurrency()}]
-[{assign var="deliveryPrice" value= $order->getOrderDeliveryPrice()}]
-[{assign var="productVats"   value= $order->getProductVats(false)}]
-[{assign var="pagePadding"   value=","|explode:"45,15,10,25"}] [{* top, right, bottom, left *}]
+[{assign var="deliveryPrice" value=$order->getOrderDeliveryPrice()}]
+[{assign var="productVats"   value=$order->getProductVats(false)}]
+[{assign var="pagePadding"   value=","|explode:"45,15,25,25"}] [{* top, right, bottom, left *}]
+[{assign var="showLogo"      value=$showLogo|default:true}]
 
 [{capture append="pdfBlock_style"}]
     [{block name="pdfStyles"}]
@@ -11,20 +12,20 @@
 
 [{capture append="pdfBlock_header"}]
     [{block name="pdfHeader"}]
-        [{include file="d3pdfheader.tpl" showLogo=true}]
+        [{include file="d3pdfheader.tpl" showLogo=$showLogo}]
     [{/block}]
 [{/capture}]
 
 [{capture append="pdfBlock_content"}]
-    [{*include file="d3pdfrulers.tpl" pagePadding=$pagePadding*}]
+    [{* include file="d3pdfrulers.tpl" pagePadding=$pagePadding *}]
     [{include file="d3pdffoldmarks.tpl" pagePadding=$pagePadding}]
 
     [{block name="pdfAddressArea"}]
-        [{include file="d3pdfaddressarea.tpl" addressfile="d3invoice_pdf_addressarea.tpl"}]
+        [{include file="d3pdfaddressarea.tpl"}]
     [{/block}]
 
     [{block name="pdfInformations"}]
-        [{include file="d3pdfinformations.tpl"}]
+        [{include file="d3pdfinformations.tpl" documentinformationfile="d3invoice_pdf_informations.tpl"}]
     [{/block}]
 
     [{block name="pdfDeliveryAddress"}]

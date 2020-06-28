@@ -8,5 +8,5 @@
     [{/if}]
     <div class="street">[{$order->getFieldData('oxbillstreet')}] [{$order->getFieldData('oxbillstreetnr')}]</div>
     <div class="location">[{$order->getFieldData('oxbillzip')}] [{$order->getFieldData('oxbillcity')}]</div>
-    <div class="country">[{$shop->getFieldData('oxcountry')}]</div>
+    <div class="country">[{$order->getFieldData('oxbillcountry')}]</div>
 [{/block}]

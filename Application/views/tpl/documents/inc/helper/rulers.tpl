@@ -1,4 +1,4 @@
-[{assign var="defaultPagePadding" value=","|explode:"45,20,10,25"}] [{* top, right, bottom, left *}]
+[{assign var="defaultPagePadding" value=","|explode:"45,15,25,25"}] [{* top, right, bottom, left *}]
 [{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
 
 [{* rulers *}]
@@ -7,7 +7,7 @@
 <style type="text/css">
     .rulerItemHorizontal {
         position: absolute;
-        top: 0;
+        top: -[{$pagePadding.0}]mm;
         width: 0;
         height: 7px;
         color: blue;
@@ -33,7 +33,9 @@
 
 [{* vertical *}]
 [{section name=rulerItemsVertical start=0 step=10 loop=600}]
-    <div class="rulerItemVertical" style="top: [{$smarty.section.rulerItemsVe.index}]mm">[{$smarty.section.rulerItemsVertical.index}]</div>
+    <div class="rulerItemVertical" style="top: [{math equation="top - padding" top=$smarty.section.rulerItemsVertical.index padding=$pagePadding.0}]mm">
+        [{$smarty.section.rulerItemsVertical.index}]
+    </div>
 [{/section}]
 
 
