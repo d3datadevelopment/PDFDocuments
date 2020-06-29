@@ -2,7 +2,8 @@
     <div class="documentinformations">
         [{block name="pdfDocumentInformations"}]
             <div>
-                [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DATE"}][{$smarty.now|date_format:"%d.%m.%Y"}]
+                [{assign var="dateFormat" value='D3_PDFDOCUMENTS_DATE_FORMAT'|oxmultilangassign}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_DATE"}] [{$smarty.now|date_format:$dateFormat}]
             </div>
         [{/block}]
     </div>

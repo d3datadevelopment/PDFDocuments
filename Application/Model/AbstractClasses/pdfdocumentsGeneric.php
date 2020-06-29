@@ -257,7 +257,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function renderTemplateFromAdmin()
     {
-        return true;
+        return false;
     }
 
     public function output(Html2Pdf $oPdf, $sFilename, $target, $html)

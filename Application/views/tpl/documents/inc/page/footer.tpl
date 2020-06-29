@@ -17,18 +17,18 @@
                 [{/block}]
                 [{block name="pdfFooterCenter"}]
                     <td class="footerCenter">
-                        <div>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_MANAGINGDIRECTOR"}][{$shop->oxshops__oxfname->value}] [{$shop->oxshops__oxlname->value}]</div>
-                        <div>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_COURT"}] [{$shop->oxshops__oxcourt->value}]</div>
-                        <div>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_HRBNR"}][{$shop->oxshops__oxhrbnr->value}]</div>
-                        <div>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USTID"}][{$shop->oxshops__oxvatnumber->value}]</div>
+                        <div>[{oxmultilang ident="D3_PDFDOCUMENTS_MANAGINGDIRECTOR"}] [{$shop->getFieldData('oxfname')}] [{$shop->getFieldData('oxlname')}]</div>
+                        <div>[{oxmultilang ident="D3_PDFDOCUMENTS_COURT"}] [{$shop->getFieldData('oxcourt')}]</div>
+                        <div>[{oxmultilang ident="D3_PDFDOCUMENTS_HRBNR"}] [{$shop->getFieldData('oxhrbnr')}]</div>
+                        <div>[{oxmultilang ident="D3_PDFDOCUMENTS_USTID"}] [{$shop->getFieldData('oxvatnumber')}]</div>
                     </td>
                 [{/block}]
                 [{block name="pdfFooterRight"}]
                     <td class="footerRight">
-                        <div>[{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_BANKVERBINDUNG"}]</div>
-                        <div>[{$shop->oxshops__oxbankname->value}]</div>
-                        <div>[{oxmultilang ident="ORDER_OVERVIEW_PDF_ACCOUNTNR"}][{$shop->oxshops__oxibannumber->value}]</div>
-                        <div>[{oxmultilang ident="ORDER_OVERVIEW_PDF_BANKCODE"}][{$shop->oxshops__oxbiccode->value}]</div>
+                        <div>[{oxmultilang ident="D3_PDFDOCUMENTS_BANK_ACCOUNT"}]</div>
+                        <div>[{$shop->getFieldData('oxbankname')}]</div>
+                        <div>[{oxmultilang ident="D3_PDFDOCUMENTS_BANK_ACCOUNTNR"}] [{$shop->getFieldData('oxibannumber')}]</div>
+                        <div>[{oxmultilang ident="D3_PDFDOCUMENTS_BANK_BANKCODE"}] [{$shop->getFieldData('oxbiccode')}]</div>
                     </td>
                 [{/block}]
             </tr>

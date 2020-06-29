@@ -4,20 +4,20 @@
     <table class="article_table[{if $showPrices}]_prices[{/if}]">
         <tr>
             <th class="amount">
-                [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_AMOUNT"}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_AMOUNT"}]
             </th>
             <th class="description">
-                [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DESCRIPTION"}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_DESCRIPTION"}]
             </th>
             [{if $showPrices}]
                 <th class="tax">
-                    [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USTPERCENTAGE"}]
+                    [{oxmultilang ident="D3_PDFDOCUMENTS_USTPERCENTAGE"}]
                 </th>
                 <th class="unitPrice">
-                    [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_UNITPRICE"}]
+                    [{oxmultilang ident="D3_PDFDOCUMENTS_UNITPRICE"}]
                 </th>
                 <th class="totalPrice">
-                    [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_TOTALPRICE"}]
+                    [{oxmultilang ident="D3_PDFDOCUMENTS_TOTALPRICE"}]
                 </th>
             [{/if}]
         </tr>
@@ -30,7 +30,7 @@
                     [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
                     <br>
                     <span class="artnr">
-                        [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
+                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
                     </span>
                 </td>
                 [{if $showPrices}]
@@ -55,7 +55,7 @@
                     [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
                     <br>
                     <span class="artnr">
-                        [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
+                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
                     </span>
                 </td>
                 [{if $showPrices}]
@@ -80,7 +80,7 @@
                     [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
                     <br>
                     <span class="artnr">
-                        [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
+                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
                     </span>
                 </td>
                 [{if $showPrices}]
@@ -105,7 +105,7 @@
                     [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
                     <br>
                     <span class="artnr">
-                        [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
+                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
                     </span>
                 </td>
                 [{if $showPrices}]

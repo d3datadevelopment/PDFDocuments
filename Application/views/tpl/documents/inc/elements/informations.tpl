@@ -2,16 +2,16 @@
     <div class="contactinformations">
         [{block name="pdfContactInformations"}]
             <div class="headline">
-                [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_GET_IN_CONTACT"}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_GET_IN_CONTACT"}]
             </div>
             <div>
-                [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_TELEFON"}][{$shop->getFieldData('oxtelefon')}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_TELEFON"}] [{$shop->getFieldData('oxtelefon')}]
             </div>
             <div>
-                [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_FAX"}][{$shop->getFieldData('oxtelefax')}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_FAX"}] [{$shop->getFieldData('oxtelefax')}]
             </div>
             <div>
-                [{$shop->getFieldData('oxinfoemail')}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_EMAIL"}] [{$shop->getFieldData('oxinfoemail')}]
             </div>
         [{/block}]
     </div>
@@ -19,16 +19,16 @@
     <div class="bankaccountinformations">
         [{block name="pdfBankaccountInformations"}]
             <div class="headline">
-                [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_BANKVERBINDUNG"}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_BANK_ACCOUNT"}]
             </div>
             <div>
                 [{$shop->getFieldData('oxbankname')}]
             </div>
             <div>
-                [{oxmultilang ident="ORDER_OVERVIEW_PDF_ACCOUNTNR"}][{$shop->getFieldData('oxibannumber')}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_BANK_ACCOUNTNR"}] [{$shop->getFieldData('oxibannumber')}]
             </div>
             <div>
-                [{oxmultilang ident="ORDER_OVERVIEW_PDF_BANKCODE_HEADER"}][{$shop->getFieldData('oxbiccode')}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_BANK_BANKCODE_HEADER"}] [{$shop->getFieldData('oxbiccode')}]
             </div>
         [{/block}]
     </div>
