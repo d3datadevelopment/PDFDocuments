@@ -5,8 +5,7 @@
         <input type="hidden" name="cl" value="order_overview">
         <input type="hidden" name="fnc" value="createPDF">
         <input type="hidden" name="oxid" value="[{$oxid}]">
-        <table cellspacing="0" cellpadding="0" style="padding-top: 5px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; border : 1px #A9A9A9; border-style : solid solid solid solid;" width="220">
-
+        <table style="border-spacing: 0;border-collapse: collapse;padding: 5px;border : 1px #A9A9A9 solid; width:220px">
             <tr>
                 <td rowspan="3">
                     <img src="[{$oViewConf->getImageUrl()}]/pdf_icon.gif" width="41" height="38" alt="" border="0" hspace="0" vspace="0" align="absmiddle">
