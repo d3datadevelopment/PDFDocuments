@@ -12,10 +12,10 @@
  * @author        D3 Data Development <support@shopmodule.com>
  * @link          http://www.oxidmodule.com
  */
-$sLangName = "Deutsch";
+$sLangName = "English";
 $aLang     = array(
     'charset'                                            => 'utf-8',
 
-    'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Grundeinstellungen',
-    'SHOP_MODULE_d3PdfDocumentsbDev'                     => 'Entwicklermodus',
+    'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Basic settings',
+    'SHOP_MODULE_d3PdfDocumentsbDev'                     => 'Developer mode',
 );

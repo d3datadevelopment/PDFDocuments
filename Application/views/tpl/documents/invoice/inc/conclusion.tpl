@@ -3,19 +3,19 @@
         [{block name="conclusion_paymethod"}]
             <tr>
                 <td>
-                    [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_USED_PAYMENTMETHOD"}]
+                    [{oxmultilang ident="D3_PDFDOCUMENTS_USED_PAYMENTMETHOD"}]
                     [{$payment->getFieldData('oxdesc')}]
                 </td>
             </tr>
         [{/block}]
         <tr>
             <td>
-                [{oxmultilang ident="ORDER_OVERVIEW_PDF_GREETINGS_AUFTRAG_1"}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_THANKYOU_1"}]
             </td>
         </tr>
         <tr>
             <td>
-                [{oxmultilang ident="ORDER_OVERVIEW_PDF_GREETINGS_AUFTRAG_2"}] [{$shop->oxshops__oxname->value}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_THANKYOU_2" args=$shop->getFieldData('oxname')}]
             </td>
         </tr>
     </table>
