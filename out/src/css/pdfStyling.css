@@ -1,10 +1,13 @@
+table{
+  font-family: "helvetica";
+}
+
 .header {
   padding: 5mm;
   height: 35mm;
   width: 100%;
   position: relative;
 }
-
 .header img.logo {
   float: right;
   margin: 10mm;
@@ -18,21 +21,21 @@
   height: 45mm;
   position: relative;
 }
-
+.deliveryaddress {
+  margin-top: 10mm;
+  height: 27.3mm;
+}
 .addressarea .returnAddress,
 .addressarea .recipientAddress {
   position: relative;
 }
-
 .addressarea .returnAddress {
   height: 17.7mm;
   font-size: 8px;
 }
-
 .addressarea .returnAddress div {
   padding-top: 3mm;
 }
-
 .addressarea .recipientAddress {
   height: 27.3mm;
 }
@@ -54,41 +57,6 @@
   top: 5mm;
   position: absolute;
 }
-
-.deliveryaddress {
-  margin-top: 10mm;
-  height: 27.3mm;
-}
-
-.salutation {
-  margin-top: 5mm;
-}
-
-.salutation .documentnumber {
-  font-weight: bold;
-}
-
-.footer{
-  width: 173mm;
-  font-size: 9px;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-
-.footer table {
-  border-top: solid 1px #000;
-  width: 100%;
-  position: relative;
-}
-
-.footerLeft,
-.footerCenter,
-.footerRight {
-  width: 33%;
-  padding: 0 2mm;
-}
-
 .contactinformations,
 .bankaccountinformations,
 .documentinformations {
@@ -106,106 +74,13 @@
   font-weight: bold;
 }
 
-/*debug hilfe*/
-.eraseBug{
-  border: dashed blueviolet 1px;
+.salutation {
+  margin-top: 5mm;
+}
+.salutation .documentnumber {
+  font-weight: bold;
 }
 
-table{
-  font-family: "helvetica";
-}
-.aligning{
-  text-align: right;
-}
-.vertical-a{
-  vertical-align: top;
-}
-.fontSize12{
-  font-size: 12px;
-}
-.order_sum{
-  margin-left: 300px;
-}
-.order_sumNum{
-  margin-right: -2.2px;
-}
-.border-bottom{
-  border-bottom: solid 0.15mm #000;
-}
-.paddingTop10{
-  padding-top: 10px
-}
-
-.paddingTop{
-  padding-top: 5px;
-}
-.paddingBottom{
-  padding-bottom: 5px;
-}
-
-.paddingTopBottom5{
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
-
-
-/*pdf_footer*/
-
-/*pdf_heading*/
-.pdf_heading_table{
-  width: 100%;
-  margin-top: 8mm;
-}
-.paddingTop10{
-  padding-top: 10px;
-}
-
-.pdf_heading_width35{
-  width: 35%;
-}
-.pdf_heading_fontSize8{
-  font-size: 8px;
-}
-.pdf_heading_width65{
-  width: 65%;
-}
-.pdf_heading_fontSize12{
-  font-size: 12px;
-}
-
-/*heading_order_information*/
-.heading_order_paddingTop10{
-  padding-top: 10px;
-}
-.heading_order_width35{
-  width: 35%;
-}
-.heading_order_paddingTopSub5{
-  padding-top: -5px;
-}
-.heading_order_fontSize15{
-  font-size: 15px;
-}
-.heading_order_paddingTop22{
-  padding-top: 22px;
-}
-.heading_order_paddingBottom8{
-  padding-bottom: 8px;
-}
-.heading_order_paddingBottom15{
-  padding-bottom: 15px;
-}
-.heading_order_fontSize10{
-  font-size: 10px;
-}
-.heading_order_paddingTopSub5{
-  padding-top: -5px;
-}
-.heading_order_width65{
-  width: 65%;
-}
-
-/*order_article_listing*/
 .article_table,
 .article_table_prices {
   width: 100%;
@@ -276,6 +151,40 @@ table{
   padding-right: 0;
 }
 
+.article_costs_table{
+  width: 100%;
+  border-top: solid 0.15mm #000;
+  border-bottom: solid 0.15mm #000;
+}
+.article_costs_table .description {
+  padding-right: -3px;
+  width: 70%;
+}
+.article_costs_table div {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-size: 12px;
+}
+.article_costs_table .description div {
+  margin-left: 300px;
+}
+.article_costs_table .values {
+  width: 30%;
+}
+.article_costs_table .values div {
+  margin-right: -2.2px;
+  text-align: right;
+}
+.article_costs_table .sumbrutto,
+.article_costs_table .discount,
+.article_costs_table .producttax,
+.article_costs_table .deliverytax {
+  border-bottom: solid 0.15mm #000;
+}
+.article_costs_table .totalsum {
+  font-weight: bold;
+}
+
 .conclusion_table {
   width: 100%;
   border-spacing: 0;
@@ -285,87 +194,22 @@ table{
 .conclusion_table td {
   font-size: 12px;
 }
-.order_article_listing_width_amount{
-  width: 20px;
-}
-.order_article_listing_width_desc{
-  width: 398px;
-}
-.order_article_listing_width_ust{
-  width: 10px;
-}
-.order_article_listing_width_unitPrice{
-  width: 90px;
-}
-.order_article_listing_width_total_Price{
-  width: 100px;
-}
-.order_article_listing_paddingRight52{
-  padding-right: 52.1px;
-}
-.order_article_listing_fontSize{
-  font-size: 11px;
-}
-.order_article_PaddingBottom5{
-  padding-bottom: 5px;
-}
-.order_article_PaddingTop5{
-  padding-top: 5px;
-}
-.order_article_marginTop10{
-  margin-top: 10px;
-}
-.order_article_costs_marginLeftSub3{
-  margin-left: -3px;
-}
-.order_article_costs_paddingRight66{
-  padding-right: 65.9px;
-}
-.order_article_listing_fontSize9{
+
+.footer{
+  width: 173mm;
   font-size: 9px;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
-.order_article_listing_fontSize12{
-  font-size: 12px;
-}
-
-/* order_article_costs */
-.article_costs_table{
+.footer table {
+  border-top: solid 1px #000;
   width: 100%;
-  border-top: solid 0.15mm #000;
-  border-bottom: solid 0.15mm #000;
+  position: relative;
 }
-.article_costs_table_desc_width70{
-  width: 70%;
-}
-.article_costs_table_sum_width30{
-  width: 30%;
-}
-
-.article_costs_table_paddingRight{
-  padding-right: -3px;
-}
-.order_article_costs_fontSize12{
-  font-size: 12px;
-}
-
-/*order_shop_past_thank*/
-.past_thank_width100{
-  width: 100%;
-}
-.paddingBottomSub10{
-  padding-bottom: -10px;
-}
-.marginTop0{
-  margin-top: 0;
-}
-.marginLeftSub3{
-  padding-left: -3.5px;
-}
-.marginLeft3{
-  margin-left: 3px;
-}
-
-/* footer styling */
-.footer_parts{
-  width: 33.33%;
+.footerLeft,
+.footerCenter,
+.footerRight {
+  width: 33%;
+  padding: 0 2mm;
 }
