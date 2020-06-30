@@ -3,7 +3,7 @@
         [{block name="conclusion_paymethod"}]
             <tr>
                 <td>
-                    [{oxmultilang ident="D3_PDFDOCUMENTS_USED_PAYMENTMETHOD"}]
+                    [{oxmultilang ident="D3_PDFDOCUMENTS_USED_PAYMENTMETHOD" suffix="COLON"}]
                     [{$payment->getFieldData('oxdesc')}]
                 </td>
             </tr>
