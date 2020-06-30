@@ -125,10 +125,12 @@
 [{/block}]
 [{if $showPrices}]
     [{block name="articleCosts"}]
-        <table class="article_costs_table">
-            [{block name="d3_article_costs_summary"}]
-                [{include file="d3pdfarticlecostsummary.tpl"}]
-            [{/block}]
-        </table>
+        <nobreak>
+            <table class="article_costs_table">
+                [{block name="d3_article_costs_summary"}]
+                    [{include file="d3pdfarticlecostsummary.tpl"}]
+                [{/block}]
+            </table>
+        </nobreak>
     [{/block}]
 [{/if}]
