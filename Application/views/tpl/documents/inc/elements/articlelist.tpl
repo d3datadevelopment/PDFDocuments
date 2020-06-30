@@ -126,11 +126,9 @@
 [{if $showPrices}]
     [{block name="articleCosts"}]
         <table class="article_costs_table">
-            <tr>
-                [{block name="d3_article_costs_summary"}]
-                    [{include file="d3pdfarticlecostsummary.tpl"}]
-                [{/block}]
-            </tr>
+            [{block name="d3_article_costs_summary"}]
+                [{include file="d3pdfarticlecostsummary.tpl"}]
+            [{/block}]
         </table>
     [{/block}]
 [{/if}]
