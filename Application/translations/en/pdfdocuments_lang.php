@@ -22,21 +22,23 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_GET_IN_CONTACT'                     => 'You can contact us as follows',
     'D3_PDFDOCUMENTS_TELEFON'                            => 'Telephone',
     'D3_PDFDOCUMENTS_FAX'                                => 'Fax',
-    'D3_PDFDOCUMENTS_EMAIL'                              => 'email',
+    'D3_PDFDOCUMENTS_EMAIL'                              => 'Email',
 
-    'D3_PDFDOCUMENTS_BANK_ACCOUNT'                       => 'Bank account',
+    'D3_PDFDOCUMENTS_BANK_ACCOUNT'                       => 'Bank Account',
     'D3_PDFDOCUMENTS_BANK_ACCOUNTNR'                     => 'IBAN',
     'D3_PDFDOCUMENTS_BANK_BANKCODE_HEADER'               => 'BIC',
 
-    'D3_PDFDOCUMENTS_ORDERBILLNR'                        => 'Invoice no.',
-    'D3_PDFDOCUMENTS_CUSTOMERNR'                         => 'Customer no.',
+    'D3_PDFDOCUMENTS_ORDERBILLNR'                        => 'Invoice No.',
+    'D3_PDFDOCUMENTS_CUSTOMERNR'                         => 'Customer No.',
     'D3_PDFDOCUMENTS_DATE'                               => 'Date',
     'D3_PDFDOCUMENTS_DATE_FORMAT'                        => '%Y-%m-%d',
-    'D3_PDFDOCUMENTS_USTIDNR'                            => 'VAT ID no.',
+    'D3_PDFDOCUMENTS_USTIDNR'                            => 'VAT ID No.',
+
+    'D3_PDFDOCUMENTS_DELIVERYADDRESS'                    => 'Shipping Address',
 
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',
     'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Deliverynote',
-    'D3_PDFDOCUMENTS_ORDERNR'                            => 'Order no.',
+    'D3_PDFDOCUMENTS_ORDERNR'                            => 'Order No.',
     'D3_PDFDOCUMENTS_ORDER_FROM_AT'                      => 'Your order from %1$s at "%2$s"',
 
     'D3_PDFDOCUMENTS_AMOUNT'                             => 'Amount',
@@ -45,7 +47,7 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_UNITPRICE'                          => 'Unit Price',
     'D3_PDFDOCUMENTS_TOTALPRICE'                         => 'Total',
 
-    'D3_PDFDOCUMENTS_ARTNR'                              => 'Item no.',
+    'D3_PDFDOCUMENTS_ARTNR'                              => 'Item No.',
 
     'D3_PDFDOCUMENTS_SUMBRUTTO'                          => 'Total products (incl. tax)',
     'D3_PDFDOCUMENTS_DISCOUNT'                           => 'Discount',
@@ -57,10 +59,10 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_USED_PAYMENTMETHOD'                 => 'Your chosen payment method',
     'D3_PDFDOCUMENTS_RECEIVED_PAYMENT'                   => 'We have received the invoice amount with thanks.',
 
-    'D3_PDFDOCUMENTS_MANAGINGDIRECTOR'                   => 'managing director',
-    'D3_PDFDOCUMENTS_COURT'                              => 'local court',
+    'D3_PDFDOCUMENTS_MANAGINGDIRECTOR'                   => 'Managing director',
+    'D3_PDFDOCUMENTS_COURT'                              => 'Local court',
     'D3_PDFDOCUMENTS_HRBNR'                              => 'HRB',
     'D3_PDFDOCUMENTS_USTID'                              => 'VAT ID',
 
-    'D3_PDFDOCUMENTS_BANK_BANKCODE'                      => 'BIC/SWIFT-Code',
+    'D3_PDFDOCUMENTS_BANK_BANKCODE'                      => 'BIC/SWIFT Code',
 );

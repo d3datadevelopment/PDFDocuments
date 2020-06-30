@@ -35,6 +35,8 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_DATE_FORMAT'                        => '%d.%m.%Y',
     'D3_PDFDOCUMENTS_USTIDNR'                            => 'Ust.-ID-Nr.',
 
+    'D3_PDFDOCUMENTS_DELIVERYADDRESS'                    => 'Lieferadresse',
+
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Rechnung',
     'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Lieferschein',
     'D3_PDFDOCUMENTS_ORDERNR'                            => 'Bestellnr.',

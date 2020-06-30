@@ -1,28 +1,28 @@
 <td class="description">
     <div class="sumbrutto">
-        [{oxmultilang ident="D3_PDFDOCUMENTS_SUMBRUTTO"}]
+        [{oxmultilang ident="D3_PDFDOCUMENTS_SUMBRUTTO" suffix="COLON"}]
     </div>
     [{if $order->getFormattedDiscount() != 0}]
         <div class="discount">
-            [{oxmultilang ident="D3_PDFDOCUMENTS_DISCOUNT"}]
+            [{oxmultilang ident="D3_PDFDOCUMENTS_DISCOUNT" suffix="COLON"}]
         </div>
     [{/if}]
     <div class="sumnetto">
-        [{oxmultilang ident="D3_PDFDOCUMENTS_SUMNETTO"}]
+        [{oxmultilang ident="D3_PDFDOCUMENTS_SUMNETTO" suffix="COLON"}]
     </div>
     [{foreach from=$productVats key=VatKey item=oVat}]
         <div class="producttax">
-            [{oxmultilang ident="D3_PDFDOCUMENTS_TAX" args=$VatKey}]
+            [{oxmultilang ident="D3_PDFDOCUMENTS_TAX" args=$VatKey suffix="COLON"}]
         </div>
     [{/foreach}]
     <div class="delivery">
-        [{oxmultilang ident="D3_PDFDOCUMENTS_DELIVERY"}]
+        [{oxmultilang ident="D3_PDFDOCUMENTS_DELIVERY" suffix="COLON"}]
     </div>
     <div class="deliverytax">
-        [{oxmultilang ident="D3_PDFDOCUMENTS_TAX" args=$VatKey}]
+        [{oxmultilang ident="D3_PDFDOCUMENTS_TAX" args=$VatKey suffix="COLON"}]
     </div>
     <div class="totalsum">
-        [{oxmultilang ident="D3_PDFDOCUMENTS_TOTALSUMBRUT"}]
+        [{oxmultilang ident="D3_PDFDOCUMENTS_TOTALSUMBRUT" suffix="COLON"}]
     </div>
 </td>
 <td class="values">

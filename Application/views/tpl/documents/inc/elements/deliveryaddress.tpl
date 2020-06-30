@@ -2,7 +2,7 @@
     [{if $order->getFieldData('oxdelstreet')}]
         <div class="deliveryaddress">
             <div class="headline">
-                [{oxmultilang ident="D3_ORDER_OVERVIEW_PDF_DELIVERYADDRESS"}]
+                [{oxmultilang ident="D3_PDFDOCUMENTS_DELIVERYADDRESS" suffix="COLON"}]
             </div>
             [{if $order->getFieldData('oxdelcompany')}]
                 <div class="company">[{$order->getFieldData('oxdelcompany')}]</div>
