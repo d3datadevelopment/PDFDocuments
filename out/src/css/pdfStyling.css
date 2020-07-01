@@ -153,13 +153,14 @@ table{
 
 .article_costs_table{
   width: 100%;
-  padding-left: 300px;
   border-spacing: 0;
   border-collapse: collapse;
 }
+.article_costs_table .indent {
+  width: 10%;
+}
 .article_costs_table .description {
-  padding-right: -3px;
-  width: 70%;
+  width: 75%;
 }
 .article_costs_table td {
   padding-bottom: 5px;
@@ -167,21 +168,24 @@ table{
   font-size: 12px;
 }
 .article_costs_table .values {
-  width: 30%;
+  width: 15%;
   margin-right: -2.2px;
   text-align: right;
 }
-.article_costs_table .sumbrutto td {
+.article_costs_table .sumnetto td {
   border-top: solid 0.15mm #000;
 }
-.article_costs_table .sumbrutto td,
-.article_costs_table .discount td,
-.article_costs_table .producttax td,
-.article_costs_table .deliverytax td,
-.article_costs_table .totalsum td {
+.article_costs_table .voucherdiscount td,
+.article_costs_table .sumbrutto td {
   border-bottom: solid 0.15mm #000;
 }
+.article_costs_table .totalseparator td {
+  height: 0;
+  line-height: 0;
+}
+.article_costs_table .totalseparator td,
 .article_costs_table .totalsum td {
+  border-bottom: solid 0.3mm #000;
   font-weight: bold;
 }
 

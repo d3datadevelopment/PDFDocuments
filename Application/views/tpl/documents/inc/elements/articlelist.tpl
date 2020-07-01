@@ -1,3 +1,4 @@
+[{assign var="currency"   value=$order->getOrderCurrency()}]
 [{assign var="showPrices" value=$showPrices|default:true}]
 
 [{block name="articlelist"}]

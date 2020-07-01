@@ -1,6 +1,3 @@
-[{assign var="currency"      value=$order->getOrderCurrency()}]
-[{assign var="deliveryPrice" value= $order->getOrderDeliveryPrice()}]
-[{assign var="productVats"   value= $order->getProductVats(false)}]
 [{assign var="pagePadding"   value=","|explode:"45,15,25,25"}] [{* top, right, bottom, left *}]
 [{assign var="showLogo"      value=$showLogo|default:true}]
 
