@@ -22,6 +22,7 @@ use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface as o
 use \OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\Eshop\Core\Registry;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 
 abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInterface
@@ -45,9 +46,12 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
         return $this->oOrder;
     }
 
-    public function setSmartyVars()
+    /**
+     * @param int $iSelLang
+     */
+    public function setSmartyVars($iSelLang)
     {
-        parent::setSmartyVars();
+        parent::setSmartyVars($iSelLang);
 
         $this->oSmarty->assign('order', $this->getOrder());
 
@@ -56,7 +60,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
         $this->oSmarty->assign('user', $oUser);
 
         $oPayment = oxNew(Payment::class);
-        $oPayment->load($this->getOrder()->getFieldData('oxpaymenttype'));
+        $oPayment->loadInLang($iSelLang, $this->getOrder()->getFieldData('oxpaymenttype'));
         $this->oSmarty->assign('payment', $oPayment);
     }
 
@@ -109,5 +113,30 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
         }
 
         return parent::genPdf($sFilename, $iSelLang, $target);
+    }
+
+    /**
+     * @return int
+     */
+    public function getPaymentTerm()
+    {
+        if (null === $iPaymentTerm = Registry::getConfig()->getConfigParam('iPaymentTerm')) {
+            $iPaymentTerm = 7;
+        }
+
+        return $iPaymentTerm;
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getPayableUntilDate()
+    {
+        return strtotime(
+            '+' . $this->getPaymentTerm() . ' day',
+            strtotime(
+                $this->getOrder()->getFieldData('oxbilldate')
+            )
+        );
     }
 }

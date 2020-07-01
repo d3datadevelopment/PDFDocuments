@@ -68,6 +68,7 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_TOTALSUMBRUT'                       => 'Gesamtsumme (brutto)',
 
     'D3_PDFDOCUMENTS_USED_PAYMENTMETHOD'                 => 'Ihre gewählte Zahlungsweise',
+    'D3_PDFDOCUMENTS_PAYABLEUNTIL'                       => 'Zahlbar bis zum',
     'D3_PDFDOCUMENTS_RECEIVED_PAYMENT'                   => 'Den Rechnungsbetrag haben wir dankend erhalten.',
 
     'D3_PDFDOCUMENTS_MANAGINGDIRECTOR'                   => 'Geschäftsführer',

@@ -1,4 +1,4 @@
-[{assign var="pagePadding"   value=","|explode:"45,15,25,25"}] [{* top, right, bottom, left *}]
+[{assign var="pagePadding"   value=","|explode:"45,15,30,25"}] [{* top, right, bottom, left *}]
 [{assign var="showLogo"      value=$showLogo|default:true}]
 
 [{capture append="pdfBlock_style"}]
