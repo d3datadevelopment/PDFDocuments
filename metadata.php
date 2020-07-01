@@ -61,6 +61,7 @@ $aModule = [
         'd3invoice_pdf_informations.tpl'=> 'd3/pdfdocuments/Application/views/tpl/documents/invoice/inc/informations.tpl',
         'd3invoice_pdf_salutation.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/inc/salutation.tpl',
         'd3invoice_pdf_conclusion.tpl'  => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/inc/conclusion.tpl',
+        'd3invoice_pdf_payinfo.tpl'     => 'd3/pdfdocuments/Application/views/tpl/documents/invoice/inc/payinfo.tpl',
 
         'd3pdfbase.tpl'                 => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/base.tpl',
         'd3pdfheader.tpl'               => 'd3/pdfdocuments/Application/views/tpl/documents/inc/page/header.tpl',

@@ -133,12 +133,17 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         return null;
     }
 
-    public function setSmartyVars()
+    /**
+     * @param int $iSelLang
+     */
+    public function setSmartyVars($iSelLang)
     {
+        unset($iSelLang);
         $this->oSmarty->assign('oConfig', Registry::getSession()->getConfig());
         $this->oSmarty->assign('oViewConf', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
         $this->oSmarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
         $this->oSmarty->assign('lang', Registry::getLang());
+        $this->oSmarty->assign('document', $this);
     }
 
     /**
@@ -156,7 +161,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $currTplLang = $lang->getTplLanguage();
         $lang->setTplLanguage($iSelLang);
 
-        $this->setSmartyVars();
+        $this->setSmartyVars($iSelLang);
 
         $content = $this->oSmarty->fetch($this->getTemplate());
 
