@@ -1,0 +1,73 @@
+{
+    "title": "<i class='fab fa-d3 d3fa-color-blue'></i> MODULNAME",
+    "moduleversion": "5.0.0.0",
+    "titledesc": "für den Oxid eShop",
+    "author": "D³ Data Development",
+    "moduledate": "17.04.2018",
+    "editors": "XX/YY",
+    "tagline": "",
+    "image": "",
+    "ignore": {
+        "files": [],
+        "folders": [".idea"]
+    },
+    "live": {
+        "clean_urls": true
+    },
+    "html": {
+        "theme": "d3",
+        "breadcrumbs": true,
+        "breadcrumb_separator": "Chevrons",
+        "toggle_code": false,
+        "date_modified": true,
+        "date_modified_format": "d.m.Y",
+        "float": false,
+        "inherit_index": true,
+        "auto_landing": true,
+
+        "links": {
+            "Shop": "https://www.oxidmodule.com"
+        },
+
+        "powered_by": ""
+    },
+    "languages": {
+        "editions": "Editionen",
+        "installation": "Installation",
+        "manual": "Handbuch",
+        "changelog": "Changelog",
+        "support": "Support"
+    },
+    "processor": "d3processor",
+    "language": "de",
+    "strings": {
+        "de": {
+            "CodeBlocks_title": "Code-Blöcke",
+            "CodeBlocks_hide": "Aus",
+            "CodeBlocks_below": "Unterhalb",
+            "CodeBlocks_inline": "Linear",
+            "CodeBlocks_show": "Code-Blöcke anzeigen",
+            "Search_placeholder": "Suchen...",
+            "Link_previous": "Zurück",
+            "Link_next": "Weiter",
+            "Edit_on": "Bearbeiten bei :name:",
+            "View_on_github": "Bei GitHub anzeigen",
+            "View_documentation": "Dokumentation anzeigen",
+            "Table_of_contents": "Inhaltsverzeichnis",
+            "author": "Autor",
+            "moduledate": "Stand",
+            "version": "Version",
+            "editors": "Bearbeiter",
+            "selectversion": "Version wechseln"
+        }
+    },
+    "variables": {
+        "modulename"    : "<i class='fab fa-d3 d3fa-color-blue'></i> MODULNAME",
+        "menutitle"     : "<i class='fab fa-d3 d3fa-color-blue'></i> MODULNAME",
+        "modulefolder"  : "module_folder",
+        "modcfgident"   : "d3modident",
+        "composerident" : "d3/moduleident"
+    },
+    "versionselector": false,
+    "versiondirectoryindex": 2
+}
