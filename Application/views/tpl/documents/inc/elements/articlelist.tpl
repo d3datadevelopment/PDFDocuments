@@ -22,102 +22,27 @@
                 </th>
             [{/if}]
         </tr>
-        [{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
+        [{foreach from=$order->getOrderArticles(true) item=orderArticle}]
             <tr>
                 <td class="amount">
-                    [{$oOrderArticle->oxorderarticles__oxamount->value }]
+                    [{$orderArticle->getFieldData('oxamount')}]
                 </td>
                 <td class="description">
-                    [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
+                    [{$orderArticle->getFieldData('oxtitle')}] [{ $orderArticle->getFieldData('oxselvariant')}]
                     <br>
                     <span class="artnr">
-                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
+                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$orderArticle->getFieldData('oxartnum')}]
                     </span>
                 </td>
                 [{if $showPrices}]
                     <td class="tax">
-                        [{$oOrderArticle->oxorderarticles__oxvat->value }]
+                        [{$orderArticle->getFieldData('oxvat')}]
                     </td>
                     <td class="unitPrice">
-                        [{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]
+                        [{$orderArticle->getBrutPriceFormated()}] [{$currency->name}]
                     </td>
                     <td class="totalPrice">
-                        [{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]
-                    </td>
-                [{/if}]
-            </tr>
-        [{/foreach}]
-        [{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
-            <tr>
-                <td class="amount">
-                    [{$oOrderArticle->oxorderarticles__oxamount->value }]
-                </td>
-                <td class="description">
-                    [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
-                    <br>
-                    <span class="artnr">
-                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
-                    </span>
-                </td>
-                [{if $showPrices}]
-                    <td class="tax">
-                        [{$oOrderArticle->oxorderarticles__oxvat->value }]
-                    </td>
-                    <td class="unitPrice">
-                        [{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]
-                    </td>
-                    <td class="totalPrice">
-                        [{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]
-                    </td>
-                [{/if}]
-            </tr>
-        [{/foreach}]
-        [{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
-            <tr>
-                <td class="amount">
-                    [{$oOrderArticle->oxorderarticles__oxamount->value }]
-                </td>
-                <td class="description">
-                    [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
-                    <br>
-                    <span class="artnr">
-                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
-                    </span>
-                </td>
-                [{if $showPrices}]
-                    <td class="tax">
-                        [{$oOrderArticle->oxorderarticles__oxvat->value }]
-                    </td>
-                    <td class="unitPrice">
-                        [{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]
-                    </td>
-                    <td class="totalPrice">
-                        [{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]
-                    </td>
-                [{/if}]
-            </tr>
-        [{/foreach}]
-        [{foreach from=$order->getOrderArticles(true) item=oOrderArticle}]
-            <tr>
-                <td class="amount">
-                    [{$oOrderArticle->oxorderarticles__oxamount->value }]
-                </td>
-                <td class="description">
-                    [{$oOrderArticle->oxorderarticles__oxtitle->getRawValue() }] [{ $oOrderArticle->oxorderarticles__oxselvariant->getRawValue() }]
-                    <br>
-                    <span class="artnr">
-                        [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$oOrderArticle->oxorderarticles__oxartnum->value }]
-                    </span>
-                </td>
-                [{if $showPrices}]
-                    <td class="tax">
-                        [{$oOrderArticle->oxorderarticles__oxvat->value }]
-                    </td>
-                    <td class="unitPrice">
-                        [{$oOrderArticle->getBrutPriceFormated()}] [{$currency->name}]
-                    </td>
-                    <td class="totalPrice">
-                        [{$oOrderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]
+                        [{$orderArticle->getTotalBrutPriceFormated()}] [{$currency->name}]
                     </td>
                 [{/if}]
             </tr>
