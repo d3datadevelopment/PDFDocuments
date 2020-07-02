@@ -89,7 +89,7 @@
 [{/if}]
 
 [{block name="delivery"}]
-    [{if $oConfig->getConfigParam('blShowVATForDelivery')}]
+    [{if $config->getConfigParam('blShowVATForDelivery')}]
         [{assign var="deliveryPrice" value=$order->getOrderDeliveryPrice()}]
         <tr class="delivery">
             <td class="indent"></td>
@@ -103,7 +103,7 @@
         <tr class="deliverytax">
             <td class="indent"></td>
             <td class="description">
-                [{if $oConfig->getConfigParam('sAdditionalServVATCalcMethod') != 'proportional'}]
+                [{if $config->getConfigParam('sAdditionalServVATCalcMethod') != 'proportional'}]
                     [{oxmultilang ident="D3_PDFDOCUMENTS_TAX" args=$order->getFieldData('oxdelvat') suffix="COLON"}]
                 [{else}]
                     [{oxmultilang ident="D3_PDFDOCUMENTS_PROPORTIONAL_TAX" suffix="COLON"}]
@@ -127,7 +127,7 @@
 [{/block}]
 
 [{block name="payment"}]
-    [{if $oConfig->getConfigParam('blShowVATForPayCharge')}]
+    [{if $config->getConfigParam('blShowVATForPayCharge')}]
         [{assign var="paymentPrice" value=$order->getOrderPaymentPrice()}]
         <tr class="payment">
             <td class="indent"></td>
@@ -141,7 +141,7 @@
         <tr class="paymenttax">
             <td class="indent"></td>
             <td class="description">
-                [{if $oConfig->getConfigParam('sAdditionalServVATCalcMethod') != 'proportional'}]
+                [{if $config->getConfigParam('sAdditionalServVATCalcMethod') != 'proportional'}]
                     [{oxmultilang ident="D3_PDFDOCUMENTS_TAX" args=$order->getFieldData('oxpayvat') suffix="COLON"}]
                 [{else}]
                     [{oxmultilang ident="D3_PDFDOCUMENTS_PROPORTIONAL_TAX" suffix="COLON"}]
@@ -166,7 +166,7 @@
 
 [{block name="wrapping"}]
     [{if $order->getFieldData('oxwrapcost')}]
-        [{if $oConfig->getConfigParam('blShowVATForWrapping')}]
+        [{if $config->getConfigParam('blShowVATForWrapping')}]
             [{assign var="wrappingPrice" value=$order->getOrderWrappingPrice()}]
             <tr class="wrapping">
                 <td class="indent"></td>
@@ -202,7 +202,7 @@
 
 [{block name="giftcard"}]
     [{if $order->getFieldData('oxgiftcardcost')}]
-        [{if $oConfig->getConfigParam('blShowVATForWrapping')}]
+        [{if $config->getConfigParam('blShowVATForWrapping')}]
             [{assign var="giftCardPrice" value=$order->getOrderGiftCardPrice()}]
             <tr class="giftcard">
                 <td class="indent"></td>

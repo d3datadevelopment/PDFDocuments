@@ -139,8 +139,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function setSmartyVars($iSelLang)
     {
         unset($iSelLang);
-        $this->oSmarty->assign('oConfig', Registry::getSession()->getConfig());
-        $this->oSmarty->assign('oViewConf', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
+        $this->oSmarty->assign('config', Registry::getSession()->getConfig());
+        $this->oSmarty->assign('viewConfig', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
         $this->oSmarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
         $this->oSmarty->assign('lang', Registry::getLang());
         $this->oSmarty->assign('document', $this);

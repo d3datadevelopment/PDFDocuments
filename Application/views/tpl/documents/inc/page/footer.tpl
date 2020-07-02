@@ -7,12 +7,12 @@
             <tr>
                 [{block name="pdfFooterLeft"}]
                     <td class="footerLeft">
-                        <div>[{$shop->oxshops__oxname->value}]</div>
-                        <div>[{$shop->oxshops__oxstreet->value}]</div>
-                        <div>[{$shop->oxshops__oxzip->value}] [{$shop->oxshops__oxcity->value}]</div>
-                        <div>[{$shop->oxshops__oxcountry->value}]</div>
-                        <div>[{$shop->oxshops__oxurl->value}]</div>
-                        <div>[{$shop->oxshops__oxinfoemail->value}]</div>
+                        <div>[{$shop->getFieldData('oxname')}]</div>
+                        <div>[{$shop->getFieldData('oxstreet')}]</div>
+                        <div>[{$shop->getFieldData('oxzip')}] [{$shop->getFieldData('oxcity')}]</div>
+                        <div>[{$shop->getFieldData('oxcountry')}]</div>
+                        <div>[{$shop->getFieldData('oxurl')}]</div>
+                        <div>[{$shop->getFieldData('oxinfoemail')}]</div>
                     </td>
                 [{/block}]
                 [{block name="pdfFooterCenter"}]
