@@ -24,7 +24,8 @@
   "extra": {
     "oxideshop": {
       "blacklist-filter": [
-        "composer.json"
+        "composer.json",
+        "docs/**/*.*"
       ],
       "target-directory": "d3/pdfdocuments"
     }
