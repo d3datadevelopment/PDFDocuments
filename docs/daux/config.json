@@ -1,10 +1,10 @@
 {
-    "title": "<i class='fab fa-d3 d3fa-color-blue'></i> MODULNAME",
-    "moduleversion": "5.0.0.0",
+    "title": "<i class='fab fa-d3 d3fa-color-blue'></i> PDF Dokumente",
+    "moduleversion": "1.0.0.0",
     "titledesc": "für den Oxid eShop",
     "author": "D³ Data Development",
-    "moduledate": "17.04.2018",
-    "editors": "XX/YY",
+    "moduledate": "10.07.2020",
+    "editors": "",
     "tagline": "",
     "image": "",
     "ignore": {
@@ -32,7 +32,6 @@
         "powered_by": ""
     },
     "languages": {
-        "editions": "Editionen",
         "installation": "Installation",
         "manual": "Handbuch",
         "changelog": "Changelog",
@@ -62,11 +61,11 @@
         }
     },
     "variables": {
-        "modulename"    : "<i class='fab fa-d3 d3fa-color-blue'></i> MODULNAME",
-        "menutitle"     : "<i class='fab fa-d3 d3fa-color-blue'></i> MODULNAME",
-        "modulefolder"  : "module_folder",
-        "modcfgident"   : "d3modident",
-        "composerident" : "d3/moduleident"
+        "modulename"    : "<i class='fab fa-d3 d3fa-color-blue'></i> PDF Dokumente",
+        "menutitle"     : "<i class='fab fa-d3 d3fa-color-blue'></i> PDF Dokumente",
+        "modulefolder"  : "pdfdocuments",
+        "modcfgident"   : "d3pdfdocuments",
+        "composerident" : "d3/pdfdocuments"
     },
     "versionselector": false,
     "versiondirectoryindex": 2
