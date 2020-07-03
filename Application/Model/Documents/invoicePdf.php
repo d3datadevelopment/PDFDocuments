@@ -40,7 +40,7 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
      */
     public function getTitleIdent()
     {
-        return "ORDER_OVERVIEW_PDF_STANDART";
+        return "D3_PDFDOCUMENTS_INVOICE";
     }
 
     /**
@@ -103,8 +103,6 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
     }
 
     /**
-     * @param string $sFilename
-     *
      * @return string
      */
     public function getFilename()

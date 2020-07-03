@@ -58,11 +58,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
-     * @param        $sFilename
-     * @param int    $iSelLang
+     * @param $sFilename
+     * @param int $iSelLang
      * @param string $target
-     *
-     * @return mixed|string
+     * @return mixed|string|null
      * @throws Html2PdfException
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = self::PDF_DESTINATION_STDOUT)
@@ -80,6 +79,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     /**
      * @param int $iLanguage
+     * @throws Html2PdfException
      */
     public function downloadPdf($iLanguage = 0)
     {
@@ -204,8 +204,6 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
-     * @param string $sFilename
-     *
      * @return string
      */
     public function getFilename()
@@ -265,6 +263,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         return false;
     }
 
+    /**
+     * @param Html2Pdf $oPdf
+     * @param $sFilename
+     * @param $target
+     * @param $html
+     * @return string|null
+     * @throws Html2PdfException
+     */
     public function output(Html2Pdf $oPdf, $sFilename, $target, $html)
     {
         if ((bool) Registry::getConfig()->getConfigParam('d3PdfDocumentsbDev') === true) {
@@ -279,7 +285,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @param $sFilename
      * @param $target
      * @param $html
-     * @return mixed
+     * @return null
      */
     public function outputDev(Html2Pdf $oPdf, $sFilename, $target, $html)
     {
@@ -350,5 +356,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
                 $oPdf->pdf->Error('Incorrect output destination: '.$target);
             }
         }
+
+        return null;
     }
 }

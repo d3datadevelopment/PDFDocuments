@@ -75,6 +75,7 @@ abstract class registryAbstract implements registryGenericInterface
 
     /**
      * @param $className * generator fully qualified class name
+     * @return bool
      */
     public function hasGenerator($className)
     {

@@ -33,7 +33,7 @@ class invoicewithoutlogoPdf extends invoicePdf
      */
     public function getTitleIdent()
     {
-        return "ORDER_OVERVIEW_PDF_STANDART_WITHOUT_LOGO";
+        return "D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO";
     }
 
     /**

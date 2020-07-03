@@ -37,7 +37,9 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_DELIVERYADDRESS'                    => 'Shipping Address',
 
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',
+    'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Invoice without logo',
     'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Deliverynote',
+    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Deliverynote without logo',
     'D3_PDFDOCUMENTS_ORDERNR'                            => 'Order No.',
     'D3_PDFDOCUMENTS_ORDER_FROM_AT'                      => 'Your order from %1$s at "%2$s"',
 

@@ -32,7 +32,7 @@ class deliverynotewithoutlogoPdf extends deliverynotePdf
      */
     public function getTitleIdent()
     {
-        return "ORDER_OVERVIEW_PDF_DNOTE_WITHOUT_LOGO";
+        return "D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO";
     }
 
     /**
