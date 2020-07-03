@@ -23,7 +23,6 @@ use \OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Registry;
-use Spipu\Html2Pdf\Exception\Html2PdfException;
 
 abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInterface
 {
@@ -65,8 +64,6 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     }
 
     /**
-     * @param string $sFilename
-     *
      * @return string
      */
     public function getFilename()
@@ -97,19 +94,15 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     }
 
     /**
-     * @param        $sFilename
-     * @param int    $iSelLang
+     * @param $sFilename
+     * @param int $iSelLang
      * @param string $target
-     *
-     * @return mixed|string|void
-     * @throws Html2PdfException
-     * @throws noBaseObjectSetException
+     * @return mixed|string|null
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
     {
         if (false == $this->getOrder()) {
-            $e = oxNew(noBaseObjectSetException::class);
-            throw $e;
+            throw oxNew(noBaseObjectSetException::class);
         }
 
         return parent::genPdf($sFilename, $iSelLang, $target);

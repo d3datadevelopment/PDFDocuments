@@ -79,6 +79,7 @@ table{
 }
 .salutation .documenttype {
   font-weight: bold;
+  margin-bottom: 5mm;
 }
 
 .article_table,

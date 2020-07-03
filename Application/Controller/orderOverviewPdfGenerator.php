@@ -15,9 +15,7 @@
 
 namespace D3\PdfDocuments\Application\Controller;
 
-use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
-use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use OxidEsales\Eshop\Application\Model\Order;
@@ -27,12 +25,8 @@ class orderOverviewPdfGenerator
 {
     /**
      * @param Order $order
-     * @param $sFilename
      * @param int $iSelLang
-     * @param string $target
      * @throws noPdfHandlerFoundException
-     * @throws noBaseObjectSetException
-     * @throws pdfGeneratorExceptionAbstract
      */
     public function generatePdf(Order $order, $iSelLang = 0)
     {

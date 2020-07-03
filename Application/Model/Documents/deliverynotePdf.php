@@ -34,7 +34,7 @@ class deliverynotePdf extends pdfdocumentsOrder
      */
     public function getTitleIdent()
     {
-        return "ORDER_OVERVIEW_PDF_DNOTE";
+        return "D3_PDFDOCUMENTS_DELIVERYNOTE";
     }
 
     /**

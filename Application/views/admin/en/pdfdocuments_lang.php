@@ -18,4 +18,12 @@ $aLang     = array(
 
     'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Basic settings',
     'SHOP_MODULE_d3PdfDocumentsbDev'                     => 'Developer mode',
+
+    'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',
+    'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Invoice without logo',
+    'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Deliverynote',
+    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Deliverynote without logo',
+
+    'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'PDF Type',
+    'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Create PDF',
 );
