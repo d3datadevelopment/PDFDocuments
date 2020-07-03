@@ -6,27 +6,11 @@ title: Changelog
 
 ---
 
-## 1.1.0.1 - (2019-02-20)
-
-### Fixed
-- ...
-- ...
-
----
-
-## 1.1.0.0 - (2018-05-29)
-
-**Minor version upgrade notice: there are some backward-incompatible changes to this release.**
-
-#### Fixed
-- Einstellungs-Überladung korrigiert - verwendet Einstellungen der Hauptsprache, wenn in aktueller Sprache keine Einstellungen gespeichert wurden
-
-#### Changed
-- kleine Textänderungen in der Installationsroutine
-
----
-
-## 1.0.0.0 - (2018-05-15)
+## 1.0.0.0 - (2020-07-10)
 
 #### Added
-- Angepasst für Shopversion 6.x, Installation via Composer 
+- Framework zur Erstellung unterschiedlichster PDF Dokumente
+- ermöglicht Generierung von Rechnungen und Lieferscheinen für Bestellungen aus dem Adminbereich
+- enthält Templates und Basislayouts für Rechnungen und Lieferscheine
+- enthält Registries (Dokumentenlisten) für Bestellungen im Adminbereich sowie für Auftragsmanager-Aktionen 
+- kann als vollwertiger Ersatz für Invoice-PDF-Modul verwendet werden
