@@ -98,7 +98,7 @@ table{
 }
 .article_table th,
 .article_table_prices th {
-  border-bottom: solid 0.15mm #000;
+  border-bottom: solid 0.75pt #000;
   font-weight: normal;
   font-size: 11px;
 }
@@ -174,11 +174,11 @@ table{
   text-align: right;
 }
 .article_costs_table .sumnetto td {
-  border-top: solid 0.15mm #000;
+  border-top: 0.75pt solid #000;
 }
 .article_costs_table .voucherdiscount td,
 .article_costs_table .sumbrutto td {
-  border-bottom: solid 0.15mm #000;
+  border-bottom: solid 0.75pt #000;
 }
 .article_costs_table .totalseparator td {
   height: 0;
@@ -186,8 +186,11 @@ table{
 }
 .article_costs_table .totalseparator td,
 .article_costs_table .totalsum td {
-  border-bottom: solid 0.3mm #000;
+  border-bottom: solid 0.75pt #000;
   font-weight: bold;
+}
+.article_costs_table .totalsum td {
+  border-bottom: double 2pt #000;
 }
 
 .conclusion_payment,
@@ -204,7 +207,7 @@ table{
   padding: 0;
 }
 .footer table {
-  border-top: solid 1px #000;
+  border-top: solid 0.75pt #000;
   width: 100%;
   position: relative;
 }
