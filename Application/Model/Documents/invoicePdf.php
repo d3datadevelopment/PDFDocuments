@@ -31,8 +31,7 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
      */
     public function getRequestId()
     {
-        // same like in OXID PDF module
-        return 'standart';
+        return 'invoice';
     }
 
     /**
