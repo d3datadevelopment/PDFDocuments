@@ -42,7 +42,6 @@ $aModule = [
     'email'         => 'support@shopmodule.com',
     'url'           => 'http://www.oxidmodule.com/',
     'extend'        => [
-        OxidModel\Order::class  => d3_pdfdocs_OrderModel::class,
         OrderOverview::class    => d3_overview_controller_pdfdocuments::class
     ],
     'controllers'           => [],
