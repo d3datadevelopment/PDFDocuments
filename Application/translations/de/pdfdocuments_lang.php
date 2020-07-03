@@ -72,8 +72,8 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_RECEIVED_PAYMENT'                   => 'Den Rechnungsbetrag haben wir dankend erhalten.',
 
     'D3_PDFDOCUMENTS_MANAGINGDIRECTOR'                   => 'Geschäftsführer',
-    'D3_PDFDOCUMENTS_COURT'                              => 'Amtsgericht ',
-    'D3_PDFDOCUMENTS_HRBNR'                              => 'HRB ',
+    'D3_PDFDOCUMENTS_COURT'                              => 'Amtsgericht',
+    'D3_PDFDOCUMENTS_HRBNR'                              => 'HRB',
     'D3_PDFDOCUMENTS_USTID'                              => 'Ust.-ID',
 
     'D3_PDFDOCUMENTS_BANK_BANKCODE'                      => 'BIC/SWIFT-Code',

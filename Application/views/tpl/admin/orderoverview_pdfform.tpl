@@ -1,14 +1,14 @@
 [{if $edit && $oView->canExport()}]
     <br>
-    <form name="myedit2" id="myedit2" action="[{$viewConfig->getSelfLink()}]" method="post" target="expPDF">
-        [{$viewConfig->getHiddenSid()}]
+    <form name="myedit2" id="myedit2" action="[{$oViewConf->getSelfLink()}]" method="post" target="expPDF">
+        [{$oViewConf->getHiddenSid()}]
         <input type="hidden" name="cl" value="order_overview">
         <input type="hidden" name="fnc" value="createPDF">
         <input type="hidden" name="oxid" value="[{$oxid}]">
         <table style="border-spacing: 0;border-collapse: collapse;padding: 5px;border : 1px #A9A9A9 solid; width:220px">
             <tr>
                 <td rowspan="3">
-                    <img src="[{$viewConfig->getImageUrl()}]/pdf_icon.gif" width="41" height="38" alt="" border="0" hspace="0" vspace="0" align="absmiddle">
+                    <img src="[{$oViewConf->getImageUrl()}]/pdf_icon.gif" width="41" height="38" alt="" border="0" hspace="0" vspace="0" align="absmiddle">
                 </td>
                 <td valign="top" class="edittext" align="right">
                     [{oxmultilang ident="ORDER_OVERVIEW_PDF_TYPE"}]:&nbsp;
