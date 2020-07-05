@@ -21,6 +21,7 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Deliverynote',
     'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Deliverynote without logo',
 
-    'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'PDF Type',
-    'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Create PDF',
+    'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Document',
+    'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Language',
+    'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Create Document',
 );

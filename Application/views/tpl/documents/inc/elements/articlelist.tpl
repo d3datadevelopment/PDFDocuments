@@ -28,7 +28,7 @@
                     [{$orderArticle->getFieldData('oxamount')}]
                 </td>
                 <td class="description">
-                    [{$orderArticle->getFieldData('oxtitle')}] [{ $orderArticle->getFieldData('oxselvariant')}]
+                    [{$orderArticle->getFieldData('oxtitle')}] [{$orderArticle->getFieldData('oxselvariant')}]
                     <br>
                     <span class="artnr">
                         [{oxmultilang ident="D3_PDFDOCUMENTS_ARTNR"}] [{$orderArticle->getFieldData('oxartnum')}]
