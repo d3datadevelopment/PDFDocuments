@@ -37,3 +37,9 @@ Eine detaillierte Installationsanleitung finden Sie [online](https://docs.oxidmo
 ## Credits:
 
 - PDF logo made by Dimitriy Morilubov from www.flaticon.com
+
+## License
+
+This module is distributed under the GPL v3 License. For more information see the ./LICENSE file.
+
+Copyright by D3 Data Development (Inh. Thomas Dartsch)
