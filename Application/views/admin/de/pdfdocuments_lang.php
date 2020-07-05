@@ -21,6 +21,7 @@ $aLang     = array(
     'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Lieferschein',
     'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Lieferschein ohne Logo',
 
-    'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'PDF Typ',
-    'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'PDF ausgeben',
+    'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Dokument',
+    'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Sprache',
+    'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Dokument erstellen',
 );

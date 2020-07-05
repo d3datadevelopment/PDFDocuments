@@ -25,3 +25,7 @@ Eine detaillierte Installationsanleitung finden Sie [online](https://docs.oxidmo
 - D3 Data Development (Inh. Thomas Dartsch)
 - Home: [www.d3data.de](https://www.d3data.de)
 - E-Mail: support@shopmodule.com
+
+## Credits:
+
+- PDF logo made by Dimitriy Morilubov from www.flaticon.com

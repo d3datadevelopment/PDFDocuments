@@ -16,7 +16,7 @@ use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
  */
 $sMetadataVersion = '2.0';
 
-$logo = '<svg style="height:1em;width:1em"><image xlink:href="https://logos.oxidmodule.com/d3logo.svg" style="height:1em;width:1em" /></svg>';
+$logo = '<img src="https://logos.oxidmodule.com/d3logo.svg" alt="(D3)" style="height:1em;width:1em">';
 
 $sModuleId = 'd3PdfDocuments';
 /**
