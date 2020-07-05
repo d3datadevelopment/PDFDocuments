@@ -1,18 +1,11 @@
 ---
-title: optische Anpassungen
+title: Anpassungen an bestehenden Dokumenten
 ---
 
-Die Modulausgaben können durch eigene CSS-Styles angepasst werden. Um die Updatefähigkeit des Moduls zu 
-erhalten, übernehmen Sie die neuen Stylesheets bitte in modulunabhängige Dateien. 
+Die Dokumente werden aus Smartytemplates erstellt, die Sie im `Application/views/tpl/documents` finden.
 
-Die mitgelieferten Assets (CSS, JavaScripts) werden von uns über einen vorkonfigurierten Kompilierungstask 
-erstellt. Dieser kann via [Grunt](https://gruntjs.com/) ausgeführt werden. Möchten Sie eigene oder 
-angepasste Inhalte daraus kompilieren lassen, installieren Sie das Modul bitte mit Composer und der 
-`--prefer-source`-Option. Dann stehen Ihnen die Quelldateien im Ordner `src/build` zur Verfügung. 
+Für Änderungen einzelner Dokumentbereiche können Sie die darin notierten Templateblöcke in einem eigenen Modul überladen und deren Inhalt so verändern oder ergänzen. So müssen Sie das Originalmodul nicht verändern.
 
-Diese können direkt aufgerufen werden, um eventuelle Anpassungen im zu Grunde liegenden Theme zu 
-integrieren. Alternativ können Sie die Sources auch in eigene Kompilierungsprozesse einbinden, 
-um projektspezifische Assets zu erstellen.
+Beachten Sie, dass Templateblöcke in gemeinsam genutzen Templates auch in allen Dokumenten Änderungen hervorrufen.
 
-Details zur Verwendung des Taskrunners und der Quelldateien entnehmen Sie bitte der `README.md` im 
-oben erwähnten Build-Ordner.
+Für umfangreichere Veränderungen können Sie dem jeweiligen Dokument auch auch anderes Template zuordnen. Überladen Sie dafür die entsprechende Dokumentenklasse und verändern Sie den Rückgabewert der Methode `getTemplate`.
