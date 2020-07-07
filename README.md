@@ -34,12 +34,14 @@ Eine detaillierte Installationsanleitung finden Sie [online](https://docs.oxidmo
 - Home: [www.d3data.de](https://www.d3data.de)
 - E-Mail: support@shopmodule.com
 
-## Credits:
+## Danksagung:
 
 - PDF logo made by Dimitriy Morilubov from www.flaticon.com
 
-## License
+## Lizenz / License
 
-This module is distributed under the GPL v3 License. For more information see the ./LICENSE file.
+**de:** Dieses Modul wird unter der GPL v3 Lizenz vertrieben. Für weitere Informationen siehe die ./LICENSE Datei.
+ 
+**en:** This module is distributed under the GPL v3 License. For more information see the ./LICENSE file.
 
 Copyright by D3 Data Development (Inh. Thomas Dartsch)
