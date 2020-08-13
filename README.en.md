@@ -1,35 +1,32 @@
-[de](#de) | [en](#en)
-[de](#pdf-dokumente) | [en](#pdf-documents)
+# <a name="de"></a>PDF Documents
 
-# <a name="de"></a>PDF-Dokumente
+PDF document generator for OXID eShop
 
-PDF-Dokumentgenerator für OXID eShop
+Create a wide variety of static or dynamic PDF documents at the touch of a button. The document content is created from Smarty templates.
 
-Erstellen Sie unterschiedlichste statische oder dynamische PDF-Dokument auf Kopfdruck. Der Dokumentinhalt wird aus Smartytemplates erstellt.
+At the orders of your OXID shop you have the option of creating an invoice and delivery note.
 
-An den Bestellungen Ihres OXID-Shops steht Ihnen die Erstellung von Rechnung und Lieferschein zur Verfügung.
+The module can be easily extended to adapt existing documents or add new ones. Even completely different document types (e.g. article data sheets) are possible.
 
-Das Modul kann einfach erweitert werden, um bestehende Dokumente anzupassen oder Neue hinzuzufügen. Auch komplett andere Dokumentarten (z.B. Artikeldatenblätter) sind einfach möglich.
+## System requirements:
 
-## Systemanforderungen:
-
-- installierter OXID eShop in Version 6
-- PHP-Version, für die Installationspakete verfügbar sind (PHP 7)
+- installed OXID eShop version 6
+- PHP version for which installation packages are available (PHP 7)
 - Installation via Composer
 
-## Kompatibilität:
+## Compatibility:
 
-Das Modul enthält die selbe Funktionalität wie das `OXID Invoice-PDF`-Modul. Grundsätzlich können beide Module parallel im Shop installiert werden, wenn dies erforderlich ist. 
+The module contains the same functionality as the 'OXID Invoice PDF' module. Basically, both modules can be installed in parallel in the shop, if required. 
 
-Soll das `OXID Invoice-PDF`-Modul komplett vom `PDF Dokumente` Modul ersetzt werden (weil z.B. dritte Module ebenfalls dessen Funktion verwenden), stellen wir unter ... eine Anpassung zur Verfügung, die zusätzlich installiert wird.
+If the 'OXID Invoice PDF' module has to be completely replaced by the 'PDF Documents' module (e.g. because third modules also use its function), we set up a ... which will be installed additionally.
 
 ## Installation:
 
 ```bash
-composer require d3/pdfdocuments --update-no-dev
+composer require d3/pdfdocuments:^1.0 --update-no-dev
 ```
 
-Eine detaillierte Installationsanleitung finden Sie [online](https://docs.oxidmodule.com/PDF-Dokumente/) und im docs-Verzeichnis dieses Pakets. Dort ist ebenfalls das Modulhandbuch hinterlegt.
+Detailed installation instructions can be found [online](https://docs.oxidmodule.com/PDF-Dokumente/) and in the docs directory of this package. The module manual is also available there.
   
 ## Support:
 
@@ -37,22 +34,12 @@ Eine detaillierte Installationsanleitung finden Sie [online](https://docs.oxidmo
 - Home: [www.d3data.de](https://www.d3data.de)
 - E-Mail: support@shopmodule.com
 
-## Danksagung:
+## Credits:
 
 - PDF logo made by Dimitriy Morilubov from www.flaticon.com
-
-## Lizenz / License
-
-**de:** Dieses Modul wird unter der GPL v3 Lizenz vertrieben. Für weitere Informationen siehe die ./LICENSE Datei.
- 
-Copyright by D3 Data Development (Inh. Thomas Dartsch)
-
----
-
-# <a name="en"></a>PDF Documents
 
 ## License
 
 This module is distributed under the GPL v3 License. For more information see the ./LICENSE file.
-
+ 
 Copyright by D3 Data Development (Inh. Thomas Dartsch)
