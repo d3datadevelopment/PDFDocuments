@@ -17,8 +17,7 @@ class invoicewithoutlogoPdf extends invoicePdf
      */
     public function getRequestId()
     {
-        // same like in OXID PDF module
-        return 'standart_without_logo';
+        return 'invoice_without_logo';
     }
 
     /**
