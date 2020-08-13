@@ -1,7 +1,4 @@
-[de](#de) | [en](#en)
-[de](#pdf-dokumente) | [en](#pdf-documents)
-
-# <a name="de"></a>PDF-Dokumente
+# PDF-Dokumente
 
 PDF-Dokumentgenerator für OXID eShop
 
@@ -26,7 +23,7 @@ Soll das `OXID Invoice-PDF`-Modul komplett vom `PDF Dokumente` Modul ersetzt wer
 ## Installation:
 
 ```bash
-composer require d3/pdfdocuments --update-no-dev
+composer require d3/pdfdocuments:^1.0 --update-no-dev
 ```
 
 Eine detaillierte Installationsanleitung finden Sie [online](https://docs.oxidmodule.com/PDF-Dokumente/) und im docs-Verzeichnis dieses Pakets. Dort ist ebenfalls das Modulhandbuch hinterlegt.
@@ -39,20 +36,10 @@ Eine detaillierte Installationsanleitung finden Sie [online](https://docs.oxidmo
 
 ## Danksagung:
 
-- PDF logo made by Dimitriy Morilubov from www.flaticon.com
+- PDF-Logo erstellt von Dimitriy Morilubov von www.flaticon.com
 
-## Lizenz / License
+## Lizenz
 
 **de:** Dieses Modul wird unter der GPL v3 Lizenz vertrieben. Für weitere Informationen siehe die ./LICENSE Datei.
  
-Copyright by D3 Data Development (Inh. Thomas Dartsch)
-
----
-
-# <a name="en"></a>PDF Documents
-
-## License
-
-This module is distributed under the GPL v3 License. For more information see the ./LICENSE file.
-
 Copyright by D3 Data Development (Inh. Thomas Dartsch)

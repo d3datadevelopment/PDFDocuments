@@ -6,7 +6,7 @@ title: Changelog
 
 ---
 
-## 1.0.0.0 - (2020-07-10)
+## 1.0.0.0 - (2020-08-13)
 
 #### Added
 - Framework zur Erstellung unterschiedlichster PDF Dokumente
