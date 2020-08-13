@@ -14,7 +14,7 @@ use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
 /**
  * Metadata version
  */
-$sMetadataVersion = '2.0';
+$sMetadataVersion = '2.1';
 
 $logo = '<img src="https://logos.oxidmodule.com/d3logo.svg" alt="(D3)" style="height:1em;width:1em">';
 
@@ -28,7 +28,7 @@ $aModule = [
         'de'        => $logo.' PDF-Dokumente',
         'en'        => $logo.' PDF documents',
     ],
-    'version'       => '0.1',
+    'version'       => '1.0',
     'author'        => 'D&sup3; Data Development (Inh.: Thomas Dartsch)',
     'email'         => 'support@shopmodule.com',
     'url'           => 'http://www.oxidmodule.com/',

@@ -16,11 +16,19 @@ use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use D3\PdfDocuments\Modules\Application\Model\d3_Order_PdfDocuments;
+use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\TableViewNameGenerator;
+
+if (false) {
+    class_alias(
+        d3_overview_controller_pdfdocuments_parent::class,
+        OrderOverview::class
+    );
+}
 
 class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocuments_parent
 {

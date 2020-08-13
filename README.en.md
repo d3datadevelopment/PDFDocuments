@@ -1,4 +1,6 @@
-# <a name="de"></a>PDF Documents
+> [german version](README.md)
+
+# PDF Documents
 
 PDF document generator for OXID eShop
 
@@ -10,7 +12,7 @@ The module can be easily extended to adapt existing documents or add new ones. E
 
 ## System requirements:
 
-- installed OXID eShop version 6
+- installed OXID eShop version from 6.1
 - PHP version for which installation packages are available (PHP 7)
 - Installation via Composer
 
@@ -18,7 +20,7 @@ The module can be easily extended to adapt existing documents or add new ones. E
 
 The module contains the same functionality as the 'OXID Invoice PDF' module. Basically, both modules can be installed in parallel in the shop, if required. 
 
-If the 'OXID Invoice PDF' module has to be completely replaced by the 'PDF Documents' module (e.g. because third modules also use its function), we set up a ... which will be installed additionally.
+If the `OXID Invoice PDF` module is to be completely replaced by the `D3 PDF Documents` module (e.g. because third modules also use its function), we provide [a customization](https://packagist.org/packages/d3/pdfdocuments_compat) which is installed additionally.
 
 ## Installation:
 
