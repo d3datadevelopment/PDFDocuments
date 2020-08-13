@@ -43,22 +43,13 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
         return 'invoice';
     }
 
-    /**
-     * @param        $sFilename
-     * @param int    $iSelLang
-     * @param string $target
-     *
-     * @return mixed|string|void
-     * @throws Html2PdfException
-     * @throws noBaseObjectSetException
-     */
-    public function genPdf( $sFilename, $iSelLang = 0, $target = 'I' )
+    public function runPreAction()
     {
+        parent::runPreAction();
+
         $this->setInvoiceNumber();
         $this->setInvoiceDate();
         $this->saveOrderOnChanges();
-
-        return parent::genPdf( $sFilename, $iSelLang, $target );
     }
 
     public function setInvoiceNumber()

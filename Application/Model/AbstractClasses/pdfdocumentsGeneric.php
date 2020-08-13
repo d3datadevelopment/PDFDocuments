@@ -50,6 +50,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $this->oSmarty = Registry::getUtilsView()->getSmarty();
     }
 
+    public function runPreAction()
+    {
+    }
+
+    public function runPostAction()
+    {
+    }
+
     /**
      * @param $sFilename
      * @param int $iSelLang
@@ -77,8 +85,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function downloadPdf($iLanguage = 0)
     {
         try {
+            $this->runPreAction();
             $sFilename = $this->getFilename();
             $this->genPdf($sFilename, $iLanguage, self::PDF_DESTINATION_DOWNLOAD);
+            $this->runPostAction();
             Registry::getUtils()->showMessageAndExit('');
         } catch (pdfGeneratorExceptionAbstract $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
@@ -95,12 +105,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function savePdfFile($path, $iLanguage = 0)
     {
         try {
+            $this->runPreAction();
             $sFilename = $this->getFilename();
             $this->genPdf(
                 rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.$sFilename,
                 $iLanguage,
                 self::PDF_DESTINATION_FILE
             );
+            $this->runPostAction();
         } catch (pdfGeneratorExceptionAbstract $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
@@ -116,8 +128,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function getPdfContent($iLanguage = 0)
     {
         try {
+            $this->runPreAction();
             $sFilename = $this->getFilename();
-            return $this->genPdf( $sFilename, $iLanguage, self::PDF_DESTINATION_STRING );
+            $ret = $this->genPdf( $sFilename, $iLanguage, self::PDF_DESTINATION_STRING );
+            $this->runPostAction();
+            return $ret;
         } catch (pdfGeneratorExceptionAbstract $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
