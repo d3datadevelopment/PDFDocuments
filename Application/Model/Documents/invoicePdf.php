@@ -54,8 +54,6 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
 
     public function setInvoiceNumber()
     {
-        $this->blIsNewOrder = false;
-
         if (!$this->getOrder()->getFieldData('oxbillnr')) {
             $this->getOrder()->assign(['oxbillnr' => $this->getOrder()->getNextBillNum()]);
 
