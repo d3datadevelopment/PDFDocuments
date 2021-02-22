@@ -10,6 +10,7 @@
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
+use D3\ModCfg\Application\Model\d3filesystem;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
 use OxidEsales\Eshop\Core\Base;
@@ -218,15 +219,15 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         // forced filename from setFilename()
         if ($this->filename) {
-            return $this->addFilenameExtension(
-                $this->makeValidFileName(
+            return $this->makeValidFileName(
+                $this->addFilenameExtension(
                     $this->filename
                 )
             );
         }
 
-        return $this->addFilenameExtension(
-            $this->makeValidFileName(
+        return $this->makeValidFileName(
+            $this->addFilenameExtension(
                 $this->getTypeForFilename()
             )
         );
@@ -257,10 +258,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function makeValidFileName($sFilename)
     {
-        $sFilename = preg_replace('/[\s]+/', '_', $sFilename);
-        $sFilename = preg_replace('/[^a-zA-Z0-9_\.-]/', '', $sFilename);
-
-        return str_replace(' ', '_', $sFilename);
+        $fs = oxNew(d3filesystem::class);
+        return $fs->filterFilename($sFilename);
     }
 
     /**
