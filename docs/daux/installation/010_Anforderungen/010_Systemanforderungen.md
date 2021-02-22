@@ -10,6 +10,7 @@ title: Systemanforderungen
         * 6.2.x
 * Themes
     * Diese Modul bindet sich nicht in Frontendthemes ein und ist daher davon unabhängig
+* (D3) Modul-Connector ([kostenfrei bei D3 erhältlich](https://www.oxidmodule.com/connector/)) ab Version 5.3.6.0 
 * Template-Engine
     * Smarty
 * Installation via [Composer](https://getcomposer.org)
