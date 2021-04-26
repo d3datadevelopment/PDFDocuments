@@ -31,10 +31,10 @@
     }
   },
   "require": {
-    "php": "^7.0",
-    "oxid-esales/oxideshop-ce": "6.3 - 6.6",
+    "php": "^7.0 || ^8.0",
+    "oxid-esales/oxideshop-ce": "6.3 - 6.8",
     "spipu/html2pdf": "^5.2",
-    "d3/modcfg": "^5.3.6.000"
+    "d3/modcfg": "^5.3.6.000 || ^6"
   },
   "autoload": {
     "psr-4": {
