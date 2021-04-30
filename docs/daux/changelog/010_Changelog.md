@@ -6,6 +6,10 @@ title: Changelog
 
 ### Added
 - installierbar in OXID 6.2.4 und 6.3.0
+- Dateinamen werden auf Gültigkeit hin korrigiert
+
+### Fixed
+- Setzen der Rechnungsnummer setzt den "neue Bestellung"-Status nicht zurück
 
 ---
 
