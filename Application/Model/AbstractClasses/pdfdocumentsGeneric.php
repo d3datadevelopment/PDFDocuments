@@ -304,7 +304,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
                 if (ob_get_contents()) {
                     $oPdf->pdf->Error('Some data has already been output, can\'t send PDF file');
                 }
-                if (php_sapi_name() != 'cli') {
+                if (substr(php_sapi_name(), 0, 3) != 'cli') {
                     //We send to a browser
                     header('Content-Type: text/html');
                     if (headers_sent()) {
