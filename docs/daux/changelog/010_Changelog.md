@@ -2,6 +2,13 @@
 title: Changelog
 ---
 
+## 1.0.3.1 - (2023-05-09)
+
+### Fixed
+- fix multiple documents at once
+
+---
+
 ## 1.0.3.0 - (2023-01-04)
 
 ### Added
