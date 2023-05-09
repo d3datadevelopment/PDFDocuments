@@ -48,7 +48,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         parent::__construct();
 
         /** @var Smarty $oSmarty */
-        $this->oSmarty = Registry::getUtilsView()->getSmarty();
+        $this->oSmarty = Registry::getUtilsView()->getSmarty(true);
     }
 
     public function runPreAction()
