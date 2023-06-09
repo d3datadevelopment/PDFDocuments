@@ -35,8 +35,9 @@ $aModule = [
     'extend'        => [
         OrderOverview::class    => d3_overview_controller_pdfdocuments::class
     ],
-    'controllers'           => [],
-    'templates'             => [
+    'controllers'   => [],
+    'thumbnail'     => 'logo.png',
+    'templates'     => [
         'd3orderoverview_pdfform.tpl'   => 'd3/pdfdocuments/Application/views/tpl/admin/orderoverview_pdfform.tpl',
 
         'd3deliverynote_pdf.tpl'        => 'd3/pdfdocuments/Application/views/tpl/documents/deliverynote/deliverynote.tpl',
