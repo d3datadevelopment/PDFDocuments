@@ -31,7 +31,7 @@ $aModule = [
     'version'       => '1.0.3.1',
     'author'        => 'D&sup3; Data Development (Inh.: Thomas Dartsch)',
     'email'         => 'support@shopmodule.com',
-    'url'           => 'http://www.oxidmodule.com/',
+    'url'           => 'https://www.oxidmodule.com/',
     'extend'        => [
         OrderOverview::class    => d3_overview_controller_pdfdocuments::class
     ],

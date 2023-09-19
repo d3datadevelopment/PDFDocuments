@@ -1,7 +1,7 @@
 [{assign var="defaultPagePadding" value=","|explode:"45,15,25,25"}] [{* top, right, bottom, left *}]
 [{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
 
-<style type="text/css">
+<style>
     .marks {
         position: absolute;
         left: [{math equation="left - padding" left=5 padding=$pagePadding.3}]mm ;

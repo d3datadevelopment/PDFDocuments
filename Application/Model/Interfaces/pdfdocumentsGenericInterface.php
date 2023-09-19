@@ -10,8 +10,6 @@
 
 namespace D3\PdfDocuments\Application\Model\Interfaces;
 
-use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
-
 interface pdfdocumentsGenericInterface
 {
     /**
@@ -58,7 +56,6 @@ interface pdfdocumentsGenericInterface
      * @param string $target
      *
      * @return mixed
-     * @throws noBaseObjectSetException
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = 'I');
 

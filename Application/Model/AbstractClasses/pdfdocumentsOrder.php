@@ -10,9 +10,10 @@
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
-use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
+use Assert\Assert;
+use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface as orderInterface;
-use \OxidEsales\Eshop\Application\Model\Order;
+use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Registry;
@@ -23,6 +24,14 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     public $oOrder;
 
     /**
+     * don't use order as constructor argument because of same method interface for all document types
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
      * @param Order $order
      */
     public function setOrder(Order $order)
@@ -31,15 +40,22 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     }
 
     /**
+     * @throws InvalidArgumentException
      * @return Order
      */
     public function getOrder()
     {
+        Assert::lazy()
+            ->that($this->oOrder)->isInstanceOf(Order::class, 'no order for pdf generator set')
+            ->that($this->oOrder->isLoaded())->true('given order is not loaded')
+            ->verifyNow();
+
         return $this->oOrder;
     }
 
     /**
      * @param int $iSelLang
+     * @throws InvalidArgumentException
      */
     public function setSmartyVars($iSelLang)
     {
@@ -58,6 +74,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
 
     /**
      * @return string
+     * @throws InvalidArgumentException
      */
     public function getFilename()
     {
@@ -87,21 +104,6 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     }
 
     /**
-     * @param $sFilename
-     * @param int $iSelLang
-     * @param string $target
-     * @return mixed|string|null
-     */
-    public function genPdf($sFilename, $iSelLang = 0, $target = 'I')
-    {
-        if (false == $this->getOrder()) {
-            throw oxNew(noBaseObjectSetException::class);
-        }
-
-        return parent::genPdf($sFilename, $iSelLang, $target);
-    }
-
-    /**
      * @return int
      */
     public function getPaymentTerm()
@@ -115,6 +117,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
 
     /**
      * @return false|string
+     * @throws InvalidArgumentException
      */
     public function getPayableUntilDate()
     {

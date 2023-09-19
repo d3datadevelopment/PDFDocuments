@@ -11,11 +11,9 @@
 namespace D3\PdfDocuments\Modules\Application\Controller;
 
 use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
-use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
-use D3\PdfDocuments\Modules\Application\Model\d3_Order_PdfDocuments;
 use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\DatabaseProvider;
@@ -45,12 +43,11 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
         $viewNameGenerator = Registry::get(TableViewNameGenerator::class);
         $sTable = $viewNameGenerator->getViewName("oxorderarticles");
 
-        $sQ = "select count(oxid) from {$sTable} where oxorderid = " . $masterDb->quote($sOrderId) . " and oxstorno = 0";
+        $sQ = "select count(oxid) from $sTable where oxorderid = " . $masterDb->quote($sOrderId) . " and oxstorno = 0";
         return (bool) $masterDb->getOne($sQ);
     }
 
     /**
-     * @throws noBaseObjectSetException
      * @throws noPdfHandlerFoundException
      * @throws pdfGeneratorExceptionAbstract
      */
@@ -58,7 +55,7 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
     {
         $soxId = $this->getEditObjectId();
         if ($soxId != "-1" && isset($soxId)) {
-            /** @var d3_Order_PdfDocuments $oOrder */
+            /** @var Order $oOrder */
             $oOrder = oxNew(Order::class);
             if ($oOrder->load($soxId)) {
                 $generator = oxNew( orderOverviewPdfGenerator::class );

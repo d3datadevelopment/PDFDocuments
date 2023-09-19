@@ -4,7 +4,7 @@
 [{* rulers *}]
 [{* include file="d3pdfrulers.tpl" pagePadding=$pagePadding *}]
 
-<style type="text/css">
+<style>
     .rulerItemHorizontal {
         position: absolute;
         top: -[{$pagePadding.0}]mm;

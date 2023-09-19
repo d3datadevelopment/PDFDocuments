@@ -10,6 +10,7 @@
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
+use Assert\InvalidArgumentException;
 use D3\ModCfg\Application\Model\d3filesystem;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
@@ -94,6 +95,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         } catch (pdfGeneratorExceptionAbstract $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
+        } catch (InvalidArgumentException $e) {
+            Registry::get(UtilsView::class)->addErrorToDisplay($e);
+            Registry::getLogger()->error($e);
         }
     }
 
@@ -117,6 +121,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         } catch (pdfGeneratorExceptionAbstract $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
+        } catch (InvalidArgumentException $e) {
+            Registry::get(UtilsView::class)->addErrorToDisplay($e);
+            Registry::getLogger()->error($e);
         }
     }
 
@@ -135,6 +142,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $this->runPostAction();
             return $ret;
         } catch (pdfGeneratorExceptionAbstract $e) {
+            Registry::get(UtilsView::class)->addErrorToDisplay($e);
+            Registry::getLogger()->error($e);
+        } catch (InvalidArgumentException $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
         }
@@ -159,6 +169,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @param int $iSelLang
      *
      * @return mixed
+     * @throws InvalidArgumentException
      */
     public function getHTMLContent($iSelLang = 0)
     {
@@ -242,7 +253,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         $extension = $this->filenameExtension;
         $extensionLength = (strlen($extension) + 1) * -1;
-        if ((bool) strlen($extension) && substr($filename, $extensionLength) != '.'.$extension) {
+        if (strlen($extension) && substr($filename, $extensionLength) != '.'.$extension) {
             $filename .= '.'.$extension;
         }
 

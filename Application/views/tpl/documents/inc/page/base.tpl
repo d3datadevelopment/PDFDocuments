@@ -4,7 +4,7 @@
 [{assign var="defaultPagePadding" value=","|explode:"45,15,25,25"}] [{* top, right, bottom, left *}]
 [{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
 
-<style type="text/css">
+<style>
     [{foreach from=$pdfBlock_style item="_block"}]
         [{$_block}]
     [{/foreach}]

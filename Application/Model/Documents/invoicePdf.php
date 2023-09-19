@@ -10,10 +10,9 @@
 
 namespace D3\PdfDocuments\Application\Model\Documents;
 
+use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
-use D3\PdfDocuments\Application\Model\Exceptions\noBaseObjectSetException;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderinvoiceInterface;
-use Spipu\Html2Pdf\Exception\Html2PdfException;
 
 class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceInterface
 {
@@ -43,6 +42,10 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
         return 'invoice';
     }
 
+    /**
+     * @return void
+     * @throws InvalidArgumentException
+     */
     public function runPreAction()
     {
         parent::runPreAction();
@@ -52,6 +55,10 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
         $this->saveOrderOnChanges();
     }
 
+    /**
+     * @return void
+     * @throws InvalidArgumentException
+     */
     public function setInvoiceNumber()
     {
         if (!$this->getOrder()->getFieldData('oxbillnr')) {
@@ -61,6 +68,10 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
         }
     }
 
+    /**
+     * @return void
+     * @throws InvalidArgumentException
+     */
     public function setInvoiceDate()
     {
         if ($this->getOrder()->getFieldData('oxbilldate') == '0000-00-00') {
@@ -72,6 +83,10 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
         }
     }
 
+    /**
+     * @return void
+     * @throws InvalidArgumentException
+     */
     public function saveOrderOnChanges()
     {
         if ($this->blIsNewOrder) {
@@ -85,6 +100,7 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
 
     /**
      * @return string
+     * @throws InvalidArgumentException
      */
     public function getFilename()
     {
