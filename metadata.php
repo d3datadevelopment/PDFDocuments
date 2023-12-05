@@ -36,7 +36,7 @@ $aModule = [
         OrderOverview::class    => d3_overview_controller_pdfdocuments::class
     ],
     'controllers'   => [],
-    'thumbnail'     => 'logo.png',
+    'thumbnail'     => 'picture.svg',
     'templates'     => [
         'd3orderoverview_pdfform.tpl'   => 'd3/pdfdocuments/Application/views/tpl/admin/orderoverview_pdfform.tpl',
 
