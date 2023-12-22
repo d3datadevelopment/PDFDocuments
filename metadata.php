@@ -28,7 +28,7 @@ $aModule = [
         'de'        => $logo.' PDF-Dokumente',
         'en'        => $logo.' PDF documents',
     ],
-    'version'       => '1.0.3.1',
+    'version'       => '1.0.4.0',
     'author'        => 'D&sup3; Data Development (Inh.: Thomas Dartsch)',
     'email'         => 'support@shopmodule.com',
     'url'           => 'https://www.oxidmodule.com/',
