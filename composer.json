@@ -26,7 +26,7 @@
       "blacklist-filter": [
         "composer.json",
         "docs/**/*.*"
-      ],
+      ]
     }
   },
   "require": {
