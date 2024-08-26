@@ -17,6 +17,7 @@ use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use Smarty;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -47,9 +48,13 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function __construct()
     {
         parent::__construct();
-
-        /** @var Smarty $oSmarty */
-        $this->oSmarty = Registry::getUtilsView()->getSmarty(true);
+		
+		/** @var TemplateRenderer $oTemplateRenderer */
+        $oTemplateRenderer =  $this->getContainer()
+	        ->get(TemplateRendererBridgeInterface::class)
+	        ->getTemplateRenderer();
+	    
+	    $this->oSmarty = $oTemplateRenderer->getTemplateEngine()->getSmarty();
     }
 
     public function runPreAction()
@@ -158,9 +163,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function setSmartyVars($iSelLang)
     {
         unset($iSelLang);
-        $this->oSmarty->assign('config', Registry::getSession()->getConfig());
-        $this->oSmarty->assign('viewConfig', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
-        $this->oSmarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
+		
+        $this->oSmarty->assign('config', Registry::getConfig());
+        $this->oSmarty->assign('viewConfig', Registry::getConfig()->getActiveView()->getViewConfig());
+        $this->oSmarty->assign('shop', Registry::getConfig()->getActiveShop());
         $this->oSmarty->assign('lang', Registry::getLang());
         $this->oSmarty->assign('document', $this);
     }
