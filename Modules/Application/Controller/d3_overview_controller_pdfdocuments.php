@@ -21,16 +21,9 @@ use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\TableViewNameGenerator;
 
-if (false) {
-    class_alias(
-        d3_overview_controller_pdfdocuments_parent::class,
-        OrderOverview::class
-    );
-}
-
 class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocuments_parent
 {
-    /**
+	/**
      * @return bool
      * @throws DatabaseConnectionException
      */

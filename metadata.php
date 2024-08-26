@@ -82,7 +82,7 @@ $aModule = [
         [
             'template' => 'order_overview.tpl',
             'block'    => 'admin_order_overview_export',
-            'file'     => 'views/smarty/blocks/blocks/order_overview.tpl'
+            'file'     => 'views/smarty/blocks/order_overview.tpl'
         ]
     ],
     'settings' => [
