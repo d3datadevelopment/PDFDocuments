@@ -54,7 +54,7 @@
         <nobreak>
             <table class="article_costs_table">
                 [{block name="d3_article_costs_summary"}]
-                    [{include file="d3pdfarticlecostsummary.tpl"}]
+                    [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfarticlecostsummary.tpl"}]
                 [{/block}]
             </table>
         </nobreak>

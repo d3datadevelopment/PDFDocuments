@@ -1,1 +1,1 @@
-[{include file="d3deliverynote_pdf.tpl" showLogo=false}]
+[{include file="@d3PdfDocuments/documents/deliverynote/d3deliverynote_pdf.tpl" showLogo=false}]

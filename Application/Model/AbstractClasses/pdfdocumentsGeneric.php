@@ -18,6 +18,7 @@ use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use Smarty;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -48,7 +49,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function __construct()
     {
         parent::__construct();
-		
+	    
 		/** @var TemplateRenderer $oTemplateRenderer */
         $oTemplateRenderer =  $this->getContainer()
 	        ->get(TemplateRendererBridgeInterface::class)
