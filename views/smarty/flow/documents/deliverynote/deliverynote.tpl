@@ -3,7 +3,7 @@
 
 [{capture append="pdfBlock_style"}]
     [{block name="pdfStyles"}]
-        [{include file="d3pdfstyles.css"}]
+        [{include file="@d3PdfDocuments/assets/d3pdfstyles.css"}]
     [{/block}]
 [{/capture}]
 
@@ -14,7 +14,6 @@
 [{/capture}]
 
 [{capture append="pdfBlock_content"}]
-    [{* include file="@d3PdfDocuments/documents/inc/helper/d3pdfrulers.tpl" pagePadding=$pagePadding *}]
     [{include file="@d3PdfDocuments/documents/inc/elements/d3pdffoldmarks.tpl" pagePadding=$pagePadding}]
 
     [{block name="pdfAddressArea"}]
