@@ -76,7 +76,7 @@ $aModule = [
         '@' . Constants::OXID_MODULE_ID . '/documents/inc/helper/d3pdfrulers.tpl'                               => 'views/smarty/flow/documents/inc/helper/rulers.tpl',
 	    
 	    // Frontend - Flow - Inc - Styles
-        '@' . Constants::OXID_MODULE_ID . '/assets/d3pdfstyles.css'                                                 => 'Assets/out/src/css/pdfStyling.css',
+        '@' . Constants::OXID_MODULE_ID . '/assets/d3pdfstyles.css'                                                 => 'assets/out/src/css/pdfStyling.css',
     ],
     'events'                => [],
     'blocks'                => [
