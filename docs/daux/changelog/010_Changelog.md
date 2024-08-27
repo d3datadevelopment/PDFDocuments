@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://git.d3data.de/D3Public/pdfdokumente/compare/1.0.4.0...rel_1.x)
 
+## [2.0.0](https://git.d3data.de/D3Public/pdfdokumente/compare/1.0.4.0...2.0.0) - 2024-08-XX
+### Added
+- installierbar in OXID 7.0 && 7.1 (CE 7.0.x - 7.1.x)
+
 ## [1.0.4.0](https://git.d3data.de/D3Public/pdfdokumente/compare/1.0.3.1...1.0.4.0) - 2023-12-22
 ### Added
 - installierbar in OXID 6.5.2 + 6.5.3 (CE 6.14)

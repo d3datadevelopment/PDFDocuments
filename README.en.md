@@ -12,8 +12,8 @@ The module can be easily extended to adapt existing documents or add new ones. E
 
 ## System requirements:
 
-- installed OXID eShop version from 6.1
-- PHP version for which installation packages are available (PHP 7 + 8)
+- installed OXID eShop version from 7.0 - 7.1
+- PHP version for which installation packages are available (PHP 8)
 - Installation via Composer
 
 ## Compatibility:
@@ -25,7 +25,7 @@ If the `OXID Invoice PDF` module is to be completely replaced by the `D3 PDF Doc
 ## Installation:
 
 ```bash
-composer require d3/pdfdocuments:^1.0 --update-no-dev
+composer require d3/pdfdocuments:^2.0 --update-no-dev
 ```
 
 Detailed installation instructions can be found [online](https://docs.oxidmodule.com/PDF-Dokumente/) and in the docs directory of this package. The module manual is also available there.
