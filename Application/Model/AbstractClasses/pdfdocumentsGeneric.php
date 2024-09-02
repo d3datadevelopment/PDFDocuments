@@ -38,7 +38,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public $filenameExtension = 'pdf';
 
     /** @var Smarty  */
-    public $oSmarty;
+    public $oTemplateEngine;
 
     /** @var string */
     public $filename;
@@ -55,7 +55,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 	        ->get(TemplateRendererBridgeInterface::class)
 	        ->getTemplateRenderer();
 	    
-	    $this->oSmarty = $oTemplateRenderer->getTemplateEngine()->getSmarty();
+		//ToDo: hier nochmal prüfen, wie das mit smarty aussieht!
+	    $this->oTemplateEngine = $oTemplateRenderer->getTemplateEngine();
     }
 
     public function runPreAction()
@@ -161,15 +162,15 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @param int $iSelLang
      */
-    public function setSmartyVars($iSelLang)
+    public function setTemplateEngineVars($iSelLang)
     {
         unset($iSelLang);
 		
-        $this->oSmarty->assign('config', Registry::getConfig());
-        $this->oSmarty->assign('viewConfig', Registry::getConfig()->getActiveView()->getViewConfig());
-        $this->oSmarty->assign('shop', Registry::getConfig()->getActiveShop());
-        $this->oSmarty->assign('lang', Registry::getLang());
-        $this->oSmarty->assign('document', $this);
+        $this->oTemplateEngine->addGlobal('config', Registry::getConfig());
+        $this->oTemplateEngine->addGlobal('viewConfig', Registry::getConfig()->getActiveView()->getViewConfig());
+        $this->oTemplateEngine->addGlobal('shop', Registry::getConfig()->getActiveShop());
+        $this->oTemplateEngine->addGlobal('lang', Registry::getLang());
+        $this->oTemplateEngine->addGlobal('document', $this);
     }
 
     /**
@@ -188,9 +189,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $currTplLang = $lang->getTplLanguage();
         $lang->setTplLanguage($iSelLang);
 
-        $this->setSmartyVars($iSelLang);
+        $this->setTemplateEngineVars($iSelLang);
 
-        $content = $this->oSmarty->fetch($this->getTemplate());
+        $content = $this->oTemplateEngine->render($this->getTemplate());
 
         $lang->setTplLanguage($currTplLang);
 
