@@ -5,7 +5,7 @@
                 [{oxmultilang ident="D3_PDFDOCUMENTS_USED_PAYMENTMETHOD" suffix="COLON"}]
                 [{$payment->getFieldData('oxdesc')}]<br>
 
-                [{include file="@d3PdfDocuments/documents/invoice/d3invoice_pdf_payinfo.tpl"}]
+                [{include file="@d3PdfDocuments/documents/invoice/invoice_payinfo"}]
             </div>
         [{/block}]
 

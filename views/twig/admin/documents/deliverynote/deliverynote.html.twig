@@ -17,15 +17,15 @@
     {% include "@d3PdfDocuments/documents/inc/elements/d3pdffoldmarks.html.twig" with {pagePadding: pagePadding} %}
 
     {% block pdfAddressArea %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfaddressarea.html.twig" with {addressfile: "@d3PdfDocuments/documents/deliverynote/d3delnote_pdf_recipient.tpl"} %}
+        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfaddressarea.html.twig" with {addressfile: "@d3PdfDocuments/documents/deliverynote/delnote_recipient"} %}
     {% endblock %}
 
     {% block pdfInformations %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfinformations.html.twig" with {documentinformationfile: "@d3PdfDocuments/documents/deliverynote/d3delnote_pdf_informations.tpl"} %}
+        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfinformations.html.twig" with {documentinformationfile: "@d3PdfDocuments/documents/deliverynote/delnote_informations"} %}
     {% endblock %}
 
     {% block pdfSalutation %}
-        {% include "@d3PdfDocuments/documents/deliverynote/d3delnote_pdf_salutation.html.twig" %}
+        {% include "@d3PdfDocuments/documents/deliverynote/delnote_salutation" %}
     {% endblock %}
 
     {% block pdfArticleList %}
@@ -33,7 +33,7 @@
     {% endblock %}
 
     {% block pdfConclusion %}
-        {% include "@d3PdfDocuments/documents/deliverynote/d3delnote_pdf_conclusion.html.twig" %}
+        {% include "@d3PdfDocuments/documents/deliverynote/delnote_conclusion" %}
     {% endblock %}
 {% endcapture %}
 

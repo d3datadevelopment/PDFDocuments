@@ -42,20 +42,20 @@ $aModule = [
         '@' . Constants::OXID_MODULE_ID . '/admin/d3orderoverview_pdfform.tpl'                                      => 'views/smarty/admin/orderoverview_pdfform.tpl',
 
         // Frontend - Flow - Deliverynote
-        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/d3deliverynote_pdf.tpl'                  => 'views/smarty/flow/documents/deliverynote/deliverynote.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/d3deliverynoteNoLogo_pdf.tpl'     => 'views/smarty/flow/documents/deliverynote/deliverynoteNoLogo.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/d3delnote_pdf_informations.tpl'  => 'views/smarty/flow/documents/deliverynote/inc/informations.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/d3delnote_pdf_recipient.tpl'         => 'views/smarty/flow/documents/deliverynote/inc/recipientAddress.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/d3delnote_pdf_salutation.tpl'       => 'views/smarty/flow/documents/deliverynote/inc/salutation.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/d3delnote_pdf_conclusion.tpl'       => 'views/smarty/flow/documents/deliverynote/inc/conclusion.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/deliverynote.tpl'                  => 'views/smarty/flow/documents/deliverynote/deliverynote.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/deliverynoteNoLogo.tpl'     => 'views/smarty/flow/documents/deliverynote/deliverynoteNoLogo.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/delnote_informations.tpl'  => 'views/smarty/flow/documents/deliverynote/inc/informations.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/delnote_recipient.tpl'         => 'views/smarty/flow/documents/deliverynote/inc/recipientAddress.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/delnote_salutation.tpl'       => 'views/smarty/flow/documents/deliverynote/inc/salutation.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/deliverynote/delnote_conclusion.tpl'       => 'views/smarty/flow/documents/deliverynote/inc/conclusion.tpl',
 
         // Frontend - Flow - Invoice
-        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/d3invoice_pdf.tpl'                            => 'views/smarty/flow/documents/invoice/invoice.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/d3invoiceNoLogo_pdf.tpl'               => 'views/smarty/flow/documents/invoice/invoiceNoLogo.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/d3invoice_pdf_informations.tpl'    => 'views/smarty/flow/documents/invoice/inc/informations.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/d3invoice_pdf_salutation.tpl'        => 'views/smarty/flow/documents/invoice/inc/salutation.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/d3invoice_pdf_conclusion.tpl'       => 'views/smarty/flow/documents/invoice/inc/conclusion.tpl',
-        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/d3invoice_pdf_payinfo.tpl'            => 'views/smarty/flow/documents/invoice/inc/payinfo.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/invoice.tpl'                            => 'views/smarty/flow/documents/invoice/invoice.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/invoiceNoLogo.tpl'               => 'views/smarty/flow/documents/invoice/invoiceNoLogo.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/invoice_informations.tpl'    => 'views/smarty/flow/documents/invoice/inc/informations.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/invoice_salutation.tpl'        => 'views/smarty/flow/documents/invoice/inc/salutation.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/invoice_conclusion.tpl'       => 'views/smarty/flow/documents/invoice/inc/conclusion.tpl',
+        '@' . Constants::OXID_MODULE_ID . '/documents/invoice/invoice_payinfo.tpl'            => 'views/smarty/flow/documents/invoice/inc/payinfo.tpl',
 
         // Frontend - Flow - Inc - Page
         '@' . Constants::OXID_MODULE_ID . '/documents/inc/page/d3pdfbase.tpl'                  => 'views/smarty/flow/documents/inc/page/base.tpl',

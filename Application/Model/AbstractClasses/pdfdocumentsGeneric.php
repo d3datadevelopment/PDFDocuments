@@ -17,6 +17,8 @@ use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateEngineInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use Smarty;
@@ -50,15 +52,25 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         parent::__construct();
 	    
-		/** @var TemplateRenderer $oTemplateRenderer */
-        $oTemplateRenderer =  $this->getContainer()
-	        ->get(TemplateRendererBridgeInterface::class)
-	        ->getTemplateRenderer();
-	    
-		//ToDo: hier nochmal prüfen, wie das mit smarty aussieht!
-	    $this->oTemplateEngine = $oTemplateRenderer->getTemplateEngine();
+	    $this->oTemplateEngine =  $this->d3GetTemplateEngine();
     }
 
+	public function d3GetTemplateEngine() :TemplateEngineInterface
+	{
+		$renderer = $this->d3GetTemplateRendererBridge()->getTemplateRenderer();
+		return $renderer->getTemplateEngine();
+	}
+	
+	/**
+	 * @throws ContainerExceptionInterface
+	 * @throws NotFoundExceptionInterface
+	 */
+	public function d3GetTemplateRendererBridge(): TemplateRendererBridgeInterface
+	{
+		return ContainerFactory::getInstance()->getContainer()
+			->get(TemplateRendererBridgeInterface::class);
+	}
+	
     public function runPreAction()
     {
     }

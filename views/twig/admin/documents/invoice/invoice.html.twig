@@ -22,7 +22,7 @@
     {% endblock %}
 
     {% block pdfInformations %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfinformations.html.twig" with {documentinformationfile: "@d3PdfDocuments/documents/invoice/d3invoice_pdf_informations.tpl"} %}
+        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfinformations.html.twig" with {documentinformationfile: "@d3PdfDocuments/documents/invoice/invoice_informations"} %}
     {% endblock %}
 
     {% block pdfDeliveryAddress %}
@@ -30,7 +30,7 @@
     {% endblock %}
 
     {% block pdfSalutation %}
-        {% include "@d3PdfDocuments/documents/invoice/d3invoice_pdf_salutation.html.twig" %}
+        {% include "@d3PdfDocuments/documents/invoice/invoice_salutation" %}
     {% endblock %}
 
     {% block pdfArticleList %}
@@ -38,7 +38,7 @@
     {% endblock %}
 
     {% block pdfConclusion %}
-        {% include "@d3PdfDocuments/documents/invoice/d3invoice_pdf_conclusion.html.twig" %}
+        {% include "@d3PdfDocuments/documents/invoice/invoice_conclusion" %}
     {% endblock %}
 {% endcapture %}
 

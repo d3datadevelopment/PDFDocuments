@@ -40,6 +40,6 @@ class invoicewithoutlogoPdf extends invoicePdf
      * @return string
      */
     public function getTemplate(){
-        return '@d3PdfDocuments/documents/invoice/d3invoiceNoLogo_pdf.tpl';
+        return '@d3PdfDocuments/admin/documents/invoice/invoiceNoLogo';
     }
 }

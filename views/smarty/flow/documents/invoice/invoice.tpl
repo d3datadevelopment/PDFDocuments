@@ -22,7 +22,7 @@
     [{/block}]
 
     [{block name="pdfInformations"}]
-        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfinformations.tpl" documentinformationfile="@d3PdfDocuments/documents/invoice/d3invoice_pdf_informations.tpl"}]
+        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfinformations.tpl" documentinformationfile="@d3PdfDocuments/documents/invoice/invoice_informations"}]
     [{/block}]
 
     [{block name="pdfDeliveryAddress"}]
@@ -30,7 +30,7 @@
     [{/block}]
 
     [{block name="pdfSalutation"}]
-        [{include file="@d3PdfDocuments/documents/invoice/d3invoice_pdf_salutation.tpl"}]
+        [{include file="@d3PdfDocuments/documents/invoice/invoice_salutation"}]
     [{/block}]
 
     [{block name="pdfArticleList"}]
@@ -38,7 +38,7 @@
     [{/block}]
 
     [{block name="pdfConclusion"}]
-        [{include file="@d3PdfDocuments/documents/invoice/d3invoice_pdf_conclusion.tpl"}]
+        [{include file="@d3PdfDocuments/documents/invoice/invoice_conclusion"}]
     [{/block}]
 [{/capture}]
 

@@ -17,15 +17,15 @@
     [{include file="@d3PdfDocuments/documents/inc/elements/d3pdffoldmarks.tpl" pagePadding=$pagePadding}]
 
     [{block name="pdfAddressArea"}]
-        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfaddressarea.tpl" addressfile="@d3PdfDocuments/documents/deliverynote/d3delnote_pdf_recipient.tpl"}]
+        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfaddressarea.tpl" addressfile="@d3PdfDocuments/documents/deliverynote/delnote_recipient"}]
     [{/block}]
 
     [{block name="pdfInformations"}]
-        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfinformations.tpl" documentinformationfile="@d3PdfDocuments/documents/deliverynote/d3delnote_pdf_informations.tpl"}]
+        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfinformations.tpl" documentinformationfile="@d3PdfDocuments/documents/deliverynote/delnote_informations"}]
     [{/block}]
 
     [{block name="pdfSalutation"}]
-        [{include file="@d3PdfDocuments/documents/deliverynote/d3delnote_pdf_salutation.tpl"}]
+        [{include file="@d3PdfDocuments/documents/deliverynote/delnote_salutation"}]
     [{/block}]
 
     [{block name="pdfArticleList"}]
@@ -33,7 +33,7 @@
     [{/block}]
 
     [{block name="pdfConclusion"}]
-        [{include file="@d3PdfDocuments/documents/deliverynote/d3delnote_pdf_conclusion.tpl"}]
+        [{include file="@d3PdfDocuments/documents/deliverynote/delnote_conclusion.tpl"}]
     [{/block}]
 [{/capture}]
 

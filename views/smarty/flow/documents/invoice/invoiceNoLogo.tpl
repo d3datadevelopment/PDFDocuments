@@ -1,1 +1,1 @@
-[{include file="@d3PdfDocuments/documents/invoice/d3invoice_pdf.tpl" showLogo=false}]
+[{include file="@d3PdfDocuments/documents/invoice/invoice" showLogo=false}]
