@@ -1,0 +1,12 @@
+{% block salutation %}
+    <div class="salutation">
+        <div class="documenttype">{{ translate({ ident: "D3_PDFDOCUMENTS_DELIVERYNOTE" }) }}</div>
+        <div class="documentnumber">{{ translate({ ident: "D3_PDFDOCUMENTS_ORDERNR", suffix: "COLON" }) }} {{ order.getFieldData('oxordernr') }}</div>
+
+        {% set dateFormat = 'D3_PDFDOCUMENTS_DATE_FORMAT'|translate %}
+        {% set sArgs = order.getFieldData('oxorderdate')|date_format(dateFormat)|cat("//")|cat(shop.getFieldData('oxname')) %}
+        {% set aArgs = "//"|explode(sArgs) %}
+
+        <div>{{ translate({ ident: "D3_PDFDOCUMENTS_ORDER_FROM_AT", args: aArgs }) }}</div>
+    </div>
+{% endblock %}

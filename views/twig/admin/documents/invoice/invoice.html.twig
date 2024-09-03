@@ -1,0 +1,51 @@
+{% set pagePadding = ","|explode("45,15,30,25") %} {# top, right, bottom, left #}
+{% set showLogo = showLogo|default(true) %}
+
+{% capture append = "pdfBlock_style" %}
+    {% block pdfStyles %}
+        {% include "@d3PdfDocuments/assets/d3pdfstyles.css" %}
+    {% endblock %}
+{% endcapture %}
+
+{% capture append = "pdfBlock_header" %}
+    {% block pdfHeader %}
+        {% include "@d3PdfDocuments/documents/inc/page/d3pdfheader.html.twig" with {showLogo: showLogo} %}
+    {% endblock %}
+{% endcapture %}
+
+{% capture append = "pdfBlock_content" %}
+    {# include file="@d3PdfDocuments/documents/inc/helper/d3pdfrulers.tpl" pagePadding=$pagePadding #}
+    {% include "@d3PdfDocuments/documents/inc/elements/d3pdffoldmarks.html.twig" with {pagePadding: pagePadding} %}
+
+    {% block pdfAddressArea %}
+        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfaddressarea.html.twig" %}
+    {% endblock %}
+
+    {% block pdfInformations %}
+        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfinformations.html.twig" with {documentinformationfile: "@d3PdfDocuments/documents/invoice/d3invoice_pdf_informations.tpl"} %}
+    {% endblock %}
+
+    {% block pdfDeliveryAddress %}
+        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfdeladdress.html.twig" %}
+    {% endblock %}
+
+    {% block pdfSalutation %}
+        {% include "@d3PdfDocuments/documents/invoice/d3invoice_pdf_salutation.html.twig" %}
+    {% endblock %}
+
+    {% block pdfArticleList %}
+        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfarticlelist.html.twig" %}
+    {% endblock %}
+
+    {% block pdfConclusion %}
+        {% include "@d3PdfDocuments/documents/invoice/d3invoice_pdf_conclusion.html.twig" %}
+    {% endblock %}
+{% endcapture %}
+
+{% capture append = "pdfBlock_footer" %}
+    {% block pdfFooter %}
+        {% include "@d3PdfDocuments/documents/inc/page/d3pdffooter.html.twig" with {pagePadding: pagePadding} %}
+    {% endblock %}
+{% endcapture %}
+
+{% include "@d3PdfDocuments/documents/inc/page/d3pdfbase.html.twig" with {pagePadding: pagePadding} %}

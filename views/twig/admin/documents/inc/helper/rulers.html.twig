@@ -1,0 +1,41 @@
+{% set defaultPagePadding = ","|explode("45,15,25,25") %} {# top, right, bottom, left #}
+{% set pagePadding = pagePadding|default(defaultPagePadding) %}
+
+{# rulers #}
+{# include file="@d3PdfDocuments/documents/inc/helper/d3pdfrulers.tpl" pagePadding=$pagePadding #}
+
+<style>
+    .rulerItemHorizontal {
+        position: absolute;
+        top: -{{ pagePadding.0 }}mm;
+        width: 0;
+        height: 7px;
+        color: blue;
+        border-left: 1px solid blue
+    }
+
+    .rulerItemVertical {
+        position: absolute;
+        left: -{{ pagePadding.3 }}mm;
+        width: 7px;
+        height: 0;
+        color: blue;
+        border-top: 1px solid blue
+    }
+</style>
+
+{# horizontal #}
+{% for rulerItemsHorizontal in 10..600 %}
+    <div class="rulerItemHorizontal" style="left: {{ smarty.section.rulerItemsHorizontal.index - pagePadding.3 }}mm">
+        {{ loop.index0 }}
+    </div>
+{% endfor %}
+
+{# vertical #}
+{% for rulerItemsVertical in 0..600 %}
+    <div class="rulerItemVertical" style="top: {{ smarty.section.rulerItemsVertical.index - pagePadding.0 }}mm">
+        {{ loop.index0 }}
+    </div>
+{% endfor %}
+
+

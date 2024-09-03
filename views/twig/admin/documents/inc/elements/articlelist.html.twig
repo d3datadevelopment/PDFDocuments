@@ -1,0 +1,62 @@
+{% set currency = order.getOrderCurrency() %}
+{% set showPrices = showPrices|default(true) %}
+
+{% block articlelist %}
+    <table class="article_table{% if showPrices %}_prices{% endif %}">
+        <tr>
+            <th class="amount">
+                {{ translate({ ident: "D3_PDFDOCUMENTS_AMOUNT" }) }}
+            </th>
+            <th class="description">
+                {{ translate({ ident: "D3_PDFDOCUMENTS_DESCRIPTION" }) }}
+            </th>
+            {% if showPrices %}
+                <th class="tax">
+                    {{ translate({ ident: "D3_PDFDOCUMENTS_USTPERCENTAGE" }) }}
+                </th>
+                <th class="unitPrice">
+                    {{ translate({ ident: "D3_PDFDOCUMENTS_UNITPRICE" }) }}
+                </th>
+                <th class="totalPrice">
+                    {{ translate({ ident: "D3_PDFDOCUMENTS_TOTALPRICE" }) }}
+                </th>
+            {% endif %}
+        </tr>
+        {% for orderArticle in order.getOrderArticles(true) %}
+            <tr>
+                <td class="amount">
+                    {{ orderArticle.getFieldData('oxamount') }}
+                </td>
+                <td class="description">
+                    {{ orderArticle.getFieldData('oxtitle') }} {{ orderArticle.getFieldData('oxselvariant') }}
+                    <br>
+                    <span class="artnr">
+                        {{ translate({ ident: "D3_PDFDOCUMENTS_ARTNR" }) }} {{ orderArticle.getFieldData('oxartnum') }}
+                    </span>
+                </td>
+                {% if showPrices %}
+                    <td class="tax">
+                        {{ orderArticle.getFieldData('oxvat') }}
+                    </td>
+                    <td class="unitPrice">
+                        {{ orderArticle.getBrutPriceFormated() }} {{ currency.name }}
+                    </td>
+                    <td class="totalPrice">
+                        {{ orderArticle.getTotalBrutPriceFormated() }} {{ currency.name }}
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+{% if showPrices %}
+    {% block articleCosts %}
+        <nobreak>
+            <table class="article_costs_table">
+                {% block d3_article_costs_summary %}
+                    {% include "@d3PdfDocuments/documents/inc/elements/d3pdfarticlecostsummary.html.twig" %}
+                {% endblock %}
+            </table>
+        </nobreak>
+    {% endblock %}
+{% endif %}

@@ -1,0 +1,19 @@
+{% block conclusion %}
+    <nobreak>
+        {% block conclusion_paymethod %}
+            <div class="conclusion_payment">
+                {{ translate({ ident: "D3_PDFDOCUMENTS_USED_PAYMENTMETHOD", suffix: "COLON" }) }}
+                {{ payment.getFieldData('oxdesc') }}<br>
+
+                {% include "@d3PdfDocuments/documents/invoice/d3invoice_pdf_payinfo.html.twig" %}
+            </div>
+        {% endblock %}
+
+        {% block conclusion_thankyou %}
+            <div class="conclusion_thankyou">
+                {{ translate({ ident: "D3_PDFDOCUMENTS_THANKYOU_1" }) }}<br>
+                {{ translate({ ident: "D3_PDFDOCUMENTS_THANKYOU_2", args: shop.getFieldData('oxname') }) }}
+            </div>
+        {% endblock %}
+    </nobreak>
+{% endblock %}

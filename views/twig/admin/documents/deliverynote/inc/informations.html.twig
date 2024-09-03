@@ -1,0 +1,10 @@
+{% block informations %}
+    <div class="documentinformations">
+        {% block pdfDocumentInformations %}
+            <div>
+                {% set dateFormat = 'D3_PDFDOCUMENTS_DATE_FORMAT'|translate %}
+                {{ translate({ ident: "D3_PDFDOCUMENTS_DATE", suffix: "COLON" }) }} {{ smarty.now|date_format("dateFormat") }}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

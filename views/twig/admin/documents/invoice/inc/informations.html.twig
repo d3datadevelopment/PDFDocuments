@@ -1,0 +1,19 @@
+{% block informations %}
+    <div class="documentinformations">
+        {% block pdfDocumentInformations %}
+            <div>
+                {{ translate({ ident: "D3_PDFDOCUMENTS_ORDERBILLNR", suffix: "COLON" }) }} {{ order.getFieldData('oxbillnr') }}
+            </div>
+            <div>
+                {{ translate({ ident: "D3_PDFDOCUMENTS_CUSTOMERNR", suffix: "COLON" }) }} {{ user.getFieldData('oxcustnr') }}
+            </div>
+            <div>
+                {% set dateFormat = 'D3_PDFDOCUMENTS_DATE_FORMAT'|translate %}
+                {{ translate({ ident: "D3_PDFDOCUMENTS_DATE", suffix: "COLON" }) }} {{ order.getFieldData('oxbilldate')|date_format("dateFormat") }}
+            </div>
+            <div>
+                {{ translate({ ident: "D3_PDFDOCUMENTS_USTIDNR", suffix: "COLON" }) }} {{ shop.getFieldData('oxvatnumber') }}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

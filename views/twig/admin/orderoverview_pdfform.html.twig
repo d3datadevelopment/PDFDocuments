@@ -1,0 +1,46 @@
+{% if edit and oView.d3CanExport() %}
+    <br>
+    <form name="d3CreatePdf" id="d3CreatePdf" action="{{ oViewConf.getSelfLink() }}" method="post" target="d3ExpPDF">
+        {{ oViewConf.getHiddenSid()|raw }}
+        <input type="hidden" name="cl" value="order_overview">
+        <input type="hidden" name="fnc" value="d3CreatePDF">
+        <input type="hidden" name="oxid" value="{{ oxid }}">
+        <fieldset style="padding: 5px">
+            <legend>{{ translate({ ident: "D3_PDFDOCUMENTS" }) }}</legend>
+            <table style="width: 100%">
+                <tr>
+                    <td rowspan="3">
+                        <img src="{{ oViewConf.getModuleUrl('d3PdfDocuments', 'out/img/pdf.svg') }}" style="height:4em;width:4em" alt="{{ translate({ ident: "D3_PDFDOCUMENTS" }) }}">
+                    </td>
+                    <td style="vertical-align: top; text-align: right" class="edittext">
+                        <label for="pdftype">{{ translate({ ident: "D3_PDFDOCUMENTS_PDF_TYPE" }) }}</label>:&nbsp;
+                        <select id="pdftype" name="pdftype" class="editinput" style="width:80px;">
+                            {% block d3_pdfdocuments_order_overview_pdfTypeOptions %}
+                                {% set generatorList = oView.d3getGeneratorList() %}
+                                {% for generator in generatorList.getList() %}
+                                    <option value="{{ generator.getRequestId() }}">{{ translate({ ident: generator.getTitleIdent() }) }}</option>
+                                {% endfor %}
+                            {% endblock %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right" class="edittext">
+                        <label for="pdflanguage">{{ translate({ ident: "D3_PDFDOCUMENTS_LANGUAGE" }) }}</label>
+                        <select id="pdflanguage" name="pdflanguage" class="saveinnewlanginput" style="width:80px;">
+                            {% for lang, slang in alangs %}
+                                <option value="{{ lang }}" {% if lang == "0" %}SELECTED{% endif %}>{{ slang }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right" class="edittext"><br/>
+                        <input type="submit" class="edittext" name="save" value="{{ translate({ ident: "D3_PDFDOCUMENTS_PDF_GENERATE" }) }}">
+                        <iframe name="d3ExpPDF" style="width: 0; height: 0; border: none; display:none;"></iframe>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+{% endif %}

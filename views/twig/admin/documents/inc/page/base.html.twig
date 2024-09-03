@@ -1,0 +1,29 @@
+{% set pageset = pageset|default("new") %}
+{% set orientation = orientation|default("P") %}
+{% set format = format|default("A4") %}
+{% set defaultPagePadding = ","|explode("45,15,25,25") %} {# top, right, bottom, left #}
+{% set pagePadding = pagePadding|default(defaultPagePadding) %}
+
+<style>
+    {% for _block in pdfBlock_style %}
+        {{ _block }}
+    {% endfor %}
+</style>
+
+<page backtop="{{ pagePadding.0 }}mm" backright="{{ pagePadding.1 }}mm" backbottom="{{ pagePadding.2 }}mm" backleft="{{ pagePadding.3 }}mm" pageset="{{ pageset }}" orientation="{{ orientation }}" format="{{ format }}">
+    <page_header>
+        {% for _block in pdfBlock_header %}
+            {{ _block }}
+        {% endfor %}
+    </page_header>
+
+    <page_footer>
+        {% for _block in pdfBlock_footer %}
+            {{ _block }}
+        {% endfor %}
+    </page_footer>
+
+    {% for _block in pdfBlock_content %}
+        {{ _block }}
+    {% endfor %}
+</page>

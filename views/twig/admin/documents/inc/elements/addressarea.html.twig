@@ -1,0 +1,13 @@
+{% set backaddressfile = backaddressfile|default("@d3PdfDocuments/documents/inc/page/d3pdfreturnaddress.tpl") %}
+{% set addressfile = addressfile|default("@d3PdfDocuments/documents/inc/elements/d3pdfrecipientaddress.tpl") %}
+
+<div class="addressarea">
+    <div class="returnAddress">
+        <div>
+            {% include $backaddressfile %}
+        </div>
+    </div>
+    <div class="recipientAddress">
+        {% include $addressfile %}
+    </div>
+</div>

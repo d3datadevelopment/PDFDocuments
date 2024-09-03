@@ -1,0 +1,32 @@
+{% set defaultPagePadding = ","|explode("45,15,25,25") %} {# top, right, bottom, left #}
+{% set pagePadding = pagePadding|default(defaultPagePadding) %}
+
+<style>
+    .marks {
+        position: absolute;
+        left: {{ 5 - pagePadding.3 }}mm ;
+        margin-left: 0;
+        width: 7px;
+        height: 0;
+        border-top: 1px solid silver;
+    }
+
+    .foldtop {
+        top: {{ 105 - pagePadding.0 }}mm
+    }
+
+    .foldbottom {
+        top: {{ 210 - pagePadding.0 }}mm
+    }
+
+    .punch {
+        top: {{ 148.5 - pagePadding.0 }}mm
+    }
+</style>
+
+{# fold marks #}
+<div class="marks foldtop"></div>
+<div class="marks foldbottom"></div>
+
+{# punch mark #}
+<div class="marks punch"></div>
