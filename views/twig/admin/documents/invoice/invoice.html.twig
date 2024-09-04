@@ -9,43 +9,43 @@
 
 {% capture append = "pdfBlock_header" %}
     {% block pdfHeader %}
-        {% include "@d3PdfDocuments/documents/inc/page/d3pdfheader.html.twig" with {showLogo: showLogo} %}
+        {% include "@d3PdfDocuments/documents/inc/page/header" with {showLogo: showLogo} %}
     {% endblock %}
 {% endcapture %}
 
 {% capture append = "pdfBlock_content" %}
-    {# include file="@d3PdfDocuments/documents/inc/helper/d3pdfrulers.tpl" pagePadding=$pagePadding #}
-    {% include "@d3PdfDocuments/documents/inc/elements/d3pdffoldmarks.html.twig" with {pagePadding: pagePadding} %}
+    {# include file="@d3PdfDocuments/documents/inc/helper/rulers" pagePadding=$pagePadding #}
+    {% include "@d3PdfDocuments/documents/inc/elements/foldmarks" with {pagePadding: pagePadding} %}
 
     {% block pdfAddressArea %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfaddressarea.html.twig" %}
+        {% include "@d3PdfDocuments/documents/inc/elements/addressarea" %}
     {% endblock %}
 
     {% block pdfInformations %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfinformations.html.twig" with {documentinformationfile: "@d3PdfDocuments/documents/invoice/invoice_informations"} %}
+        {% include "@d3PdfDocuments/documents/inc/elements/informations" with {documentinformationfile: "@d3PdfDocuments/documents/invoice/informations"} %}
     {% endblock %}
 
     {% block pdfDeliveryAddress %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfdeladdress.html.twig" %}
+        {% include "@d3PdfDocuments/documents/inc/elements/deliveryaddress" %}
     {% endblock %}
 
     {% block pdfSalutation %}
-        {% include "@d3PdfDocuments/documents/invoice/invoice_salutation" %}
+        {% include "@d3PdfDocuments/documents/invoice/salutation" %}
     {% endblock %}
 
     {% block pdfArticleList %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfarticlelist.html.twig" %}
+        {% include "@d3PdfDocuments/documents/inc/elements/articlelist" %}
     {% endblock %}
 
     {% block pdfConclusion %}
-        {% include "@d3PdfDocuments/documents/invoice/invoice_conclusion" %}
+        {% include "@d3PdfDocuments/documents/invoice/conclusion" %}
     {% endblock %}
 {% endcapture %}
 
 {% capture append = "pdfBlock_footer" %}
     {% block pdfFooter %}
-        {% include "@d3PdfDocuments/documents/inc/page/d3pdffooter.html.twig" with {pagePadding: pagePadding} %}
+        {% include "@d3PdfDocuments/documents/inc/page/footer" with {pagePadding: pagePadding} %}
     {% endblock %}
 {% endcapture %}
 
-{% include "@d3PdfDocuments/documents/inc/page/d3pdfbase.html.twig" with {pagePadding: pagePadding} %}
+{% include "@d3PdfDocuments/documents/inc/page/base" with {pagePadding: pagePadding} %}

@@ -9,38 +9,38 @@
 
 [{capture append="pdfBlock_header"}]
     [{block name="pdfHeader"}]
-        [{include file="@d3PdfDocuments/documents/inc/page/d3pdfheader.tpl" showLogo=$showLogo}]
+        [{include file="@d3PdfDocuments/documents/inc/page/header" showLogo=$showLogo}]
     [{/block}]
 [{/capture}]
 
 [{capture append="pdfBlock_content"}]
-    [{include file="@d3PdfDocuments/documents/inc/elements/d3pdffoldmarks.tpl" pagePadding=$pagePadding}]
+    [{include file="@d3PdfDocuments/documents/inc/elements/foldmarks" pagePadding=$pagePadding}]
 
     [{block name="pdfAddressArea"}]
-        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfaddressarea.tpl" addressfile="@d3PdfDocuments/documents/deliverynote/delnote_recipient"}]
+        [{include file="@d3PdfDocuments/documents/inc/elements/addressarea" addressfile="@d3PdfDocuments/documents/deliverynote/recipientAddress"}]
     [{/block}]
 
     [{block name="pdfInformations"}]
-        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfinformations.tpl" documentinformationfile="@d3PdfDocuments/documents/deliverynote/delnote_informations"}]
+        [{include file="@d3PdfDocuments/documents/inc/elements/informations" documentinformationfile="@d3PdfDocuments/documents/deliverynote/informations"}]
     [{/block}]
 
     [{block name="pdfSalutation"}]
-        [{include file="@d3PdfDocuments/documents/deliverynote/delnote_salutation"}]
+        [{include file="@d3PdfDocuments/documents/deliverynote/salutation"}]
     [{/block}]
 
     [{block name="pdfArticleList"}]
-        [{include file="@d3PdfDocuments/documents/inc/elements/d3pdfarticlelist.tpl" showPrices=false}]
+        [{include file="@d3PdfDocuments/documents/inc/elements/articlelist" showPrices=false}]
     [{/block}]
 
     [{block name="pdfConclusion"}]
-        [{include file="@d3PdfDocuments/documents/deliverynote/delnote_conclusion.tpl"}]
+        [{include file="@d3PdfDocuments/documents/deliverynote/conclusion.tpl"}]
     [{/block}]
 [{/capture}]
 
 [{capture append="pdfBlock_footer"}]
     [{block name="pdfFooter"}]
-        [{include file="@d3PdfDocuments/documents/inc/page/d3pdffooter.tpl" pagePadding=$pagePadding}]
+        [{include file="@d3PdfDocuments/documents/inc/page/footer" pagePadding=$pagePadding}]
     [{/block}]
 [{/capture}]
 
-[{include file="@d3PdfDocuments/documents/inc/page/d3pdfbase.tpl" pagePadding=$pagePadding}]
+[{include file="@d3PdfDocuments/documents/inc/page/base" pagePadding=$pagePadding}]

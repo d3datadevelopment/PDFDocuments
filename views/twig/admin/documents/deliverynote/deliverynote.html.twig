@@ -9,38 +9,38 @@
 
 {% capture append = "pdfBlock_header" %}
     {% block pdfHeader %}
-        {% include "@d3PdfDocuments/documents/inc/page/d3pdfheader.html.twig" with {showLogo: showLogo} %}
+        {% include "@d3PdfDocuments/documents/inc/page/header" with {showLogo: showLogo} %}
     {% endblock %}
 {% endcapture %}
 
 {% capture append = "pdfBlock_content" %}
-    {% include "@d3PdfDocuments/documents/inc/elements/d3pdffoldmarks.html.twig" with {pagePadding: pagePadding} %}
+    {% include "@d3PdfDocuments/documents/inc/elements/foldmarks" with {pagePadding: pagePadding} %}
 
     {% block pdfAddressArea %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfaddressarea.html.twig" with {addressfile: "@d3PdfDocuments/documents/deliverynote/delnote_recipient"} %}
+        {% include "@d3PdfDocuments/documents/inc/elements/addressarea" with {addressfile: "@d3PdfDocuments/documents/deliverynote/recipientAddress"} %}
     {% endblock %}
 
     {% block pdfInformations %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfinformations.html.twig" with {documentinformationfile: "@d3PdfDocuments/documents/deliverynote/delnote_informations"} %}
+        {% include "@d3PdfDocuments/documents/inc/elements/informations" with {documentinformationfile: "@d3PdfDocuments/documents/deliverynote/informations"} %}
     {% endblock %}
 
     {% block pdfSalutation %}
-        {% include "@d3PdfDocuments/documents/deliverynote/delnote_salutation" %}
+        {% include "@d3PdfDocuments/documents/deliverynote/salutation" %}
     {% endblock %}
 
     {% block pdfArticleList %}
-        {% include "@d3PdfDocuments/documents/inc/elements/d3pdfarticlelist.html.twig" with {showPrices: false} %}
+        {% include "@d3PdfDocuments/documents/inc/elements/articlelist" with {showPrices: false} %}
     {% endblock %}
 
     {% block pdfConclusion %}
-        {% include "@d3PdfDocuments/documents/deliverynote/delnote_conclusion" %}
+        {% include "@d3PdfDocuments/documents/deliverynote/conclusion" %}
     {% endblock %}
 {% endcapture %}
 
 {% capture append = "pdfBlock_footer" %}
     {% block pdfFooter %}
-        {% include "@d3PdfDocuments/documents/inc/page/d3pdffooter.html.twig" with {pagePadding: pagePadding} %}
+        {% include "@d3PdfDocuments/documents/inc/page/footer" with {pagePadding: pagePadding} %}
     {% endblock %}
 {% endcapture %}
 
-{% include "@d3PdfDocuments/documents/inc/page/d3pdfbase.html.twig" with {pagePadding: pagePadding} %}
+{% include "@d3PdfDocuments/documents/inc/page/base" with {pagePadding: pagePadding} %}
