@@ -5,7 +5,7 @@
 
         {% set dateFormat = 'D3_PDFDOCUMENTS_DATE_FORMAT'|translate %}
         {% set sArgs = order.getFieldData('oxorderdate')|date_format(dateFormat)|cat("//")|cat(shop.getFieldData('oxname')) %}
-        {% set aArgs = "//"|explode(sArgs) %}
+        {% set aArgs = sArgs|split("//") %}
 
         <div>{{ translate({ ident: "D3_PDFDOCUMENTS_ORDER_FROM_AT", args: aArgs }) }}</div>
     </div>

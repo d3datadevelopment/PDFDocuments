@@ -1,0 +1,13 @@
+{% set backaddressfile = backaddressfile|default("@d3PdfDocuments/documents/inc/page/returnaddress.html.twig") %}
+{% set addressfile = addressfile|default("@d3PdfDocuments/documents/inc/elements/recipientAddress.html.twig") %}
+
+<div class="addressarea">
+    <div class="returnAddress">
+        <div>
+            {% include backaddressfile %}
+        </div>
+    </div>
+    <div class="recipientAddress">
+        {% include addressfile %}
+    </div>
+</div>

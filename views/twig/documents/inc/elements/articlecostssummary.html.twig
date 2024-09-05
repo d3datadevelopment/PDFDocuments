@@ -1,4 +1,4 @@
-{% capture name = "sumnetto" %}
+{% set sumnetto %}
     {% block sumnetto %}
         <tr class="sumnetto">
             <td class="indent"></td>
@@ -10,9 +10,9 @@
             </td>
         </tr>
     {% endblock %}
-{% endcapture %}
+{% endset %}
 
-{% capture name = "discount" %}
+{% set discount %}
     {% block discount %}
         <tr class="discount">
             <td class="indent"></td>
@@ -24,9 +24,9 @@
             </td>
         </tr>
     {% endblock %}
-{% endcapture %}
+{% endset %}
 
-{% capture name = "producttax" %}
+{% set producttax %}
     {% block producttax %}
         {% for VatKey, oVat in order.getProductVats(false) %}
             <tr class="producttax">
@@ -35,14 +35,14 @@
                     {{ translate({ ident: "D3_PDFDOCUMENTS_TAX", args: VatKey, suffix: "COLON" }) }}
                 </td>
                 <td class="values">
-                    {{ lang.formatCurrency($oVat, currency) }} {{ currency.name }}
+                    {{ lang.formatCurrency(oVat, currency) }} {{ currency.name }}
                 </td>
             </tr>
         {% endfor %}
     {% endblock %}
-{% endcapture %}
+{% endset %}
 
-{% capture name = "sumbrutto" %}
+{% set sumbrutto %}
     {% block sumbrutto %}
         <tr class="sumbrutto">
             <td class="indent"></td>
@@ -54,24 +54,24 @@
             </td>
         </tr>
     {% endblock %}
-{% endcapture %}
+{% endset %}
 
 {% if order.getFieldData('oxdiscount') %}
     {% if order.isNettoMode() %}
-        {{ smarty.capture.sumnetto }}
-        {{ smarty.capture.discount }}
-        {{ smarty.capture.producttax }}
-        {{ smarty.capture.sumbrutto }}
+        {{ sumnetto }}
+        {{ discount }}
+        {{ producttax }}
+        {{ sumbrutto }}
     {% else %}
-        {{ smarty.capture.sumbrutto }}
-        {{ smarty.capture.discount }}
-        {{ smarty.capture.sumnetto }}
-        {{ smarty.capture.producttax }}
+        {{ sumbrutto }}
+        {{ discount }}
+        {{ sumnetto }}
+        {{ producttax }}
     {% endif %}
 {% else %}
-    {{ smarty.capture.sumnetto }}
-    {{ smarty.capture.producttax }}
-    {{ smarty.capture.sumbrutto }}
+    {{ sumnetto }}
+    {{ producttax }}
+    {{ sumbrutto }}
 {% endif %}
 
 {% if order.getFieldData('oxvoucherdiscount') %}

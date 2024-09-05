@@ -1,0 +1,51 @@
+{% set pagePadding = "45,15,25,25"|split(",") %} {# top, right, bottom, left #}
+{% set showLogo = showLogo|default(1) %}
+
+{% set pdfBlock_style %}
+    {% block pdfStyles %}
+        {{ style({ include: oViewConf.getModuleUrl('d3PdfDocuments', 'out/src/css/pdfStyling.css') }) }}
+        {{ style() }}
+    {% endblock %}
+{% endset %}
+
+{% set pdfBlock_header %}
+    {% block pdfHeader %}
+        {% include "@d3PdfDocuments/documents/inc/page/header.html.twig" with {showLogo: showLogo} %}
+    {% endblock %}
+{% endset %}
+
+{% set pdfBlock_content %}
+    {% include "@d3PdfDocuments/documents/inc/elements/foldmarks.html.twig" with {pagePadding: pagePadding} %}
+
+    {% block pdfAddressArea %}
+        {% include "@d3PdfDocuments/documents/inc/elements/addressarea.html.twig" %}
+    {% endblock %}
+
+    {% block pdfInformations %}
+        {% include "@d3PdfDocuments/documents/inc/elements/informations.html.twig" with {documentinformationfile: "@d3PdfDocuments/documents/invoice/inc/informations.html.twig"} %}
+    {% endblock %}
+
+    {% block pdfDeliveryAddress %}
+        {% include "@d3PdfDocuments/documents/inc/elements/deliveryaddress.html.twig" %}
+    {% endblock %}
+
+    {% block pdfSalutation %}
+        {% include "@d3PdfDocuments/documents/invoice/inc/salutation.html.twig" %}
+    {% endblock %}
+
+    {% block pdfArticleList %}
+        {% include "@d3PdfDocuments/documents/inc/elements/articlelist.html.twig" %}
+    {% endblock %}
+
+    {% block pdfConclusion %}
+        {% include "@d3PdfDocuments/documents/invoice/inc/conclusion.html.twig" %}
+    {% endblock %}
+{% endset %}
+
+{% set pdfBlock_footer %}
+    {% block pdfFooter %}
+        {% include "@d3PdfDocuments/documents/inc/page/footer.html.twig" with {pagePadding: pagePadding} %}
+    {% endblock %}
+{% endset %}
+
+{% include "@d3PdfDocuments/documents/inc/page/base.html.twig" with {pagePadding: pagePadding} %}

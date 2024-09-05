@@ -1,4 +1,4 @@
-{% set defaultPagePadding = ","|explode("45,15,25,25") %} {# top, right, bottom, left #}
+{% set defaultPagePadding = "45,15,25,25"|split(",") %} {# top, right, bottom, left #}
 {% set pagePadding = pagePadding|default(defaultPagePadding) %}
 
 {% block pdfFooter %}
