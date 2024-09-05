@@ -179,7 +179,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         unset($iSelLang);
 		
         $this->oTemplateEngine->addGlobal('config', Registry::getConfig());
-        $this->oTemplateEngine->addGlobal('viewConfig', Registry::getConfig()->getActiveView()->getViewConfig());
+        $this->oTemplateEngine->addGlobal('oViewConf', Registry::getConfig()->getActiveView()->getViewConfig());
         $this->oTemplateEngine->addGlobal('shop', Registry::getConfig()->getActiveShop());
         $this->oTemplateEngine->addGlobal('lang', Registry::getLang());
         $this->oTemplateEngine->addGlobal('document', $this);
