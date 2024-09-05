@@ -15,15 +15,18 @@ use D3\ModCfg\Application\Model\d3filesystem;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
 use OxidEsales\Eshop\Core\Base;
+use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateEngineInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
+use OxidEsales\Twig\Resolver\TemplateChain\TemplateNotInChainException;
 use Smarty;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
+use Twig\Error\Error;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
 {
@@ -202,10 +205,18 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $lang->setTplLanguage($iSelLang);
 
         $this->setTemplateEngineVars($iSelLang);
-
-        $content = $this->oTemplateEngine->render($this->getTemplate());
-
-        $lang->setTplLanguage($currTplLang);
+		
+	    try {
+		    $content = $this->oTemplateEngine->render($this->getTemplate(), $this->d3GetTemplateEngine()->getGlobals());
+	    } catch (Error|TemplateNotInChainException $error) {
+		    
+		    //Registry::getLogger()->error(dumpVar(__METHOD__." ".__LINE__), [$error->getFile()]);
+			
+		    $error = oxNew(StandardException::class, $error->getMessage());
+		    throw $error;
+	    }
+	    
+	    $lang->setTplLanguage($currTplLang);
 
         self::$_blIsAdmin = $blCurrentRenderFromAdmin;
 
