@@ -1,4 +1,5 @@
 {% set showLogo = showLogo|default(1) %}
+{% set sPdfLogo = sAlternativePdfLogo %}
 
 {% block pdfHeader %}
     <div class="header">
@@ -6,7 +7,9 @@
             {# pdf logo is available only in non admin theme #}
             {% set isAdmin = oViewConf.isAdmin() %}
             {{ oViewConf.setAdminMode(false) }}
-            <img class="logo" alt="Logo" src="{{ oViewConf.getImageUrl('pdf_logo.jpg') }}">
+            {% if sPdfLogo %}
+                <img class="logo" alt="Logo" src="{{ sPdfLogo }}">
+            {% endif %}
             {{ oViewConf.setAdminMode(isAdmin) }}
         {% endif %}
     </div>

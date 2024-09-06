@@ -92,6 +92,12 @@ $aModule = [
             'name' => Constants::OXID_MODULE_ID.'bDev',
             'type' => 'bool',
             'value' => false
+        ],
+        [
+            'group' => Constants::OXID_MODULE_ID.'main',
+            'name' => Constants::OXID_MODULE_ID.'_sAlternativePdfLogoName',
+            'type' => 'str',
+            'value' => ''
         ]
     ]
 ];

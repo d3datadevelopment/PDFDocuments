@@ -12,13 +12,16 @@ namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\InvalidArgumentException;
 use D3\ModCfg\Application\Model\d3filesystem;
+use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
+use OxidEsales\EshopCommunity\Core\Di\ContainerFacade;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateEngineInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
@@ -182,12 +185,37 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         unset($iSelLang);
 		
         $this->oTemplateEngine->addGlobal('config', Registry::getConfig());
+        $this->oTemplateEngine->addGlobal('sAlternativePdfLogo', $this->getAlternativePdfLogoFileName());
         $this->oTemplateEngine->addGlobal('oViewConf', Registry::getConfig()->getActiveView()->getViewConfig());
         $this->oTemplateEngine->addGlobal('shop', Registry::getConfig()->getActiveShop());
         $this->oTemplateEngine->addGlobal('lang', Registry::getLang());
         $this->oTemplateEngine->addGlobal('document', $this);
     }
-
+	
+	/**
+	 * @return string
+	 */
+	public function getAlternativePdfLogoFileName() :string
+	{
+		$sStandardLogoFile = 'pdf_logo.jpg';
+		$oViewConf = Registry::getConfig()->getActiveView()->getViewConfig();
+		$moduleSettingService = ContainerFacade::get(ModuleSettingServiceInterface::class);
+		$sAlternativePdfLogoName = $moduleSettingService->getString(Constants::OXID_MODULE_ID."_sAlternativePdfLogoName", Constants::OXID_MODULE_ID);
+		
+		$sAlternativePdfLogoName = trim($sAlternativePdfLogoName) ?: $sStandardLogoFile;
+		
+		$bAlternativeFileExists = file_exists(Registry::getConfig()->getImagePath($sAlternativePdfLogoName));
+		$bFileExists = file_exists(Registry::getConfig()->getImagePath($sStandardLogoFile));
+		
+		return $bAlternativeFileExists
+						? $oViewConf->getImageUrl($sAlternativePdfLogoName, true)
+						: (
+							$bFileExists
+							? $oViewConf->getImageUrl($sStandardLogoFile, true)
+							: ""
+						);
+	}
+	
     /**
      * @param int $iSelLang
      *
