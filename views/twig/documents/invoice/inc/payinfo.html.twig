@@ -3,7 +3,7 @@
         {% block payinfo_billable_till %}
             {% set dateFormat = 'D3_PDFDOCUMENTS_DATE_FORMAT'|translate %}
             {{ translate({ ident: "D3_PDFDOCUMENTS_PAYABLEUNTIL" }) }}
-            {{ document.getPayableUntilDate()|date_format("dateFormat") }}
+            {{ document.getPayableUntilDate()|date_format(dateFormat) }}
         {% endblock %}
     {% elseif payment.getId() == 'oxidpayadvance' or payment.getId() == 'oxidcreditcard' %}
         {% block payinfo_payed %}
