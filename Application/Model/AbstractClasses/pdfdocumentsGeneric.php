@@ -26,6 +26,8 @@ use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateEngineInterf
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use OxidEsales\Twig\Resolver\TemplateChain\TemplateNotInChainException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Smarty;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
@@ -342,15 +344,19 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     /**
      * @param Html2Pdf $oPdf
-     * @param $sFilename
-     * @param $target
-     * @param $html
+     * @param          $sFilename
+     * @param          $target
+     * @param          $html
+     *
      * @return string|null
      * @throws Html2PdfException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function output(Html2Pdf $oPdf, $sFilename, $target, $html)
     {
-        if ((bool) Registry::getConfig()->getConfigParam('d3PdfDocumentsbDev') === true) {
+        $moduleSettings = ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
+        if ($moduleSettings->getBoolean( 'd3PdfDocumentsbDev', Constants::OXID_MODULE_ID )) {
             return $this->outputDev($oPdf, $sFilename, $target, $html);
         } else {
             return $oPdf->output($sFilename, $target);
