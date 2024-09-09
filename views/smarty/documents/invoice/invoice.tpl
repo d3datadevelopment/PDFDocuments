@@ -3,7 +3,7 @@
 
 [{capture append="pdfBlock_style"}]
     [{block name="pdfStyles"}]
-        [{include file="@d3PdfDocuments/assets/d3pdfstyles.css"}]
+        [{include file="@d3PdfDocuments/assets/d3pdfstyles.css.tpl"}]
     [{/block}]
 [{/capture}]
 
