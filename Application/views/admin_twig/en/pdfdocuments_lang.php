@@ -8,16 +8,14 @@
  * @link          http://www.oxidmodule.com
  */
 
+use D3\PdfDocuments\Application\Model\Constants;
+
 $sLangName = "English";
 $aLang     = array(
     'charset'                                            => 'utf-8',
 
     'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Basic settings',
-	'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'                     => 'Developer mode',
-	'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'_sAlternativePdfLogoName'                     => 'Alternative PDF Logo Name<br><br>
-																																									Without specification (empty) the following file name will be <u style="color: orangered">automatically</u> selected: <b>pdf_logo.jpg</b><br>
-																																									This file must be located in the <b>source/out/THEME/img/</b> folder <b>and must be PNG/ JPG for technical reasons</b>.<br><br>
-																																									<u>If necessary, no image will be inserted!</u>',
+	'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Developer mode',
 
     'D3_PDFDOCUMENTS'                                    => 'PDF Documents',
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',

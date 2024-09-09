@@ -187,36 +187,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         unset($iSelLang);
 		
         $this->oTemplateEngine->addGlobal('config', Registry::getConfig());
-        $this->oTemplateEngine->addGlobal('sAlternativePdfLogo', $this->getAlternativePdfLogoFileName());
         $this->oTemplateEngine->addGlobal('oViewConf', Registry::getConfig()->getActiveView()->getViewConfig());
         $this->oTemplateEngine->addGlobal('shop', Registry::getConfig()->getActiveShop());
         $this->oTemplateEngine->addGlobal('lang', Registry::getLang());
         $this->oTemplateEngine->addGlobal('document', $this);
     }
-	
-	/**
-	 * @return string
-	 */
-	public function getAlternativePdfLogoFileName() :string
-	{
-		$sStandardLogoFile = 'pdf_logo.jpg';
-		$oViewConf = Registry::getConfig()->getActiveView()->getViewConfig();
-		$moduleSettingService = ContainerFacade::get(ModuleSettingServiceInterface::class);
-		$sAlternativePdfLogoName = $moduleSettingService->getString(Constants::OXID_MODULE_ID."_sAlternativePdfLogoName", Constants::OXID_MODULE_ID);
-		
-		$sAlternativePdfLogoName = trim($sAlternativePdfLogoName) ?: $sStandardLogoFile;
-		
-		$bAlternativeFileExists = file_exists(Registry::getConfig()->getImagePath($sAlternativePdfLogoName));
-		$bFileExists = file_exists(Registry::getConfig()->getImagePath($sStandardLogoFile));
-		
-		return $bAlternativeFileExists
-						? $oViewConf->getImageUrl($sAlternativePdfLogoName, true)
-						: (
-							$bFileExists
-							? $oViewConf->getImageUrl($sStandardLogoFile, true)
-							: ""
-						);
-	}
 	
     /**
      * @param int $iSelLang
