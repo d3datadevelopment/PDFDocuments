@@ -11,7 +11,6 @@
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\InvalidArgumentException;
-use D3\ModCfg\Application\Model\d3filesystem;
 use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
@@ -187,36 +186,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         unset($iSelLang);
 		
         $this->oTemplateEngine->addGlobal('config', Registry::getConfig());
-        $this->oTemplateEngine->addGlobal('sAlternativePdfLogo', $this->getAlternativePdfLogoFileName());
         $this->oTemplateEngine->addGlobal('oViewConf', Registry::getConfig()->getActiveView()->getViewConfig());
         $this->oTemplateEngine->addGlobal('shop', Registry::getConfig()->getActiveShop());
         $this->oTemplateEngine->addGlobal('lang', Registry::getLang());
         $this->oTemplateEngine->addGlobal('document', $this);
     }
-	
-	/**
-	 * @return string
-	 */
-	public function getAlternativePdfLogoFileName() :string
-	{
-		$sStandardLogoFile = 'pdf_logo.jpg';
-		$oViewConf = Registry::getConfig()->getActiveView()->getViewConfig();
-		$moduleSettingService = ContainerFacade::get(ModuleSettingServiceInterface::class);
-		$sAlternativePdfLogoName = $moduleSettingService->getString(Constants::OXID_MODULE_ID."_sAlternativePdfLogoName", Constants::OXID_MODULE_ID);
-		
-		$sAlternativePdfLogoName = trim($sAlternativePdfLogoName) ?: $sStandardLogoFile;
-		
-		$bAlternativeFileExists = file_exists(Registry::getConfig()->getImagePath($sAlternativePdfLogoName));
-		$bFileExists = file_exists(Registry::getConfig()->getImagePath($sStandardLogoFile));
-		
-		return $bAlternativeFileExists
-						? $oViewConf->getImageUrl($sAlternativePdfLogoName, true)
-						: (
-							$bFileExists
-							? $oViewConf->getImageUrl($sStandardLogoFile, true)
-							: ""
-						);
-	}
 	
     /**
      * @param int $iSelLang
@@ -324,14 +298,68 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * Gets proper file name
      *
-     * @param string $sFilename file name
+     * @param $filename
      *
      * @return string
      */
-    public function makeValidFileName($sFilename)
+    public function makeValidFileName($filename)
     {
-        $fs = oxNew(d3filesystem::class);
-        return $fs->filterFilename($sFilename);
+        // sanitize filename
+        $filename = preg_replace(
+            '~
+            [<>:"/\\\\|?*]|      # file system reserved
+            [\x00-\x1F]|         # control characters
+            [\x7F\xA0\xAD]|      # non-printing characters DEL, NO-BREAK SPACE, SOFT HYPHEN
+            [#\[\]@!$&\'()+,;=]| # URI reserved
+            [{}^\~`]             # URL unsafe characters
+            ~x',
+            '-',
+            $filename
+        );
+
+        // avoids ".", ".." or ".hiddenFiles"
+        $filename = ltrim($filename, '.-');
+
+        $filename = $this->beautifyFilename($filename);
+
+        // maximize filename length to 255 bytes
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $filename = mb_strcut(
+                        pathinfo($filename, PATHINFO_FILENAME),
+                        0,
+                        255 - ($ext ? strlen($ext) + 1 : 0),
+                        mb_detect_encoding($filename)
+                    ) . ($ext ? '.' . $ext : '');
+
+        return $filename;
+    }
+
+    public function beautifyFilename($filename)
+    {
+        // reduce consecutive characters
+        $filename = preg_replace([
+            // "file   name.zip" becomes "file-name.zip"
+            '/ +/',
+            // "file___name.zip" becomes "file-name.zip"
+            '/_{2,}/',
+            // "file---name.zip" becomes "file-name.zip"
+            '/-+/',
+        ], '-', $filename);
+
+        $filename = preg_replace([
+            // "file--.--.-.--name.zip" becomes "file.name.zip"
+            '/-*\.-*/',
+            // "file...name..zip" becomes "file.name.zip"
+            '/\.{2,}/',
+        ], '.', $filename);
+
+        // lowercase for windows/unix interoperability
+        $filename = mb_strtolower($filename, mb_detect_encoding($filename));
+
+        // ".file-name.-" becomes "file-name"
+        $filename = trim($filename, '.-');
+
+        return trim($filename);
     }
 
     /**
