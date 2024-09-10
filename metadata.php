@@ -17,19 +17,17 @@ use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
  */
 $sMetadataVersion = '2.1';
 
-$logo = '<img src="https://logos.oxidmodule.com/d3logo.svg" alt="(D3)" style="height:1em;width:1em">';
-
 /**
  * Module information
  */
 $aModule = [
     'id'            => Constants::OXID_MODULE_ID,
     'title'         => [
-        'de'        => $logo.' PDF-Dokumente',
-        'en'        => $logo.' PDF documents',
+        'de'        => '(D3) PDF-Dokumente',
+        'en'        => '(D3) PDF documents',
     ],
     'version'       => '2.0.0',
-    'author'        => $logo.' Data Development (Inh.: Thomas Dartsch)',
+    'author'        => 'D3 Data Development (Inh.: Thomas Dartsch)',
     'email'         => 'support@shopmodule.com',
     'url'           => 'https://www.oxidmodule.com/',
     'extend'        => [
