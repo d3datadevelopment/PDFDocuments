@@ -3,11 +3,9 @@
 [{block name="pdfHeader"}]
     <div class="header">
         [{if $showLogo}]
-            [{* pdf logo is available only in non admin theme *}]
-            [{assign var="isAdmin" value=$viewConfig->isAdmin()}]
-            [{$viewConfig->setAdminMode(false)}]
-            <img class="logo" alt="Logo" src="[{$viewConfig->getImageUrl('pdf_logo.jpg')}]">
-            [{$viewConfig->setAdminMode($isAdmin)}]
+            [{block name="pdfHeaderLogo"}]
+                <img class="logo" alt="Logo" src="[{$oViewConf->getModulePath('d3PdfDocuments', 'out/img/clogo.jpg')}]">
+            [{/block}]
         [{/if}]
     </div>
 [{/block}]
