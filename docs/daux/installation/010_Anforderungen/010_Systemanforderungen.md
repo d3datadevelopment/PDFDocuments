@@ -10,8 +10,7 @@ title: Systemanforderungen
         * 7.1.x
 * Themes
     * Diese Modul bindet sich nicht in Frontendthemes ein und ist daher davon unabhängig
-* (D3) Modul-Connector ([kostenfrei bei D3 erhältlich](https://www.oxidmodule.com/connector/)) ab Version 7.1
 * Template-Engine
-    * Smarty ( Ungetestet! )
+    * Smarty
     * Twig
 * Installation via [Composer](https://getcomposer.org)

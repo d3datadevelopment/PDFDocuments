@@ -16,8 +16,7 @@ Beachten Sie bitte, dass auch nur ein CSS-Subset unterstützt wird. Mit etwas CS
 
 ## Twig
 
-Innerhalb der Templates steht Ihnen die komplette Twig-Funktionalität zur Verfügung.
-Smarty wird perspektivisch noch nachgereich.
+Innerhalb der Templates steht Ihnen die komplette Twig- bzw. Smarty-Funktionalität zur Verfügung.
 
 ## Debug
 
