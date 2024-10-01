@@ -38,7 +38,8 @@ Detailed installation instructions can be found [online](https://docs.oxidmodule
 
 ## Credits:
 
-- PDF logo made by Dimitriy Morilubov from www.flaticon.com
+- PDF logo made by Dimitriy Morilubov by www.flaticon.com
+- example company logo by https://www.logologo.com/
 
 ## License
 

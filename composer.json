@@ -33,7 +33,6 @@
     "php": "^8.0",
     "oxid-esales/oxideshop-ce": "7.0 - 7.1",
     "spipu/html2pdf": "~5.2.8",
-    "d3/modcfg": "^7.1",
     "beberlei/assert": "^3.3.2"
   },
   "autoload": {

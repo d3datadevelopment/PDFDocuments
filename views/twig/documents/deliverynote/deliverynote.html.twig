@@ -3,8 +3,7 @@
 
 {% set pdfBlock_style %}
     {% block pdfStyles %}
-        {{ style({ include: oViewConf.getModuleUrl('d3PdfDocuments', 'out/src/css/pdfStyling.css') }) }}
-        {{ style() }}
+        {% include "@d3PdfDocuments/assets/pdfStyling.css.twig" %}
     {% endblock %}
 {% endset %}
 
