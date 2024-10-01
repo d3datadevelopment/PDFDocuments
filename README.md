@@ -4,7 +4,7 @@
 
 PDF-Dokumentgenerator für OXID eShop
 
-Erstellen Sie unterschiedliche statische oder dynamische PDF-Dokumente auf Kopfdruck. Der Dokumentinhalt wird aus Smartytemplates erstellt.
+Erstellen Sie unterschiedliche statische oder dynamische PDF-Dokumente auf Kopfdruck. Der Dokumentinhalt wird aus Templates (Smarty bzw. Twig) erstellt.
 
 An den Bestellungen Ihres OXID-Shops steht Ihnen die Erstellung von Rechnung und Lieferschein zur Verfügung.
 

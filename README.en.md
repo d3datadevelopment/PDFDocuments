@@ -4,7 +4,7 @@
 
 PDF document generator for OXID eShop
 
-Create a wide variety of static or dynamic PDF documents at the touch of a button. The document content is created from Smarty templates.
+Create a wide variety of static or dynamic PDF documents at the touch of a button. The document content is created from templates (Smarty or Twig).
 
 At the orders of your OXID shop you have the option of creating an invoice and delivery note.
 
