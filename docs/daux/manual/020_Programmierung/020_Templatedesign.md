@@ -14,7 +14,7 @@ Layouts können mit inline CSS-Styles definiert werden. Die Einbindung externer 
 
 Beachten Sie bitte, dass auch nur ein CSS-Subset unterstützt wird. Mit etwas CSS-Kreativität sollten sich die üblichen Formatierungen dennoch deutlich einfacher umsetzen lassen, als dies direkt in PHP-Programmierung möglich wäre.
 
-## Twig
+## Templates
 
 Innerhalb der Templates steht Ihnen die komplette Twig- bzw. Smarty-Funktionalität zur Verfügung.
 

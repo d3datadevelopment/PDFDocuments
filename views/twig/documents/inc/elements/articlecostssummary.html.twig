@@ -32,7 +32,7 @@
             <tr class="producttax">
                 <td class="indent"></td>
                 <td class="description">
-                    {{ translate({ ident: "D3_PDFDOCUMENTS_TAX", args: VatKey, suffix: "COLON" }) }}
+                    {{ translate({ ident: "D3_PDFDOCUMENTS_TAX", suffix: "COLON" }) | format( VatKey ) }}
                 </td>
                 <td class="values">
                     {{ lang.formatCurrency(oVat, currency) }} {{ currency.name }}
@@ -104,7 +104,7 @@
             <td class="indent"></td>
             <td class="description">
                 {% if config.getConfigParam('sAdditionalServVATCalcMethod') != 'proportional' %}
-                    {{ translate({ ident: "D3_PDFDOCUMENTS_TAX", args: order.getFieldData('oxdelvat'), suffix: "COLON" }) }}
+                    {{ translate({ ident: "D3_PDFDOCUMENTS_TAX", suffix: "COLON" }) | format( order.getFieldData('oxdelvat') ) }}
                 {% else %}
                     {{ translate({ ident: "D3_PDFDOCUMENTS_PROPORTIONAL_TAX", suffix: "COLON" }) }}
                 {% endif %}
@@ -142,7 +142,7 @@
             <td class="indent"></td>
             <td class="description">
                 {% if config.getConfigParam('sAdditionalServVATCalcMethod') != 'proportional' %}
-                    {{ translate({ ident: "D3_PDFDOCUMENTS_TAX", args: order.getFieldData('oxpayvat'), suffix: "COLON" }) }}
+                    {{ translate({ ident: "D3_PDFDOCUMENTS_TAX", suffix: "COLON" }) | format( order.getFieldData('oxpayvat') ) }}
                 {% else %}
                     {{ translate({ ident: "D3_PDFDOCUMENTS_PROPORTIONAL_TAX", suffix: "COLON" }) }}
                 {% endif %}
