@@ -35,29 +35,29 @@ interface pdfdocumentsGenericInterface
     /**
      * @param int $iLanguage
      */
-    public function downloadPdf($iLanguage = 0);
+    public function downloadPdf(int $iLanguage = 0);
 
     /**
      * @param int $iLanguage
      *
      * @return string|null
      */
-    public function getPdfContent($iLanguage = 0);
+    public function getPdfContent(int $iLanguage = 0);
 
     /**
      * @param string $path
      * @param int $iLanguage
      */
-    public function savePdfFile($path, $iLanguage = 0);
+    public function savePdfFile(string $path, int $iLanguage = 0);
 
     /**
-     * @param        $sFilename
+     * @param string $sFilename
      * @param int    $iSelLang
      * @param string $target
      *
      * @return mixed
      */
-    public function genPdf($sFilename, $iSelLang = 0, $target = 'I');
+    public function genPdf(string $sFilename, int $iSelLang = 0, string $target = 'I');
 
     /**
      * @param string $filename

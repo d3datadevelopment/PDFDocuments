@@ -23,7 +23,7 @@ class orderOverviewPdfGenerator
      * @param int $iSelLang
      * @throws noPdfHandlerFoundException
      */
-    public function generatePdf(Order $order, $iSelLang = 0)
+    public function generatePdf(Order $order, int $iSelLang = 0)
     {
         $Pdf= $this->getPdfClass();
 

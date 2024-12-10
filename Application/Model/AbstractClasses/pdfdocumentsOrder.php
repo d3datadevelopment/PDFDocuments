@@ -116,7 +116,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     }
 
     /**
-     * @return false|string
+     * @return false|int
      * @throws InvalidArgumentException
      */
     public function getPayableUntilDate()

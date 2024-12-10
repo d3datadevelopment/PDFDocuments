@@ -18,16 +18,13 @@ use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
-use OxidEsales\EshopCommunity\Core\Di\ContainerFacade;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateEngineInterface;
-use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use OxidEsales\Twig\Resolver\TemplateChain\TemplateNotInChainException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Smarty;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 use Twig\Error\Error;
@@ -46,7 +43,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     public $filenameExtension = 'pdf';
 
-    /** @var Smarty  */
+    /** @var TemplateEngineInterface  */
     public $oTemplateEngine;
 
     /** @var string */
@@ -90,7 +87,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @param $sFilename
      * @param int $iSelLang
      * @param string $target
-     * @return mixed|string|null
+     * @return string|null
      * @throws Html2PdfException
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = self::PDF_DESTINATION_STDOUT)
@@ -118,10 +115,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $this->genPdf($sFilename, $iLanguage, self::PDF_DESTINATION_DOWNLOAD);
             $this->runPostAction();
             Registry::getUtils()->showMessageAndExit('');
-        } catch (pdfGeneratorExceptionAbstract $e) {
-            Registry::get(UtilsView::class)->addErrorToDisplay($e);
-            Registry::getLogger()->error($e);
-        } catch (InvalidArgumentException $e) {
+        } catch (pdfGeneratorExceptionAbstract|InvalidArgumentException $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
         }
@@ -144,10 +138,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
                 self::PDF_DESTINATION_FILE
             );
             $this->runPostAction();
-        } catch (pdfGeneratorExceptionAbstract $e) {
-            Registry::get(UtilsView::class)->addErrorToDisplay($e);
-            Registry::getLogger()->error($e);
-        } catch (InvalidArgumentException $e) {
+        } catch (pdfGeneratorExceptionAbstract|InvalidArgumentException $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
         }
@@ -167,10 +158,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $ret = $this->genPdf( $sFilename, $iLanguage, self::PDF_DESTINATION_STRING );
             $this->runPostAction();
             return $ret;
-        } catch (pdfGeneratorExceptionAbstract $e) {
-            Registry::get(UtilsView::class)->addErrorToDisplay($e);
-            Registry::getLogger()->error($e);
-        } catch (InvalidArgumentException $e) {
+        } catch (pdfGeneratorExceptionAbstract|InvalidArgumentException $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
         }
@@ -181,7 +169,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @param int $iSelLang
      */
-    public function setTemplateEngineVars($iSelLang)
+    public function setTemplateEngineVars(int $iSelLang)
     {
         unset($iSelLang);
 		
@@ -198,7 +186,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @return mixed
      * @throws InvalidArgumentException
      */
-    public function getHTMLContent($iSelLang = 0)
+    public function getHTMLContent(int $iSelLang = 0)
     {
         $blCurrentRenderFromAdmin = self::$_blIsAdmin;
         self::$_blIsAdmin = $this->renderTemplateFromAdmin();
@@ -216,8 +204,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 		    
 		    //Registry::getLogger()->error(dumpVar(__METHOD__." ".__LINE__), [$error->getFile()]);
 			
-		    $error = oxNew(StandardException::class, $error->getMessage());
-		    throw $error;
+		    throw oxNew(StandardException::class, $error->getMessage());
 	    }
 	    
 	    $lang->setTplLanguage($currTplLang);
@@ -324,14 +311,12 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
         // maximize filename length to 255 bytes
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        $filename = mb_strcut(
+        return mb_strcut(
                         pathinfo($filename, PATHINFO_FILENAME),
                         0,
                         255 - ($ext ? strlen($ext) + 1 : 0),
                         mb_detect_encoding($filename)
                     ) . ($ext ? '.' . $ext : '');
-
-        return $filename;
     }
 
     public function beautifyFilename($filename)
