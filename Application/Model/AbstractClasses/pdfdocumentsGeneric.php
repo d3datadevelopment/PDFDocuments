@@ -21,7 +21,9 @@ use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateEngineInterface;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
+use OxidEsales\Smarty\SmartyEngine;
 use OxidEsales\Twig\Resolver\TemplateChain\TemplateNotInChainException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -43,38 +45,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     public $filenameExtension = 'pdf';
 
-    /** @var TemplateEngineInterface  */
-    public $oTemplateEngine;
-
     /** @var string */
     public $filename;
 
-    /**
-     * pdfDocumentsGeneric constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-	    
-	    $this->oTemplateEngine =  $this->d3GetTemplateEngine();
-    }
-
-	public function d3GetTemplateEngine() :TemplateEngineInterface
-	{
-		$renderer = $this->d3GetTemplateRendererBridge()->getTemplateRenderer();
-		return $renderer->getTemplateEngine();
-	}
-	
-	/**
-	 * @throws ContainerExceptionInterface
-	 * @throws NotFoundExceptionInterface
-	 */
-	public function d3GetTemplateRendererBridge(): TemplateRendererBridgeInterface
-	{
-		return ContainerFactory::getInstance()->getContainer()
-			->get(TemplateRendererBridgeInterface::class);
-	}
-	
     public function runPreAction()
     {
     }
@@ -96,10 +69,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($iSelLang);
         $oPdf->writeHTML($htmlContent);
-        $oPdf->pdf->SetAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
-        $oPdf->pdf->SetTitle(Registry::getLang()->translateString($this->getTitleIdent()));
-        $oPdf->pdf->SetCreator('D³ PDF Documents for OXID eShop');
-        $oPdf->pdf->SetSubject(NULL);
+        $oPdf->pdf->setAuthor( Registry::getConfig()->getActiveShop()->getFieldData( 'oxname'));
+        $oPdf->pdf->setTitle( Registry::getLang()->translateString( $this->getTitleIdent()));
+        $oPdf->pdf->setCreator( 'D³ PDF Documents for OXID eShop');
+        $oPdf->pdf->setSubject( NULL);
         return $this->output($oPdf, $sFilename, $target, $htmlContent);
     }
 
@@ -169,15 +142,17 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @param int $iSelLang
      */
-    public function setTemplateEngineVars(int $iSelLang)
+    public function getTemplateEngineVars(int $iSelLang): array
     {
         unset($iSelLang);
-		
-        $this->oTemplateEngine->addGlobal('config', Registry::getConfig());
-        $this->oTemplateEngine->addGlobal('oViewConf', Registry::getConfig()->getActiveView()->getViewConfig());
-        $this->oTemplateEngine->addGlobal('shop', Registry::getConfig()->getActiveShop());
-        $this->oTemplateEngine->addGlobal('lang', Registry::getLang());
-        $this->oTemplateEngine->addGlobal('document', $this);
+
+        return [
+            'config' => Registry::getConfig(),
+            'oViewConf' => Registry::getConfig()->getActiveView()->getViewConfig(),
+            'shop'  => Registry::getConfig()->getActiveShop(),
+            'lang'  => Registry::getLang(),
+            'document' => $this
+        ];
     }
 	
     /**
@@ -196,10 +171,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $currTplLang = $lang->getTplLanguage();
         $lang->setTplLanguage($iSelLang);
 
-        $this->setTemplateEngineVars($iSelLang);
-		
 	    try {
-		    $content = $this->oTemplateEngine->render($this->getTemplate(), $this->d3GetTemplateEngine()->getGlobals());
+            $content = $this->getTemplateRenderer()->renderTemplate(
+                $this->getTemplate(),
+                $this->getTemplateEngineVars($iSelLang)
+            );
 	    } catch (Error|TemplateNotInChainException $error) {
 		    
 		    //Registry::getLogger()->error(dumpVar(__METHOD__." ".__LINE__), [$error->getFile()]);
@@ -212,6 +188,13 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         self::$_blIsAdmin = $blCurrentRenderFromAdmin;
 
         return $content;
+    }
+
+    protected function getTemplateRenderer(): TemplateRenderer
+    {
+        return ContainerFactory::getInstance()->getContainer()
+            ->get(TemplateRendererBridgeInterface::class)
+            ->getTemplateRenderer();
     }
 
     /**

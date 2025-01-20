@@ -57,19 +57,22 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
      * @param int $iSelLang
      * @throws InvalidArgumentException
      */
-    public function setTemplateEngineVars($iSelLang)
+    public function getTemplateEngineVars($iSelLang): array
     {
-        parent::setTemplateEngineVars($iSelLang);
-
-        $this->oTemplateEngine->addGlobal('order', $this->getOrder());
-
         $oUser = oxNew(User::Class);
         $oUser->load($this->getOrder()->getFieldData('oxuserid'));
-        $this->oTemplateEngine->addGlobal('user', $oUser);
 
         $oPayment = oxNew(Payment::class);
         $oPayment->loadInLang($iSelLang, $this->getOrder()->getFieldData('oxpaymenttype'));
-        $this->oTemplateEngine->addGlobal('payment', $oPayment);
+
+        return array_merge(
+            parent::getTemplateEngineVars($iSelLang),
+            [
+                'order'    => $this->getOrder(),
+                'user'    => $oUser,
+                'payment'   => $oPayment
+            ]
+        );
     }
 
     /**
