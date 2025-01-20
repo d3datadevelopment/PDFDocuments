@@ -11,7 +11,8 @@
     "documents",
     "invoice",
     "delivery note",
-    "d3ac"
+    "d3dependencycheck",
+    "id_d3PdfDocuments"
   ],
   "authors": [
     {
