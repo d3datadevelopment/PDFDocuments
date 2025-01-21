@@ -8,6 +8,8 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\Assert;
@@ -20,8 +22,7 @@ use OxidEsales\Eshop\Core\Registry;
 
 abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInterface
 {
-    /** @var Order */
-    public $oOrder;
+    public Order $order;
 
     /**
      * don't use order as constructor argument because of same method interface for all document types
@@ -31,55 +32,49 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
         parent::__construct();
     }
 
-    /**
-     * @param Order $order
-     */
-    public function setOrder(Order $order)
+    public function setOrder(Order $order): void
     {
-        $this->oOrder = $order;
+        $this->order = $order;
     }
 
     /**
      * @throws InvalidArgumentException
-     * @return Order
      */
-    public function getOrder()
+    public function getOrder(): Order
     {
         Assert::lazy()
-            ->that($this->oOrder)->isInstanceOf(Order::class, 'no order for pdf generator set')
-            ->that($this->oOrder->isLoaded())->true('given order is not loaded')
+            ->that($this->order)->isInstanceOf(Order::class, 'no order for pdf generator set')
+            ->that($this->order->isLoaded())->true('given order is not loaded')
             ->verifyNow();
 
-        return $this->oOrder;
+        return $this->order;
     }
 
     /**
-     * @param int $iSelLang
      * @throws InvalidArgumentException
      */
-    public function getTemplateEngineVars($iSelLang): array
+    public function getTemplateEngineVars(int $language): array
     {
         $oUser = oxNew(User::Class);
         $oUser->load($this->getOrder()->getFieldData('oxuserid'));
 
         $oPayment = oxNew(Payment::class);
-        $oPayment->loadInLang($iSelLang, $this->getOrder()->getFieldData('oxpaymenttype'));
+        $oPayment->loadInLang($language, $this->getOrder()->getFieldData('oxpaymenttype'));
 
         return array_merge(
-            parent::getTemplateEngineVars($iSelLang),
+            parent::getTemplateEngineVars($language),
             [
-                'order'    => $this->getOrder(),
-                'user'    => $oUser,
+                'order'     => $this->getOrder(),
+                'user'      => $oUser,
                 'payment'   => $oPayment
             ]
         );
     }
 
     /**
-     * @return string
      * @throws InvalidArgumentException
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         // forced filename from setFilename()
         if ($this->filename) {
@@ -106,24 +101,12 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
         );
     }
 
-    /**
-     * @return int
-     */
-    public function getPaymentTerm()
+    public function getPaymentTerm(): int
     {
-// ToDo: check for changing to ModuleSettingService
-        if (null === $iPaymentTerm = Registry::getConfig()->getConfigParam('iPaymentTerm')) {
-            $iPaymentTerm = 7;
-        }
-
-        return $iPaymentTerm;
+        return (int) Registry::getConfig()->getConfigParam('iPaymentTerm') ?? 7;
     }
 
-    /**
-     * @return false|int
-     * @throws InvalidArgumentException
-     */
-    public function getPayableUntilDate()
+    public function getPayableUntilDate(): false|int
     {
         return strtotime(
             '+' . $this->getPaymentTerm() . ' day',

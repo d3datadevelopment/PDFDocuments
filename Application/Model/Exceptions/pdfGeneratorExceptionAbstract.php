@@ -8,6 +8,8 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Exceptions;
 
 use OxidEsales\Eshop\Core\Exception\StandardException;

@@ -8,6 +8,8 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Registries;
 
 use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
@@ -15,6 +17,7 @@ use D3\PdfDocuments\Application\Model\Documents\deliverynotewithoutlogoPdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicewithoutlogoPdf;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
 
 class registryOrdermanagerActions extends registryAbstract implements registryOrdermanagerActionsInterface
@@ -30,20 +33,17 @@ class registryOrdermanagerActions extends registryAbstract implements registryOr
         $this->addGenerator(deliverynotewithoutlogoPdf::class);
     }
 
-    /**
-     * @return string
-     */
-    public function getRequiredGeneratorInterfaceClassName()
+    public function getRequiredGeneratorInterfaceClassName(): string
     {
         return pdfdocumentsOrderInterface::class;
     }
 
     /**
-     * @param $className * generator fully qualified class name
+     * @param string $className * generator fully qualified class name
      * @return pdfdocumentsOrderInterface
      */
-    public function getGenerator($className)
+    public function getGenerator(string $className): pdfdocumentsOrderInterface
     {
-        return $this->_aRegistry[$className];
+        return $this->registry[$className];
     }
 }
