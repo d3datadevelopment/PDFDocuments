@@ -12,7 +12,6 @@ namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Model\Constants;
-use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Exception\StandardException;
@@ -20,10 +19,8 @@ use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
-use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateEngineInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
-use OxidEsales\Smarty\SmartyEngine;
 use OxidEsales\Twig\Resolver\TemplateChain\TemplateNotInChainException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -57,11 +54,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
-     * @param $sFilename
+     * @param string $sFilename
      * @param int $iSelLang
      * @param string $target
+     *
      * @return string|null
+     * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws NotFoundExceptionInterface
      */
     public function genPdf($sFilename, $iSelLang = 0, $target = self::PDF_DESTINATION_STDOUT)
     {
@@ -80,6 +80,15 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @param int $iLanguage
      * @throws Html2PdfException
      */
+
+    /**
+     * @param $iLanguage
+     *
+     * @return void
+     * @throws ContainerExceptionInterface
+     * @throws Html2PdfException
+     * @throws NotFoundExceptionInterface
+     */
     public function downloadPdf($iLanguage = 0)
     {
         try {
@@ -88,17 +97,20 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $this->genPdf($sFilename, $iLanguage, self::PDF_DESTINATION_DOWNLOAD);
             $this->runPostAction();
             Registry::getUtils()->showMessageAndExit('');
-        } catch (pdfGeneratorExceptionAbstract|InvalidArgumentException $e) {
-            Registry::get(UtilsView::class)->addErrorToDisplay($e);
+        } catch (InvalidArgumentException $e) {
             Registry::getLogger()->error($e);
+            Registry::get(UtilsView::class)->addErrorToDisplay($e);
         }
     }
 
     /**
      * @param string $path
-     * @param int    $iLanguage
+     * @param int $iLanguage
      *
+     * @return void
+     * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws NotFoundExceptionInterface
      */
     public function savePdfFile($path, $iLanguage = 0)
     {
@@ -111,7 +123,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
                 self::PDF_DESTINATION_FILE
             );
             $this->runPostAction();
-        } catch (pdfGeneratorExceptionAbstract|InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
         }
@@ -120,8 +132,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @param int $iLanguage
      *
-     * @return null|string
+     * @return string|null
+     * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws NotFoundExceptionInterface
      */
     public function getPdfContent($iLanguage = 0)
     {
@@ -131,7 +145,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $ret = $this->genPdf( $sFilename, $iLanguage, self::PDF_DESTINATION_STRING );
             $this->runPostAction();
             return $ret;
-        } catch (pdfGeneratorExceptionAbstract|InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
         }
@@ -139,9 +153,6 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         return null;
     }
 
-    /**
-     * @param int $iSelLang
-     */
     public function getTemplateEngineVars(int $iSelLang): array
     {
         unset($iSelLang);

@@ -28,6 +28,8 @@ abstract class registryAbstract implements registryGenericInterface
 
     /**
      * @param $className
+     *
+     * @throws wrongPdfGeneratorInterface
      */
     public function addGenerator($className)
     {
@@ -44,6 +46,7 @@ abstract class registryAbstract implements registryGenericInterface
     /**
      * @param $className * generator fully qualified class name
      * @param pdfdocumentsGenericInterface $item
+     * @throws wrongPdfGeneratorInterface
      */
     protected function addItem($className, pdfdocumentsGenericInterface $item)
     {

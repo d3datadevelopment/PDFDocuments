@@ -12,14 +12,8 @@ use D3\PdfDocuments\Application\Model\Constants as Constants;
 use D3\PdfDocuments\Modules\Application\Controller\d3_overview_controller_pdfdocuments;
 use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
 
-/**
- * Metadata version
- */
 $sMetadataVersion = '2.1';
 
-/**
- * Module information
- */
 $aModule = [
     'id'            => Constants::OXID_MODULE_ID,
     'title'         => [

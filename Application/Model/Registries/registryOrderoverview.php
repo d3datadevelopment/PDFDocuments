@@ -14,10 +14,14 @@ use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
 use D3\PdfDocuments\Application\Model\Documents\deliverynotewithoutlogoPdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicewithoutlogoPdf;
+use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
 
 class registryOrderoverview extends registryAbstract implements registryOrderoverviewInterface
 {
+    /**
+     * @throws wrongPdfGeneratorInterface
+     */
     public function __construct()
     {
         $this->addGenerator(invoicePdf::class);
