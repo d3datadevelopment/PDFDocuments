@@ -8,71 +8,31 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Interfaces;
 
 interface pdfdocumentsGenericInterface
 {
-    /**
-     * @return string
-     */
-    public function getRequestId();
+    public function getRequestId(): string;
 
-    /**
-     * @return string
-     */
-    public function getTitleIdent();
+    public function getTitleIdent(): string;
 
-    /**
-     * @return string
-     */
-    public function getTemplate();
+    public function getTemplate(): string;
 
-    /**
-     * @return mixed
-     */
-    public function getHTMLContent();
+    public function getHTMLContent(): string;
 
-    /**
-     * @param int $iLanguage
-     */
-    public function downloadPdf(int $iLanguage = 0);
+    public function downloadPdf(int $language = 0): void;
 
-    /**
-     * @param int $iLanguage
-     *
-     * @return string|null
-     */
-    public function getPdfContent(int $iLanguage = 0);
+    public function getPdfContent(int $language = 0): ?string;
 
-    /**
-     * @param string $path
-     * @param int $iLanguage
-     */
-    public function savePdfFile(string $path, int $iLanguage = 0);
+    public function savePdfFile(string $path, int $language = 0): void;
 
-    /**
-     * @param string $sFilename
-     * @param int    $iSelLang
-     * @param string $target
-     *
-     * @return mixed
-     */
-    public function genPdf(string $sFilename, int $iSelLang = 0, string $target = 'I');
+    public function genPdf(string $filename, int $language = 0, string $target = 'I'): ?string;
 
-    /**
-     * @param string $filename
-     */
-    public function setFilename($filename);
+    public function setFilename(string $filename): void;
 
-    /**
-     * @return string
-     */
-    public function getFilename();
+    public function getFilename(): string;
 
-    /**
-     * @param string $filename
-     *
-     * @return string
-     */
-    public function addFilenameExtension($filename);
+    public function addFilenameExtension(string $filename): string;
 }

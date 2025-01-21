@@ -8,45 +8,33 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Documents;
 
-use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderinvoiceInterface;
 
 class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceInterface
 {
-    protected $blIsNewOrder = false;
+    protected bool $isNewOrder = false;
 
-    /**
-     * @return string
-     */
-    public function getRequestId()
+    public function getRequestId(): string
     {
         return 'invoice';
     }
 
-    /**
-     * @return string
-     */
-    public function getTitleIdent()
+    public function getTitleIdent(): string
     {
         return "D3_PDFDOCUMENTS_INVOICE";
     }
 
-    /**
-     * @return string
-     */
-    public function getTypeForFilename()
+    public function getTypeForFilename(): string
     {
         return 'invoice';
     }
 
-    /**
-     * @return void
-     * @throws InvalidArgumentException
-     */
-    public function runPreAction()
+    public function runPreAction(): void
     {
         parent::runPreAction();
 
@@ -55,54 +43,39 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
         $this->saveOrderOnChanges();
     }
 
-    /**
-     * @return void
-     * @throws InvalidArgumentException
-     */
-    public function setInvoiceNumber()
+    public function setInvoiceNumber(): void
     {
         if (!$this->getOrder()->getFieldData('oxbillnr')) {
             $this->getOrder()->assign(['oxbillnr' => $this->getOrder()->getNextBillNum()]);
 
-            $this->blIsNewOrder = true;
+            $this->isNewOrder = true;
         }
     }
 
-    /**
-     * @return void
-     * @throws InvalidArgumentException
-     */
-    public function setInvoiceDate()
+    public function setInvoiceDate(): void
     {
         if ($this->getOrder()->getFieldData('oxbilldate') == '0000-00-00') {
             $this->getOrder()->assign([
-                "oxbilldate" => date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), date('Y')))
+                "oxbilldate" => date('Y-m-d')
             ]);
 
-            $this->blIsNewOrder = true;
+            $this->isNewOrder = true;
         }
     }
 
-    /**
-     * @return void
-     * @throws InvalidArgumentException
-     */
-    public function saveOrderOnChanges()
+    public function saveOrderOnChanges(): void
     {
-        if ($this->blIsNewOrder) {
+        if ($this->isNewOrder) {
             $this->getOrder()->save();
         }
     }
 
-    public function getTemplate(){
+    public function getTemplate(): string
+    {
         return '@d3PdfDocuments/documents/invoice/invoice';
     }
 
-    /**
-     * @return string
-     * @throws InvalidArgumentException
-     */
-    public function getFilename()
+    public function getFilename(): string
     {
         $filename = parent::getFilename();
 

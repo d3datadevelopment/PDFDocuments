@@ -8,6 +8,8 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Interfaces;
 
 use Assert\InvalidArgumentException;
@@ -15,19 +17,9 @@ use OxidEsales\Eshop\Application\Model\Order;
 
 interface pdfdocumentsOrderInterface extends pdfdocumentsGenericInterface
 {
-    /**
-     * @param Order $order
-     */
-    public function setOrder(Order $order);
+    public function setOrder(Order $order): void;
 
-    /**
-     * @throws InvalidArgumentException
-     * @return Order
-     */
-    public function getOrder();
+    public function getOrder(): Order;
 
-    /**
-     * @return string
-     */
-    public function getTypeForFilename();
+    public function getTypeForFilename(): string;
 }

@@ -8,38 +8,28 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Documents;
 
 class deliverynotewithoutlogoPdf extends deliverynotePdf
 {
-    /**
-     * @return string
-     */
-    public function getRequestId()
+    public function getRequestId(): string
     {
         return 'dnote_without_logo';
     }
 
-    /**
-     * @return string
-     */
-    public function getTitleIdent()
+    public function getTitleIdent(): string
     {
         return "D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO";
     }
 
-    /**
-     * @return string
-     */
-    public function getTypeForFilename()
+    public function getTypeForFilename(): string
     {
         return 'delnote-nl';
     }
 
-    /**
-     * @return string
-     */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return '@d3PdfDocuments/documents/deliverynote/deliverynoteNoLogo';
     }

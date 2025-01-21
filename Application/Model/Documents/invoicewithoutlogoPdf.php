@@ -8,38 +8,28 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Documents;
 
 class invoicewithoutlogoPdf extends invoicePdf
 {
-    /**
-     * @return string
-     */
-    public function getRequestId()
+    public function getRequestId(): string
     {
         return 'invoice_without_logo';
     }
 
-    /**
-     * @return string
-     */
-    public function getTitleIdent()
+    public function getTitleIdent(): string
     {
         return "D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO";
     }
 
-    /**
-     * @return string
-     */
-    public function getTypeForFilename()
+    public function getTypeForFilename(): string
     {
         return 'invoice-nl';
     }
 
-    /**
-     * @return string
-     */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return '@d3PdfDocuments/documents/invoice/invoiceNoLogo';
     }

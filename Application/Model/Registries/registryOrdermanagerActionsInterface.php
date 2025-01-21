@@ -8,12 +8,14 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Registries;
 
 interface registryOrdermanagerActionsInterface extends registryGenericInterface
 {
     /**
-     * @param $className * generator fully qualified class name
+     * @param string $className * generator fully qualified class name
      */
-    public function addGenerator($className);
+    public function addGenerator(string $className): void;
 }
