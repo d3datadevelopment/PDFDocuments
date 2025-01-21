@@ -1,19 +1,19 @@
 [{assign var="pagePadding"   value=","|explode:"45,15,30,25"}] [{* top, right, bottom, left *}]
 [{assign var="showLogo"      value=$showLogo|default:true}]
 
-[{capture append="pdfBlock_style"}]
+[{capture assign="pdfBlock_style"}]
     [{block name="pdfStyles"}]
         [{include file="@d3PdfDocuments/assets/d3pdfstyles.css.tpl"}]
     [{/block}]
 [{/capture}]
 
-[{capture append="pdfBlock_header"}]
+[{capture assign="pdfBlock_header"}]
     [{block name="pdfHeader"}]
         [{include file="@d3PdfDocuments/documents/inc/page/header.tpl" showLogo=$showLogo}]
     [{/block}]
 [{/capture}]
 
-[{capture append="pdfBlock_content"}]
+[{capture assign="pdfBlock_content"}]
     [{* include file="@d3PdfDocuments/documents/inc/helper/rulers" pagePadding=$pagePadding *}]
     [{include file="@d3PdfDocuments/documents/inc/elements/foldmarks.tpl" pagePadding=$pagePadding}]
 
@@ -42,7 +42,7 @@
     [{/block}]
 [{/capture}]
 
-[{capture append="pdfBlock_footer"}]
+[{capture assign="pdfBlock_footer"}]
     [{block name="pdfFooter"}]
         [{include file="@d3PdfDocuments/documents/inc/page/footer.tpl" pagePadding=$pagePadding}]
     [{/block}]
