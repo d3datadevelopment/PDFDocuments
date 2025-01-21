@@ -17,7 +17,7 @@ The module can be easily extended to adapt existing documents or add new ones. E
 
 ## System requirements:
 
-- installed OXID eShop version from 7.0 - 7.1
+- installed OXID eShop version 7.x
 - PHP version for which installation packages are available (PHP 8)
 - Installation via Composer
 

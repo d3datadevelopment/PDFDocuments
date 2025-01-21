@@ -17,7 +17,7 @@ Das Modul kann einfach erweitert werden, um bestehende Dokumente anzupassen oder
 
 ## Systemanforderungen:
 
-- installierter OXID eShop in Version ab 7.0 - 7.1
+- installierter OXID eShop in Version 7.x
 - PHP-Version, für die Installationspakete verfügbar sind (PHP 8)
 - Installation via Composer
 
