@@ -8,6 +8,8 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Registries;
 
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
@@ -16,20 +18,17 @@ use OxidEsales\Eshop\Core\Exception\StandardException;
 
 abstract class registryAbstract implements registryGenericInterface
 {
-    protected $_aRegistry = array();
+    protected array $registry = [];
 
-    /**
-     * @return string
-     */
-    public function getRequiredGeneratorInterfaceClassName()
+    public function getRequiredGeneratorInterfaceClassName(): string
     {
         return pdfdocumentsGenericInterface::class;
     }
 
     /**
-     * @param $className
+     * @throws wrongPdfGeneratorInterface
      */
-    public function addGenerator($className)
+    public function addGenerator(string $className): void
     {
         if (false == $this->hasGenerator($className)) {
             /** @var pdfdocumentsGenericInterface $generator */
@@ -42,27 +41,29 @@ abstract class registryAbstract implements registryGenericInterface
     }
 
     /**
-     * @param $className * generator fully qualified class name
+     * @param string $className * generator fully qualified class name
      * @param pdfdocumentsGenericInterface $item
      */
-    protected function addItem($className, pdfdocumentsGenericInterface $item)
+    protected function addItem(string $className, pdfdocumentsGenericInterface $item): void
     {
         $requiredInterface = $this->getRequiredGeneratorInterfaceClassName();
 
-        if (false == $item instanceof $requiredInterface) {
-            throw oxNew(wrongPdfGeneratorInterface::class, $requiredInterface);
+        if ( ! $item instanceof $requiredInterface ) {
+            /** @var wrongPdfGeneratorInterface $exception */
+            $exception = oxNew(wrongPdfGeneratorInterface::class, $requiredInterface);
+            throw $exception;
         }
 
-        $this->_aRegistry[$className] = $item;
+        $this->registry[$className] = $item;
     }
 
     /**
-     * @param $className * generator fully qualified class name
+     * @param string $className * generator fully qualified class name
      */
-    public function removeGenerator($className)
+    public function removeGenerator(string $className): void
     {
         if ($this->hasGenerator($className)) {
-            unset( $this->_aRegistry[ $className ] );
+            unset( $this->registry[ $className ] );
         }
     }
 
@@ -70,21 +71,18 @@ abstract class registryAbstract implements registryGenericInterface
      * @param $className * generator fully qualified class name
      * @return bool
      */
-    public function hasGenerator($className)
+    public function hasGenerator(string $className): bool
     {
-        return array_key_exists($className, $this->_aRegistry);
+        return array_key_exists($className, $this->registry);
     }
 
-    /**
-     * @return array
-     */
-    public function getList()
+    public function getList(): array
     {
-        return $this->_aRegistry;
+        return $this->registry;
     }
 
-    public function clearList()
+    public function clearList(): void
     {
-        $this->_aRegistry = [];
+        $this->registry = [];
     }
 }

@@ -8,40 +8,30 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
 
 class deliverynotePdf extends pdfdocumentsOrder
 {
-    /**
-     * @return string
-     */
-    public function getRequestId()
+    public function getRequestId(): string
     {
         return 'dnote';
     }
 
-    /**
-     * @return string
-     */
-    public function getTitleIdent()
+    public function getTitleIdent(): string
     {
         return "D3_PDFDOCUMENTS_DELIVERYNOTE";
     }
 
-    /**
-     * @return string
-     */
-    public function getTypeForFilename()
+    public function getTypeForFilename(): string
     {
         return 'delnote';
     }
 
-    /**
-     * @return string
-     */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return 'd3deliverynote_pdf.tpl';
     }

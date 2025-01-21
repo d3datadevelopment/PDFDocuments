@@ -8,23 +8,21 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Exceptions;
 
 use Exception;
 
 class noPdfHandlerFoundException extends pdfGeneratorExceptionAbstract
 {
-    /**
-     * d3noPdfHandlerFoundException constructor.
-     *
-     * @param                 $requestId
-     * @param string          $sMessage
-     * @param int             $iCode
-     * @param Exception|null $previous
-     */
-    public function __construct( $requestId, $sMessage = "no pdf handler defined for given request id", $iCode = 0, Exception $previous = null )
-    {
-        $sMessage .= ' "'.$requestId.'"';
-        parent::__construct( $sMessage, $iCode, $previous );
+    public function __construct(
+        $requestId,
+        string $message = "no pdf handler defined for given request id",
+        int $code = 0,
+        ?Exception $previous = null
+    ) {
+        $message .= ' "'.$requestId.'"';
+        parent::__construct( $message, $code, $previous );
     }
 }

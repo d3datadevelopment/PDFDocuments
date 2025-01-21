@@ -8,6 +8,8 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\Registries;
 
 use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
@@ -32,20 +34,17 @@ class registryOrderoverview extends registryAbstract implements registryOrderove
             $this->addGenerator(deliverynotewithoutlogoPdf::class);
     }
 
-    /**
-     * @return string
-     */
-    public function getRequiredGeneratorInterfaceClassName()
+    public function getRequiredGeneratorInterfaceClassName(): string
     {
         return pdfdocumentsOrderInterface::class;
     }
 
     /**
-     * @param $className * generator fully qualified class name
+     * @param string $className * generator fully qualified class name
      * @return pdfdocumentsOrderInterface
      */
-    public function getGenerator($className)
+    public function getGenerator(string $className): pdfdocumentsOrderInterface
     {
-        return $this->_aRegistry[$className];
+        return $this->registry[$className];
     }
 }

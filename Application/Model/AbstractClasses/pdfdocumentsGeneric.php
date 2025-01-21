@@ -8,16 +8,25 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\InvalidArgumentException;
 use D3\ModCfg\Application\Model\d3filesystem;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
+use Exception;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
-use Smarty;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\MyPdf;
@@ -35,13 +44,12 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     const PDF_ORIENTATION_PORTRAIT = 'P';
     const PDF_ORIENTATION_LANDSCAPE = 'L';
 
-    public $filenameExtension = 'pdf';
-
+    public string $filenameExtension = 'pdf';
+    
     /** @var Smarty  */
     public $oSmarty;
-
-    /** @var string */
-    public $filename;
+    
+    public string $filename;
 
     protected $devMode = false;
 
@@ -70,41 +78,35 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
-     * @param $sFilename
-     * @param int $iSelLang
-     * @param string $target
-     * @return mixed|string|null
+     * @throws ContainerExceptionInterface
      * @throws Html2PdfException
      */
-    public function genPdf($sFilename, $iSelLang = 0, $target = self::PDF_DESTINATION_STDOUT)
+    public function genPdf(string $filename, int $language = 0, string $target = self::PDF_DESTINATION_STDOUT): ?string
     {
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
         $oPdf->getSecurityService()->addAllowedHost(
             parse_url(Registry::getConfig()->getShopCurrentUrl())['host']
         );
         $oPdf->setTestIsImage(false);
-        $htmlContent = $this->getHTMLContent($iSelLang);
-
+        $htmlContent = $this->getHTMLContent($language);
         $oPdf->writeHTML($htmlContent);
-        /** @var MyPdf $myPdf */
-        $myPdf = $oPdf->pdf;
-        $myPdf->setAuthor( Registry::getConfig()->getActiveShop()->getFieldData( 'oxname'));
-        $myPdf->setTitle( Registry::getLang()->translateString( $this->getTitleIdent()));
-        $myPdf->setCreator( 'D³ PDF Documents for OXID eShop');
-        $myPdf->setSubject( NULL);
-        return $this->output($oPdf, $sFilename, $target, $htmlContent);
+        $oPdf->pdf->setAuthor( Registry::getConfig()->getActiveShop()->getFieldData( 'oxname'));
+        $oPdf->pdf->setTitle( Registry::getLang()->translateString( $this->getTitleIdent()));
+        $oPdf->pdf->setCreator( 'D³ PDF Documents for OXID eShop');
+        $oPdf->pdf->setSubject( NULL);
+        return $this->output($oPdf, $filename, $target, $htmlContent);
     }
 
     /**
-     * @param int $iLanguage
+     * @throws ContainerExceptionInterface
      * @throws Html2PdfException
      */
-    public function downloadPdf($iLanguage = 0)
+    public function downloadPdf(int $language = 0): void
     {
         try {
             $this->runPreAction();
             $sFilename = $this->getFilename();
-            $this->genPdf($sFilename, $iLanguage, self::PDF_DESTINATION_DOWNLOAD);
+            $this->genPdf($sFilename, $language, self::PDF_DESTINATION_DOWNLOAD);
             $this->runPostAction();
             Registry::getUtils()->showMessageAndExit('');
         } catch (pdfGeneratorExceptionAbstract $e) {
@@ -117,19 +119,17 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
-     * @param string $path
-     * @param int    $iLanguage
-     *
+     * @throws ContainerExceptionInterface
      * @throws Html2PdfException
      */
-    public function savePdfFile($path, $iLanguage = 0)
+    public function savePdfFile(string $path, int $language = 0): void
     {
         try {
             $this->runPreAction();
             $sFilename = $this->getFilename();
             $this->genPdf(
                 rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.$sFilename,
-                $iLanguage,
+                $language,
                 self::PDF_DESTINATION_FILE
             );
             $this->runPostAction();
@@ -143,17 +143,15 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
-     * @param int $iLanguage
-     *
-     * @return null|string
+     * @throws ContainerExceptionInterface
      * @throws Html2PdfException
      */
-    public function getPdfContent($iLanguage = 0)
+    public function getPdfContent(int $language = 0): ?string
     {
         try {
             $this->runPreAction();
             $sFilename = $this->getFilename();
-            $ret = $this->genPdf( $sFilename, $iLanguage, self::PDF_DESTINATION_STRING );
+            $ret = $this->genPdf( $sFilename, $language, self::PDF_DESTINATION_STRING );
             $this->runPostAction();
             return $ret;
         } catch (pdfGeneratorExceptionAbstract $e) {
@@ -167,40 +165,38 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         return null;
     }
 
-    /**
-     * @param int $iSelLang
-     */
-    public function setSmartyVars($iSelLang)
+    public function getTemplateEngineVars(int $language): array
     {
-        unset($iSelLang);
-        $this->oSmarty->assign('config', Registry::getSession()->getConfig());
-        $this->oSmarty->assign('viewConfig', Registry::getSession()->getConfig()->getActiveView()->getViewConfig());
-        $this->oSmarty->assign('shop', Registry::getSession()->getConfig()->getActiveShop());
-        $this->oSmarty->assign('lang', Registry::getLang());
-        $this->oSmarty->assign('document', $this);
+        unset($language);
+
+        return [
+            'config'    => Registry::getConfig(),
+            'oViewConf' => Registry::getConfig()->getActiveView()->getViewConfig(),
+            'shop'      => Registry::getConfig()->getActiveShop(),
+            'lang'      => Registry::getLang(),
+            'document'  => $this
+        ];
     }
 
     /**
-     * @param int $iSelLang
-     *
-     * @return mixed
-     * @throws InvalidArgumentException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function getHTMLContent($iSelLang = 0)
+    public function getHTMLContent(int $language = 0): string
     {
         $blCurrentRenderFromAdmin = self::$_blIsAdmin;
         self::$_blIsAdmin = $this->renderTemplateFromAdmin();
 
         $lang = Registry::getLang();
-
         $currTplLang = $lang->getTplLanguage();
-        $lang->setTplLanguage($iSelLang);
+        $lang->setTplLanguage($language);
 
-        $this->setSmartyVars($iSelLang);
+        $content = $this->getTemplateRenderer()->renderTemplate(
+            $this->getTemplate(),
+            $this->getTemplateEngineVars($language)
+        );
 
-        $content = $this->oSmarty->fetch($this->getTemplate());
-
-        $lang->setTplLanguage($currTplLang);
+	    $lang->setTplLanguage($currTplLang);
 
         self::$_blIsAdmin = $blCurrentRenderFromAdmin;
 
@@ -230,7 +226,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         return $content;
     }
 
-    protected function addBasicAuth($content)
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    protected function getTemplateRenderer(): TemplateRenderer
     {
         $username = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthUserName'));
         $password = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthPassword'));
@@ -249,41 +249,25 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         return $content;
     }
 
-    /**
-     * arguments for Html2Pdf class constructor
-     * - $orientation = 'P',
-     * - $format = 'A4',
-     * - $lang = 'fr',
-     * - $unicode = true,
-     * - $encoding = 'UTF-8',
-     * - $margins = array(5, 5, 5, 8),
-     * - $pdfa = false
-     * @return string[]
-     */
-    public function getPdfProperties()
+    public function getPdfProperties(): array
     {
-        $orientation = self::PDF_ORIENTATION_PORTRAIT;
-        $format = 'A4';
-        $lang = 'de';
-        $unicode = true;
-        $encoding = 'UTF-8';
-        $margins = [0, 0, 0, 0];
-        $pdfa = true;
-        return [$orientation, $format, $lang, $unicode, $encoding, $margins, $pdfa];
+        return [
+            'orientation' => self::PDF_ORIENTATION_PORTRAIT,
+            'format'    => 'A4',
+            'lang'      => 'de',
+            'unicode'   => true,
+            'encoding'  => 'UTF-8',
+            'margins'   => [0, 0, 0, 0],
+            'pdfa'      => true
+        ];
     }
 
-    /**
-     * @param $filename
-     */
-    public function setFilename($filename)
+    public function setFilename(string $filename): void
     {
         $this->filename = $filename;
     }
 
-    /**
-     * @return string
-     */
-    public function getFilename()
+    public function getFilename(): string
     {
         // forced filename from setFilename()
         if ($this->filename) {
@@ -301,12 +285,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         );
     }
 
-    /**
-     * @param string $filename
-     *
-     * @return string
-     */
-    public function addFilenameExtension($filename)
+    public function addFilenameExtension(string $filename): string
     {
         $extension = $this->filenameExtension;
         $extensionLength = (strlen($extension) + 1) * -1;
@@ -319,12 +298,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     /**
      * Gets proper file name
-     *
-     * @param string $sFilename file name
-     *
-     * @return string
      */
-    public function makeValidFileName($sFilename)
+    public function makeValidFileName(string $filename): string
     {
         // replace transliterations (umlauts, accents ...)
         $unicodeString = new UnicodeString(utf8_encode($filename));
@@ -354,11 +329,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             pathinfo($filename, PATHINFO_FILENAME),
             0,
             255 - ($ext ? strlen($ext) + 1 : 0),
-            mb_detect_encoding($filename) ?: null
+            mb_detect_encoding($filename)
         ) . ($ext ? '.' . $ext : '');
     }
 
-    public function beautifyFilename($filename)
+    public function beautifyFilename(string $filename): string
     {
         // reduce consecutive characters
         $filename = preg_replace([
@@ -386,60 +361,52 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         return trim($filename);
     }
 
-    /**
-     * @return bool
-     */
-    public function renderTemplateFromAdmin()
+    public function renderTemplateFromAdmin(): bool
     {
         return false;
     }
 
     /**
-     * @param Html2Pdf $oPdf
-     * @param $sFilename
-     * @param $target
-     * @param $html
-     * @return string|null
      * @throws Html2PdfException
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws Exception
      */
-    public function output(Html2Pdf $oPdf, $sFilename, $target, $html)
+    public function output(Html2Pdf $pdf, string $filename, string $target, string $html): ?string
     {
-        if ($this->devMode) {
-            return $this->outputDev($oPdf, $sFilename, $target, $html);
+        $moduleSettings = ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
+        if ($moduleSettings->getBoolean( 'd3PdfDocumentsbDev', Constants::OXID_MODULE_ID )) {
+            return $this->outputDev($pdf, $filename, $target, $html);
         } else {
-            return $oPdf->output($sFilename, $target);
+            return $pdf->output($filename, $target);
         }
     }
 
     /**
-     * @param Html2Pdf $oPdf
-     * @param $sFilename
-     * @param $target
-     * @param $html
-     * @return null
+     * @throws Exception
      */
-    public function outputDev(Html2Pdf $oPdf, $sFilename, $target, $html)
+    public function outputDev(Html2Pdf $pdf, string $filename, string $target, string $html): ?string
     {
-        $sFilename = str_replace('.pdf', '.sgml', $sFilename);
+        $filename = str_replace('.pdf', '.html', $filename);
 
         switch($target) {
             case 'I': {
                 // Send PDF to the standard output
                 if (ob_get_contents()) {
-                    $oPdf->pdf->Error('Some data has already been output, can\'t send PDF file');
+                    $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
                 }
-                if (substr(php_sapi_name(), 0, 3) != 'cli') {
-                    //We send to a browser
+                if (!str_starts_with(php_sapi_name(), 'cli')) {
+                    // send to browser
                     header('Content-Type: text/html');
                     if (headers_sent()) {
-                        $oPdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
+                        $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
                     }
                     header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
                     header('Pragma: public');
                     header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
                     header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
                     header('Content-Length: '.strlen($html));
-                    header('Content-Disposition: inline; filename="'.basename($sFilename).'";');
+                    header('Content-Disposition: inline; filename="'.basename($filename).'";');
                 }
                 echo $html;
                 break;
@@ -447,11 +414,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             case 'D': {
                 // Download PDF as a file
                 if (ob_get_contents()) {
-                    $oPdf->pdf->Error('Some data has already been output, can\'t send PDF file');
+                    $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
                 }
                 header('Content-Description: File Transfer');
                 if (headers_sent()) {
-                    $oPdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
+                    $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
                 }
                 header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
                 header('Pragma: public');
@@ -463,7 +430,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
                 header('Content-Type: application/download', false);
                 header('Content-Type: text/sgml', false);
                 // use the Content-Disposition header to supply a recommended filename
-                header('Content-Disposition: attachment; filename="'.basename($sFilename).'";');
+                header('Content-Disposition: attachment; filename="'.basename($filename).'";');
                 header('Content-Transfer-Encoding: binary');
                 header('Content-Length: '.strlen($html));
                 echo $html;
@@ -471,20 +438,20 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             }
             case 'F': {
                 // Save PDF to a local file
-                $f = fopen($sFilename, 'wb');
+                $f = fopen($filename, 'wb');
                 if (!$f) {
-                    $oPdf->pdf->Error('Unable to create output file: '.$sFilename);
+                    $pdf->pdf->Error('Unable to create output file: '.$filename);
                 }
                 fwrite($f, $html, strlen($html));
                 fclose($f);
                 break;
             }
             case 'S': {
-                // Returns PDF as a string
+                // Return PDF as a string
                 return $html;
             }
             default: {
-                $oPdf->pdf->Error('Incorrect output destination: '.$target);
+                $pdf->pdf->Error('Incorrect output destination: '.$target);
             }
         }
 

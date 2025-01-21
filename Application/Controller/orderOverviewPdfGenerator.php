@@ -8,6 +8,8 @@
  * @link          http://www.oxidmodule.com
  */
 
+declare(strict_types = 1);
+
 namespace D3\PdfDocuments\Application\Controller;
 
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
@@ -19,11 +21,9 @@ use OxidEsales\Eshop\Core\Registry;
 class orderOverviewPdfGenerator
 {
     /**
-     * @param Order $order
-     * @param int $iSelLang
      * @throws noPdfHandlerFoundException
      */
-    public function generatePdf(Order $order, $iSelLang = 0)
+    public function generatePdf(Order $order, int $iSelLang = 0): void
     {
         $Pdf= $this->getPdfClass();
 
@@ -39,7 +39,7 @@ class orderOverviewPdfGenerator
      * @return pdfdocumentsOrderInterface
      * @throws noPdfHandlerFoundException
      */
-    public function getPdfClass()
+    public function getPdfClass(): pdfdocumentsOrderInterface
     {
         $requestedType = Registry::getRequest()->getRequestParameter('pdftype');
 
@@ -52,7 +52,10 @@ class orderOverviewPdfGenerator
         }
 
         /** @var noPdfHandlerFoundException $e */
-        $e = oxNew(noPdfHandlerFoundException::class, Registry::getRequest()->getRequestParameter('pdftype'));
+        $e = oxNew(
+            noPdfHandlerFoundException::class,
+            Registry::getRequest()->getRequestParameter('pdftype')
+        );
         throw($e);
     }
 }
