@@ -26,6 +26,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
+use Symfony\Component\String\UnicodeString;
 use Twig\Error\Error;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
@@ -285,6 +286,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function makeValidFileName($filename)
     {
+        // replace transliterations (umlauts, accents ...)
+        $unicodeString = new UnicodeString(utf8_encode($filename));
+        $filename = (string) $unicodeString->ascii();
+
         // sanitize filename
         $filename = preg_replace(
             '~
@@ -306,11 +311,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         // maximize filename length to 255 bytes
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         return mb_strcut(
-                        pathinfo($filename, PATHINFO_FILENAME),
-                        0,
-                        255 - ($ext ? strlen($ext) + 1 : 0),
-                        mb_detect_encoding($filename)
-                    ) . ($ext ? '.' . $ext : '');
+            pathinfo($filename, PATHINFO_FILENAME),
+            0,
+            255 - ($ext ? strlen($ext) + 1 : 0),
+            mb_detect_encoding($filename) ?: null
+        ) . ($ext ? '.' . $ext : '');
     }
 
     public function beautifyFilename($filename)
@@ -318,7 +323,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         // reduce consecutive characters
         $filename = preg_replace([
             // "file   name.zip" becomes "file-name.zip"
-            '/ +/',
+            '/\s+/',
             // "file___name.zip" becomes "file-name.zip"
             '/_{2,}/',
             // "file---name.zip" becomes "file-name.zip"
