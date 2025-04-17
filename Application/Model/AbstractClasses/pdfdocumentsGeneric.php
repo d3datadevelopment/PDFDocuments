@@ -21,6 +21,7 @@ use Smarty;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\MyPdf;
+use Symfony\Component\String\UnicodeString;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
 {
@@ -301,8 +302,64 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function makeValidFileName($sFilename)
     {
-        $fs = oxNew(d3filesystem::class);
-        return $fs->filterFilename($sFilename);
+        // replace transliterations (umlauts, accents ...)
+        $unicodeString = new UnicodeString(utf8_encode($filename));
+        $filename = (string) $unicodeString->ascii();
+
+        // sanitize filename
+        $filename = preg_replace(
+            '~
+            [<>:"/\\\\|?*]|      # file system reserved
+            [\x00-\x1F]|         # control characters
+            [\x7F\xA0\xAD]|      # non-printing characters DEL, NO-BREAK SPACE, SOFT HYPHEN
+            [#\[\]@!$&\'()+,;=]| # URI reserved
+            [{}^\~`]             # URL unsafe characters
+            ~x',
+            '-',
+            $filename
+        );
+
+        // avoids ".", ".." or ".hiddenFiles"
+        $filename = ltrim($filename, '.-');
+
+        $filename = $this->beautifyFilename($filename);
+
+        // maximize filename length to 255 bytes
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        return mb_strcut(
+            pathinfo($filename, PATHINFO_FILENAME),
+            0,
+            255 - ($ext ? strlen($ext) + 1 : 0),
+            mb_detect_encoding($filename) ?: null
+        ) . ($ext ? '.' . $ext : '');
+    }
+
+    public function beautifyFilename($filename)
+    {
+        // reduce consecutive characters
+        $filename = preg_replace([
+            // "file   name.zip" becomes "file-name.zip"
+            '/\s+/',
+            // "file___name.zip" becomes "file-name.zip"
+            '/_{2,}/',
+            // "file---name.zip" becomes "file-name.zip"
+            '/-+/',
+        ], '-', $filename);
+
+        $filename = preg_replace([
+            // "file--.--.-.--name.zip" becomes "file.name.zip"
+            '/-*\.-*/',
+            // "file...name..zip" becomes "file.name.zip"
+            '/\.{2,}/',
+        ], '.', $filename);
+
+        // lowercase for windows/unix interoperability
+        $filename = mb_strtolower($filename, mb_detect_encoding($filename));
+
+        // ".file-name.-" becomes "file-name"
+        $filename = trim($filename, '.-');
+
+        return trim($filename);
     }
 
     /**
