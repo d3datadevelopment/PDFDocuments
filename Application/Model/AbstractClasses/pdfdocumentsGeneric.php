@@ -83,9 +83,6 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function genPdf(string $filename, int $language = 0, string $target = self::PDF_DESTINATION_STDOUT): ?string
     {
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
-        $oPdf->getSecurityService()->addAllowedHost(
-            parse_url(Registry::getConfig()->getShopCurrentUrl())['host']
-        );
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($language);
         $oPdf->writeHTML($htmlContent);
