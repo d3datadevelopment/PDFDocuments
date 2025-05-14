@@ -1,40 +1,18 @@
 <?php
 
 /**
- * See LICENSE file for license details.
- * 
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * https://www.d3data.de
+ *
  * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
- * @author        D3 Data Development - Daniel Seifert <support@shopmodule.com>
- * @link          http://www.oxidmodule.com
+ * @author    D3 Data Development - Daniel Seifert <info@shopmodule.com>
+ * @link      https://www.oxidmodule.com
  */
 
-use D3\PdfDocuments\Application\Model\Constants;
+declare(strict_types=1);
 
-$sLangName = "Deutsch";
-
-$basicAuthHelp = <<<HELP
-Befindet sich der aktuelle Shop hinter einem BasicAuth, können beim Generieren des PDFs die Bilder nicht geladen werden. Tragen Sie hier die Zugangsdaten ein, um die Bilder zu sehen.  
-HELP;
-
-$aLang     = array(
-    'charset'                                            => 'utf-8',
-
-    'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Grundeinstellungen',
-	'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Entwicklermodus',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'                => 'Mit aktiviertem Entwicklermodus wird das Dokument im '.
-                                    'HTML-Format ausgegeben. Inhaltliche Fehler können so besser nachvollzogen werden.',
-    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'        => 'BasicAuth des Shops - Benutzername (optional)',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'   => $basicAuthHelp,
-    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthPassword'        => 'BasicAuth des Shops - Passwort (optional)',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthPassword'   => $basicAuthHelp,
-
-    'D3_PDFDOCUMENTS'                                    => 'PDF-Dokumente',
-    'D3_PDFDOCUMENTS_INVOICE'                            => 'Rechnung',
-    'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Rechnung ohne Logo',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Lieferschein',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Lieferschein ohne Logo',
-
-    'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Dokument',
-    'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Sprache',
-    'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Dokument erstellen',
-);
+// @codeCoverageIgnoreStart
+$aLang = include __DIR__ . "/../../de/translations.php";
+// @codeCoverageIgnoreEnd

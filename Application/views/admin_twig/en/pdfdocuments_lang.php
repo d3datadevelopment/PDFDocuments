@@ -1,29 +1,18 @@
 <?php
 
 /**
- * See LICENSE file for license details.
- * 
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * https://www.d3data.de
+ *
  * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
- * @author        D3 Data Development - Daniel Seifert <support@shopmodule.com>
- * @link          http://www.oxidmodule.com
+ * @author    D3 Data Development - Daniel Seifert <info@shopmodule.com>
+ * @link      https://www.oxidmodule.com
  */
 
-use D3\PdfDocuments\Application\Model\Constants;
+declare(strict_types=1);
 
-$sLangName = "English";
-$aLang     = array(
-    'charset'                                            => 'utf-8',
-
-    'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Basic settings',
-	'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Developer mode',
-
-    'D3_PDFDOCUMENTS'                                    => 'PDF Documents',
-    'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',
-    'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Invoice without logo',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Deliverynote',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Deliverynote without logo',
-
-    'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Document',
-    'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Language',
-    'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Create Document',
-);
+// @codeCoverageIgnoreStart
+$aLang = include __DIR__ . "/../../en/translations.php";
+// @codeCoverageIgnoreEnd
