@@ -111,6 +111,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
      */
     public function getPaymentTerm()
     {
+// ToDo: check for changing to ModuleSettingService
         if (null === $iPaymentTerm = Registry::getConfig()->getConfigParam('iPaymentTerm')) {
             $iPaymentTerm = 7;
         }
