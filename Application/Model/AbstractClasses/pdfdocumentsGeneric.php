@@ -20,6 +20,7 @@ use OxidEsales\Eshop\Core\UtilsView;
 use Smarty;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\MyPdf;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
 {
@@ -72,11 +73,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($iSelLang);
+
         $oPdf->writeHTML($htmlContent);
-        $oPdf->pdf->SetAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
-        $oPdf->pdf->SetTitle(Registry::getLang()->translateString($this->getTitleIdent()));
-        $oPdf->pdf->SetCreator('D³ PDF Documents for OXID eShop');
-        $oPdf->pdf->SetSubject(NULL);
+        /** @var MyPdf $myPdf */
+        $myPdf = $oPdf->pdf;
+        $myPdf->setAuthor( Registry::getConfig()->getActiveShop()->getFieldData( 'oxname'));
+        $myPdf->setTitle( Registry::getLang()->translateString( $this->getTitleIdent()));
+        $myPdf->setCreator( 'D³ PDF Documents for OXID eShop');
+        $myPdf->setSubject( NULL);
         return $this->output($oPdf, $sFilename, $target, $htmlContent);
     }
 
