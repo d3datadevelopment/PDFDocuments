@@ -21,6 +21,7 @@ use Smarty;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\MyPdf;
+use Symfony\Component\String\UnicodeString;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
 {
