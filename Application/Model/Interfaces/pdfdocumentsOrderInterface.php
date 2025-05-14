@@ -12,7 +12,6 @@ declare(strict_types = 1);
 
 namespace D3\PdfDocuments\Application\Model\Interfaces;
 
-use Assert\InvalidArgumentException;
 use OxidEsales\Eshop\Application\Model\Order;
 
 interface pdfdocumentsOrderInterface extends pdfdocumentsGenericInterface

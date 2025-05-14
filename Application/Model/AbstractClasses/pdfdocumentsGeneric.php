@@ -28,9 +28,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
-use Spipu\Html2Pdf\MyPdf;
 use Symfony\Component\String\UnicodeString;
-use Twig\Error\Error;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
 {
@@ -173,17 +171,23 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
         self::$_blIsAdmin = $blCurrentRenderFromAdmin;
 
-        $content = $this->addBasicAuth($content);
-
-        return $content;
+        return $this->addBasicAuth($content);
     }
 
-    protected function addBasicAuth($content)
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    protected function addBasicAuth(string $content): string
     {
         /** @var ModuleSettingService $settingsService */
         $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
-        $username = trim($settingsService->getString('d3PdfDocumentsbasicAuthUserName', Constants::OXID_MODULE_ID));
-        $password = trim($settingsService->getString('d3PdfDocumentsbasicAuthPassword', Constants::OXID_MODULE_ID));
+        $username = trim(
+            (string) $settingsService->getString('d3PdfDocumentsbasicAuthUserName', Constants::OXID_MODULE_ID)
+        );
+        $password = trim(
+            (string) $settingsService->getString('d3PdfDocumentsbasicAuthPassword', Constants::OXID_MODULE_ID)
+        );
 
         if ($username && $password) {
             $shopUrl  = parse_url( Registry::getConfig()->getShopCurrentUrl() );

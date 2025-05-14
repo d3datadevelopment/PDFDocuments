@@ -15,6 +15,7 @@ use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
+use Doctrine\DBAL\Driver\Exception as DBALDriverException;
 use Exception;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\ParameterType;
@@ -42,7 +43,7 @@ let form = top.basefrm.edit.document.getElementById("transfer");
 let input = document.createElement("input");
 input.setAttribute("type", "hidden");
 input.setAttribute("name", "generatorError");
-input.setAttribute("value", encodeURIComponent('{$this->generatorError}'));
+input.setAttribute("value", encodeURIComponent('$this->generatorError'));
 form.appendChild(input);
 form.submit();
 </script>
@@ -58,8 +59,7 @@ HTML;
     }
 
     /**
-     * @return bool
-     * @throws Exception
+     * @throws DBALDriverException
      */
     public function d3CanExport(): bool
     {
