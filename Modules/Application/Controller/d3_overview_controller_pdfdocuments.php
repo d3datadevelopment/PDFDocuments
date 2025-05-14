@@ -15,20 +15,16 @@ use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use Exception;
-use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
-use Doctrine\DBAL\Driver\Exception;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\Eshop\Application\Model\Order;
-use OxidEsales\Eshop\Core\DatabaseProvider;
-use OxidEsales\Eshop\Core\Exception\DatabaseConnectionException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\TableViewNameGenerator;
 
 class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocuments_parent
 {
-    private $generatorError = false;
+    private ?string $generatorError = null;
 
     public function render()
     {
@@ -48,7 +44,7 @@ form.submit();
 </body>
 </html>
 HTML;
-            Registry::getUtils()->showMessageAndExit();
+            Registry::getUtils()->showMessageAndExit('');
         } elseif ($generatorError = Registry::getRequest()->getRequestParameter('generatorError')) {
             Registry::getUtilsView()->addErrorToDisplay(urldecode($generatorError));
         }

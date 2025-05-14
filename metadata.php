@@ -87,13 +87,13 @@ $aModule = [
             'value' => false
         ],
         [
-            'group' => $sModuleId.'main',
-            'name' => $sModuleId.'basicAuthUserName',
+            'group' => Constants::OXID_MODULE_ID.'main',
+            'name' => Constants::OXID_MODULE_ID.'basicAuthUserName',
             'type' => 'str'
         ],
         [
-            'group' => $sModuleId.'main',
-            'name' => $sModuleId.'basicAuthPassword',
+            'group' => Constants::OXID_MODULE_ID.'main',
+            'name' => Constants::OXID_MODULE_ID.'basicAuthPassword',
             'type' => 'password'
         ],
         [

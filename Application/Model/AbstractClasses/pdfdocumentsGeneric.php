@@ -27,9 +27,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 {
     const PDF_DESTINATION_DOWNLOAD          = 'D';   // force download in browser
     const PDF_DESTINATION_STDOUT            = 'I';   // show in browser plugin if available, otherwise download
-    const PDF_DESTINATION_FILE              = 'F';   // save as local file
-    const PDF_DESTINATION_FILEANDSTDOUT     = 'FI';  // output as local file and show in browser plugin
-    const PDF_DESTINATION_FILEANDDOWNLOAD   = 'FD';  // output as local file and force download in browser
+    const PDF_DESTINATION_FILE              = 'F';   // save as a local file
+    const PDF_DESTINATION_FILEANDSTDOUT     = 'FI';  // output as a local file and show in browser plugin
+    const PDF_DESTINATION_FILEANDDOWNLOAD   = 'FD';  // output as a local file and force download in browser
     const PDF_DESTINATION_STRING            = 'S';   // output as string
 
     const PDF_ORIENTATION_PORTRAIT = 'P';
@@ -211,9 +211,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     protected function addBasicAuth($content)
     {
-// ToDo: change to ModuleSettingService
-        $username = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthUserName'));
-        $password = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthPassword'));
+        /** @var ModuleSettingService $settingsService */
+        $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
+        $username = trim($settingsService->getString('d3PdfDocumentsbasicAuthUserName', Constants::OXID_MODULE_ID));
+        $password = trim($settingsService->getString('d3PdfDocumentsbasicAuthPassword', Constants::OXID_MODULE_ID));
 
         if ($username && $password) {
             $shopUrl  = parse_url( Registry::getConfig()->getShopCurrentUrl() );

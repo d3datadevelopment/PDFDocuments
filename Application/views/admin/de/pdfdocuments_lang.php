@@ -1,49 +1,19 @@
 <?php
 
 /**
- * See LICENSE file for license details.
- * 
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * https://www.d3data.de
+ *
  * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
- * @author        D3 Data Development - Daniel Seifert <support@shopmodule.com>
- * @link          http://www.oxidmodule.com
+ * @author    D3 Data Development - Daniel Seifert <info@shopmodule.com>
+ * @link      https://www.oxidmodule.com
  */
 
-$sLangName = "Deutsch";
 
-$basicAuthHelp = <<<HELP
-Befindet sich der aktuelle Shop hinter einem BasicAuth, können beim Generieren des PDFs die Bilder nicht geladen werden. Tragen Sie hier die Zugangsdaten ein, um die Bilder zu sehen.  
-HELP;
+declare(strict_types=1);
 
-$aLang     = array(
-    'charset'                                            => 'utf-8',
-
-    'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Grundeinstellungen',
-    'SHOP_MODULE_d3PdfDocumentsbDev'                     => 'Entwicklermodus',
-    'HELP_SHOP_MODULE_d3PdfDocumentsbDev'                => 'Mit aktiviertem Entwicklermodus kann das Dokument im '.
-        'SGML-Format ausgegeben werden. Inhaltliche Fehler können so besser nachvollzogen werden.',
-    'SHOP_MODULE_d3PdfDocumentsbasicAuthUserName'        => 'BasicAuth des Shops - Benutzername (optional)',
-    'HELP_SHOP_MODULE_d3PdfDocumentsbasicAuthUserName'   => $basicAuthHelp,
-    'SHOP_MODULE_d3PdfDocumentsbasicAuthPassword'        => 'BasicAuth des Shops - Passwort (optional)',
-    'HELP_SHOP_MODULE_d3PdfDocumentsbasicAuthPassword'   => $basicAuthHelp,
-
-    'SHOP_MODULE_GROUP_d3PdfDocumentscontents'           => 'Inhalte',
-    'SHOP_MODULE_d3PdfDocumentsLogoUrl'                  => 'Logo-Grafik URL',
-    'SHOP_MODULE_d3PdfDocumentsBackgroundUrl'            => 'Hintergrund-Grafik URL',
-
-    'SHOP_MODULE_GROUP_d3PdfDocumentsdocuments'          => 'Dokumente',
-    'SHOP_MODULE_d3PdfDocumentsDocInvoice'               => 'Rechnung',
-    'SHOP_MODULE_d3PdfDocumentsDocInvoiceNoLogo'         => 'Rechnung ohne Logo',
-    'SHOP_MODULE_d3PdfDocumentsDocDeliveryNote'          => 'Lieferschein',
-    'SHOP_MODULE_d3PdfDocumentsDocDeliveryNoteNoLogo'    => 'Lieferschein ohne Logo',
-
-    'D3_PDFDOCUMENTS'                                    => 'PDF-Dokumente',
-    'D3_PDFDOCUMENTS_INVOICE'                            => 'Rechnung',
-    'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Rechnung ohne Logo',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Lieferschein',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Lieferschein ohne Logo',
-
-    'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Dokument',
-    'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Sprache',
-    'D3_PDFDOCUMENTS_SGML_GENERATE'                      => 'SGML erstellen',
-    'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Dokument erstellen',
-);
+// @codeCoverageIgnoreStart
+$aLang = include __DIR__ . "/../../de/translations.php";
+// @codeCoverageIgnoreEnd
