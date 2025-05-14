@@ -26,6 +26,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\MyPdf;
 use Symfony\Component\String\UnicodeString;
 use Twig\Error\Error;
 
@@ -69,11 +70,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($iSelLang);
+
         $oPdf->writeHTML($htmlContent);
-        $oPdf->pdf->setAuthor( Registry::getConfig()->getActiveShop()->getFieldData( 'oxname'));
-        $oPdf->pdf->setTitle( Registry::getLang()->translateString( $this->getTitleIdent()));
-        $oPdf->pdf->setCreator( 'D³ PDF Documents for OXID eShop');
-        $oPdf->pdf->setSubject( NULL);
+        /** @var MyPdf $myPdf */
+        $myPdf = $oPdf->pdf;
+        $myPdf->setAuthor( Registry::getConfig()->getActiveShop()->getFieldData( 'oxname'));
+        $myPdf->setTitle( Registry::getLang()->translateString( $this->getTitleIdent()));
+        $myPdf->setCreator( 'D³ PDF Documents for OXID eShop');
+        $myPdf->setSubject( NULL);
         return $this->output($oPdf, $sFilename, $target, $htmlContent);
     }
 
