@@ -15,6 +15,8 @@ use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
+use Exception;
+use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
 use Doctrine\DBAL\Driver\Exception;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\ParameterType;
@@ -31,6 +33,34 @@ use Psr\Container\NotFoundExceptionInterface;
 
 class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocuments_parent
 {
+    private $generatorError = false;
+
+    public function render()
+    {
+        if ($this->generatorError) {
+            echo <<<HTML
+<html lang="de">
+<body>
+<script>
+let form = top.basefrm.edit.document.getElementById("transfer");
+let input = document.createElement("input");
+input.setAttribute("type", "hidden");
+input.setAttribute("name", "generatorError");
+input.setAttribute("value", encodeURIComponent('{$this->generatorError}'));
+form.appendChild(input);
+form.submit();
+</script>
+</body>
+</html>
+HTML;
+            Registry::getUtils()->showMessageAndExit();
+        } elseif ($generatorError = Registry::getRequest()->getRequestParameter('generatorError')) {
+            Registry::getUtilsView()->addErrorToDisplay(urldecode($generatorError));
+        }
+
+        return parent::render();
+    }
+
     /**
      * @return bool
      * @throws Exception
@@ -67,14 +97,19 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
      */
     public function d3CreatePDF(): void
     {
-        $soxId = $this->getEditObjectId();
-        if ($soxId != "-1" && isset($soxId)) {
-            /** @var Order $oOrder */
-            $oOrder = oxNew(Order::class);
-            if ($oOrder->load($soxId)) {
-                $generator = oxNew( orderOverviewPdfGenerator::class );
-                $generator->generatePdf($oOrder, Registry::getRequest()->getRequestEscapedParameter("pdflanguage"));
+        try {
+            $soxId = $this->getEditObjectId();
+            if ($soxId != "-1" && isset($soxId)) {
+                /** @var Order $oOrder */
+                $oOrder = oxNew(Order::class);
+                if ($oOrder->load($soxId)) {
+                    $generator = oxNew( orderOverviewPdfGenerator::class );
+                    $generator->generatePdf($oOrder, Registry::getRequest()->getRequestEscapedParameter("pdflanguage"));
+                }
             }
+        } catch ( Exception $exception) {
+            Registry::getLogger()->error($exception->getMessage(), [ 'exception' => $exception ] );
+            $this->generatorError = 'PDF documents: ' . $exception->getMessage();
         }
     }
 
