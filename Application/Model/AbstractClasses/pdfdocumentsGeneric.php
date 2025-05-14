@@ -211,6 +211,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     protected function addBasicAuth($content)
     {
+// ToDo: change to ModuleSettingService
         $username = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthUserName'));
         $password = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthPassword'));
 
