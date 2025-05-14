@@ -206,6 +206,27 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
         self::$_blIsAdmin = $blCurrentRenderFromAdmin;
 
+        $content = $this->addBasicAuth($content);
+
+        return $content;
+    }
+
+    protected function addBasicAuth($content)
+    {
+        $username = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthUserName'));
+        $password = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthPassword'));
+
+        if ($username && $password) {
+            $shopUrl  = parse_url( Registry::getConfig()->getShopCurrentUrl() );
+            $pattern  = '/(["|\'])'.
+                        '(' . preg_quote( $shopUrl['scheme'], '/' ) . ':\/\/)'.
+                        '(' . preg_quote( $shopUrl['host'], '/' ) . '.*?)'.
+                        '\1/m';
+            $replace  = "$1$2" . urlencode($username). ":" . urlencode($password) . "@$3$1";
+
+            $content = preg_replace( $pattern, $replace, $content );
+        }
+
         return $content;
     }
 

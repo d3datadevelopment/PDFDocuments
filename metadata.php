@@ -84,6 +84,16 @@ $aModule = [
             'name' => Constants::OXID_MODULE_ID.'bDev',
             'type' => 'bool',
             'value' => false
+        ],
+        [
+            'group' => $sModuleId.'main',
+            'name' => $sModuleId.'basicAuthUserName',
+            'type' => 'str'
+        ],
+        [
+            'group' => $sModuleId.'main',
+            'name' => $sModuleId.'basicAuthPassword',
+            'type' => 'password'
         ]
     ]
 ];
