@@ -16,6 +16,7 @@ use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use Doctrine\DBAL\Driver\Exception as DBALDriverException;
+use ErrorException;
 use Exception;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\ParameterType;
@@ -94,6 +95,10 @@ HTML;
     public function d3CreatePDF(): void
     {
         try {
+            $oldErrorHandlder = set_error_handler(
+                [$this, 'exception_error_handler'],
+                E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED
+            );
             $soxId = $this->getEditObjectId();
             if ($soxId != "-1" && isset($soxId)) {
                 /** @var Order $oOrder */
@@ -106,6 +111,8 @@ HTML;
         } catch ( Exception $exception) {
             Registry::getLogger()->error($exception->getMessage(), [ 'exception' => $exception ] );
             $this->generatorError = 'PDF documents: ' . $exception->getMessage();
+        } finally {
+            set_error_handler($oldErrorHandlder);
         }
     }
 
@@ -116,5 +123,15 @@ HTML;
     public function d3getGeneratorList(): registryOrderoverview
     {
         return oxNew(registryOrderoverview::class);
+    }
+
+    public function exception_error_handler(int $errno, string $errstr, ?string $errfile = null, ?int $errline  = null)
+    {
+        if (!(error_reporting() & $errno)) {
+            // This error code is not included in error_reporting
+            return;
+        }
+
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
     }
 }
