@@ -1,14 +1,17 @@
 <?php
 
 /**
- * See LICENSE file for license details.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * https://www.d3data.de
  *
  * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
- * @author        D3 Data Development - Max Buhe <support@shopmodule.com>
- * @link          http://www.oxidmodule.com
+ * @author    D3 Data Development - Daniel Seifert <info@shopmodule.com>
+ * @link      https://www.oxidmodule.com
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
@@ -32,15 +35,15 @@ use Symfony\Component\String\UnicodeString;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
 {
-    const PDF_DESTINATION_DOWNLOAD          = 'D';   // force download in browser
-    const PDF_DESTINATION_STDOUT            = 'I';   // show in browser plugin if available, otherwise download
-    const PDF_DESTINATION_FILE              = 'F';   // save as a local file
-    const PDF_DESTINATION_FILEANDSTDOUT     = 'FI';  // output as a local file and show in browser plugin
-    const PDF_DESTINATION_FILEANDDOWNLOAD   = 'FD';  // output as a local file and force download in browser
-    const PDF_DESTINATION_STRING            = 'S';   // output as string
+    public const PDF_DESTINATION_DOWNLOAD          = 'D';   // force download in browser
+    public const PDF_DESTINATION_STDOUT            = 'I';   // show in browser plugin if available, otherwise download
+    public const PDF_DESTINATION_FILE              = 'F';   // save as a local file
+    public const PDF_DESTINATION_FILEANDSTDOUT     = 'FI';  // output as a local file and show in browser plugin
+    public const PDF_DESTINATION_FILEANDDOWNLOAD   = 'FD';  // output as a local file and force download in browser
+    public const PDF_DESTINATION_STRING            = 'S';   // output as string
 
-    const PDF_ORIENTATION_PORTRAIT = 'P';
-    const PDF_ORIENTATION_LANDSCAPE = 'L';
+    public const PDF_ORIENTATION_PORTRAIT = 'P';
+    public const PDF_ORIENTATION_LANDSCAPE = 'L';
 
     public string $filenameExtension = 'pdf';
     public ?string $filename = null;
@@ -67,10 +70,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($language);
         $oPdf->writeHTML($htmlContent);
-        $oPdf->pdf->setAuthor( Registry::getConfig()->getActiveShop()->getFieldData( 'oxname'));
-        $oPdf->pdf->setTitle( Registry::getLang()->translateString( $this->getTitleIdent()));
-        $oPdf->pdf->setCreator( 'D³ PDF Documents for OXID eShop');
-        $oPdf->pdf->setSubject( NULL);
+        $oPdf->pdf->setAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
+        $oPdf->pdf->setTitle(Registry::getLang()->translateString($this->getTitleIdent()));
+        $oPdf->pdf->setCreator('D³ PDF Documents for OXID eShop');
+        $oPdf->pdf->setSubject(null);
         return $this->output($oPdf, $filename, $target, $htmlContent);
     }
 
@@ -125,7 +128,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         try {
             $this->runPreAction();
             $sFilename = $this->getFilename();
-            $ret = $this->genPdf( $sFilename, $language, self::PDF_DESTINATION_STRING );
+            $ret = $this->genPdf($sFilename, $language, self::PDF_DESTINATION_STRING);
             $this->runPostAction();
             return $ret;
         } catch (InvalidArgumentException $e) {
@@ -145,7 +148,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             'oViewConf' => Registry::getConfig()->getActiveView()->getViewConfig(),
             'shop'      => Registry::getConfig()->getActiveShop(),
             'lang'      => Registry::getLang(),
-            'document'  => $this
+            'document'  => $this,
         ];
     }
 
@@ -167,7 +170,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $this->getTemplateEngineVars($language)
         );
 
-	    $lang->setTplLanguage($currTplLang);
+        $lang->setTplLanguage($currTplLang);
 
         self::$_blIsAdmin = $blCurrentRenderFromAdmin;
 
@@ -190,14 +193,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         );
 
         if ($username && $password) {
-            $shopUrl  = parse_url( Registry::getConfig()->getShopCurrentUrl() );
+            $shopUrl  = parse_url(Registry::getConfig()->getShopCurrentUrl());
             $pattern  = '/(["|\'])'.
-                        '(' . preg_quote( $shopUrl['scheme'], '/' ) . ':\/\/)'.
-                        '(' . preg_quote( $shopUrl['host'], '/' ) . '.*?)'.
+                        '(' . preg_quote($shopUrl['scheme'], '/') . ':\/\/)'.
+                        '(' . preg_quote($shopUrl['host'], '/') . '.*?)'.
                         '\1/m';
             $replace  = "$1$2" . urlencode($username). ":" . urlencode($password) . "@$3$1";
 
-            $content = preg_replace( $pattern, $replace, $content );
+            $content = preg_replace($pattern, $replace, $content);
         }
 
         return $content;
@@ -223,7 +226,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             'unicode'   => true,
             'encoding'  => 'UTF-8',
             'margins'   => [0, 0, 0, 0],
-            'pdfa'      => true
+            'pdfa'      => true,
         ];
     }
 
@@ -340,7 +343,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function output(Html2Pdf $pdf, string $filename, string $target, string $html): ?string
     {
         $moduleSettings = ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
-        if ($moduleSettings->getBoolean( 'd3PdfDocumentsbDev', Constants::OXID_MODULE_ID )) {
+        if ($moduleSettings->getBoolean('d3PdfDocumentsbDev', Constants::OXID_MODULE_ID)) {
             return $this->outputDev($pdf, $filename, $target, $html);
         } else {
             return $pdf->output($filename, $target);
@@ -354,7 +357,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         $filename = str_replace('.pdf', '.html', $filename);
 
-        switch($target) {
+        switch ($target) {
             case 'I': {
                 // Send PDF to the standard output
                 if (ob_get_contents()) {

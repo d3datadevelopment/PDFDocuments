@@ -1,11 +1,14 @@
 <?php
 
 /**
- * See LICENSE file for license details.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * https://www.d3data.de
  *
  * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
- * @author        D3 Data Development - Max Buhe <support@shopmodule.com>
- * @link          http://www.oxidmodule.com
+ * @author    D3 Data Development - Daniel Seifert <info@shopmodule.com>
+ * @link      https://www.oxidmodule.com
  */
 
 namespace D3\PdfDocuments\Modules\Application\Controller;
@@ -37,20 +40,20 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
     {
         if ($this->generatorError) {
             echo <<<HTML
-<html lang="de">
-<body>
-<script>
-let form = top.basefrm.edit.document.getElementById("transfer");
-let input = document.createElement("input");
-input.setAttribute("type", "hidden");
-input.setAttribute("name", "generatorError");
-input.setAttribute("value", encodeURIComponent('$this->generatorError'));
-form.appendChild(input);
-form.submit();
-</script>
-</body>
-</html>
-HTML;
+                <html lang="de">
+                <body>
+                <script>
+                let form = top.basefrm.edit.document.getElementById("transfer");
+                let input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", "generatorError");
+                input.setAttribute("value", encodeURIComponent('$this->generatorError'));
+                form.appendChild(input);
+                form.submit();
+                </script>
+                </body>
+                </html>
+                HTML;
             Registry::getUtils()->showMessageAndExit('');
         } elseif ($generatorError = Registry::getRequest()->getRequestParameter('generatorError')) {
             Registry::getUtilsView()->addErrorToDisplay(urldecode($generatorError));
@@ -67,18 +70,18 @@ HTML;
         try {
             $sOrderId = $this->getEditObjectId();
 
-            $viewNameGenerator = Registry::get( TableViewNameGenerator::class );
-            $sTable            = $viewNameGenerator->getViewName( "oxorderarticles" );
+            $viewNameGenerator = Registry::get(TableViewNameGenerator::class);
+            $sTable            = $viewNameGenerator->getViewName("oxorderarticles");
 
             /** @var QueryBuilder $queryBuilder */
-            $queryBuilder = ContainerFactory::getInstance()->getContainer()->get( QueryBuilderFactoryInterface::class )->create();
+            $queryBuilder = ContainerFactory::getInstance()->getContainer()->get(QueryBuilderFactoryInterface::class)->create();
             $queryBuilder
-                ->select( 'oxid' )
-                ->from( $sTable )
+                ->select('oxid')
+                ->from($sTable)
                 ->where(
                     $queryBuilder->expr()->and(
-                        $queryBuilder->expr()->eq( 'oxorderid', $queryBuilder->createNamedParameter( $sOrderId ) ),
-                        $queryBuilder->expr()->eq( 'oxstorno', $queryBuilder->createNamedParameter( 0, ParameterType::INTEGER ) )
+                        $queryBuilder->expr()->eq('oxorderid', $queryBuilder->createNamedParameter($sOrderId)),
+                        $queryBuilder->expr()->eq('oxstorno', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER))
                     )
                 );
 
@@ -104,12 +107,12 @@ HTML;
                 /** @var Order $oOrder */
                 $oOrder = oxNew(Order::class);
                 if ($oOrder->load($soxId)) {
-                    $generator = oxNew( orderOverviewPdfGenerator::class );
+                    $generator = oxNew(orderOverviewPdfGenerator::class);
                     $generator->generatePdf($oOrder, Registry::getRequest()->getRequestEscapedParameter("pdflanguage"));
                 }
             }
-        } catch ( Exception $exception) {
-            Registry::getLogger()->error($exception->getMessage(), [ 'exception' => $exception ] );
+        } catch (Exception $exception) {
+            Registry::getLogger()->error($exception->getMessage(), [ 'exception' => $exception ]);
             $this->generatorError = 'PDF documents: ' . $exception->getMessage();
         } finally {
             set_error_handler($oldErrorHandlder);

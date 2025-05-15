@@ -17,14 +17,14 @@ use D3\PdfDocuments\Application\Model\Constants;
 
 // @codeCoverageIgnoreStart
 $basicAuthHelp = <<<HELP
-Befindet sich der aktuelle Shop hinter einem BasicAuth, können beim Generieren des PDFs die Bilder nicht geladen werden. Tragen Sie hier die Zugangsdaten ein, um die Bilder zu sehen.  
-HELP;
+    Befindet sich der aktuelle Shop hinter einem BasicAuth, können beim Generieren des PDFs die Bilder nicht geladen werden. Tragen Sie hier die Zugangsdaten ein, um die Bilder zu sehen.  
+    HELP;
 
 return [
     'charset'                                            => 'utf-8',
 
     'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Grundeinstellungen',
-	'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Entwicklermodus',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Entwicklermodus',
     'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'                => 'Mit aktiviertem Entwicklermodus wird das Dokument im '.
                                     'HTML-Format ausgegeben. Inhaltliche Fehler können so besser nachvollzogen werden.',
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'        => 'BasicAuth des Shops - Benutzername (optional)',

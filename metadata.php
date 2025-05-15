@@ -1,11 +1,14 @@
 <?php
 
 /**
- * See LICENSE file for license details.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * https://www.d3data.de
  *
  * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
- * @author        D3 Data Development - Max Buhe <support@shopmodule.com>
- * @link          http://www.oxidmodule.com
+ * @author    D3 Data Development - Daniel Seifert <info@shopmodule.com>
+ * @link      https://www.oxidmodule.com
  */
 
 use D3\PdfDocuments\Application\Model\Constants as Constants;
@@ -25,7 +28,7 @@ $aModule = [
     'email'         => 'support@shopmodule.com',
     'url'           => 'https://www.oxidmodule.com/',
     'extend'        => [
-        OrderOverview::class    => d3_overview_controller_pdfdocuments::class
+        OrderOverview::class    => d3_overview_controller_pdfdocuments::class,
     ],
     'controllers'   => [],
     'thumbnail'     => 'picture.svg',
@@ -66,8 +69,8 @@ $aModule = [
 
         // Frontend - Flow - Inc - Helper
         '@' . Constants::OXID_MODULE_ID . '/documents/inc/helper/rulers.tpl'                               => 'views/smarty/documents/inc/helper/rulers.tpl',
-	    
-	    // Frontend - Flow - Inc - Styles
+
+        // Frontend - Flow - Inc - Styles
         '@' . Constants::OXID_MODULE_ID . '/assets/d3pdfstyles.css.tpl'                                                 => 'views/smarty/assets/pdfStyling.css.tpl',
     ],
     'events'                => [],
@@ -75,59 +78,25 @@ $aModule = [
         [
             'template' => 'order_overview.tpl',
             'block'    => 'admin_order_overview_export',
-            'file'     => 'views/smarty/blocks/order_overview.tpl'
-        ]
+            'file'     => 'views/smarty/blocks/order_overview.tpl',
+        ],
     ],
     'settings' => [
         [
             'group' => Constants::OXID_MODULE_ID.'main',
             'name' => Constants::OXID_MODULE_ID.'bDev',
             'type' => 'bool',
-            'value' => false
+            'value' => false,
         ],
         [
             'group' => Constants::OXID_MODULE_ID.'main',
             'name' => Constants::OXID_MODULE_ID.'basicAuthUserName',
-            'type' => 'str'
+            'type' => 'str',
         ],
         [
             'group' => Constants::OXID_MODULE_ID.'main',
             'name' => Constants::OXID_MODULE_ID.'basicAuthPassword',
-            'type' => 'password'
+            'type' => 'password',
         ],
-        [
-            'group' => $sModuleId.'contents',
-            'name' => $sModuleId.'LogoUrl',
-            'type' => 'str'
-        ],
-        [
-            'group' => $sModuleId.'contents',
-            'name' => $sModuleId.'BackgroundUrl',
-            'type' => 'str'
-        ],
-        [
-            'group' => $sModuleId.'documents',
-            'name' => $sModuleId.'DocInvoice',
-            'type' => 'bool',
-            'value' => true
-        ],
-        [
-            'group' => $sModuleId.'documents',
-            'name' => $sModuleId.'DocInvoiceNoLogo',
-            'type' => 'bool',
-            'value' => true
-        ],
-        [
-            'group' => $sModuleId.'documents',
-            'name' => $sModuleId.'DocDeliveryNote',
-            'type' => 'bool',
-            'value' => true
-        ],
-        [
-            'group' => $sModuleId.'documents',
-            'name' => $sModuleId.'DocDeliveryNoteNoLogo',
-            'type' => 'bool',
-            'value' => true
-        ]
-    ]
+    ],
 ];
