@@ -1,0 +1,26 @@
+<phpunuhi
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../boxblinkracer/phpunuhi/config.xsd"
+        bootstrap="../../autoload.php">
+>
+    <translations>
+        <set name="Frontend">
+            <format>
+                <php/>
+            </format>
+            <locales>
+                <locale name="de">./Application/translations/de/pdfdocuments_translations.php</locale>
+                <locale name="en">./Application/translations/en/pdfdocuments_translations.php</locale>
+            </locales>
+        </set>
+        <set name="Backend">
+            <format>
+                <php/>
+            </format>
+            <locales>
+                <locale name="de">./Application/views/de/translations.php</locale>
+                <locale name="en">./Application/views/en/translations.php</locale>
+            </locales>
+        </set>
+    </translations>
+</phpunuhi>
