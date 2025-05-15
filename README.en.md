@@ -7,6 +7,8 @@
 
 # PDF Documents
 
+![D3 Logo & PDF documents logo](assets/picture.svg)
+
 PDF document generator for OXID eShop
 
 Create a wide variety of static or dynamic PDF documents at the touch of a button. The document content is created from templates (Smarty or Twig).

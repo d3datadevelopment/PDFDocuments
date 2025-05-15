@@ -1,14 +1,17 @@
 <?php
 
 /**
- * See LICENSE file for license details.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * https://www.d3data.de
  *
  * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
- * @author        D3 Data Development - Max Buhe <support@shopmodule.com>
- * @link          http://www.oxidmodule.com
+ * @author    D3 Data Development - Daniel Seifert <info@shopmodule.com>
+ * @link      https://www.oxidmodule.com
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace D3\PdfDocuments\Application\Model\Registries;
 
@@ -30,11 +33,11 @@ abstract class registryAbstract implements registryGenericInterface
      */
     public function addGenerator(string $className): void
     {
-        if ( ! $this->hasGenerator( $className ) ) {
+        if (! $this->hasGenerator($className)) {
             /** @var pdfdocumentsGenericInterface $generator */
-            $generator = oxNew( $className );
+            $generator = oxNew($className);
 
-            $this->addItem( $className, $generator );
+            $this->addItem($className, $generator);
         } else {
             throw oxNew(StandardException::class, 'generator still exists in registry');
         }
@@ -49,7 +52,7 @@ abstract class registryAbstract implements registryGenericInterface
     {
         $requiredInterface = $this->getRequiredGeneratorInterfaceClassName();
 
-        if ( ! $item instanceof $requiredInterface ) {
+        if (! $item instanceof $requiredInterface) {
             /** @var wrongPdfGeneratorInterface $exception */
             $exception = oxNew(wrongPdfGeneratorInterface::class, $requiredInterface);
             throw $exception;
@@ -64,7 +67,7 @@ abstract class registryAbstract implements registryGenericInterface
     public function removeGenerator(string $className): void
     {
         if ($this->hasGenerator($className)) {
-            unset( $this->registry[ $className ] );
+            unset($this->registry[ $className ]);
         }
     }
 
