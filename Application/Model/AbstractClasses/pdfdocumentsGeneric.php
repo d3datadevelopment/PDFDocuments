@@ -43,7 +43,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     const PDF_ORIENTATION_LANDSCAPE = 'L';
 
     public string $filenameExtension = 'pdf';
-    public string $filename;
+    public ?string $filename = null;
 
     public function runPreAction()
     {
@@ -262,12 +262,12 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
-     * Gets proper file name
+     * Gets a proper file name
      */
     public function makeValidFileName(string $filename): string
     {
         // replace transliterations (umlauts, accents ...)
-        $unicodeString = new UnicodeString(utf8_encode($filename));
+        $unicodeString = new UnicodeString(mb_convert_encoding($filename, 'UTF-8', 'ISO-8859-15'));
         $filename = (string) $unicodeString->ascii();
 
         // sanitize filename
