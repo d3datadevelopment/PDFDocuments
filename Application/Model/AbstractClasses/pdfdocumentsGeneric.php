@@ -48,7 +48,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /** @var Smarty  */
     public $oSmarty;
     
-    public string $filename;
+    public ?string $filename = null;
 
     protected $devMode = false;
 
@@ -299,12 +299,12 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
-     * Gets proper file name
+     * Gets a proper file name
      */
     public function makeValidFileName(string $filename): string
     {
         // replace transliterations (umlauts, accents ...)
-        $unicodeString = new UnicodeString(utf8_encode($filename));
+        $unicodeString = new UnicodeString(mb_convert_encoding($filename, 'UTF-8', 'ISO-8859-15'));
         $filename = (string) $unicodeString->ascii();
 
         // sanitize filename
