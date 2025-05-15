@@ -24,7 +24,6 @@ interface pdfdocumentsGenericInterface
 
     public function getHTMLContent(): string;
 
-
     public function downloadPdf(int $language = 0): void;
 
     public function getPdfContent(int $language = 0): ?string;

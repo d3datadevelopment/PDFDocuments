@@ -13,6 +13,7 @@ namespace D3\PdfDocuments\Modules\Application\Controller;
 use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
+use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use Doctrine\DBAL\Driver\Exception as DBALDriverException;
 use ErrorException;
@@ -23,6 +24,10 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\TableViewNameGenerator;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocuments_parent
 {
@@ -57,24 +62,37 @@ HTML;
     /**
      * @throws DBALDriverException
      */
-    public function d3CanExport()
+    public function d3CanExport(): bool
     {
-        // We force reading from master to prevent issues with slow replications or open transactions (see ESDEV-3804).
-        $masterDb = DatabaseProvider::getMaster();
-        $sOrderId = $this->getEditObjectId();
+        try {
+            $sOrderId = $this->getEditObjectId();
 
-        $viewNameGenerator = Registry::get(TableViewNameGenerator::class);
-        $sTable = $viewNameGenerator->getViewName("oxorderarticles");
+            $viewNameGenerator = Registry::get( TableViewNameGenerator::class );
+            $sTable            = $viewNameGenerator->getViewName( "oxorderarticles" );
 
-        $sQ = "select count(oxid) from $sTable where oxorderid = " . $masterDb->quote($sOrderId) . " and oxstorno = 0";
-        return (bool) $masterDb->getOne($sQ);
+            /** @var QueryBuilder $queryBuilder */
+            $queryBuilder = ContainerFactory::getInstance()->getContainer()->get( QueryBuilderFactoryInterface::class )->create();
+            $queryBuilder
+                ->select( 'oxid' )
+                ->from( $sTable )
+                ->where(
+                    $queryBuilder->expr()->and(
+                        $queryBuilder->expr()->eq( 'oxorderid', $queryBuilder->createNamedParameter( $sOrderId ) ),
+                        $queryBuilder->expr()->eq( 'oxstorno', $queryBuilder->createNamedParameter( 0, ParameterType::INTEGER ) )
+                    )
+                );
+
+            return $queryBuilder->execute()->fetchOne();
+        } catch (NotFoundExceptionInterface|ContainerExceptionInterface|DBALException) {
+            return false;
+        }
     }
 
     /**
      * @throws noPdfHandlerFoundException
      * @throws pdfGeneratorExceptionAbstract
      */
-    public function d3CreatePDF()
+    public function d3CreatePDF(): void
     {
         try {
             $oldErrorHandlder = set_error_handler(
@@ -99,9 +117,10 @@ HTML;
     }
 
     /**
-    * @return registryOrderoverview
-    */
-    public function d3getGeneratorList()
+     * @return registryOrderoverview
+     * @throws wrongPdfGeneratorInterface
+     */
+    public function d3getGeneratorList(): registryOrderoverview
     {
         return oxNew(registryOrderoverview::class);
     }

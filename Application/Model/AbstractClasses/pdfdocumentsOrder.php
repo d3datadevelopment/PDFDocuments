@@ -55,13 +55,8 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
      */
     public function getTemplateEngineVars(int $language): array
     {
-        parent::setSmartyVars($iSelLang);
-
-        $this->oSmarty->assign('order', $this->getOrder());
-
         $oUser = oxNew(User::Class);
         $oUser->load($this->getOrder()->getFieldData('oxuserid'));
-        $this->oSmarty->assign('user', $oUser);
 
         $oPayment = oxNew(Payment::class);
         $oPayment->loadInLang($language, $this->getOrder()->getFieldData('oxpaymenttype'));

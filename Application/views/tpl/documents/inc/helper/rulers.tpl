@@ -2,7 +2,7 @@
 [{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
 
 [{* rulers *}]
-[{* include file="d3pdfrulers.tpl" pagePadding=$pagePadding *}]
+[{* include file="@d3PdfDocuments/documents/inc/helper/rulers" pagePadding=$pagePadding *}]
 
 <style>
     .rulerItemHorizontal {

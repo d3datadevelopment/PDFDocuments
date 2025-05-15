@@ -31,6 +31,6 @@ class deliverynotewithoutlogoPdf extends deliverynotePdf
 
     public function getTemplate(): string
     {
-        return 'd3deliverynoteNoLogo_pdf.tpl';
+        return '@d3PdfDocuments/documents/deliverynote/deliverynoteNoLogo';
     }
 }

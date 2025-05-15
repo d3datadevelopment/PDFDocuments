@@ -11,7 +11,6 @@
  * @link      https://www.oxidmodule.com
  */
 
-
 declare(strict_types=1);
 
 // @codeCoverageIgnoreStart

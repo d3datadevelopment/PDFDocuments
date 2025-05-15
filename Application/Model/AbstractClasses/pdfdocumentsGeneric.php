@@ -13,8 +13,7 @@ declare(strict_types = 1);
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\InvalidArgumentException;
-use D3\ModCfg\Application\Model\d3filesystem;
-use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
+use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
 use Exception;
 use OxidEsales\Eshop\Core\Base;
@@ -44,29 +43,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     const PDF_ORIENTATION_LANDSCAPE = 'L';
 
     public string $filenameExtension = 'pdf';
-    
-    /** @var Smarty  */
-    public $oSmarty;
-    
     public ?string $filename = null;
-
-    protected $devMode = false;
-
-    /**
-     * pdfDocumentsGeneric constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        /** @var Smarty $oSmarty */
-        $this->oSmarty = Registry::getUtilsView()->getSmarty(true);
-    }
-
-    public function setDevelopmentMode(bool $devMode)
-    {
-        $this->devMode = $devMode;
-    }
 
     public function runPreAction()
     {
@@ -79,10 +56,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws NotFoundExceptionInterface
      */
     public function genPdf(string $filename, int $language = 0, string $target = self::PDF_DESTINATION_STDOUT): ?string
     {
         $oPdf = oxNew(Html2Pdf::class, ...$this->getPdfProperties());
+        $oPdf->getSecurityService()->addAllowedHost(
+            parse_url(Registry::getConfig()->getShopCurrentUrl())['host']
+        );
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($language);
         $oPdf->writeHTML($htmlContent);
@@ -96,6 +77,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws NotFoundExceptionInterface
      */
     public function downloadPdf(int $language = 0): void
     {
@@ -105,18 +87,16 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $this->genPdf($sFilename, $language, self::PDF_DESTINATION_DOWNLOAD);
             $this->runPostAction();
             Registry::getUtils()->showMessageAndExit('');
-        } catch (pdfGeneratorExceptionAbstract $e) {
-            Registry::get(UtilsView::class)->addErrorToDisplay($e);
-            Registry::getLogger()->error($e);
         } catch (InvalidArgumentException $e) {
-            Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
+            Registry::get(UtilsView::class)->addErrorToDisplay($e);
         }
     }
 
     /**
      * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws NotFoundExceptionInterface
      */
     public function savePdfFile(string $path, int $language = 0): void
     {
@@ -129,9 +109,6 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
                 self::PDF_DESTINATION_FILE
             );
             $this->runPostAction();
-        } catch (pdfGeneratorExceptionAbstract $e) {
-            Registry::get(UtilsView::class)->addErrorToDisplay($e);
-            Registry::getLogger()->error($e);
         } catch (InvalidArgumentException $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
@@ -141,6 +118,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws NotFoundExceptionInterface
      */
     public function getPdfContent(int $language = 0): ?string
     {
@@ -150,9 +128,6 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $ret = $this->genPdf( $sFilename, $language, self::PDF_DESTINATION_STRING );
             $this->runPostAction();
             return $ret;
-        } catch (pdfGeneratorExceptionAbstract $e) {
-            Registry::get(UtilsView::class)->addErrorToDisplay($e);
-            Registry::getLogger()->error($e);
         } catch (InvalidArgumentException $e) {
             Registry::get(UtilsView::class)->addErrorToDisplay($e);
             Registry::getLogger()->error($e);
@@ -234,21 +209,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     protected function getTemplateRenderer(): TemplateRenderer
     {
-        $username = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthUserName'));
-        $password = trim(Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthPassword'));
-
-        if ($username && $password) {
-            $shopUrl  = parse_url( Registry::getConfig()->getShopCurrentUrl() );
-            $pattern  = '/(["|\'])'.
-                        '(' . preg_quote( $shopUrl['scheme'], '/' ) . ':\/\/)'.
-                        '(' . preg_quote( $shopUrl['host'], '/' ) . '.*?)'.
-                        '\1/m';
-            $replace  = "$1$2" . urlencode($username). ":" . urlencode($password) . "@$3$1";
-
-            $content = preg_replace( $pattern, $replace, $content );
-        }
-
-        return $content;
+        return ContainerFactory::getInstance()->getContainer()
+            ->get(TemplateRendererBridgeInterface::class)
+            ->getTemplateRenderer();
     }
 
     public function getPdfProperties(): array

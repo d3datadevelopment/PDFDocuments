@@ -30,7 +30,7 @@ abstract class registryAbstract implements registryGenericInterface
      */
     public function addGenerator(string $className): void
     {
-        if (false == $this->hasGenerator($className)) {
+        if ( ! $this->hasGenerator( $className ) ) {
             /** @var pdfdocumentsGenericInterface $generator */
             $generator = oxNew( $className );
 
@@ -43,6 +43,7 @@ abstract class registryAbstract implements registryGenericInterface
     /**
      * @param string $className * generator fully qualified class name
      * @param pdfdocumentsGenericInterface $item
+     * @throws wrongPdfGeneratorInterface
      */
     protected function addItem(string $className, pdfdocumentsGenericInterface $item): void
     {

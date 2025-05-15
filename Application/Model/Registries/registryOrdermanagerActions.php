@@ -22,6 +22,9 @@ use OxidEsales\Eshop\Core\Registry;
 
 class registryOrdermanagerActions extends registryAbstract implements registryOrdermanagerActionsInterface
 {
+    /**
+     * @throws wrongPdfGeneratorInterface
+     */
     public function __construct()
     {
         $config = Registry::getConfig();

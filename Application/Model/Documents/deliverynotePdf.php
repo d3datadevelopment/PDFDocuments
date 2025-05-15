@@ -33,6 +33,6 @@ class deliverynotePdf extends pdfdocumentsOrder
 
     public function getTemplate(): string
     {
-        return 'd3deliverynote_pdf.tpl';
+        return '@d3PdfDocuments/documents/deliverynote/deliverynote';
     }
 }

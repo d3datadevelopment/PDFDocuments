@@ -1,5 +1,5 @@
-[{assign var="backaddressfile" value=$backaddressfile|default:"d3pdfreturnaddress.tpl"}]
-[{assign var="addressfile" value=$addressfile|default:"d3pdfrecipientaddress.tpl"}]
+[{assign var="backaddressfile" value=$backaddressfile|default:"@d3PdfDocuments/documents/inc/page/returnaddress.tpl"}]
+[{assign var="addressfile" value=$addressfile|default:"@d3PdfDocuments/documents/inc/elements/recipientAddress.tpl"}]
 
 <div class="addressarea">
     <div class="returnAddress">
