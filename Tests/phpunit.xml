@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         backupGlobals="true"
+         bootstrap="../../../../source/bootstrap.php"
+         colors="true"
+         backupStaticAttributes="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="false"
+         convertWarningsToExceptions="false"
+         forceCoversAnnotation="false"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         beStrictAboutTestsThatDoNotTestAnything="false"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd">
+  <testsuites>
+    <testsuite name="Unit">
+      <directory>Unit/</directory>
+    </testsuite>
+    <!--    <testsuite name="Integration">-->
+    <!--      <directory>integration/</directory>-->
+    <!--    </testsuite>-->
+  </testsuites>
+  <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">../</directory>
+    </include>
+    <exclude>
+      <file>../.php-cs-fixer.php</file>
+      <file>../IntelliSenseHelper.php</file>
+      <file>../rector.php</file>
+      <directory>../Tests/</directory>
+    </exclude>
+  </coverage>
+  <php>
+    <const name="OXID_PHP_UNIT" value="true"/>
+  </php>
+</phpunit>
