@@ -10,7 +10,22 @@
     [{/foreach}]
 </style>
 
-<page backtop="[{$pagePadding.0}]mm" backright="[{$pagePadding.1}]mm" backbottom="[{$pagePadding.2}]mm" backleft="[{$pagePadding.3}]mm" pageset="[{$pageset}]" orientation="[{$orientation}]" format="[{$format}]">
+<page
+    [{block name="pageSettings"}]
+        backtop="[{$pagePadding.0}]mm"
+        backright="[{$pagePadding.1}]mm"
+        backbottom="[{$pagePadding.2}]mm"
+        backleft="[{$pagePadding.3}]mm"
+        pageset="[{$pageset}]"
+        orientation="[{$orientation}]"
+        format="[{$format}]"
+[{*        [{if $showLogo}]backimg="bgimg.jpg" [{/if}] *}]
+[{*        backcolor="#FFF"  *}]
+[{*        backimgx="center" *}]
+[{*        backimgy="middle" *}]
+[{*        backimgw="100%"   *}]
+    [{/block}]
+>
     <page_header>
         [{foreach from=$pdfBlock_header item="_block"}]
             [{$_block}]
