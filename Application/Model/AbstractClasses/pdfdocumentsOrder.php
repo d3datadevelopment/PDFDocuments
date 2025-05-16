@@ -17,18 +17,25 @@ namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\Assert;
 use Assert\InvalidArgumentException;
+use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface as orderInterface;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
-use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleConfigurationDaoBridge;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleConfigurationDaoBridgeInterface;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Exception\ModuleSettingNotFountException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInterface
 {
-    public Order $order;
+    public ?Order $order = null;
 
     /**
      * don't use order as constructor argument because of same method interface for all document types
+     * @codeCoverageIgnore
      */
     public function __construct()
     {
@@ -45,10 +52,8 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
      */
     public function getOrder(): Order
     {
-        Assert::lazy()
-            ->that($this->order)->isInstanceOf(Order::class, 'no order for pdf generator set')
-            ->that($this->order->isLoaded())->true('given order is not loaded')
-            ->verifyNow();
+        Assert::that($this->order)->isInstanceOf(Order::class, 'no order for pdf generator set');
+        Assert::that($this->order->isLoaded())->true('given order is not loaded');
 
         return $this->order;
     }
@@ -80,42 +85,61 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     public function getFilename(): string
     {
         // forced filename from setFilename()
-        if ($this->filename) {
-            return $this->makeValidFileName(
-                $this->addFilenameExtension(
-                    $this->filename
-                )
+        if (!$this->filename || !trim($this->filename)) {
+            $sTrimmedBillName = trim($this->getOrder()->getFieldData('oxbilllname'));
+
+            $this->filename = implode(
+                '_',
+                [
+                    $this->getTypeForFilename(),
+                    $this->getOrder()->getFieldData('oxordernr'),
+                    $sTrimmedBillName,
+                ]
             );
         }
 
-        $sTrimmedBillName = trim($this->getOrder()->getFieldData('oxbilllname'));
-
-        return $this->makeValidFileName(
+        return $this->sanitizeFileName(
             $this->addFilenameExtension(
-                implode(
-                    '_',
-                    [
-                        $this->getTypeForFilename(),
-                        $this->getOrder()->getFieldData('oxordernr'),
-                        $sTrimmedBillName,
-                    ]
-                )
+                $this->filename
             )
         );
     }
 
+    /**
+     * @return int
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws ModuleSettingNotFountException
+     */
     public function getPaymentTerm(): int
     {
-        return (int) Registry::getConfig()->getConfigParam('iPaymentTerm') ?? 7;
+        /** @var ModuleConfigurationDaoBridge $configurationBridge */
+        $configurationBridge = ContainerFactory::getInstance()->getContainer()
+            ->get(ModuleConfigurationDaoBridgeInterface::class);
+        $configuration = $configurationBridge->get(Constants::OXID_MODULE_ID);
+
+        return max(
+            $configuration->hasModuleSetting('invoicePaymentTerm') ?
+                (int)$configuration->getModuleSetting('invoicePaymentTerm')->getValue():
+                7,
+            0
+        );
     }
 
     public function getPayableUntilDate(): false|int
     {
+        $startDate = $this->getOrder()->getFieldData('oxbilldate');
+
+        try {
+            Assert::that( $startDate )->date( 'Y-m-d' );
+            $startDate = strtotime($startDate);
+        } catch (InvalidArgumentException) {
+            $startDate = strtotime(date('Y-m-d'));
+        }
+
         return strtotime(
             '+' . $this->getPaymentTerm() . ' day',
-            strtotime(
-                $this->getOrder()->getFieldData('oxbilldate')
-            )
+            $startDate
         );
     }
 }

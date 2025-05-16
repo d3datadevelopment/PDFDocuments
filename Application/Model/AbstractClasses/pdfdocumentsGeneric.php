@@ -48,10 +48,16 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public string $filenameExtension = 'pdf';
     public ?string $filename = null;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function runPreAction()
     {
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function runPostAction()
     {
     }
@@ -239,14 +245,14 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         // forced filename from setFilename()
         if ($this->filename) {
-            return $this->makeValidFileName(
+            return $this->sanitizeFileName(
                 $this->addFilenameExtension(
                     $this->filename
                 )
             );
         }
 
-        return $this->makeValidFileName(
+        return $this->sanitizeFileName(
             $this->addFilenameExtension(
                 $this->getTypeForFilename()
             )
@@ -267,11 +273,10 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * Gets a proper file name
      */
-    public function makeValidFileName(string $filename): string
+    public function sanitizeFileName(string $filename): string
     {
         // replace transliterations (umlauts, accents ...)
-        $unicodeString = new UnicodeString(mb_convert_encoding($filename, 'UTF-8', 'ISO-8859-15'));
-        $filename = (string) $unicodeString->ascii();
+        $filename = mb_detect_encoding($filename) == 'UTF-8' ? (string) (new UnicodeString($filename))->ascii() : $filename;
 
         // sanitize filename
         $filename = preg_replace(
