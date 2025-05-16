@@ -11,6 +11,7 @@
  * @link      https://www.oxidmodule.com
  */
 
+// @codeCoverageIgnoreStart
 $sLangName = "Deutsch";
 return [
     'charset'                                            => 'utf-8',
@@ -78,3 +79,4 @@ return [
 
     'D3_PDFDOCUMENTS_BANK_BANKCODE'                      => 'BIC/SWIFT-Code',
 ];
+// @codeCoverageIgnoreEnd

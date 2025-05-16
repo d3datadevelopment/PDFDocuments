@@ -42,3 +42,4 @@ return [
     'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Language',
     'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Create Document',
 ];
+// @codeCoverageIgnoreEnd
