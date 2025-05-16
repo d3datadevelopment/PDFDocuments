@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: false
+    public:   true
+
+  D3\PdfDocuments\Application\Model\Registries\registryOrderoverviewInterface:
+    factory:    'oxNew'
+    shared:     true
+    arguments:
+      - D3\PdfDocuments\Application\Model\Registries\registryOrderoverview

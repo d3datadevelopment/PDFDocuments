@@ -19,8 +19,12 @@ use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
+use D3\PdfDocuments\Application\Model\Registries\registryOrderoverviewInterface;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class orderOverviewPdfGenerator
 {
@@ -37,15 +41,17 @@ class orderOverviewPdfGenerator
     }
 
     /**
-     * @return pdfdocumentsOrderInterface
-     * @throws noPdfHandlerFoundException
      * @throws wrongPdfGeneratorInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws noPdfHandlerFoundException
      */
     public function getPdfClass(): pdfdocumentsOrderInterface
     {
         $requestedType = Registry::getRequest()->getRequestParameter('pdftype');
 
-        $generatorList = oxNew(registryOrderoverview::class);
+        /** @var registryOrderoverview $generatorList */
+        $generatorList = ContainerFactory::getInstance()->getContainer()->get(registryOrderoverviewInterface::class);
         /** @var pdfdocumentsOrderInterface $generator */
         foreach ($generatorList->getList() as $generator) {
             if ($generator->getRequestId() == $requestedType) {
