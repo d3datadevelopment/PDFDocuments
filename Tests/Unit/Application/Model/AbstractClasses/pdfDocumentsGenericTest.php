@@ -17,6 +17,7 @@ use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric;
 use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
+use D3\TestingTools\Development\CanAccessRestricted;
 use Generator;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Exception\StandardException;
@@ -39,40 +40,49 @@ use Twig\Error\Error;
 
 abstract class pdfDocumentsGenericTest extends TestCase
 {
+    protected string $sutClassName;
+
+    use CanAccessRestricted;
+
     /**
-     * setup basic requirements
+     * @test
+     * @covers \D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric::getTemplateEngineVars
      * @throws ReflectionException
      */
-    public function setUp(): void
+    public function testGetTemplateEngineVars(): void
     {
-        parent::setUp();
+        $sut = oxNew($this->sutClassName);
 
-        $this->_oModel = oxNew(pdfdocumentsGeneric::class);
+        $vars = $this->callMethod(
+            $sut,
+            'getTemplateEngineVars',
+            [0]
+        );
+
+        $this->assertArrayHasKey('config', $vars);
+        $this->assertArrayHasKey('oViewConfig', $vars);
+        $this->assertArrayHasKey('shop', $vars);
+        $this->assertArrayHasKey('lang', $vars);
+        $this->assertArrayHasKey('document', $vars);
     }
 
     /**
-     * @covers \D3\ModCfg\Application\Model\d3filesystem::filterFilename
+     * @covers \D3\PdfDocuments\Application\Model\Documents\deliverynotePdf::sanitizeFileName
+     * @covers \D3\PdfDocuments\Application\Model\Documents\deliverynotePdf::beautifyFilename
      * @test
-     * @param $filename
-     * @param $expected
-     * @param $beautify
      * @throws ReflectionException
-     * @dataProvider filterFilenameTestDataProvider
+     * @dataProvider sanitizeFileNameDataProvider
      */
-    public function filterFilenameTest($filename, $expected, $beautify)
+    public function testSanitizeFileName($filename, $expected)
     {
-        /** @var pdfdocumentsGeneric|MockObject $modelMock */
-        $modelMock = $this->getMockBuilder(pdfdocumentsGeneric::class)
-          ->onlyMethods(['beautifyFilename'])
-          ->getMock();
-        $modelMock->expects($this->exactly((int) $beautify))->method('beautifyFilename')->willReturnArgument(0);
+        $sut = oxNew($this->sutClassName);
 
         $this->assertSame(
             $expected,
             $this->callMethod(
-                $modelMock,
-                'filterFilename',
-                [$filename, $beautify]
+                $sut,
+                'sanitizeFileName',
+                [$filename]
             )
         );
     }
@@ -80,35 +90,35 @@ abstract class pdfDocumentsGenericTest extends TestCase
     /**
      * @return Generator
      */
-    public function filterFilenameTestDataProvider(): Generator
+    public function sanitizeFileNameDataProvider(): Generator
     {
-        yield 'file system reserved'      => ["ab<>cd\\ef*ghi.ext", 'ab--cd-ef-ghi.ext', false];
-        yield 'control characters'        => [".abc\x00def\x01ghi.ext", 'abc-def-ghi.ext', true];
-        yield 'non-printing characters'   => ["..abc\x7Fdef\xA0ghi.ext", 'abc-def ghi.ext', false];
-        yield 'URI reserved'              => ['abc#def@&ghi.ext', 'abc-def--ghi.ext', true];
-        yield 'URL unsafe characters'     => ["abc{def~ghi.ext", 'abc-def-ghi.ext', false];
-        yield 'umlauts'                   => ["ab�cd�ef�gh.ext", 'abucdssefAgh.ext', false];
-        yield 'accents'                   => ["ab�cd�ef�gh�ij�kl.ext", 'abccdiefeghuijokl.ext', false];
-        yield 'currency signs'            => ['ab�cd�ef$gh?ij�kl�m.ext', 'ab-cdGBPef-gh-ijcklJPYm.ext', false];
-        //        yield 'cyrillic'                  => ['????????', 'foo', false];
-        //        yield 'arabic'                    => ['???????? ???????', 'foo', false];
-        yield 'long string'               => [str_repeat("a", 300).".ext", str_repeat('a', 251).'.ext', true];
+        yield 'file system reserved'      => ["ab<>cd\\ef*ghi.ext", 'ab-cd-ef-ghi.ext'];
+        yield 'control characters'        => [".abc\x00def\x01ghi.ext", 'abc-def-ghi.ext'];
+        yield 'non-printing characters'   => ["..abc\x7Fdef\xA0ghi.ext", 'abc-def-ghi.ext'];
+        yield 'URI reserved'              => ['abc#def@&ghi.ext', 'abc-def-ghi.ext'];
+        yield 'URL unsafe characters'     => ["abc{def~ghi.ext", 'abc-def-ghi.ext'];
+        yield 'umlauts'                   => ["abücdßefÄgh.ext", 'abucdssefagh.ext'];
+        yield 'accents'                   => ["abçcdïeféghùijôkl.ext", 'abccdiefeghuijokl.ext'];
+        yield 'currency signs'            => ['ab€cd£ef$gh?ij¢kl¥m.ext', 'abeurcd-ef-gh-ij-kl-m.ext'];
+        yield 'cyrillic'                  => ['Тестовый текст.ext', 'testovyj-tekst.ext'];
+        yield 'arabic'                    => ['نص اختباري.ext', 'ns-akhtbary.ext'];
+        yield 'long string'               => [str_repeat("a", 300).".ext", str_repeat('a', 251).'.ext'];
     }
 
     /**
      * @covers \D3\ModCfg\Application\Model\d3filesystem::beautifyFilename
      * @test
-     * @param $fileName
-     * @param $expected
      * @throws ReflectionException
      * @dataProvider beautifyFilenameTestDataProvider
      */
-    public function beautifyFilenameTest($fileName, $expected)
+    public function beautifyFilenameTest(string $fileName, string $expected): void
     {
+        $sut = oxNew($this->sutClassName);
+
         $this->assertSame(
             $expected,
             $this->callMethod(
-                $this->_oModel,
+                $sut,
                 'beautifyFilename',
                 [$fileName]
             )
@@ -129,7 +139,5 @@ abstract class pdfDocumentsGenericTest extends TestCase
         yield 'trimmed'               => ['.file-name.-', 'file-name'];
         yield 'single underscore'     => ['file_name', 'file_name'];
         yield 'empty'                 => ['', ''];
-        yield 'null'                  => [null, ''];
-        yield 'false'                 => [false, ''];
     }
 }

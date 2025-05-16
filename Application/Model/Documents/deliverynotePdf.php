@@ -17,6 +17,9 @@ namespace D3\PdfDocuments\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
 
+/**
+ * @codeCoverageIgnore
+ */
 class deliverynotePdf extends pdfdocumentsOrder
 {
     public function getRequestId(): string

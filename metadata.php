@@ -99,6 +99,13 @@ $aModule = [
             'name' => Constants::OXID_MODULE_ID.'basicAuthPassword',
             'type' => 'password',
         ],
+
+        [
+            'group' => Constants::OXID_MODULE_ID.'invoice',
+            'name' => 'invoicePaymentTerm',
+            'type' => 'num',
+            'value' => 7,
+        ],
     ],
 ];
 // @codeCoverageIgnoreEnd

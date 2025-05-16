@@ -15,6 +15,9 @@ declare(strict_types=1);
 
 namespace D3\PdfDocuments\Application\Model\Documents;
 
+/**
+ * @codeCoverageIgnore
+ */
 class invoicewithoutlogoPdf extends invoicePdf
 {
     public function getRequestId(): string

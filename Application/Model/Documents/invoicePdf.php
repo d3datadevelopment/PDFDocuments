@@ -20,18 +20,27 @@ use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderinvoiceInterfa
 
 class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceInterface
 {
-    protected bool $isNewOrder = false;
+    protected bool $orderIsChanged = false;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getRequestId(): string
     {
         return 'invoice';
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getTitleIdent(): string
     {
         return "D3_PDFDOCUMENTS_INVOICE";
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getTypeForFilename(): string
     {
         return 'invoice';
@@ -51,7 +60,7 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
         if (!$this->getOrder()->getFieldData('oxbillnr')) {
             $this->getOrder()->assign(['oxbillnr' => $this->getOrder()->getNextBillNum()]);
 
-            $this->isNewOrder = true;
+            $this->orderIsChanged = true;
         }
     }
 
@@ -62,17 +71,20 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
                 "oxbilldate" => date('Y-m-d'),
             ]);
 
-            $this->isNewOrder = true;
+            $this->orderIsChanged = true;
         }
     }
 
     public function saveOrderOnChanges(): void
     {
-        if ($this->isNewOrder) {
+        if ($this->orderIsChanged) {
             $this->getOrder()->save();
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getTemplate(): string
     {
         return '@d3PdfDocuments/documents/invoice/invoice';
@@ -88,6 +100,6 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
             $filename
         );
 
-        return $this->makeValidFileName($filename);
+        return $this->sanitizeFileName($filename);
     }
 }

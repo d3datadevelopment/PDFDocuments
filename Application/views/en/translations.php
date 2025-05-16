@@ -32,6 +32,8 @@ return [
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthPassword'        => 'BasicAuth of the shop - password (optional)',
     'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthPassword'   => $basicAuthHelp,
 
+    'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'invoice'           => 'Invoice',
+    'SHOP_MODULE_invoicePaymentTerm'                                    => 'Payment term (in days)',
     'D3_PDFDOCUMENTS'                                    => 'PDF Documents',
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',
     'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Invoice without logo',
