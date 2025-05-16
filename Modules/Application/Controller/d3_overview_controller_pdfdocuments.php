@@ -18,6 +18,7 @@ use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
+use D3\PdfDocuments\Application\Model\Registries\registryOrderoverviewInterface;
 use Doctrine\DBAL\Driver\Exception as DBALDriverException;
 use ErrorException;
 use Exception;
@@ -125,7 +126,7 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
      */
     public function d3getGeneratorList(): registryOrderoverview
     {
-        return oxNew(registryOrderoverview::class);
+        return ContainerFactory::getInstance()->getContainer()->get(registryOrderoverviewInterface::class);
     }
 
     public function exception_error_handler(int $errno, string $errstr, ?string $errfile = null, ?int $errline  = null)
