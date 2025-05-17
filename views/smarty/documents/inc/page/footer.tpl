@@ -19,9 +19,15 @@
                     [{block name="pdfFooterCenter"}]
                         <td class="footerCenter">
                             <div>[{oxmultilang ident="D3_PDFDOCUMENTS_MANAGINGDIRECTOR" suffix="COLON"}] [{$shop->getFieldData('oxfname')}] [{$shop->getFieldData('oxlname')}]</div>
-                            <div>[{oxmultilang ident="D3_PDFDOCUMENTS_COURT" suffix="COLON"}] [{$shop->getFieldData('oxcourt')}]</div>
-                            <div>[{oxmultilang ident="D3_PDFDOCUMENTS_HRBNR" suffix="COLON"}] [{$shop->getFieldData('oxhrbnr')}]</div>
-                            <div>[{oxmultilang ident="D3_PDFDOCUMENTS_USTID" suffix="COLON"}] [{$shop->getFieldData('oxvatnumber')}]</div>
+                            [{if $shop->getFieldData('oxcourt')}]
+                                <div>[{oxmultilang ident="D3_PDFDOCUMENTS_COURT" suffix="COLON"}] [{$shop->getFieldData('oxcourt')}]</div>
+                            [{/if}]
+                            [{if $shop->getFieldData('oxhrbnr')}]
+                                <div>[{oxmultilang ident="D3_PDFDOCUMENTS_HRBNR" suffix="COLON"}] [{$shop->getFieldData('oxhrbnr')}]</div>
+                            [{/if}]
+                            [{if $shop->getFieldData('oxvatnumber')}]
+                                <div>[{oxmultilang ident="D3_PDFDOCUMENTS_USTID" suffix="COLON"}] [{$shop->getFieldData('oxvatnumber')}]</div>
+                            [{/if}]
                         </td>
                     [{/block}]
                     [{block name="pdfFooterRight"}]

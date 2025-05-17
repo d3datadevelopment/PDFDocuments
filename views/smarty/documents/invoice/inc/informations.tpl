@@ -11,9 +11,11 @@
                 [{assign var="dateFormat" value='D3_PDFDOCUMENTS_DATE_FORMAT'|oxmultilangassign}]
                 [{oxmultilang ident="D3_PDFDOCUMENTS_DATE" suffix="COLON"}] [{$order->getFieldData('oxbilldate')|date_format:$dateFormat}]
             </div>
-            <div>
-                [{oxmultilang ident="D3_PDFDOCUMENTS_USTIDNR" suffix="COLON"}] [{$shop->getFieldData('oxvatnumber')}]
-            </div>
+            [{if $shop->getFieldData('oxvatnumber')}]
+                <div>
+                    [{oxmultilang ident="D3_PDFDOCUMENTS_USTIDNR" suffix="COLON"}] [{$shop->getFieldData('oxvatnumber')}]
+                </div>
+            [{/if}]
         [{/block}]
     </div>
 [{/block}]

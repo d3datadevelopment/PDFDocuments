@@ -19,9 +19,15 @@
                     {% block pdfFooterCenter %}
                         <td class="footerCenter">
                             <div>{{ translate({ ident: "D3_PDFDOCUMENTS_MANAGINGDIRECTOR", suffix: "COLON" }) }} {{ shop.getFieldData('oxfname') }} {{ shop.getFieldData('oxlname') }}</div>
-                            <div>{{ translate({ ident: "D3_PDFDOCUMENTS_COURT", suffix: "COLON" }) }} {{ shop.getFieldData('oxcourt') }}</div>
-                            <div>{{ translate({ ident: "D3_PDFDOCUMENTS_HRBNR", suffix: "COLON" }) }} {{ shop.getFieldData('oxhrbnr') }}</div>
-                            <div>{{ translate({ ident: "D3_PDFDOCUMENTS_USTID", suffix: "COLON" }) }} {{ shop.getFieldData('oxvatnumber') }}</div>
+                            {% if shop.getFieldData('oxcourt') %}
+                                <div>{{ translate({ ident: "D3_PDFDOCUMENTS_COURT", suffix: "COLON" }) }} {{ shop.getFieldData('oxcourt') }}</div>
+                            {% endif %}
+                            {% if shop.getFieldData('oxhrbnr') %}
+                                <div>{{ translate({ ident: "D3_PDFDOCUMENTS_HRBNR", suffix: "COLON" }) }} {{ shop.getFieldData('oxhrbnr') }}</div>
+                            {% endif %}
+                            {% if shop.getFieldData('oxvatnumber') %}
+                                <div>{{ translate({ ident: "D3_PDFDOCUMENTS_USTID", suffix: "COLON" }) }} {{ shop.getFieldData('oxvatnumber') }}</div>
+                            {% endif %}
                         </td>
                     {% endblock %}
                     {% block pdfFooterRight %}

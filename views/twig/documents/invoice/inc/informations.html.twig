@@ -11,9 +11,11 @@
                 {% set dateFormat = 'D3_PDFDOCUMENTS_DATE_FORMAT'|translate %}
                 {{ translate({ ident: "D3_PDFDOCUMENTS_DATE", suffix: "COLON" }) }} {{ order.getFieldData('oxbilldate')|date_format(dateFormat) }}
             </div>
-            <div>
-                {{ translate({ ident: "D3_PDFDOCUMENTS_USTIDNR", suffix: "COLON" }) }} {{ shop.getFieldData('oxvatnumber') }}
-            </div>
+            {% if shop.getFieldData('oxvatnumber') %}
+                <div>
+                    {{ translate({ ident: "D3_PDFDOCUMENTS_USTIDNR", suffix: "COLON" }) }} {{ shop.getFieldData('oxvatnumber') }}
+                </div>
+            {% endif %}
         {% endblock %}
     </div>
 {% endblock %}
