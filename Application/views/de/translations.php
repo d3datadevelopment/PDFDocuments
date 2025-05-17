@@ -21,11 +21,11 @@ $basicAuthHelp = <<<HELP
     HELP;
 
 return [
-    'charset'                                            => 'utf-8',
+    'charset'                                               => 'utf-8',
 
-    'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Grundeinstellungen',
-    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Entwicklermodus',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'                => 'Mit aktiviertem Entwicklermodus wird das Dokument im '.
+    'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'main'  => 'Grundeinstellungen',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'        => 'Entwicklermodus',
+    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'   => 'Mit aktiviertem Entwicklermodus wird das Dokument im '.
                                     'HTML-Format ausgegeben. Inhaltliche Fehler können so besser nachvollzogen werden.',
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'        => 'BasicAuth des Shops - Benutzername (optional)',
     'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'   => $basicAuthHelp,
@@ -35,15 +35,15 @@ return [
     'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'invoice'           => 'Rechnung',
     'SHOP_MODULE_invoicePaymentTerm'                                    => 'Zahlungsziel (in Tagen)',
 
-    'SHOP_MODULE_GROUP_d3PdfDocumentscontents'           => 'Inhalte',
-    'SHOP_MODULE_d3PdfDocumentsLogoUrl'                  => 'Logo-Grafik URL',
-    'SHOP_MODULE_d3PdfDocumentsBackgroundUrl'            => 'Hintergrund-Grafik URL',
+    'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'contents'           => 'Inhalte',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'LogoUrl'                  => 'Logo-Grafik URL',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'BackgroundUrl'            => 'Hintergrund-Grafik URL',
 
-    'SHOP_MODULE_GROUP_d3PdfDocumentsdocuments'          => 'Dokumente',
-    'SHOP_MODULE_d3PdfDocumentsDocInvoice'               => 'Rechnung',
-    'SHOP_MODULE_d3PdfDocumentsDocInvoiceNoLogo'         => 'Rechnung ohne Logo',
-    'SHOP_MODULE_d3PdfDocumentsDocDeliveryNote'          => 'Lieferschein',
-    'SHOP_MODULE_d3PdfDocumentsDocDeliveryNoteNoLogo'    => 'Lieferschein ohne Logo',
+    'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'documents'          => 'Dokumente',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'DocInvoice'               => 'Rechnung',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'DocInvoiceNoLogo'         => 'Rechnung ohne Logo',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'DocDeliveryNote'          => 'Lieferschein',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'DocDeliveryNoteNoLogo'    => 'Lieferschein ohne Logo',
 
     'D3_PDFDOCUMENTS'                                    => 'PDF-Dokumente',
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Rechnung',
@@ -53,6 +53,7 @@ return [
 
     'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Dokument',
     'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Sprache',
+    'D3_PDFDOCUMENTS_SGML_GENERATE'                      => 'SGML erstellen',
     'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Dokument erstellen',
 ];
 // @codeCoverageIgnoreEnd

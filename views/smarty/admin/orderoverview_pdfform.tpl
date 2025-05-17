@@ -1,10 +1,13 @@
 [{if $edit && $oView->d3CanExport()}]
     <br>
+    [{assign var="devmode" value=$oView->d3PdfDocsIsDevMode()}]
+
     <form name="d3CreatePdf" id="d3CreatePdf" action="[{$oViewConf->getSelfLink()}]" method="post" target="d3ExpPDF">
         [{$oViewConf->getHiddenSid()}]
         <input type="hidden" name="cl" value="order_overview">
         <input type="hidden" name="fnc" value="d3CreatePDF">
         <input type="hidden" name="oxid" value="[{$oxid}]">
+        [{if $devmode}]<input type="hidden" id="devmode" name="devmode" value="0">[{/if}]
         <fieldset style="padding: 5px">
             <legend>[{oxmultilang ident="D3_PDFDOCUMENTS"}]</legend>
             <table style="width: 100%">
@@ -36,7 +39,10 @@
                 </tr>
                 <tr>
                     <td style="text-align: right" class="edittext"><br/>
-                        <input type="submit" class="edittext" name="save" value="[{oxmultilang ident="D3_PDFDOCUMENTS_PDF_GENERATE"}]">
+                        [{if $devmode}]
+                            <input type="submit" class="edittext" name="save" value="[{oxmultilang ident="D3_PDFDOCUMENTS_SGML_GENERATE"}]" onclick="document.getElementById('devmode').value = 1;">
+                        [{/if}]
+                        <input type="submit" class="edittext" name="save" value="[{oxmultilang ident="D3_PDFDOCUMENTS_PDF_GENERATE"}]" [{if $devmode}] onclick="document.getElementById('devmode').value = 0;"[{/if}]>
                         <iframe name="d3ExpPDF" style="width: 0; height: 0; border: none; display:none;"></iframe>
                     </td>
                 </tr>
