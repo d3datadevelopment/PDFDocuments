@@ -42,6 +42,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /** @var string */
     public $filename;
 
+    protected $devMode = false;
+
     /**
      * pdfDocumentsGeneric constructor.
      */
@@ -51,6 +53,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
         /** @var Smarty $oSmarty */
         $this->oSmarty = Registry::getUtilsView()->getSmarty(true);
+    }
+
+    public function setDevelopmentMode(bool $devMode)
+    {
+        $this->devMode = $devMode;
     }
 
     public function runPreAction()
@@ -316,7 +323,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function output(Html2Pdf $oPdf, $sFilename, $target, $html)
     {
-        if ((bool) Registry::getConfig()->getConfigParam('d3PdfDocumentsbDev') === true) {
+        if ($this->devMode) {
             return $this->outputDev($oPdf, $sFilename, $target, $html);
         } else {
             return $oPdf->output($sFilename, $target);

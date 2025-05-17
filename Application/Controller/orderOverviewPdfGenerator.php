@@ -27,6 +27,10 @@ class orderOverviewPdfGenerator
     {
         $Pdf= $this->getPdfClass();
 
+        $Pdf->setDevelopmentMode(
+            Registry::getConfig()->getConfigParam('d3PdfDocumentsbDev') &&
+            Registry::getRequest()->getRequestEscapedParameter('devmode')
+        );
         $Pdf->setOrder($order);
         $Pdf->downloadPdf($iSelLang);
     }

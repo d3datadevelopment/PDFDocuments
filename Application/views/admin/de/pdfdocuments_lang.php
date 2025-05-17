@@ -44,5 +44,6 @@ $aLang     = array(
 
     'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Dokument',
     'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Sprache',
+    'D3_PDFDOCUMENTS_SGML_GENERATE'                      => 'SGML erstellen',
     'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Dokument erstellen',
 );

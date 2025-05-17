@@ -12,6 +12,8 @@ namespace D3\PdfDocuments\Application\Model\Interfaces;
 
 interface pdfdocumentsGenericInterface
 {
+    public function setDevelopmentMode(bool $devMode);
+
     /**
      * @return string
      */
