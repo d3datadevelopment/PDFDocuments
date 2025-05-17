@@ -106,6 +106,30 @@ $aModule = [
             'type' => 'num',
             'value' => 7,
         ],
+        [
+            'group' => $sModuleId.'documents',
+            'name' => $sModuleId.'DocInvoice',
+            'type' => 'bool',
+            'value' => true
+        ],
+        [
+            'group' => $sModuleId.'documents',
+            'name' => $sModuleId.'DocInvoiceNoLogo',
+            'type' => 'bool',
+            'value' => true
+        ],
+        [
+            'group' => $sModuleId.'documents',
+            'name' => $sModuleId.'DocDeliveryNote',
+            'type' => 'bool',
+            'value' => true
+        ],
+        [
+            'group' => $sModuleId.'documents',
+            'name' => $sModuleId.'DocDeliveryNoteNoLogo',
+            'type' => 'bool',
+            'value' => true
+        ],
     ],
 ];
 // @codeCoverageIgnoreEnd
