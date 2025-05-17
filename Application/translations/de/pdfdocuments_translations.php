@@ -17,7 +17,7 @@ return [
     'charset'                                            => 'utf-8',
 
     'D3_PDFDOCUMENTS_THANKYOU_1'                         => 'Vielen Dank für Ihren Einkauf!',
-    'D3_PDFDOCUMENTS_THANKYOU_2'                         => 'Ihr Team von %1$s',
+    'D3_PDFDOCUMENTS_THANKYOU_2'                         => 'Ihr Team von %1$s.',
 
     'D3_PDFDOCUMENTS_GET_IN_CONTACT'                     => 'So erreichen Sie uns:',
     'D3_PDFDOCUMENTS_TELEFON'                            => 'Telefon',

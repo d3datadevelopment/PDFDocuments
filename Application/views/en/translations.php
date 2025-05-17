@@ -48,8 +48,8 @@ return [
     'D3_PDFDOCUMENTS'                                    => 'PDF Documents',
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',
     'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Invoice without logo',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Deliverynote',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Deliverynote without logo',
+    'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Delivery note',
+    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Delivery note without logo',
 
     'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Document',
     'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Language',
