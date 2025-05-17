@@ -95,6 +95,30 @@ $aModule = [
             'group' => $sModuleId.'main',
             'name' => $sModuleId.'basicAuthPassword',
             'type' => 'password'
+        ],
+        [
+            'group' => $sModuleId.'documents',
+            'name' => $sModuleId.'DocInvoice',
+            'type' => 'bool',
+            'value' => true
+        ],
+        [
+            'group' => $sModuleId.'documents',
+            'name' => $sModuleId.'DocInvoiceNoLogo',
+            'type' => 'bool',
+            'value' => true
+        ],
+        [
+            'group' => $sModuleId.'documents',
+            'name' => $sModuleId.'DocDeliveryNote',
+            'type' => 'bool',
+            'value' => true
+        ],
+        [
+            'group' => $sModuleId.'documents',
+            'name' => $sModuleId.'DocDeliveryNoteNoLogo',
+            'type' => 'bool',
+            'value' => true
         ]
     ]
 ];

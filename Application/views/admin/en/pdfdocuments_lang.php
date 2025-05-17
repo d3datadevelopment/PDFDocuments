@@ -26,6 +26,12 @@ $aLang     = array(
     'SHOP_MODULE_d3PdfDocumentsbasicAuthPassword'        => 'BasicAuth of the shop - password (optional)',
     'HELP_SHOP_MODULE_d3PdfDocumentsbasicAuthPassword'   => $basicAuthHelp,
 
+    'SHOP_MODULE_GROUP_d3PdfDocumentsdocuments'          => 'Documents',
+    'SHOP_MODULE_d3PdfDocumentsDocInvoice'               => 'Invoice',
+    'SHOP_MODULE_d3PdfDocumentsDocInvoiceNoLogo'         => 'Invoice without logo',
+    'SHOP_MODULE_d3PdfDocumentsDocDeliveryNote'          => 'Delivery note',
+    'SHOP_MODULE_d3PdfDocumentsDocDeliveryNoteNoLogo'    => 'Delivery note without logo',
+
     'D3_PDFDOCUMENTS'                                    => 'PDF Documents',
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',
     'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Invoice without logo',
