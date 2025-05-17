@@ -48,6 +48,13 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public string $filenameExtension = 'pdf';
     public ?string $filename = null;
 
+    protected $devMode = false;
+
+    public function setDevelopmentMode(bool $devMode)
+    {
+        $this->devMode = $devMode;
+    }
+
     /**
      * @codeCoverageIgnore
      */
@@ -347,8 +354,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function output(Html2Pdf $pdf, string $filename, string $target, string $html): ?string
     {
-        $moduleSettings = ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
-        if ($moduleSettings->getBoolean('d3PdfDocumentsbDev', Constants::OXID_MODULE_ID)) {
+        if ($this->devMode) {
             return $this->outputDev($pdf, $filename, $target, $html);
         } else {
             return $pdf->output($filename, $target);

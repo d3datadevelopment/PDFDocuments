@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace D3\PdfDocuments\Application\Controller;
 
+use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
@@ -23,6 +24,8 @@ use D3\PdfDocuments\Application\Model\Registries\registryOrderoverviewInterface;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -36,8 +39,11 @@ class orderOverviewPdfGenerator
     {
         $Pdf = $this->getPdfClass();
 
+        /** @var ModuleSettingService $settingsService */
+        $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
+
         $Pdf->setDevelopmentMode(
-            Registry::getConfig()->getConfigParam('d3PdfDocumentsbDev') &&
+            $settingsService->getBoolean('d3PdfDocumentsbDev', Constants::OXID_MODULE_ID) &&
             Registry::getRequest()->getRequestEscapedParameter('devmode')
         );
         $Pdf->setOrder($order);

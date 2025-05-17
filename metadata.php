@@ -107,36 +107,36 @@ $aModule = [
             'value' => 7,
         ],
         [
-            'group' => $sModuleId.'contents',
-            'name' => $sModuleId.'LogoUrl',
+            'group' => Constants::OXID_MODULE_ID.'contents',
+            'name' => Constants::OXID_MODULE_ID.'LogoUrl',
             'type' => 'str'
         ],
         [
-            'group' => $sModuleId.'contents',
-            'name' => $sModuleId.'BackgroundUrl',
+            'group' => Constants::OXID_MODULE_ID.'contents',
+            'name' => Constants::OXID_MODULE_ID.'BackgroundUrl',
             'type' => 'str'
         ],
         [
-            'group' => $sModuleId.'documents',
-            'name' => $sModuleId.'DocInvoice',
+            'group' => Constants::OXID_MODULE_ID.'documents',
+            'name' => Constants::OXID_MODULE_ID.'DocInvoice',
             'type' => 'bool',
             'value' => true
         ],
         [
-            'group' => $sModuleId.'documents',
-            'name' => $sModuleId.'DocInvoiceNoLogo',
+            'group' => Constants::OXID_MODULE_ID.'documents',
+            'name' => Constants::OXID_MODULE_ID.'DocInvoiceNoLogo',
             'type' => 'bool',
             'value' => true
         ],
         [
-            'group' => $sModuleId.'documents',
-            'name' => $sModuleId.'DocDeliveryNote',
+            'group' => Constants::OXID_MODULE_ID.'documents',
+            'name' => Constants::OXID_MODULE_ID.'DocDeliveryNote',
             'type' => 'bool',
             'value' => true
         ],
         [
-            'group' => $sModuleId.'documents',
-            'name' => $sModuleId.'DocDeliveryNoteNoLogo',
+            'group' => Constants::OXID_MODULE_ID.'documents',
+            'name' => Constants::OXID_MODULE_ID.'DocDeliveryNoteNoLogo',
             'type' => 'bool',
             'value' => true
         ],
