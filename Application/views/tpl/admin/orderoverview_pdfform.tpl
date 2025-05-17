@@ -18,7 +18,7 @@
                     </td>
                     <td style="vertical-align: top; text-align: right" class="edittext">
                         <label for="pdftype">[{oxmultilang ident="D3_PDFDOCUMENTS_PDF_TYPE" suffix="COLON"}]</label>:&nbsp;
-                        <select id="pdftype" name="pdftype" class="editinput" style="width:80px;">
+                        <select id="pdftype" name="pdftype" class="editinput" style="min-width:80px;">
                             [{block name="d3_pdfdocuments_order_overview_pdfTypeOptions"}]
                                 [{assign var="generatorList" value=$oView->d3getGeneratorList()}]
                                 [{foreach from=$generatorList->getList() item="generator"}]
@@ -31,7 +31,7 @@
                 <tr>
                     <td style="text-align: right" class="edittext">
                         <label for="pdflanguage">[{oxmultilang ident="D3_PDFDOCUMENTS_LANGUAGE" suffix="COLON"}]</label>
-                        <select id="pdflanguage" name="pdflanguage" class="saveinnewlanginput" style="width:80px;">
+                        <select id="pdflanguage" name="pdflanguage" class="saveinnewlanginput" style="width:150px;">
                             [{foreach from=$alangs key=lang item=slang}]
                                 <option value="[{$lang}]" [{if $lang == "0"}]SELECTED[{/if}]>[{$slang}]</option>
                             [{/foreach}]
@@ -39,7 +39,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align: right" class="edittext"><br/>
+                    <td style="text-align: right" class="edittext" colspan="2"><br/>
                         [{if $devmode}]
                             <input type="submit" class="edittext" name="save" value="[{oxmultilang ident="D3_PDFDOCUMENTS_SGML_GENERATE"}]" onclick="document.getElementById('devmode').value = 1;">
                         [{/if}]
