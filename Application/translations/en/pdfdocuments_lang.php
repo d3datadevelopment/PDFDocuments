@@ -12,7 +12,7 @@ $aLang     = array(
     'charset'                                            => 'utf-8',
 
     'D3_PDFDOCUMENTS_THANKYOU_1'                         => 'Many thanks for your purchase!',
-    'D3_PDFDOCUMENTS_THANKYOU_2'                         => 'Your team from %1$s',
+    'D3_PDFDOCUMENTS_THANKYOU_2'                         => 'Your team from %1$s.',
 
     'D3_PDFDOCUMENTS_GET_IN_CONTACT'                     => 'You can contact us as follows',
     'D3_PDFDOCUMENTS_TELEFON'                            => 'Telephone',
@@ -33,8 +33,8 @@ $aLang     = array(
 
     'D3_PDFDOCUMENTS_INVOICE'                            => 'Invoice',
     'D3_PDFDOCUMENTS_INVOICE_WITHOUT_LOGO'               => 'Invoice without logo',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Deliverynote',
-    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Deliverynote without logo',
+    'D3_PDFDOCUMENTS_DELIVERYNOTE'                       => 'Delivery note',
+    'D3_PDFDOCUMENTS_DELIVERYNOTE_WITHOUT_LOGO'          => 'Delivery note without logo',
     'D3_PDFDOCUMENTS_ORDERNR'                            => 'Order No.',
     'D3_PDFDOCUMENTS_ORDER_FROM_AT'                      => 'Your order from %1$s at "%2$s"',
 

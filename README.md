@@ -8,7 +8,7 @@ Erstellen Sie unterschiedliche statische oder dynamische PDF-Dokumente auf Kopfd
 
 An den Bestellungen Ihres OXID-Shops steht Ihnen die Erstellung von Rechnung und Lieferschein zur Verfügung.
 
-Das Modul kann einfach erweitert werden, um bestehende Dokumente anzupassen oder Neue hinzuzufügen. Auch komplett andere Dokumentarten (z.B. Artikeldatenblätter) sind einfach möglich.
+Das Modul kann einfach erweitert werden, um bestehende Dokumente anzupassen oder neue hinzuzufügen. Auch komplett andere Dokumentarten (z.B. Artikeldatenblätter) sind einfach möglich.
 
 ## Systemanforderungen:
 
