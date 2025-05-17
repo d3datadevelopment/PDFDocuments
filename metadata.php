@@ -97,6 +97,16 @@ $aModule = [
             'type' => 'password'
         ],
         [
+            'group' => $sModuleId.'contents',
+            'name' => $sModuleId.'LogoUrl',
+            'type' => 'str'
+        ],
+        [
+            'group' => $sModuleId.'contents',
+            'name' => $sModuleId.'BackgroundUrl',
+            'type' => 'str'
+        ],
+        [
             'group' => $sModuleId.'documents',
             'name' => $sModuleId.'DocInvoice',
             'type' => 'bool',

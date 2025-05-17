@@ -19,7 +19,9 @@
         pageset="[{$pageset}]"
         orientation="[{$orientation}]"
         format="[{$format}]"
-[{*        [{if $showLogo}]backimg="bgimg.jpg" [{/if}] *}]
+        [{if $showLogo && $config->getConfigParam('d3PdfDocumentsBackgroundUrl')}]
+            backimg="[{$config->getConfigParam('d3PdfDocumentsBackgroundUrl')}]"
+        [{/if}]
 [{*        backcolor="#FFF"  *}]
 [{*        backimgx="center" *}]
 [{*        backimgy="middle" *}]
