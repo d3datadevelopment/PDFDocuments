@@ -35,6 +35,10 @@ return [
     'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'invoice'           => 'Rechnung',
     'SHOP_MODULE_invoicePaymentTerm'                                    => 'Zahlungsziel (in Tagen)',
 
+    'SHOP_MODULE_GROUP_d3PdfDocumentscontents'           => 'Inhalte',
+    'SHOP_MODULE_d3PdfDocumentsLogoUrl'                  => 'Logo-Grafik URL',
+    'SHOP_MODULE_d3PdfDocumentsBackgroundUrl'            => 'Hintergrund-Grafik URL',
+
     'SHOP_MODULE_GROUP_d3PdfDocumentsdocuments'          => 'Dokumente',
     'SHOP_MODULE_d3PdfDocumentsDocInvoice'               => 'Rechnung',
     'SHOP_MODULE_d3PdfDocumentsDocInvoiceNoLogo'         => 'Rechnung ohne Logo',
