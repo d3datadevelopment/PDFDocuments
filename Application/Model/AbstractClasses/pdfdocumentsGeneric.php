@@ -391,7 +391,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
                 break;
             }
             case 'D': {
-                // Download PDF as file
+                // Download PDF as a file
                 if (ob_get_contents()) {
                     $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
                 }

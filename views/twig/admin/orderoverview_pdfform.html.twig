@@ -17,7 +17,7 @@
                     </td>
                     <td style="vertical-align: top; text-align: right" class="edittext">
                         <label for="pdftype">{{ translate({ ident: "D3_PDFDOCUMENTS_PDF_TYPE" }) }}</label>:&nbsp;
-                        <select id="pdftype" name="pdftype" class="editinput" style="width:80px;">
+                        <select id="pdftype" name="pdftype" class="editinput" style="min-width:150px;">
                             {% block d3_pdfdocuments_order_overview_pdfTypeOptions %}
                                 {% set generatorList = oView.d3getGeneratorList() %}
                                 {% for generator in generatorList.getList() %}
@@ -30,7 +30,7 @@
                 <tr>
                     <td style="text-align: right" class="edittext">
                         <label for="pdflanguage">{{ translate({ ident: "D3_PDFDOCUMENTS_LANGUAGE" }) }}</label>
-                        <select id="pdflanguage" name="pdflanguage" class="saveinnewlanginput" style="width:80px;">
+                        <select id="pdflanguage" name="pdflanguage" class="saveinnewlanginput" style="min-width:150px;">
                             {% for lang, slang in alangs %}
                                 <option value="{{ lang }}" {% if lang == "0" %}SELECTED{% endif %}>{{ slang }}</option>
                             {% endfor %}
@@ -38,7 +38,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align: right" class="edittext"><br/>
+                    <td style="text-align: right" class="edittext" colspan="2"><br/>
                         {% if devmode %}
                             <input type="submit" class="edittext" name="save" value="{{ translate({ ident: "D3_PDFDOCUMENTS_SGML_GENERATE" }) }}" onclick="document.getElementById('devmode').value = 1;">
                         {% endif %}
