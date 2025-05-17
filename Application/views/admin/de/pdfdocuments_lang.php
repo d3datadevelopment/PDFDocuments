@@ -19,8 +19,8 @@ $aLang     = array(
 
     'SHOP_MODULE_GROUP_d3PdfDocumentsmain'               => 'Grundeinstellungen',
     'SHOP_MODULE_d3PdfDocumentsbDev'                     => 'Entwicklermodus',
-    'HELP_SHOP_MODULE_d3PdfDocumentsbDev'                => 'Mit aktiviertem Entwicklermodus wird das Dokument im '.
-                                    'HTML-Format ausgegeben. Inhaltliche Fehler können so besser nachvollzogen werden.',
+    'HELP_SHOP_MODULE_d3PdfDocumentsbDev'                => 'Mit aktiviertem Entwicklermodus kann das Dokument im '.
+        'SGML-Format ausgegeben werden. Inhaltliche Fehler können so besser nachvollzogen werden.',
     'SHOP_MODULE_d3PdfDocumentsbasicAuthUserName'        => 'BasicAuth des Shops - Benutzername (optional)',
     'HELP_SHOP_MODULE_d3PdfDocumentsbasicAuthUserName'   => $basicAuthHelp,
     'SHOP_MODULE_d3PdfDocumentsbasicAuthPassword'        => 'BasicAuth des Shops - Passwort (optional)',
