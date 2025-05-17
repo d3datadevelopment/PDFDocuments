@@ -366,7 +366,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function outputDev(Html2Pdf $pdf, string $filename, string $target, string $html): ?string
     {
-        $filename = str_replace('.pdf', '.html', $filename);
+        $filename = str_replace('.pdf', '.sgml', $filename);
 
         switch ($target) {
             case 'I': {
@@ -407,7 +407,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
                 header('Content-Type: application/force-download');
                 header('Content-Type: application/octet-stream', false);
                 header('Content-Type: application/download', false);
-                header('Content-Type: text/html', false);
+                header('Content-Type: text/sgml', false);
                 // use the Content-Disposition header to supply a recommended filename
                 header('Content-Disposition: attachment; filename="'.basename($filename).'";');
                 header('Content-Transfer-Encoding: binary');
