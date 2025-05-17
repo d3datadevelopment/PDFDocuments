@@ -25,8 +25,8 @@ return [
 
     'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'main'               => 'Basic settings',
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Developer mode',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'                => 'If developer mode is activated, the document is output in '.
-                                                    'HTML format. This makes it much easier to trace content errors.',
+    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'                => 'If developer mode is activated, the document can exported '.
+        'in SGML format. This makes it much easier to trace content errors.',
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'        => 'BasicAuth of the shop - user name (optional)',
     'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'   => $basicAuthHelp,
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthPassword'        => 'BasicAuth of the shop - password (optional)',

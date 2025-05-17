@@ -23,10 +23,10 @@ $basicAuthHelp = <<<HELP
 return [
     'charset'                                               => 'utf-8',
 
-    'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'main'  => 'Grundeinstellungen',
-    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'        => 'Entwicklermodus',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'   => 'Mit aktiviertem Entwicklermodus wird das Dokument im '.
-                                    'HTML-Format ausgegeben. Inhaltliche Fehler können so besser nachvollzogen werden.',
+    'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'main'               => 'Grundeinstellungen',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Entwicklermodus',
+    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'                => 'Mit aktiviertem Entwicklermodus kann das Dokument im '.
+                                    'SGML-Format ausgegeben werden. Inhaltliche Fehler können so besser nachvollzogen werden.',
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'        => 'BasicAuth des Shops - Benutzername (optional)',
     'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'   => $basicAuthHelp,
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthPassword'        => 'BasicAuth des Shops - Passwort (optional)',

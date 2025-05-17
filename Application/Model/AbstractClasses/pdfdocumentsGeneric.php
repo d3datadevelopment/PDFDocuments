@@ -366,7 +366,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function outputDev(Html2Pdf $pdf, string $filename, string $target, string $html): ?string
     {
-        $filename = str_replace('.pdf', '.html', $filename);
+        $filename = str_replace('.pdf', '.sgml', $filename);
 
         switch ($target) {
             case 'I': {
