@@ -68,7 +68,7 @@ return [
     'D3_PDFDOCUMENTS_TOTALSUMBRUT'                       => 'Total sum (gross)',
 
     'D3_PDFDOCUMENTS_USED_PAYMENTMETHOD'                 => 'Your chosen payment method',
-    'D3_PDFDOCUMENTS_PAYABLEUNTIL'                       => 'Billing till',
+    'D3_PDFDOCUMENTS_PAYABLEUNTIL'                       => 'Billing till %s.',
     'D3_PDFDOCUMENTS_RECEIVED_PAYMENT'                   => 'We have received the invoice amount with thanks.',
 
     'D3_PDFDOCUMENTS_MANAGINGDIRECTOR'                   => 'Managing director',
