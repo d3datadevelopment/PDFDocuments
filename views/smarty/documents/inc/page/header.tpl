@@ -4,7 +4,8 @@
     <div class="header">
         [{if $showLogo}]
             [{block name="pdfHeaderLogo"}]
-                <img class="logo" alt="Logo" src="[{$oViewConf->getModulePath('d3PdfDocuments', 'out/img/clogo.jpg')}]">
+                [{assign var="logoUrl" value=$config->getConfigParam('d3PdfDocumentsLogoUrl')|default:[{$oViewConf->getModulePath('d3PdfDocuments', 'out/img/clogo.jpg')}]}]
+                <img class="logo" alt="Logo" src="[{$logoUrl}]">
             [{/block}]
         [{/if}]
     </div>

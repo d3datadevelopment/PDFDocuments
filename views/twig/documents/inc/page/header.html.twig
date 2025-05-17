@@ -4,7 +4,8 @@
     <div class="header">
         {% if showLogo %}
             {% block pdfHeaderLogo %}
-                <img class="logo" alt="Logo" src="{{ oViewConf.getModulePath('d3PdfDocuments', 'out/img/clogo.jpg') }}">
+                {% set logoUrl = config.getConfigParam('d3PdfDocumentsLogoUrl') | default( oViewConf.getModulePath('d3PdfDocuments', 'out/img/clogo.jpg') ) %}
+                <img class="logo" alt="Logo" src="{{ logoUrl }}">
             {% endblock %}
         {% endif %}
     </div>
