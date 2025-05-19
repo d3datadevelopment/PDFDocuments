@@ -23,9 +23,9 @@ $basicAuthHelp = <<<HELP
 return [
     'charset'                                               => 'utf-8',
 
-    'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'main'               => 'Grundeinstellungen',
-    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'     => 'Entwicklermodus',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'                => 'Mit aktiviertem Entwicklermodus kann das Dokument im '.
+    'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'main'  => 'Grundeinstellungen',
+    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'        => 'Entwicklermodus',
+    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'   => 'Mit aktiviertem Entwicklermodus kann das Dokument im '.
                                     'SGML-Format ausgegeben werden. Inhaltliche Fehler können so besser nachvollzogen werden.',
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'        => 'BasicAuth des Shops - Benutzername (optional)',
     'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'   => $basicAuthHelp,
@@ -53,7 +53,7 @@ return [
 
     'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Dokument',
     'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Sprache',
-    'D3_PDFDOCUMENTS_SGML_GENERATE'                      => 'SGML erstellen',
+    'D3_PDFDOCUMENTS_SGML_GENERATE'                      => 'Markup erstellen',
     'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Dokument erstellen',
 ];
 // @codeCoverageIgnoreEnd

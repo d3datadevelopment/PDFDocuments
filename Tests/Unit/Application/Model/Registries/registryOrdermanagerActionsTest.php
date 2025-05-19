@@ -14,27 +14,21 @@
 namespace D3\PdfDocuments\Tests\Unit\Application\Model\Registries;
 
 use D3\PdfDocuments\Application\Model\Constants;
-use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
-use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
-use D3\PdfDocuments\Tests\Unit\Helpers\nonOrderDocument;
+use D3\PdfDocuments\Application\Model\Registries\registryOrdermanagerActions;
 use D3\PdfDocuments\Tests\Unit\Helpers\orderDocument;
-use D3\TestingTools\Development\CanAccessRestricted;
-use Exception;
 use Generator;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
-use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
-use PHPUnit\Framework\TestCase;
 use ReflectionException;
 
-class registryOrderOverviewTest extends registryAbstract
+class registryOrdermanagerActionsTest extends registryAbstract
 {
     /**
      * @test
      * @throws ReflectionException
-     * @covers \D3\PdfDocuments\Application\Model\Registries\registryOrderoverview::__construct
+     * @covers \D3\PdfDocuments\Application\Model\Registries\registryOrdermanagerActions::__construct
      * @dataProvider constructDataProvider
      */
     public function testConstructor(bool $inv, bool $deln, bool $invNL, bool $delnNL, int $expectedCount): void
@@ -50,10 +44,10 @@ class registryOrderOverviewTest extends registryAbstract
             ['d3PdfDocumentsDocDeliveryNoteNoLogo', Constants::OXID_MODULE_ID, $delnNL]
         ]);
 
-        try {
-            $this->addServiceMocks([ModuleSettingServiceInterface::class => $settingService]);
+        $this->addServiceMocks([ModuleSettingServiceInterface::class => $settingService]);
 
-            $sut = $this->getMockBuilder(registryOrderoverview::class)
+        try {
+            $sut = $this->getMockBuilder(registryOrdermanagerActions::class)
                 ->disableOriginalConstructor()
                 ->onlyMethods(['addGenerator'])
                 ->getMock();
@@ -82,11 +76,11 @@ class registryOrderOverviewTest extends registryAbstract
      * @test
      * @throws ReflectionException
      * @throws wrongPdfGeneratorInterface
-     * @covers \D3\PdfDocuments\Application\Model\Registries\registryOrderoverview::getGenerator
+     * @covers \D3\PdfDocuments\Application\Model\Registries\registryOrdermanagerActions::getGenerator
      */
     public function testGetGenerator(): void
     {
-        $sut = oxNew(registryOrderoverview::class);
+        $sut = oxNew(registryOrdermanagerActions::class);
         $sut->addGenerator(orderDocument::class);
 
         $this->assertInstanceOf(

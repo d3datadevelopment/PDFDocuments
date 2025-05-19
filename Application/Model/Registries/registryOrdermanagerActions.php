@@ -45,6 +45,9 @@ class registryOrdermanagerActions extends registryAbstract implements registryOr
             $this->addGenerator(deliverynotewithoutlogoPdf::class);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getRequiredGeneratorInterfaceClassName(): string
     {
         return pdfdocumentsOrderInterface::class;

@@ -53,7 +53,7 @@ return [
 
     'D3_PDFDOCUMENTS_PDF_TYPE'                           => 'Document',
     'D3_PDFDOCUMENTS_LANGUAGE'                           => 'Language',
-    'D3_PDFDOCUMENTS_SGML_GENERATE'                      => 'Create SGML',
+    'D3_PDFDOCUMENTS_SGML_GENERATE'                      => 'Create markup',
     'D3_PDFDOCUMENTS_PDF_GENERATE'                       => 'Create Document',
 ];
 // @codeCoverageIgnoreEnd

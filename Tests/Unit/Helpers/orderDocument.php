@@ -2,9 +2,10 @@
 
 namespace D3\PdfDocuments\Tests\Unit\Helpers;
 
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface;
+use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
+use OxidEsales\Eshop\Application\Model\Order;
 
-class nonOrderDocument implements pdfdocumentsGenericInterface
+class orderDocument implements pdfdocumentsOrderInterface
 {
 
     public function getRequestId(): string
@@ -62,5 +63,19 @@ class nonOrderDocument implements pdfdocumentsGenericInterface
     public function setDevelopmentMode( bool $devMode )
     {
         return false;
+    }
+
+    public function setOrder( Order $order ): void
+    {
+    }
+
+    public function getOrder(): Order
+    {
+        return oxNew(Order::class);
+    }
+
+    public function getTypeForFilename(): string
+    {
+        return 'typeForFilename';
     }
 }
