@@ -25,10 +25,14 @@ use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class registryOrderoverview extends registryAbstract implements registryOrderoverviewInterface
 {
     /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      * @throws wrongPdfGeneratorInterface
      */
     public function __construct()
@@ -36,7 +40,7 @@ class registryOrderoverview extends registryAbstract implements registryOrderove
         /** @var ModuleSettingService $settingsService */
         $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
         if ($settingsService->getBoolean('d3PdfDocumentsDocInvoice', Constants::OXID_MODULE_ID))
-            $this->addGenerator( invoicePdf::class );
+            $this->addGenerator(invoicePdf::class);
         if ($settingsService->getBoolean('d3PdfDocumentsDocDeliveryNote', Constants::OXID_MODULE_ID))
             $this->addGenerator(deliverynotePdf::class);
         if ($settingsService->getBoolean('d3PdfDocumentsDocInvoiceNoLogo', Constants::OXID_MODULE_ID))
@@ -45,6 +49,9 @@ class registryOrderoverview extends registryAbstract implements registryOrderove
             $this->addGenerator(deliverynotewithoutlogoPdf::class);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getRequiredGeneratorInterfaceClassName(): string
     {
         return pdfdocumentsOrderInterface::class;
