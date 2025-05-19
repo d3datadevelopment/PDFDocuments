@@ -25,7 +25,7 @@ class wrongPdfGeneratorInterface extends pdfGeneratorExceptionAbstract
         int $code = 0,
         Exception $previous = null
     ) {
-        $message .= $requiredInterface;
+        $message .= ' '.$requiredInterface;
         parent::__construct($message, $code, $previous);
     }
 }

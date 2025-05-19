@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace D3\PdfDocuments\Application\Model\Registries;
 
+use Assert\Assert;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface;
 use OxidEsales\Eshop\Core\Exception\StandardException;
@@ -23,6 +24,9 @@ abstract class registryAbstract implements registryGenericInterface
 {
     protected array $registry = [];
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getRequiredGeneratorInterfaceClassName(): string
     {
         return pdfdocumentsGenericInterface::class;
@@ -33,32 +37,31 @@ abstract class registryAbstract implements registryGenericInterface
      */
     public function addGenerator(string $className): void
     {
-        if (! $this->hasGenerator($className)) {
+        if (!$this->hasGenerator($className)) {
             /** @var pdfdocumentsGenericInterface $generator */
             $generator = oxNew($className);
 
-            $this->addItem($className, $generator);
+            $this->addItem($generator);
         } else {
             throw oxNew(StandardException::class, 'generator still exists in registry');
         }
     }
 
     /**
-     * @param string $className * generator fully qualified class name
      * @param pdfdocumentsGenericInterface $item
      * @throws wrongPdfGeneratorInterface
      */
-    protected function addItem(string $className, pdfdocumentsGenericInterface $item): void
+    protected function addItem(pdfdocumentsGenericInterface $item): void
     {
         $requiredInterface = $this->getRequiredGeneratorInterfaceClassName();
 
-        if (! $item instanceof $requiredInterface) {
+        if (!$item instanceof $requiredInterface) {
             /** @var wrongPdfGeneratorInterface $exception */
             $exception = oxNew(wrongPdfGeneratorInterface::class, $requiredInterface);
             throw $exception;
         }
 
-        $this->registry[$className] = $item;
+        $this->registry[$item::class] = $item;
     }
 
     /**
