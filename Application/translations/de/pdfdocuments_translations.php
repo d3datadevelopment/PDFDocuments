@@ -78,5 +78,7 @@ return [
     'D3_PDFDOCUMENTS_USTID'                              => 'Ust.-ID',
 
     'D3_PDFDOCUMENTS_BANK_BANKCODE'                      => 'BIC/SWIFT-Code',
+
+    'D3_PDFDOCUMENTS_ARTICLE_DATASHEET'                  => 'Artikel Datenblatt',
 ];
 // @codeCoverageIgnoreEnd

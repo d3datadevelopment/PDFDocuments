@@ -14,8 +14,12 @@
 namespace D3\PdfDocuments\Modules\Application\Controller {
 
     use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
+    use OxidEsales\Eshop\Application\Controller\ArticleDetailsController;
 
     class d3_overview_controller_pdfdocuments_parent extends OrderOverview
     {
     }
+
+    class ArticleDetailsController_pdfdocuments_parent extends ArticleDetailsController
+    {}
 }
