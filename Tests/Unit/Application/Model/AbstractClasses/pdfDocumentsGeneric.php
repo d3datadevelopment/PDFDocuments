@@ -13,36 +13,103 @@
 
 namespace D3\PdfDocuments\Tests\Unit\Application\Model\AbstractClasses;
 
-use Assert\InvalidArgumentException;
-use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric;
-use D3\PdfDocuments\Application\Model\Constants;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
+use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric as pdfdocumentsGenericSut;
 use D3\TestingTools\Development\CanAccessRestricted;
 use Generator;
-use OxidEsales\Eshop\Core\Base;
-use OxidEsales\Eshop\Core\Exception\StandardException;
-use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\UtilsView;
-use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
-use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
-use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
-use OxidEsales\Twig\Resolver\TemplateChain\TemplateNotInChainException;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use ReflectionException;
-use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
-use Symfony\Component\String\UnicodeString;
-use Twig\Error\Error;
 
-abstract class pdfDocumentsGenericTest extends TestCase
+abstract class pdfDocumentsGeneric extends TestCase
 {
     protected string $sutClassName;
 
     use CanAccessRestricted;
+
+    /**
+     * @test
+     * @throws ReflectionException
+     * @covers \D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric::setDevelopmentMode
+     */
+    public function testSetDevelopmentMode(): void
+    {
+        $sut = oxNew($this->sutClassName);
+
+        $this->assertFalse($this->getValue($sut, 'devMode'));
+
+        $this->callMethod(
+            $sut,
+            'setDevelopmentMode',
+            [true]
+        );
+
+        $this->assertTrue($this->getValue($sut, 'devMode'));
+
+        $this->callMethod(
+            $sut,
+            'setDevelopmentMode',
+            [false]
+        );
+
+        $this->assertFalse($this->getValue($sut, 'devMode'));
+    }
+
+    /**
+     * @test
+     * @throws ReflectionException
+     * @covers \D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric::genPdf
+     */
+    public function testGenPdf(): void
+    {
+        $html = 'htmlFixture';
+
+        $html2Pdf = $this->getMockBuilder(Html2Pdf::class)
+            ->onlyMethods(['writeHTML'])
+            ->getMock();
+        $html2Pdf->method('writeHTML')->with($this->identicalTo($html));
+
+        $sut = $this->getMockBuilder($this->sutClassName)
+            ->onlyMethods(['getHtml2Pdf', 'getHTMLContent', 'output'])
+            ->getMock();
+        $sut->method('getHtml2Pdf')->willReturn($html2Pdf);
+        $sut->method('getHTMLContent')->willReturn($html);
+        $sut->method('output')->with(
+            $this->identicalTo($html2Pdf),
+            $this->identicalTo('fileNameFixture'),
+            $this->identicalTo(pdfdocumentsGenericSut::PDF_DESTINATION_FILEANDDOWNLOAD),
+            $this->identicalTo($html),
+        )->willReturn('expectedReturn');
+
+        $this->assertSame(
+            'expectedReturn',
+            $this->callMethod(
+                $sut,
+                'genPdf',
+                [ 'fileNameFixture', 10, pdfdocumentsGenericSut::PDF_DESTINATION_FILEANDDOWNLOAD]
+            )
+        );
+    }
+
+    /**
+     * @test
+     * @throws ReflectionException
+     * @covers \D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric::getHtml2Pdf
+     */
+    public function testGetHtml2Pdf(): void
+    {
+        $sut = $this->getMockBuilder($this->sutClassName)
+            ->onlyMethods(['getPdfProperties'])
+            ->getMock();
+        $sut->expects($this->once())->method('getPdfProperties');
+
+        $this->assertInstanceOf(
+            Html2Pdf::class,
+            $this->callMethod(
+                $sut,
+                'getHtml2Pdf'
+            )
+        );
+    }
 
     /**
      * @test
@@ -60,7 +127,7 @@ abstract class pdfDocumentsGenericTest extends TestCase
         );
 
         $this->assertArrayHasKey('config', $vars);
-        $this->assertArrayHasKey('oViewConfig', $vars);
+        $this->assertArrayHasKey('oViewConf', $vars);
         $this->assertArrayHasKey('shop', $vars);
         $this->assertArrayHasKey('lang', $vars);
         $this->assertArrayHasKey('document', $vars);
@@ -73,7 +140,7 @@ abstract class pdfDocumentsGenericTest extends TestCase
      * @throws ReflectionException
      * @dataProvider sanitizeFileNameDataProvider
      */
-    public function testSanitizeFileName($filename, $expected)
+    public function testSanitizeFileName($filename, $expected): void
     {
         $sut = oxNew($this->sutClassName);
 

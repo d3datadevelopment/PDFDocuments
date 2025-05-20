@@ -40,4 +40,6 @@ interface pdfdocumentsGenericInterface
     public function getFilename(): string;
 
     public function addFilenameExtension(string $filename): string;
+
+    public function getTypeForFilename(): string;
 }

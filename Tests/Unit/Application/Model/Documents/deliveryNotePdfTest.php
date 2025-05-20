@@ -14,10 +14,10 @@
 namespace D3\PdfDocuments\Tests\Unit\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
-use D3\PdfDocuments\Tests\Unit\Application\Model\AbstractClasses\pdfDocumentsOrderTest;
+use D3\PdfDocuments\Tests\Unit\Application\Model\AbstractClasses\pdfDocumentsOrder;
 use Generator;
 
-class deliveryNotePdfTest extends pdfDocumentsOrderTest
+class deliveryNotePdfTest extends pdfDocumentsOrder
 {
     protected string $sutClassName = deliveryNotePdf::class;
 

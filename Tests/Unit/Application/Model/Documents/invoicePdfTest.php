@@ -14,13 +14,13 @@
 namespace D3\PdfDocuments\Tests\Unit\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
-use D3\PdfDocuments\Tests\Unit\Application\Model\AbstractClasses\pdfDocumentsOrderTest;
+use D3\PdfDocuments\Tests\Unit\Application\Model\AbstractClasses\pdfDocumentsOrder;
 use Generator;
 use OxidEsales\Eshop\Application\Model\Order;
 use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use ReflectionException;
 
-class invoicePdfTest extends pdfDocumentsOrderTest
+class invoicePdfTest extends pdfDocumentsOrder
 {
     protected string $sutClassName = invoicePdf::class;
 
