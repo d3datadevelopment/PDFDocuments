@@ -242,6 +242,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             ->getTemplateRenderer();
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getPdfProperties(): array
     {
         return [
