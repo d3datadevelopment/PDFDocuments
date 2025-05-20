@@ -12,8 +12,10 @@
  */
 
 use D3\PdfDocuments\Application\Model\Constants as Constants;
+use D3\PdfDocuments\Modules\Application\Controller\ArticleDetailsController_pdfdocuments;
 use D3\PdfDocuments\Modules\Application\Controller\d3_overview_controller_pdfdocuments;
 use OxidEsales\Eshop\Application\Controller\Admin\OrderOverview;
+use OxidEsales\Eshop\Application\Controller\ArticleDetailsController;
 
 // @codeCoverageIgnoreStart
 $sMetadataVersion = '2.1';
@@ -29,6 +31,7 @@ $aModule = [
     'email'         => 'support@shopmodule.com',
     'url'           => 'https://www.oxidmodule.com/',
     'extend'        => [
+        ArticleDetailsController::class => ArticleDetailsController_pdfdocuments::class,
         OrderOverview::class    => d3_overview_controller_pdfdocuments::class,
     ],
     'controllers'   => [],

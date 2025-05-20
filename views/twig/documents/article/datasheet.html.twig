@@ -1,0 +1,42 @@
+{% set pagePadding = "45,15,25,25"|split(",") %} {# top, right, bottom, left #}
+{% set showLogo = showLogo|default(1) %}
+
+{% set pdfBlock_style %}
+    {% block pdfStyles %}
+        {% include "@d3PdfDocuments/assets/pdfStyling.css.twig" %}
+    {% endblock %}
+{% endset %}
+
+{% set pdfBlock_header %}
+    {% block pdfHeader %}
+        {% include "@d3PdfDocuments/documents/inc/page/header.html.twig" with {showLogo: showLogo} %}
+    {% endblock %}
+{% endset %}
+
+{% set pdfBlock_content %}
+{#    {% include "@d3PdfDocuments/documents/inc/helper/rulers.html.twig" with {pagePadding: pagePadding} %}#}
+    {% include "@d3PdfDocuments/documents/inc/elements/foldmarks.html.twig" with {pagePadding: pagePadding} %}
+
+
+    {% set article = document.getArticle() %}
+    <h3>{{ article.getFieldData('oxtitle') }}</h3>
+    <p>{{ translate({ ident: "ARTNUM", suffix: "COLON" }) }} {{ article.getFieldData('oxartnum') }}</p>
+    <p>{{ translate({ ident: "MANUFACTURER", suffix: "COLON" }) }} {{ article.getManufacturer().getTitle() }}</p>
+    <p>{{ article.getFieldData('oxshortdesc') }}</p>
+    <img alt="{{ article.getFieldData('oxtitle') }}" style="width: 50%" src="{{ article.getThumbnailUrl() }}">
+    <p>{{ article.getLongDescription() }}</p>
+    <hr>
+    <h4>Galerie</h4>
+    {% for picture in article.getPictureGallery().Pics %}
+        <img style="width: 33%; border: 1px solid silver" src="{{ picture }}" alt="{{ article.getFieldData('oxtitle') }}">
+    {% endfor %}
+
+{% endset %}
+
+{% set pdfBlock_footer %}
+    {% block pdfFooter %}
+        {% include "@d3PdfDocuments/documents/inc/page/footer.html.twig" with {pagePadding: pagePadding} %}
+    {% endblock %}
+{% endset %}
+
+{% include "@d3PdfDocuments/documents/inc/page/base.html.twig" with {pagePadding: pagePadding} %}
