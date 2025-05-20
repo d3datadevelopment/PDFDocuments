@@ -22,6 +22,4 @@ interface pdfdocumentsOrderInterface extends pdfdocumentsGenericInterface
     public function setOrder(Order $order): void;
 
     public function getOrder(): Order;
-
-    public function getTypeForFilename(): string;
 }

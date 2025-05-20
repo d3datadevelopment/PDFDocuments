@@ -29,6 +29,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\TableViewNameGenerator;
+use OxidEsales\Eshop\Core\ViewHelper\JavaScriptRegistrator;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
@@ -39,11 +40,12 @@ use Psr\Container\NotFoundExceptionInterface;
 class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocuments_parent
 {
     private ?string $generatorError = null;
+    protected bool $doReload = false;
 
     public function render()
     {
-        if ($this->generatorError) {
-            echo <<<HTML
+        if ($this->doReload) {
+            $formReload = <<<HTML
                 <html lang="de">
                 <body>
                 <script>
@@ -51,6 +53,7 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
                 let input = document.createElement("input");
                 input.setAttribute("type", "hidden");
                 input.setAttribute("name", "generatorError");
+                input.setAttribute("id", "generatorError");
                 input.setAttribute("value", encodeURIComponent('$this->generatorError'));
                 form.appendChild(input);
                 form.submit();
@@ -58,14 +61,23 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
                 </body>
                 </html>
                 HTML;
-            Registry::getUtils()->showMessageAndExit('');
+            Registry::getUtils()->showMessageAndExit($formReload);
         } elseif ($generatorError = Registry::getRequest()->getRequestParameter('generatorError')) {
             Registry::getUtilsView()->addErrorToDisplay(urldecode($generatorError));
+            $register = oxNew( JavaScriptRegistrator::class);
+            $script = <<<JS
+top.basefrm.edit.document.getElementById('generatorError').remove();
+JS;
+            $register->addSnippet($script);
         }
 
         return parent::render();
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function d3PdfDocsIsDevMode(): bool
     {
         /** @var ModuleSettingService $settingsService */
@@ -123,6 +135,7 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
                 }
             }
         } catch (Exception $exception) {
+            $this->doReload = true;
             Registry::getLogger()->error($exception->getMessage(), [ 'exception' => $exception ]);
             $this->generatorError = 'PDF documents: ' . $exception->getMessage();
         } finally {

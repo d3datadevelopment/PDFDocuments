@@ -23,7 +23,7 @@ use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\DataObject
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Setting\Setting;
 use ReflectionException;
 
-abstract class pdfDocumentsOrderTest extends pdfDocumentsGenericTest
+abstract class pdfDocumentsOrder extends pdfDocumentsGeneric
 {
     /**
      * @test
