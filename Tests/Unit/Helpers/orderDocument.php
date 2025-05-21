@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * https://www.d3data.de
+ *
+ * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
+ * @author    D3 Data Development - Daniel Seifert <info@shopmodule.com>
+ * @link      https://www.oxidmodule.com
+ */
+
 namespace D3\PdfDocuments\Tests\Unit\Helpers;
 
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
@@ -7,7 +18,6 @@ use OxidEsales\Eshop\Application\Model\Order;
 
 class orderDocument implements pdfdocumentsOrderInterface
 {
-
     public function getRequestId(): string
     {
         return 'requestId';
@@ -60,12 +70,12 @@ class orderDocument implements pdfdocumentsOrderInterface
         return 'filenameExtension';
     }
 
-    public function setDevelopmentMode( bool $devMode )
+    public function setDevelopmentMode(bool $devMode)
     {
         return false;
     }
 
-    public function setOrder( Order $order ): void
+    public function setOrder(Order $order): void
     {
     }
 

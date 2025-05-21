@@ -41,7 +41,7 @@ class registryOrdermanagerActionsTest extends registryAbstract
             ['d3PdfDocumentsDocInvoice', Constants::OXID_MODULE_ID, $inv],
             ['d3PdfDocumentsDocDeliveryNote', Constants::OXID_MODULE_ID, $deln],
             ['d3PdfDocumentsDocInvoiceNoLogo', Constants::OXID_MODULE_ID, $invNL],
-            ['d3PdfDocumentsDocDeliveryNoteNoLogo', Constants::OXID_MODULE_ID, $delnNL]
+            ['d3PdfDocumentsDocDeliveryNoteNoLogo', Constants::OXID_MODULE_ID, $delnNL],
         ]);
 
         $this->addServiceMocks([ModuleSettingServiceInterface::class => $settingService]);

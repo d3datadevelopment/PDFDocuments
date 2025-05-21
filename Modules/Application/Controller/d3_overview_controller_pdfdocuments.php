@@ -66,10 +66,10 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
             Registry::getUtils()->showMessageAndExit($formReload);
         } elseif ($generatorError = Registry::getRequest()->getRequestParameter('generatorError')) {
             Registry::getUtilsView()->addErrorToDisplay(urldecode($generatorError));
-            $register = oxNew( JavaScriptRegistrator::class);
+            $register = oxNew(JavaScriptRegistrator::class);
             $script = <<<JS
-top.basefrm.edit.document.getElementById('generatorError').remove();
-JS;
+                top.basefrm.edit.document.getElementById('generatorError').remove();
+                JS;
             $register->addSnippet($script);
         }
 
