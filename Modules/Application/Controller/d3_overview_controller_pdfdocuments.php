@@ -108,7 +108,7 @@ JS;
                     )
                 );
 
-            return $queryBuilder->execute()->fetchOne();
+            return (bool) $queryBuilder->execute()->fetchOne();
         } catch (NotFoundExceptionInterface|ContainerExceptionInterface|DBALException) {
             return false;
         }
@@ -146,13 +146,18 @@ JS;
     /**
      * @return registryOrderoverview
      * @throws wrongPdfGeneratorInterface
+     * @codeCoverageIgnore
      */
     public function d3getGeneratorList(): registryOrderoverview
     {
         return ContainerFactory::getInstance()->getContainer()->get(registryOrderoverviewInterface::class);
     }
 
-    public function exception_error_handler(int $errno, string $errstr, ?string $errfile = null, ?int $errline  = null)
+    /**
+     * @codeCoverageIgnore
+     * @throws ErrorException
+     */
+    public function exception_error_handler(int $errno, string $errstr, ?string $errfile = null, ?int $errline  = null): void
     {
         if (!(error_reporting() & $errno)) {
             // This error code is not included in error_reporting
