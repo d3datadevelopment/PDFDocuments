@@ -34,7 +34,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     public ?Order $order = null;
 
     /**
-     * don't use order as constructor argument because of same method interface for all document types
+     * don't use order as constructor argument because of the same method interface for all document types
      * @codeCoverageIgnore
      */
     public function __construct()
@@ -106,7 +106,6 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     }
 
     /**
-     * @return int
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws ModuleSettingNotFountException
@@ -126,6 +125,11 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
         );
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws ModuleSettingNotFountException
+     * @throws NotFoundExceptionInterface
+     */
     public function getPayableUntilDate(): false|int
     {
         $startDate = $this->getOrder()->getFieldData('oxbilldate');

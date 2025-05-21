@@ -9,13 +9,13 @@
 
 ![D3 Logo & PDF Dokumente Logo](assets/picture.svg)
 
-PDF-Dokumentgenerator für OXID eShop
+**PDF-Dokumentgenerator für OXID eShop**
 
 Erstellen Sie unterschiedliche statische oder dynamische PDF-Dokumente auf Knopfdruck. Der Dokumentinhalt wird aus Templates (Smarty bzw. Twig) erstellt.
 
 An den Bestellungen Ihres OXID-Shops steht Ihnen die Erstellung von Rechnung und Lieferschein zur Verfügung.
 
-Das Modul kann einfach erweitert werden, um bestehende Dokumente anzupassen oder neue hinzuzufügen. Auch komplett andere Dokumentarten (z.B. Artikeldatenblätter) sind einfach möglich.
+Das Modul kann einfach erweitert werden, um bestehende Dokumente anzupassen oder neue hinzuzufügen. Auch komplett andere Dokumentarten (z.B. Artikeldatenblätter oder Picklisten) sind einfach möglich.
 
 ## Systemanforderungen:
 
@@ -25,9 +25,7 @@ Das Modul kann einfach erweitert werden, um bestehende Dokumente anzupassen oder
 
 ## Kompatibilität:
 
-Das Modul enthält die selbe Funktionalität wie das `OXID Invoice-PDF`-Modul. Grundsätzlich können beide Module parallel im Shop installiert werden, wenn dies erforderlich ist. 
-
-Soll das `OXID Invoice-PDF`-Modul komplett vom `PDF Dokumente` Modul ersetzt werden (weil z.B. dritte Module ebenfalls dessen Funktion verwenden), stellen wir [eine Anpassung](https://packagist.org/packages/d3/pdfdocuments_compat) zur Verfügung, die zusätzlich installiert wird.
+Das Modul enthält die selbe Funktionalität wie das ehemalige `OXID Invoice-PDF`-Modul.
 
 ## Installation:
 
