@@ -48,9 +48,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public string $filenameExtension = 'pdf';
     public ?string $filename = null;
 
-    protected $devMode = false;
+    protected bool $devMode = false;
 
-    public function setDevelopmentMode(bool $devMode)
+    public function setDevelopmentMode(bool $devMode): void
     {
         $this->devMode = $devMode;
     }
@@ -385,71 +385,121 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $filename = str_replace('.pdf', '.sgml', $filename);
 
         switch ($target) {
-            case 'I': {
-                // Send PDF to the standard output
-                if (ob_get_contents()) {
-                    $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
-                }
-                if (!str_starts_with(php_sapi_name(), 'cli')) {
-                    // send to browser
-                    header('Content-Type: text/html');
-                    if (headers_sent()) {
-                        $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
-                    }
-                    header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
-                    header('Pragma: public');
-                    header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-                    header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-                    header('Content-Length: '.strlen($html));
-                    header('Content-Disposition: inline; filename="'.basename($filename).'";');
-                }
-                echo $html;
-                break;
-            }
-            case 'D': {
-                // Download PDF as a file
-                if (ob_get_contents()) {
-                    $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
-                }
-                header('Content-Description: File Transfer');
-                if (headers_sent()) {
-                    $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
-                }
-                header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
-                header('Pragma: public');
-                header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-                header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-                // force download dialog
-                header('Content-Type: application/force-download');
-                header('Content-Type: application/octet-stream', false);
-                header('Content-Type: application/download', false);
-                header('Content-Type: text/sgml', false);
-                // use the Content-Disposition header to supply a recommended filename
-                header('Content-Disposition: attachment; filename="'.basename($filename).'";');
-                header('Content-Transfer-Encoding: binary');
-                header('Content-Length: '.strlen($html));
-                echo $html;
-                break;
-            }
-            case 'F': {
-                // Save PDF to a local file
-                $f = fopen($filename, 'wb');
-                if (!$f) {
-                    $pdf->pdf->Error('Unable to create output file: '.$filename);
-                }
-                fwrite($f, $html, strlen($html));
-                fclose($f);
-                break;
-            }
-            case 'S': {
-                // Return PDF as a string
+            case self::PDF_DESTINATION_STDOUT:
+                return $this->outputDev_stdout($pdf, $filename, $html);
+            case self::PDF_DESTINATION_DOWNLOAD:
+                return $this->outputDev_download($pdf, $filename, $html);
+            case self::PDF_DESTINATION_FILE:
+                return $this->outputDev_saveLocal($pdf, $filename, $html);
+            case self::PDF_DESTINATION_STRING:
                 return $html;
-            }
-            default: {
+            default:
                 $pdf->pdf->Error('Incorrect output destination: '.$target);
-            }
         }
 
         return null;
+    }
+
+    /**
+     * @param Html2Pdf $pdf
+     * @param string $html
+     * @param array|string $filename
+     * @return null
+     * @throws Exception
+     */
+    protected function outputDev_stdout(Html2Pdf $pdf, array|string $filename, string $html)
+    {
+        if (ob_get_contents()) {
+            $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
+        }
+        if (!$this->isCli() ) {
+            header('Content-Type: text/html');
+            // @codeCoverageIgnoreStart
+            if ($this->headersSent()) {
+                $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
+            }
+            // @codeCoverageIgnoreEnd
+            header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
+            header('Pragma: public');
+            header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+            header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+            header('Content-Length: ' . strlen($html));
+            header('Content-Disposition: inline; filename="' . basename($filename) . '";');
+        }
+        echo $html;
+
+        return null;
+    }
+
+    /**
+     * @param Html2Pdf $pdf
+     * @param array|string $filename
+     * @param string $html
+     * @return null
+     * @throws Exception
+     */
+    protected function outputDev_download(Html2Pdf $pdf, array|string $filename, string $html)
+    {
+        if (ob_get_contents()) {
+            $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
+        }
+        header('Content-Description: File Transfer');
+        // @codeCoverageIgnoreStart
+        if ( $this->headersSent() ) {
+            $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
+        }
+        // @codeCoverageIgnoreEnd
+        header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
+        header('Pragma: public');
+        header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        // force download dialog
+        header('Content-Type: application/force-download');
+        header('Content-Type: application/octet-stream', false);
+        header('Content-Type: application/download', false);
+        header('Content-Type: text/sgml', false);
+        // use the Content-Disposition header to supply a recommended filename
+        header('Content-Disposition: attachment; filename="' . basename($filename) . '";');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . strlen($html));
+        echo $html;
+
+        return null;
+    }
+
+    /**
+     * @param array|string $filename
+     * @param Html2Pdf $pdf
+     * @param string $html
+     * @return null
+     * @throws Exception
+     */
+    public function outputDev_saveLocal(Html2Pdf $pdf, array|string $filename, string $html)
+    {
+        $f = fopen($filename, 'wb');
+        if (!$f) {
+            $pdf->pdf->Error('Unable to create output file: ' . $filename);
+            return null;
+        }
+        fwrite($f, $html, strlen($html));
+        fclose($f);
+
+        return null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function isCli(): bool
+    {
+        return str_starts_with( php_sapi_name(), 'cli' );
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function headersSent(): bool
+    {
+        return headers_sent();
     }
 }
