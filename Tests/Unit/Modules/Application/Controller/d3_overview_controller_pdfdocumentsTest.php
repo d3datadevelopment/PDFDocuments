@@ -34,6 +34,7 @@ use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\Utils;
 use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactory;
@@ -44,6 +45,7 @@ use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use OxidEsales\Twig\Resolver\TemplateChain\TemplateNotInChainException;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -56,6 +58,54 @@ use Twig\Error\Error;
 class d3_overview_controller_pdfdocumentsTest extends TestCase
 {
     use CanAccessRestricted;
+
+    /**
+     * @test
+     * @covers \D3\PdfDocuments\Modules\Application\Controller\d3_overview_controller_pdfdocuments::render
+     * @throws ReflectionException
+     */
+    public function testRenderReload(): void
+    {
+        $utils = $this->getMockBuilder(Utils::class)
+            ->onlyMethods(['showMessageAndExit'])
+            ->getMock();
+        $utils->expects($this->once())->method('showMessageAndExit');
+
+        Registry::set(Utils::class, $utils);
+
+        $sut = oxNew(d3_overview_controller_pdfdocuments::class);
+
+        $this->setValue($sut, 'doReload', true);
+
+        $this->callMethod(
+            $sut,
+            'render'
+        );
+    }
+    /**
+     * @test
+     * @covers \D3\PdfDocuments\Modules\Application\Controller\d3_overview_controller_pdfdocuments::render
+     * @throws ReflectionException
+     */
+    public function testRenderDisplayError(): void
+    {
+        $utilsview = $this->getMockBuilder(UtilsView::class)
+            ->onlyMethods(['addErrorToDisplay'])
+            ->getMock();
+        $utilsview->expects($this->once())->method('addErrorToDisplay');
+
+        Registry::set(UtilsView::class, $utilsview);
+
+        $sut = oxNew(d3_overview_controller_pdfdocuments::class);
+
+        $this->setValue($sut, 'doReload', false);
+        $_GET['generatorError'] = 'errorMessageFixture';
+
+        $this->callMethod(
+            $sut,
+            'render'
+        );
+    }
 
     /**
      * @test
@@ -133,7 +183,10 @@ class d3_overview_controller_pdfdocumentsTest extends TestCase
             QueryBuilderFactoryInterface::class => $qbFactory,
         ]);
 
-        $sut = oxNew(d3_overview_controller_pdfdocuments::class);
+        $sut = $this->getMockBuilder(d3_overview_controller_pdfdocuments::class)
+            ->onlyMethods(['getEditObjectId'])
+            ->getMock();
+        $sut->method('getEditObjectId')->willReturn('oxid');
 
         try {
             $this->assertSame(
@@ -152,5 +205,57 @@ class d3_overview_controller_pdfdocumentsTest extends TestCase
     {
         yield 'throw exception' => [true, false];
         yield 'doesnt throw exception' => [false, true];
+    }
+
+    /**
+     * @test
+     * @covers \D3\PdfDocuments\Modules\Application\Controller\d3_overview_controller_pdfdocuments::d3CreatePDF
+     * @throws ReflectionException
+     * @dataProvider createPdfDataProvider
+     */
+    public function testCreatePdf(?string $objectid, bool $loadable, ?string $language, InvocationOrder $generate, bool $throwException): void
+    {
+        $order = $this->getMockBuilder(Order::class)
+            ->onlyMethods(['load'])
+            ->getMock();
+        $order->method('load')->willReturn($loadable);
+
+        $generatorController = $this->getMockBuilder(orderOverviewPdfGenerator::class)
+            ->onlyMethods(['generatePdf'])
+            ->getMock();
+        if ($throwException) {
+            $generatorController->expects( $generate )->method( 'generatePdf' )->willThrowException(new \Exception());
+        } else {
+            $generatorController->expects( $generate )->method( 'generatePdf' );
+        }
+
+        $sut = $this->getMockBuilder(d3_overview_controller_pdfdocuments::class)
+            ->onlyMethods(['getEditObjectId', 'd3PdfGetOrder', 'd3PdfGetGeneratorController'])
+            ->getMock();
+        $sut->method('getEditObjectId')->willReturn($objectid);
+        $sut->method('d3PdfGetOrder')->willReturn($order);
+        $sut->method('d3PdfGetGeneratorController')->willReturn($generatorController);
+
+        $_GET['pdflanguage'] = $language;
+
+        $this->callMethod(
+            $sut,
+            'd3CreatePdf'
+        );
+
+        if ($throwException) {
+            $this->assertTrue($this->getValue($sut, 'doReload'));
+            $this->getValue($sut, 'generatorError');
+            $this->assertStringContainsString('PDF documents', $this->getValue($sut, 'generatorError'));
+        }
+    }
+
+    public static function createPdfDataProvider(): Generator
+    {
+        yield 'no edit object id' => [null, true, '1', self::never(), false];
+        yield 'unloadable order' => ['objectid', false, '1', self::never(), false];
+        yield 'no language defined' => ['objectid', false, null, self::never(), false];
+        yield 'can generate' => ['objectid', true, '1', self::once(), false];
+        yield 'generate exception' => ['objectid', true, '1', self::once(), true];
     }
 }

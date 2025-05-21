@@ -13,6 +13,8 @@
 
 namespace D3\PdfDocuments\Modules\Application\Controller;
 
+use Assert\Assert;
+use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
 use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
@@ -39,7 +41,7 @@ use Psr\Container\NotFoundExceptionInterface;
 
 class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocuments_parent
 {
-    private ?string $generatorError = null;
+    protected ?string $generatorError = null;
     protected bool $doReload = false;
 
     public function render()
@@ -92,7 +94,7 @@ JS;
     {
         try {
             $sOrderId = $this->getEditObjectId();
-
+            Assert::that($sOrderId)->string()->notSame('-1');
             $viewNameGenerator = Registry::get(TableViewNameGenerator::class);
             $sTable            = $viewNameGenerator->getViewName("oxorderarticles");
 
@@ -109,7 +111,7 @@ JS;
                 );
 
             return (bool) $queryBuilder->execute()->fetchOne();
-        } catch (NotFoundExceptionInterface|ContainerExceptionInterface|DBALException) {
+        } catch (NotFoundExceptionInterface|ContainerExceptionInterface|DBALException|InvalidArgumentException) {
             return false;
         }
     }
@@ -126,14 +128,13 @@ JS;
                 E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED
             );
             $soxId = $this->getEditObjectId();
-            if ($soxId != "-1" && isset($soxId)) {
-                /** @var Order $oOrder */
-                $oOrder = oxNew(Order::class);
-                if ($oOrder->load($soxId)) {
-                    $generator = oxNew(orderOverviewPdfGenerator::class);
-                    $generator->generatePdf($oOrder, Registry::getRequest()->getRequestEscapedParameter("pdflanguage"));
-                }
-            }
+            $language = Registry::getRequest()->getRequestEscapedParameter("pdflanguage");
+            Assert::that($soxId)->string()->notSame('-1');
+            Assert::that($language)->integerish();
+            $oOrder = $this->d3PdfGetOrder();
+            Assert::that($oOrder->load($soxId))->true();
+            $generator = $this->d3PdfGetGeneratorController();
+            $generator->generatePdf($oOrder, $language);
         } catch (Exception $exception) {
             $this->doReload = true;
             Registry::getLogger()->error($exception->getMessage(), [ 'exception' => $exception ]);
@@ -141,6 +142,22 @@ JS;
         } finally {
             set_error_handler($oldErrorHandlder);
         }
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function d3PdfGetOrder(): Order
+    {
+        return oxNew(Order::class);
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function d3PdfGetGeneratorController(): orderOverviewPdfGenerator
+    {
+        return oxNew(orderOverviewPdfGenerator::class);
     }
 
     /**
