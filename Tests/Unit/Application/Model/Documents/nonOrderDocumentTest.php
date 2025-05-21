@@ -60,7 +60,7 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
             $this->anything(),
             pdfdocumentsGenericSut::PDF_DESTINATION_DOWNLOAD
         );
-        $sut->expects( $this->atLeastOnce() )->method( 'runPostAction' );
+        $sut->expects($this->atLeastOnce())->method('runPostAction');
 
         $this->callMethod(
             $sut,
@@ -112,10 +112,10 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
             pdfdocumentsGenericSut::PDF_DESTINATION_STRING
         )->willReturn('pdfContentFixture');
         if ($throwException) {
-            $sut->expects( $this->atLeastOnce() )->method( 'runPostAction' )
+            $sut->expects($this->atLeastOnce())->method('runPostAction')
                 ->willThrowException(new InvalidArgumentException('messageFixture', 200));
         } else {
-            $sut->expects( $this->atLeastOnce() )->method( 'runPostAction' );
+            $sut->expects($this->atLeastOnce())->method('runPostAction');
         }
 
         $this->assertSame(
@@ -268,8 +268,8 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
 
     public static function addFilenameExtensionDataProvider(): Generator
     {
-        yield 'no extension' => ['document', 'document.pdf'];;
-        yield 'with extension' => ['document.pdf', 'document.pdf'];;
+        yield 'no extension' => ['document', 'document.pdf'];
+        yield 'with extension' => ['document.pdf', 'document.pdf'];
         yield 'with different extensions' => ['document.txt', 'document.txt.pdf'];
     }
 
@@ -319,8 +319,7 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
         InvocationOrder $file,
         InvocationOrder $error,
         ?string $expectedReturn
-    ): void
-    {
+    ): void {
         $myPdf = $this->getMockBuilder(MyPdf::class)
             ->onlyMethods(['Error'])
             ->getMock();

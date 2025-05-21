@@ -167,9 +167,9 @@ class d3_overview_controller_pdfdocumentsTest extends TestCase
             ->onlyMethods(['execute', 'expr'])
             ->getMock();
         if ($throwException) {
-            $queryBuilder->method( 'execute' )->willThrowException(new Exception());
+            $queryBuilder->method('execute')->willThrowException(new Exception());
         } else {
-            $queryBuilder->method( 'execute' )->willReturn( $result );
+            $queryBuilder->method('execute')->willReturn($result);
         }
         $queryBuilder->method('expr')->willReturn($expressionBuilder);
 
@@ -224,9 +224,9 @@ class d3_overview_controller_pdfdocumentsTest extends TestCase
             ->onlyMethods(['generatePdf'])
             ->getMock();
         if ($throwException) {
-            $generatorController->expects( $generate )->method( 'generatePdf' )->willThrowException(new \Exception());
+            $generatorController->expects($generate)->method('generatePdf')->willThrowException(new \Exception());
         } else {
-            $generatorController->expects( $generate )->method( 'generatePdf' );
+            $generatorController->expects($generate)->method('generatePdf');
         }
 
         $sut = $this->getMockBuilder(d3_overview_controller_pdfdocuments::class)

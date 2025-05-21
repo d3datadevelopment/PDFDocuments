@@ -132,9 +132,9 @@ abstract class registryAbstract extends TestCase
         );
 
         if ($removed) {
-            $this->assertArrayNotHasKey( orderDocument::class, $this->getValue( $sut, 'registry' ) );
+            $this->assertArrayNotHasKey(orderDocument::class, $this->getValue($sut, 'registry'));
         } else {
-            $this->assertArrayHasKey( orderDocument::class, $this->getValue( $sut, 'registry' ) );
+            $this->assertArrayHasKey(orderDocument::class, $this->getValue($sut, 'registry'));
         }
     }
 

@@ -120,7 +120,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
 
         return max(
             $configuration->hasModuleSetting('invoicePaymentTerm') ?
-                (int)$configuration->getModuleSetting('invoicePaymentTerm')->getValue():
+                (int)$configuration->getModuleSetting('invoicePaymentTerm')->getValue() :
                 7,
             0
         );
@@ -131,7 +131,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
         $startDate = $this->getOrder()->getFieldData('oxbilldate');
 
         try {
-            Assert::that( $startDate )->date( 'Y-m-d' );
+            Assert::that($startDate)->date('Y-m-d');
             $startDate = strtotime($startDate);
         } catch (InvalidArgumentException) {
             $startDate = strtotime(date('Y-m-d'));

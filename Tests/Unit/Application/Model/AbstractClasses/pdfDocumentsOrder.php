@@ -221,7 +221,7 @@ abstract class pdfDocumentsOrder extends pdfDocumentsGeneric
         );
 
         if (is_int($expected)) {
-            $this->assertSame( $expected, $return );
+            $this->assertSame($expected, $return);
         } else {
             $this->assertGreaterThan(time(), $return);
         }

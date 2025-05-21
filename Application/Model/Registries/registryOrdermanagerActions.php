@@ -35,14 +35,18 @@ class registryOrdermanagerActions extends registryAbstract implements registryOr
     {
         /** @var ModuleSettingService $settingsService */
         $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
-        if ($settingsService->getBoolean('d3PdfDocumentsDocInvoice', Constants::OXID_MODULE_ID))
+        if ($settingsService->getBoolean('d3PdfDocumentsDocInvoice', Constants::OXID_MODULE_ID)) {
             $this->addGenerator(invoicePdf::class);
-        if ($settingsService->getBoolean('d3PdfDocumentsDocDeliveryNote', Constants::OXID_MODULE_ID))
+        }
+        if ($settingsService->getBoolean('d3PdfDocumentsDocDeliveryNote', Constants::OXID_MODULE_ID)) {
             $this->addGenerator(deliverynotePdf::class);
-        if ($settingsService->getBoolean('d3PdfDocumentsDocInvoiceNoLogo', Constants::OXID_MODULE_ID))
+        }
+        if ($settingsService->getBoolean('d3PdfDocumentsDocInvoiceNoLogo', Constants::OXID_MODULE_ID)) {
             $this->addGenerator(invoicewithoutlogoPdf::class);
-        if ($settingsService->getBoolean('d3PdfDocumentsDocDeliveryNoteNoLogo', Constants::OXID_MODULE_ID))
+        }
+        if ($settingsService->getBoolean('d3PdfDocumentsDocDeliveryNoteNoLogo', Constants::OXID_MODULE_ID)) {
             $this->addGenerator(deliverynotewithoutlogoPdf::class);
+        }
     }
 
     /**

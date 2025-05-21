@@ -22,9 +22,8 @@ use Spipu\Html2Pdf\Html2Pdf;
 
 abstract class pdfDocumentsGeneric extends TestCase
 {
-    protected string $sutClassName;
-
     use CanAccessRestricted;
+    protected string $sutClassName;
 
     /**
      * @test

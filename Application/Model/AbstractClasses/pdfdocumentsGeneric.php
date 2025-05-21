@@ -412,7 +412,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         if (ob_get_contents()) {
             $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
         }
-        if (!$this->isCli() ) {
+        if (!$this->isCli()) {
             header('Content-Type: text/html');
             // @codeCoverageIgnoreStart
             if ($this->headersSent()) {
@@ -445,7 +445,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         }
         header('Content-Description: File Transfer');
         // @codeCoverageIgnoreStart
-        if ( $this->headersSent() ) {
+        if ($this->headersSent()) {
             $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
         }
         // @codeCoverageIgnoreEnd
@@ -492,7 +492,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     protected function isCli(): bool
     {
-        return str_starts_with( php_sapi_name(), 'cli' );
+        return str_starts_with(php_sapi_name(), 'cli');
     }
 
     /**
