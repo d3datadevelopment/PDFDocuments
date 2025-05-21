@@ -18,8 +18,6 @@ use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
 use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
-use D3\PdfDocuments\Application\Model\Exceptions\pdfGeneratorExceptionAbstract;
-use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverviewInterface;
 use Doctrine\DBAL\Driver\Exception as DBALDriverException;
@@ -118,7 +116,8 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
 
     /**
      * @throws noPdfHandlerFoundException
-     * @throws pdfGeneratorExceptionAbstract
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function d3CreatePDF(): void
     {
@@ -162,7 +161,8 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
 
     /**
      * @return registryOrderoverview
-     * @throws wrongPdfGeneratorInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      * @codeCoverageIgnore
      */
     public function d3getGeneratorList(): registryOrderoverview

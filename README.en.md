@@ -15,7 +15,7 @@ Create a wide variety of static or dynamic PDF documents at the touch of a butto
 
 At the orders of your OXID shop you have the option of creating an invoice and delivery note.
 
-The module can be easily extended to adapt existing documents or add new ones. Even completely different document types (e.g. article data sheets) are possible.
+The module can be easily extended to adapt existing documents or add new ones. Even completely different document types (e.g. article data sheets or pick lists) are possible.
 
 ## System requirements:
 
@@ -25,9 +25,7 @@ The module can be easily extended to adapt existing documents or add new ones. E
 
 ## Compatibility:
 
-The module contains the same functionality as the 'OXID Invoice PDF' module. Basically, both modules can be installed in parallel in the shop, if required. 
-
-If the `OXID Invoice PDF` module is to be completely replaced by the `D3 PDF Documents` module (e.g. because third modules also use its function), we provide [a customization](https://packagist.org/packages/d3/pdfdocuments_compat) which is installed additionally.
+The module contains the same functionality as the former 'OXID Invoice PDF' module.
 
 ## Installation:
 

@@ -15,7 +15,6 @@ declare(strict_types=1);
 
 namespace D3\PdfDocuments\Application\Model\Registries;
 
-use Assert\Assert;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface;
 use OxidEsales\Eshop\Core\Exception\StandardException;
@@ -40,7 +39,6 @@ abstract class registryAbstract implements registryGenericInterface
         if (!$this->hasGenerator($className)) {
             /** @var pdfdocumentsGenericInterface $generator */
             $generator = oxNew($className);
-
             $this->addItem($generator);
         } else {
             throw oxNew(StandardException::class, 'generator still exists in registry');
