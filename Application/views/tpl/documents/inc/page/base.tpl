@@ -22,6 +22,12 @@
         [{if $showLogo && $config->getConfigParam('d3PdfDocumentsBackgroundUrl')}]
             backimg="[{$config->getConfigParam('d3PdfDocumentsBackgroundUrl')}]"
         [{/if}]
+        [{if $hideHeader}] [{* [{assign var="hideHeader" value="1,2,3,4,5"}] *}]
+            hideheader="[{$hideHeader}]"
+        [{/if}]
+        [{if $hideFooter}] [{* [{assign var="hideFooter" value="1,2,3,4,5"}] *}]
+            hidefooter="[{$hideFooter}]"
+        [{/if}]
 [{*        backcolor="#FFF"  *}]
 [{*        backimgx="center" *}]
 [{*        backimgy="middle" *}]
