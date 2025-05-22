@@ -14,10 +14,19 @@
 namespace D3\PdfDocuments\Modules\Application\Controller;
 
 use D3\PdfDocuments\Application\Model\Documents\articleDataSheet;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
 
 class ArticleDetailsController_pdfdocuments extends ArticleDetailsController_pdfdocuments_parent
 {
-    public function generateDataSheet()
+    /**
+     * @return void
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws Html2PdfException
+     */
+    public function generateDataSheet(): void
     {
         $document = oxNew(ArticleDataSheet::class);
         $document->setArticle($this->getProduct());
