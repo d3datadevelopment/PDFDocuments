@@ -2,7 +2,7 @@
 [{assign var="pagePadding" value=$pagePadding|default:$defaultPagePadding}]
 
 [{block name="pdfFooter"}]
-    <div class="footer" style="margin: 0 [{$pagePadding.1}]mm 10mm [{$pagePadding.3}]mm">
+    <div class="footer footer-[[page_cu]]" style="margin: 0 [{$pagePadding.1}]mm 10mm [{$pagePadding.3}]mm">
         [{block name="pdfFooterTable"}]
             <table>
                 <tr>
