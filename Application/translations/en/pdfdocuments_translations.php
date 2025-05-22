@@ -77,5 +77,7 @@ return [
     'D3_PDFDOCUMENTS_USTID'                              => 'VAT ID',
 
     'D3_PDFDOCUMENTS_BANK_BANKCODE'                      => 'BIC/SWIFT Code',
+
+    'D3_PDFDOCUMENTS_ARTICLE_DATASHEET'                  => 'Article data sheet',
 ];
 // @codeCoverageIgnoreEnd

@@ -1,15 +1,63 @@
 {% set pagePadding = "45,15,25,25"|split(",") %} {# top, right, bottom, left #}
+{#{% set hideHeader = 2..100 %}#}
+{#{% set hideFooter = 1..100 %}#}
+{% set bgImage = oViewConf.getModulePath('d3PdfDocuments', 'out/img/ads_bg.jpg') %}
+
 {% set showLogo = showLogo|default(1) %}
 
 {% set pdfBlock_style %}
     {% block pdfStyles %}
         {% include "@d3PdfDocuments/assets/pdfStyling.css.twig" %}
+
+        .desc {
+            font-weight: bold;
+            font-size: 10pt;
+        }
+        .value {
+            padding-left: 5mm;
+        }
+
+        div.header {
+            position: absolute;
+            top: 0;
+        }
+        div.header img {
+            height: 20mm; {# smaller logo from page 2 #}
+        }
+        div.header-1 img {
+            height: inherit; {# default logo size on page 1 #}
+        }
+        div.header .address {
+            position: absolute; font-size: 3mm; top: 42mm; left: 155mm; text-align: center
+        }
+        div.header-2 .address {
+            font-size: 2.5mm; top: 33mm; left: 165mm
+        }
     {% endblock %}
 {% endset %}
 
 {% set pdfBlock_header %}
     {% block pdfHeader %}
-        {% include "@d3PdfDocuments/documents/inc/page/header.html.twig" with {showLogo: showLogo} %}
+{#        {% include "@d3PdfDocuments/documents/inc/page/header.html.twig" with {showLogo: showLogo} %}#}
+
+        {% set article = document.getArticle() %}
+        <div style="position: relative; left: 25mm; top: 7mm; color: #FFF">
+            <h3>{{ article.getFieldData('oxtitle') }}</h3>
+        </div>
+
+        <div class="header header-[[page_cu]]">
+            {% if showLogo %}
+                {% block pdfHeaderLogo %}
+                    {% set logoUrl = config.getConfigParam('d3PdfDocumentsLogoUrl') | default( oViewConf.getModulePath('d3PdfDocuments', 'out/img/clogo.jpg') ) %}
+                    <img class="logo" alt="Logo" src="{{ logoUrl }}">
+                {% endblock %}
+            {% endif %}
+            <div class="address">
+                {{ shop.getFieldData('oxname') }}<br>
+                {{ shop.getFieldData('oxstreet') }}<br>
+                {{ shop.getFieldData('oxzip') }} {{ shop.getFieldData('oxcity') }}
+            </div>
+        </div>
     {% endblock %}
 {% endset %}
 
@@ -17,25 +65,140 @@
 {#    {% include "@d3PdfDocuments/documents/inc/helper/rulers.html.twig" with {pagePadding: pagePadding} %}#}
     {% include "@d3PdfDocuments/documents/inc/elements/foldmarks.html.twig" with {pagePadding: pagePadding} %}
 
-
     {% set article = document.getArticle() %}
-    <h3>{{ article.getFieldData('oxtitle') }}</h3>
-    <p>{{ translate({ ident: "ARTNUM", suffix: "COLON" }) }} {{ article.getFieldData('oxartnum') }}</p>
-    <p>{{ translate({ ident: "MANUFACTURER", suffix: "COLON" }) }} {{ article.getManufacturer().getTitle() }}</p>
-    <p>{{ article.getFieldData('oxshortdesc') }}</p>
-    <img alt="{{ article.getFieldData('oxtitle') }}" style="width: 50%" src="{{ article.getThumbnailUrl() }}">
-    <p>{{ article.getLongDescription() }}</p>
-    <hr>
-    <h4>Galerie</h4>
-    {% for picture in article.getPictureGallery().Pics %}
-        <img style="width: 33%; border: 1px solid silver" src="{{ picture }}" alt="{{ article.getFieldData('oxtitle') }}">
-    {% endfor %}
+    <div style="position: relative; top: 0;">
+{#        <h3>{{ article.getFieldData('oxtitle') }}</h3>#}
+        <nobreak>
+            <p>
+                <div class="desc">
+                    {{ translate({ ident: "ARTNUM", suffix: "COLON" }) }}
+                </div>
+                <div class="value">
+                    {{ article.getFieldData('oxartnum') }}
+                </div>
+            </p>
+        </nobreak>
+        <nobreak>
+            <p>
+                <div class="desc">
+                    {{ translate({ ident: "MANUFACTURER", suffix: "COLON" }) }}
+                </div>
+                <div class="value">
+                    {{ article.getManufacturer().getTitle() }}
+                </div>
+            </p>
+        </nobreak>
+        <nobreak>
+            <p>
+                <div class="desc">
+                    Link zum Shop:
+                </div>
+                <div class="value">
+                    <a href="{{ utilsUrl.prepareUrlForNoSession(article.getLink()) }}">
+                        {{ utilsUrl.prepareUrlForNoSession(article.getLink()) }}
+                    </a>
+                </div>
+            </p>
+        </nobreak>
+        <qrcode value="{{ utilsUrl.prepareUrlForNoSession(article.getLink()) }}" style="position: absolute; top: 11mm; left: 133mm; width: 30mm; background-color: white; color: black;"></qrcode>
+    </div>
 
+    <hr>
+    <p>{{ article.getFieldData('oxshortdesc') }}</p>
+    <p style="text-align: center">
+        <img alt="{{ article.getFieldData('oxtitle') }}" style="width: 50%" src="{{ article.getThumbnailUrl() }}">
+    </p>
+    <p>{{ article.getLongDescription() }}</p>
+    <p>
+        {% set attributes = article.getAttributes() %}
+        {% if attributes %}
+            <h4 class="desc">Eigenschaften:</h4>
+            <div class="value">
+                <table>
+                    {% for oAttr in attributes %}
+                        <tr>
+                            <td id="attrTitle_{{ loop.index }}">{{ oAttr.getFieldData('oxtitle') }}:</td>
+                            <td id="attrValue_{{ loop.index }}">{{ oAttr.getFieldData('oxvalue') }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+    </p>
+    <nobreak>
+        <div class="desc">
+            Preis:
+        </div>
+        <div class="value">
+            {% if article.getPrice() %}
+                {% set sFrom = "" %}
+                {% set oPrice = article.getPrice() %}
+                {% if article.isParentNotBuyable() %}
+                    {% set oPrice = article.getVarMinPrice() %}
+                    {% if article.isRangePrice() %}
+                        {% set sFrom = "PRICE_FROM"|translate %}
+                    {% endif %}
+                {% endif %}
+                <span {% if article.getTPrice() %} class="text-danger"{% endif %}>
+                    <span class="price-from">{{ sFrom }}</span>
+                    <span class="price">{{ format_price(oPrice, { currency: currency }) }}</span>
+                </span>
+            {% endif %}
+
+            {% hasrights { ident: "SHOWARTICLEPRICE" } %}
+                {% set oUnitPrice = article.getUnitPrice() %}
+                {% if oUnitPrice %}
+                    <div class="ppu" aria-label="{{ translate({ ident: "WEIGHT" }) }}">
+                        {{ format_price(oUnitPrice, { currency: currency }) }}/{{ article.getUnitName() }}
+                    </div>
+                {% endif %}
+            {% endhasrights %}
+        </div>
+    </nobreak>
+    <nobreak>
+            <h4 class="desc">Verf&uuml;gbarkeit:</h4>
+            <div class="value">
+                {% if article.getStockStatus() == -1 %}
+                    <span class="text-danger">?</span>
+                    {% if article.oxarticles__oxnostocktext.value %}
+                        {{ article.oxarticles__oxnostocktext.value }}
+                    {% elseif oViewConf.getStockOffDefaultMessage() %}
+                        {{ translate({ ident: "MESSAGE_NOT_ON_STOCK" }) }}
+                    {% endif %}
+                    {% if article.getDeliveryDate() %}
+                        {{ translate({ ident: "AVAILABLE_ON" }) }} {{ article.getDeliveryDate() }}
+                    {% endif %}
+                {% elseif article.getStockStatus() == 1 %}
+                    <span class="text-warning">?</span> {{ translate({ ident: "LOW_STOCK" }) }}
+                {% elseif article.getStockStatus() == 0 %}
+                    <div style="width: 5mm; height: 5mm; background-color: darkgreen; float: left"></div>
+                    {% if article.oxarticles__oxstocktext.value %}
+                        {{ article.oxarticles__oxstocktext.value }}
+                    {% elseif oViewConf.getStockOnDefaultMessage() %}
+                        {{ translate({ ident: "READY_FOR_SHIPPING" }) }}
+                    {% endif %}
+                {% endif %}
+            </div>
+    </nobreak>
+    <nobreak>
+        <p>
+            <h4 class="desc">Galerie</h4>
+            {% for picture in article.getPictureGallery().Pics %}
+                <span style="width: 25%; border: 1px solid silver">
+                    <img style="width: 100%" src="{{ picture }}" alt="{{ article.getFieldData('oxtitle') }}">
+                </span>
+            {% endfor %}
+        </p>
+    </nobreak>
+    <p>
+        Vielen Dank f&uuml;r Ihr Interesse an unserem Sortiment.<br>
+        Kontaktieren Sie uns gern telefonisch oder nutzen Sie unsere Online-Shop unter <a href="{{ oViewConf.getShopUrl() }}">{{ oViewConf.getShopUrl() }}</a>.
+    </p>
 {% endset %}
 
 {% set pdfBlock_footer %}
     {% block pdfFooter %}
-        {% include "@d3PdfDocuments/documents/inc/page/footer.html.twig" with {pagePadding: pagePadding} %}
+        <p style="position: absolute; bottom: 5mm; text-align: right; margin-right: 5mm; color: #FFF; font-size: 2.5mm">Stand: {{ "now"|date("d.m.Y H:i:s") }}</p>
     {% endblock %}
 {% endset %}
 
