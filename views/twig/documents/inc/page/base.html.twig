@@ -20,10 +20,16 @@
         {% if showLogo and config.getConfigParam('d3PdfDocumentsBackgroundUrl') %}
             backimg="{{ config.getConfigParam('d3PdfDocumentsBackgroundUrl') }}"
         {% endif %}
+        {% if hideHeader %} {# {% set hideHeader = 0..100 %} #}
+            hideheader="{{ hideHeader|join(',') }}"
+        {% endif %}
+        {% if hideFooter %} {# {% set hideFooter = 0..100 %} #}
+            hidefooter="{{ hideFooter|join(',') }}"
+        {% endif %}
 {#         backcolor="#FFF"  #}
 {#         backimgx="center" #}
 {#         backimgy="middle" #}
-{#         backimgw="100%"   #}]
+{#         backimgw="100%"   #}
     {% endblock %}
 >
     <page_header>
