@@ -1,7 +1,7 @@
 {% set showLogo = showLogo|default(1) %}
 
 {% block pdfHeader %}
-    <div class="header">
+    <div class="header header-[[page_cu]]">
         {% if showLogo %}
             {% block pdfHeaderLogo %}
                 {% set logoUrl = config.getConfigParam('d3PdfDocumentsLogoUrl') | default( oViewConf.getModulePath('d3PdfDocuments', 'out/img/clogo.jpg') ) %}
