@@ -172,6 +172,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             'oViewConf' => Registry::getConfig()->getActiveView()->getViewConfig(),
             'shop'      => Registry::getConfig()->getActiveShop(),
             'lang'      => Registry::getLang(),
+            'utilsUrl'  => Registry::getUtilsUrl(),
             'document'  => $this,
         ];
     }
