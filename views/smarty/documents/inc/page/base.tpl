@@ -19,13 +19,13 @@
         pageset="[{$pageset}]"
         orientation="[{$orientation}]"
         format="[{$format}]"
-        [{if $showLogo && ($bgImage || $config->getConfigParam('d3PdfDocumentsBackgroundUrl'))}]
+        [{if $showLogo && (isset($bgImage) || $config->getConfigParam('d3PdfDocumentsBackgroundUrl'))}]
             backimg="[{$bgImage|default:$config->getConfigParam('d3PdfDocumentsBackgroundUrl')}]"
         [{/if}]
-        [{if $hideHeader}] [{* [{assign var="hideHeader" value="1,2,3,4,5"}] *}]
+        [{if isset($hideHeader)}] [{* [{assign var="hideHeader" value="1,2,3,4,5"}] *}]
             hideheader="[{$hideHeader}]"
         [{/if}]
-        [{if $hideFooter}] [{* [{assign var="hideFooter" value="1,2,3,4,5"}] *}]
+        [{if isset($hideFooter)}] [{* [{assign var="hideFooter" value="1,2,3,4,5"}] *}]
             hidefooter="[{$hideFooter}]"
         [{/if}]
 [{*        backcolor="#FFF"  *}]
