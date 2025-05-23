@@ -19,10 +19,11 @@
                         <label for="pdftype">[{oxmultilang ident="D3_PDFDOCUMENTS_PDF_TYPE" suffix="COLON"}]</label>:&nbsp;
                         <select id="pdftype" name="pdftype" class="editinput" style="min-width:150px;">
                             [{block name="d3_pdfdocuments_order_overview_pdfTypeOptions"}]
-                                [{assign var="generatorList" value=$oView->d3getGeneratorList()}]
-                                [{foreach from=$generatorList->getList() item="generator"}]
-                                    <option value="[{$generator->getRequestId()}]">[{oxmultilang ident=$generator->getTitleIdent()}]</option>
-                                [{/foreach}]
+                                [{if $d3PdfDocumentGeneratorList}]
+                                    [{foreach from=$d3PdfDocumentGeneratorList->getList() item="generator"}]
+                                        <option value="[{$generator->getRequestId()}]">[{oxmultilang ident=$generator->getTitleIdent()}]</option>
+                                    [{/foreach}]
+                                [{/if}]
                             [{/block}]
                         </select>
                     </td>
