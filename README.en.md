@@ -43,8 +43,9 @@ Detailed installation instructions can be found [online](https://docs.oxidmodule
 
 ## Credits:
 
-- PDF logo made by Dimitriy Morilubov by www.flaticon.com
+- PDF icon made by Dimitriy Morilubov by www.flaticon.com
 - example company logo by https://www.logologo.com/
+- background image of the article data sheet [designed by Harryarts / Freepik](http://www.freepik.com)
 
 ## License
 

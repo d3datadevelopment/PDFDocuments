@@ -43,8 +43,9 @@ Eine detaillierte Installationsanleitung finden Sie [online](https://docs.oxidmo
 
 ## Danksagung:
 
-- PDF-Logo erstellt von Dimitriy Morilubov von www.flaticon.com
+- PDF-Icon erstellt von Dimitriy Morilubov von www.flaticon.com
 - Beispielfirmenlogo von https://www.logologo.com/
+- Hintergrundgrafik des Artikeldatenblatts [designed by Harryarts / Freepik](http://www.freepik.com)
 
 ## Lizenz
 
