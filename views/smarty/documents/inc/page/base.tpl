@@ -19,8 +19,8 @@
         pageset="[{$pageset}]"
         orientation="[{$orientation}]"
         format="[{$format}]"
-        [{if $showLogo && $config->getConfigParam('d3PdfDocumentsBackgroundUrl')}]
-            backimg="[{$config->getConfigParam('d3PdfDocumentsBackgroundUrl')}]"
+        [{if $showLogo && ($bgImage || $config->getConfigParam('d3PdfDocumentsBackgroundUrl'))}]
+            backimg="[{$bgImage|default:$config->getConfigParam('d3PdfDocumentsBackgroundUrl')}]"
         [{/if}]
         [{if $hideHeader}] [{* [{assign var="hideHeader" value="1,2,3,4,5"}] *}]
             hideheader="[{$hideHeader}]"
