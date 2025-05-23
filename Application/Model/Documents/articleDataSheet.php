@@ -19,6 +19,10 @@ use Assert\Assert;
 use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric;
 use OxidEsales\Eshop\Application\Model\Article;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridge;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
+use OxidEsales\Twig\TwigEngine;
 
 /**
  * @codeCoverageIgnore
@@ -26,6 +30,22 @@ use OxidEsales\Eshop\Application\Model\Article;
 class articleDataSheet extends pdfdocumentsGeneric
 {
     protected ?Article $article = null;
+
+    public function genPdf( string $filename, int $language = 0, string $target = self::PDF_DESTINATION_STDOUT ): ?string
+    {
+        /** @var TemplateRendererBridge $bridge */
+        $bridge = ContainerFactory::getInstance()->getContainer()->get(TemplateRendererBridgeInterface::class);
+        Assert::that($bridge->getTemplateRenderer()->getTemplateEngine())
+              ->isInstanceOf(
+                  TwigEngine::class,
+                  <<<MSG
+                  The article data sheet is only provided by the Twig Engine. 
+                  Please contact the author for further assistance.
+                  MSG
+              );
+
+        return parent::genPdf( $filename, $language, $target );
+    }
 
     public function setArticle(Article $article): void
     {

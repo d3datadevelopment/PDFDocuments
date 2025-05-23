@@ -28,7 +28,7 @@ class ArticleDetailsController_pdfdocuments extends ArticleDetailsController_pdf
      */
     public function generateDataSheet(): void
     {
-        $document = oxNew(ArticleDataSheet::class);
+        $document = oxNew(articleDataSheet::class);
         $document->setArticle($this->getProduct());
         $document->downloadPdf();
     }
