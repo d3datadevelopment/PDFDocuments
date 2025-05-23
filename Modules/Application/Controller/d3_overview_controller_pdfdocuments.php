@@ -44,6 +44,8 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
 
     public function render()
     {
+        $this->addTplParam('d3PdfDocumentGeneratorList', $this->d3getGeneratorList());
+
         if ($this->doReload) {
             $formReload = <<<HTML
                 <html lang="de">
@@ -160,14 +162,19 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
     }
 
     /**
-     * @return registryOrderoverview
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @codeCoverageIgnore
      */
-    public function d3getGeneratorList(): registryOrderoverview
+    public function d3getGeneratorList(): ?registryOrderoverview
     {
-        return ContainerFactory::getInstance()->getContainer()->get(registryOrderoverviewInterface::class);
+        try {
+            return ContainerFactory::getInstance()->getContainer()->get( registryOrderoverviewInterface::class );
+        } catch (Exception $exception) {
+            Registry::getUtilsView()->addErrorToDisplay($exception->getMessage());
+        }
+
+        return null;
     }
 
     /**
