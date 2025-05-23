@@ -17,10 +17,9 @@ use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
 use Generator;
 use OxidEsales\Eshop\Application\Model\Order;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleConfigurationDaoBridge;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleConfigurationDaoBridgeInterface;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\DataObject\ModuleConfiguration;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Setting\Setting;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use ReflectionException;
 
 abstract class pdfDocumentsOrder extends pdfDocumentsGeneric
@@ -155,47 +154,32 @@ abstract class pdfDocumentsOrder extends pdfDocumentsGeneric
      * @test
      * @covers \D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder::getPaymentTerm
      * @throws ReflectionException
-     * @dataProvider getPaymentTermDataProvider
      */
-    public function testGetPaymentTerm(bool $settingExist, $settingValue, int $expected): void
+    public function testGetPaymentTerm(): void
     {
-        $setting = $this->getMockBuilder(Setting::class)
-            ->onlyMethods(['getValue'])
-            ->getMock();
-        $setting->method('getValue')->willReturn($settingValue);
-
-        $configuration = $this->getMockBuilder(ModuleConfiguration::class)
-            ->onlyMethods(['hasModuleSetting', 'getModuleSetting'])
-            ->getMock();
-        $configuration->method('hasModuleSetting')->willReturn($settingExist);
-        $configuration->method('getModuleSetting')->willReturn($setting);
-
-        $configurationBridge = $this->getMockBuilder(ModuleConfigurationDaoBridge::class)
+        $settingService = $this->getMockBuilder(ModuleSettingService::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['get'])
+            ->onlyMethods(['getInteger'])
             ->getMock();
-        $configurationBridge->method('get')->willReturn($configuration);
+        $settingService->method('getInteger')->willReturn(10);
 
         $this->addServiceMocks([
-            ModuleConfigurationDaoBridgeInterface::class    => $configurationBridge,
+            ModuleSettingServiceInterface::class    => $settingService,
         ]);
 
         $sut = oxNew($this->sutClassName);
 
-        $this->assertSame(
-            $expected,
-            $this->callMethod(
-                $sut,
-                'getPaymentTerm'
-            )
-        );
-    }
-
-    public static function getPaymentTermDataProvider(): Generator
-    {
-        yield 'setting exists' => [true, 10, 10];
-        yield 'setting value to low' => [true, -1, 0];
-        yield 'setting does not exist' => [false, null, 7];
+        try {
+            $this->assertSame(
+                10,
+                $this->callMethod(
+                    $sut,
+                    'getPaymentTerm'
+                )
+            );
+        } finally {
+            ContainerFactory::resetContainer();
+        }
     }
 
     /**

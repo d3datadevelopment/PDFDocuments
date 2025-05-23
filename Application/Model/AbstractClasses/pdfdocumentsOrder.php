@@ -23,9 +23,8 @@ use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleConfigurationDaoBridge;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleConfigurationDaoBridgeInterface;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Exception\ModuleSettingNotFountException;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -108,26 +107,17 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
-     * @throws ModuleSettingNotFountException
      */
     public function getPaymentTerm(): int
     {
-        /** @var ModuleConfigurationDaoBridge $configurationBridge */
-        $configurationBridge = ContainerFactory::getInstance()->getContainer()
-            ->get(ModuleConfigurationDaoBridgeInterface::class);
-        $configuration = $configurationBridge->get(Constants::OXID_MODULE_ID);
-
-        return max(
-            $configuration->hasModuleSetting('invoicePaymentTerm') ?
-                (int)$configuration->getModuleSetting('invoicePaymentTerm')->getValue() :
-                7,
-            0
-        );
+        /** @var ModuleSettingService $settingService */
+        $settingService = ContainerFactory::getInstance()->getContainer()
+            ->get(ModuleSettingServiceInterface::class);
+        return $settingService->getInteger('invoicePaymentTerm', Constants::OXID_MODULE_ID);
     }
 
     /**
      * @throws ContainerExceptionInterface
-     * @throws ModuleSettingNotFountException
      * @throws NotFoundExceptionInterface
      */
     public function getPayableUntilDate(): false|int
