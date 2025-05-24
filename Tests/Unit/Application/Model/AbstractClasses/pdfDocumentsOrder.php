@@ -15,6 +15,7 @@ namespace D3\PdfDocuments\Tests\Unit\Application\Model\AbstractClasses;
 
 use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
+use Exception;
 use Generator;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
@@ -172,6 +173,38 @@ abstract class pdfDocumentsOrder extends pdfDocumentsGeneric
         try {
             $this->assertSame(
                 10,
+                $this->callMethod(
+                    $sut,
+                    'getPaymentTerm'
+                )
+            );
+        } finally {
+            ContainerFactory::resetContainer();
+        }
+    }
+
+    /**
+     * @test
+     * @covers \D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder::getPaymentTerm
+     * @throws ReflectionException
+     */
+    public function testGetPaymentTermUnknownSetting(): void
+    {
+        $settingService = $this->getMockBuilder(ModuleSettingService::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getInteger'])
+            ->getMock();
+        $settingService->method('getInteger')->willThrowException(new Exception());
+
+        $this->addServiceMocks([
+            ModuleSettingServiceInterface::class    => $settingService,
+        ]);
+
+        $sut = oxNew($this->sutClassName);
+
+        try {
+            $this->assertSame(
+                7,
                 $this->callMethod(
                     $sut,
                     'getPaymentTerm'

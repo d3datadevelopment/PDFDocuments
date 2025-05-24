@@ -13,16 +13,7 @@
 
 namespace D3\PdfDocuments\Tests\Unit\Modules\Application\Controller;
 
-use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
-use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric;
-use D3\PdfDocuments\Application\Model\Constants;
-use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
-use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
-use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface;
-use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
-use D3\PdfDocuments\Application\Model\Registries\registryOrderoverviewInterface;
 use D3\PdfDocuments\Modules\Application\Controller\d3_overview_controller_pdfdocuments;
 use D3\TestingTools\Development\CanAccessRestricted;
 use Doctrine\DBAL\Exception;
@@ -31,8 +22,6 @@ use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Generator;
 use OxidEsales\Eshop\Application\Model\Order;
-use OxidEsales\Eshop\Core\Base;
-use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Utils;
 use OxidEsales\Eshop\Core\UtilsView;
@@ -41,19 +30,9 @@ use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
-use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
-use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
-use OxidEsales\Twig\Resolver\TemplateChain\TemplateNotInChainException;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use ReflectionException;
-use Spipu\Html2Pdf\Exception\Html2PdfException;
-use Spipu\Html2Pdf\Html2Pdf;
-use Symfony\Component\String\UnicodeString;
-use Twig\Error\Error;
 
 class d3_overview_controller_pdfdocumentsTest extends TestCase
 {
@@ -142,6 +121,35 @@ class d3_overview_controller_pdfdocumentsTest extends TestCase
     {
         yield 'is dev' => [true];
         yield 'is prod' => [false];
+    }
+
+    /**
+     * @test
+     * @covers \D3\PdfDocuments\Modules\Application\Controller\d3_overview_controller_pdfdocuments::d3PdfDocsIsDevMode
+     * @throws ReflectionException
+     */
+    public function testPdfDocsIsDevModeUnknownSetting(): void
+    {
+        $settingService = $this->getMockBuilder(ModuleSettingService::class)
+            ->onlyMethods(['getBoolean'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $settingService->method('getBoolean')->willThrowException(new Exception());
+
+        $this->addServiceMocks([ModuleSettingServiceInterface::class => $settingService]);
+
+        $sut = oxNew(d3_overview_controller_pdfdocuments::class);
+
+        try {
+            $this->assertFalse(
+                $this->callMethod(
+                    $sut,
+                    'd3PdfDocsIsDevMode'
+                )
+            );
+        } finally {
+            ContainerFactory::resetContainer();
+        }
     }
 
     /**

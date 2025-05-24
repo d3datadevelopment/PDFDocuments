@@ -13,7 +13,6 @@
 
 namespace D3\PdfDocuments\Tests\Unit\Application\Model\Exceptions;
 
-use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\TestingTools\Development\CanAccessRestricted;
 use PHPUnit\Framework\TestCase;

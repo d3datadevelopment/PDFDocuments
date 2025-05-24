@@ -70,9 +70,8 @@ class orderDocument implements pdfdocumentsOrderInterface
         return 'filenameExtension';
     }
 
-    public function setDevelopmentMode(bool $devMode)
+    public function setDevelopmentMode(bool $devMode): void
     {
-        return false;
     }
 
     public function setOrder(Order $order): void

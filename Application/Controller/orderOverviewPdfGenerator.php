@@ -27,27 +27,29 @@ use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServ
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Throwable;
 
 class orderOverviewPdfGenerator
 {
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     * @throws noPdfHandlerFoundException
-     */
     public function generatePdf(Order $order, int $iSelLang = 0): void
     {
-        $Pdf = $this->getPdfClass();
+        try {
+            $Pdf = $this->getPdfClass();
 
-        /** @var ModuleSettingService $settingsService */
-        $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
+            /** @var ModuleSettingService $settingsService */
+            $settingsService = ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
 
-        $Pdf->setDevelopmentMode(
-            $settingsService->getBoolean('d3PdfDocumentsbDev', Constants::OXID_MODULE_ID) &&
-            Registry::getRequest()->getRequestEscapedParameter('devmode')
-        );
-        $Pdf->setOrder($order);
-        $Pdf->downloadPdf($iSelLang);
+            $Pdf->setDevelopmentMode(
+                $settingsService->getBoolean('d3PdfDocumentsbDev', Constants::OXID_MODULE_ID) &&
+                Registry::getRequest()->getRequestEscapedParameter('devmode')
+            );
+            $Pdf->setOrder($order);
+            $Pdf->downloadPdf($iSelLang);
+        // @codeCoverageIgnoreStart
+        } catch (Throwable $exception) {
+            Registry::getUtilsView()->addErrorToDisplay($exception);
+        }
+        // @codeCoverageIgnoreEnd
     }
 
     /**

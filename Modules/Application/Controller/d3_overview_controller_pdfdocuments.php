@@ -17,12 +17,10 @@ use Assert\Assert;
 use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
 use D3\PdfDocuments\Application\Model\Constants;
-use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverviewInterface;
 use Doctrine\DBAL\Driver\Exception as DBALDriverException;
 use ErrorException;
-use Exception;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -36,12 +34,16 @@ use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServ
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Throwable;
 
 class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocuments_parent
 {
     protected ?string $generatorError = null;
     protected bool $doReload = false;
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $this->addTplParam('d3PdfDocumentGeneratorList', $this->d3getGeneratorList());
@@ -76,15 +78,17 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
         return parent::render();
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function d3PdfDocsIsDevMode(): bool
     {
-        /** @var ModuleSettingService $settingsService */
-        $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
-        return $settingsService->getBoolean('d3PdfDocumentsbDev', Constants::OXID_MODULE_ID);
+        try {
+            /** @var ModuleSettingService $settingsService */
+            $settingsService = ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
+            return $settingsService->getBoolean('d3PdfDocumentsbDev', Constants::OXID_MODULE_ID);
+        } catch (Throwable $exception) {
+            Registry::getUtilsView()->addErrorToDisplay($exception);
+        }
+
+        return false;
     }
 
     /**
@@ -116,11 +120,6 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
         }
     }
 
-    /**
-     * @throws noPdfHandlerFoundException
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function d3CreatePDF(): void
     {
         try {
@@ -136,7 +135,7 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
             Assert::that($oOrder->load($soxId))->true();
             $generator = $this->d3PdfGetGeneratorController();
             $generator->generatePdf($oOrder, $language);
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->doReload = true;
             Registry::getLogger()->error($exception->getMessage(), [ 'exception' => $exception ]);
             $this->generatorError = 'PDF documents: ' . $exception->getMessage();
@@ -162,15 +161,13 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
     }
 
     /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @codeCoverageIgnore
      */
     public function d3getGeneratorList(): ?registryOrderoverview
     {
         try {
             return ContainerFactory::getInstance()->getContainer()->get( registryOrderoverviewInterface::class );
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             Registry::getUtilsView()->addErrorToDisplay($exception->getMessage());
         }
 

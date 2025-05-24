@@ -23,6 +23,8 @@ use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Exception\ModuleConfigurationNotFoundException;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Exception\ModuleSettingNotFountException;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
@@ -72,6 +74,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws ModuleConfigurationNotFoundException
+     * @throws ModuleSettingNotFountException
      * @throws NotFoundExceptionInterface
      */
     public function genPdf(string $filename, int $language = 0, string $target = self::PDF_DESTINATION_STDOUT): ?string
@@ -98,6 +102,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws ModuleConfigurationNotFoundException
+     * @throws ModuleSettingNotFountException
      * @throws NotFoundExceptionInterface
      */
     public function downloadPdf(int $language = 0): void
@@ -119,6 +125,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws ModuleConfigurationNotFoundException
+     * @throws ModuleSettingNotFountException
      * @throws NotFoundExceptionInterface
      */
     public function savePdfFile(string $path, int $language = 0): void
@@ -143,6 +151,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     /**
      * @throws ContainerExceptionInterface
      * @throws Html2PdfException
+     * @throws ModuleConfigurationNotFoundException
+     * @throws ModuleSettingNotFountException
      * @throws NotFoundExceptionInterface
      */
     public function getPdfContent(int $language = 0): ?string
@@ -179,6 +189,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     /**
      * @throws ContainerExceptionInterface
+     * @throws ModuleConfigurationNotFoundException
+     * @throws ModuleSettingNotFountException
      * @throws NotFoundExceptionInterface
      */
     public function getHTMLContent(int $language = 0): string
@@ -203,8 +215,12 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     }
 
     /**
+     * @param string $content
+     * @return string
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws ModuleConfigurationNotFoundException
+     * @throws ModuleSettingNotFountException
      */
     protected function addBasicAuth(string $content): string
     {

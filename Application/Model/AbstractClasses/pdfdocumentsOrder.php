@@ -25,8 +25,7 @@ use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
+use Throwable;
 
 abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInterface
 {
@@ -104,22 +103,18 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
         );
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function getPaymentTerm(): int
     {
-        /** @var ModuleSettingService $settingService */
-        $settingService = ContainerFactory::getInstance()->getContainer()
-            ->get(ModuleSettingServiceInterface::class);
-        return $settingService->getInteger('invoicePaymentTerm', Constants::OXID_MODULE_ID);
+        try {
+            /** @var ModuleSettingService $settingService */
+            $settingService = ContainerFactory::getInstance()->getContainer()
+                ->get(ModuleSettingServiceInterface::class);
+            return $settingService->getInteger('invoicePaymentTerm', Constants::OXID_MODULE_ID);
+        } catch (Throwable) {
+            return 7;
+        }
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function getPayableUntilDate(): false|int
     {
         $startDate = $this->getOrder()->getFieldData('oxbilldate');
