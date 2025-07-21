@@ -177,6 +177,13 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
      */
     public function exception_error_handler(int $errno, string $errstr, ?string $errfile = null, ?int $errline  = null): void
     {
+        // don't catch stupid OXID errors when getting bill country name
+        if ((stristr($errstr, "Undefined property:") && stristr($errstr, "oxbillcountry")) ||
+            (stristr($errstr, 'Attempt to read property "value" on null'))
+        ) {
+            return;
+        }
+
         if (!(error_reporting() & $errno)) {
             // This error code is not included in error_reporting
             return;
