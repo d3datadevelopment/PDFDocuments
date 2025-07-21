@@ -16,7 +16,6 @@ namespace D3\PdfDocuments\Modules\Application\Controller;
 use Assert\Assert;
 use Assert\InvalidArgumentException;
 use D3\PdfDocuments\Application\Controller\orderOverviewPdfGenerator;
-use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Exceptions\noPdfHandlerFoundException;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverviewInterface;
@@ -32,8 +31,6 @@ use OxidEsales\Eshop\Core\TableViewNameGenerator;
 use OxidEsales\Eshop\Core\ViewHelper\JavaScriptRegistrator;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -77,14 +74,11 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
     }
 
     /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
+     * @return bool
      */
     public function d3PdfDocsIsDevMode(): bool
     {
-        /** @var ModuleSettingService $settingsService */
-        $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
-        return $settingsService->getBoolean('d3PdfDocumentsbDev', Constants::OXID_MODULE_ID);
+        return Registry::getConfig()->getConfigParam('d3PdfDocumentsbDev');
     }
 
     /**

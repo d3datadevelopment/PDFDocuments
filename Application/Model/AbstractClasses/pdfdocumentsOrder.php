@@ -17,14 +17,11 @@ namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\Assert;
 use Assert\InvalidArgumentException;
-use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderInterface as orderInterface;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Application\Model\Payment;
 use OxidEsales\Eshop\Application\Model\User;
-use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
+use OxidEsales\Eshop\Core\Registry;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -105,15 +102,11 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
     }
 
     /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
+     * @return int
      */
     public function getPaymentTerm(): int
     {
-        /** @var ModuleSettingService $settingService */
-        $settingService = ContainerFactory::getInstance()->getContainer()
-            ->get(ModuleSettingServiceInterface::class);
-        return $settingService->getInteger('invoicePaymentTerm', Constants::OXID_MODULE_ID);
+        return Registry::getConfig()->getConfigParam('invoicePaymentTerm');
     }
 
     /**

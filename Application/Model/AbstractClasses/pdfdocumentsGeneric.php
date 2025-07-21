@@ -16,15 +16,12 @@ declare(strict_types=1);
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\InvalidArgumentException;
-use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
 use Exception;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use Psr\Container\ContainerExceptionInterface;
@@ -92,7 +89,17 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     protected function getHtml2Pdf(): Html2Pdf
     {
-        return oxNew(Html2Pdf::class, ...$this->getPdfProperties());
+        $properties = $this->getPdfProperties();
+        return oxNew(
+            Html2Pdf::class,
+            $properties['orientation'],
+            $properties['format'],
+            $properties['lang'],
+            $properties['unicode'],
+            $properties['encoding'],
+            $properties['margins'],
+            $properties['pdfa']
+        );
     }
 
     /**
@@ -208,13 +215,11 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     protected function addBasicAuth(string $content): string
     {
-        /** @var ModuleSettingService $settingsService */
-        $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
         $username = trim(
-            (string) $settingsService->getString('d3PdfDocumentsbasicAuthUserName', Constants::OXID_MODULE_ID)
+            Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthUserName')
         );
         $password = trim(
-            (string) $settingsService->getString('d3PdfDocumentsbasicAuthPassword', Constants::OXID_MODULE_ID)
+            Registry::getConfig()->getConfigParam('d3PdfDocumentsbasicAuthPassword')
         );
 
         if ($username && $password) {

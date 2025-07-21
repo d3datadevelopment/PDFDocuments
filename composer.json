@@ -38,7 +38,7 @@
   "require": {
     "php": "^7.0 || ^8.0",
     "oxid-esales/oxideshop-ce": "6.3 - 6.14",
-    "spipu/html2pdf": "~5.2.8",
+    "spipu/html2pdf": "^5.3.3",
     "d3/modcfg": "^5.3.6.000 || ^6",
     "beberlei/assert": "^3.3.2",
     "symfony/string": "^6"

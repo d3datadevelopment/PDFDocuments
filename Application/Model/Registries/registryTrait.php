@@ -2,15 +2,12 @@
 
 namespace D3\PdfDocuments\Application\Model\Registries;
 
-use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Documents\deliverynotePdf;
 use D3\PdfDocuments\Application\Model\Documents\deliverynotewithoutlogoPdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Application\Model\Documents\invoicewithoutlogoPdf;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
-use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
+use OxidEsales\Eshop\Core\Registry;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -23,18 +20,17 @@ trait registryTrait
      */
     public function __construct()
     {
-        /** @var ModuleSettingService $settingsService */
-        $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
-        if ($settingsService->getBoolean('d3PdfDocumentsDocInvoice', Constants::OXID_MODULE_ID)) {
+        $config = Registry::getConfig();
+        if ($config->getConfigParam('d3PdfDocumentsDocInvoice')) {
             $this->addGenerator(invoicePdf::class);
         }
-        if ($settingsService->getBoolean('d3PdfDocumentsDocDeliveryNote', Constants::OXID_MODULE_ID)) {
+        if ($config->getConfigParam('d3PdfDocumentsDocDeliveryNote')) {
             $this->addGenerator(deliverynotePdf::class);
         }
-        if ($settingsService->getBoolean('d3PdfDocumentsDocInvoiceNoLogo', Constants::OXID_MODULE_ID)) {
+        if ($config->getConfigParam('d3PdfDocumentsDocInvoiceNoLogo')) {
             $this->addGenerator(invoicewithoutlogoPdf::class);
         }
-        if ($settingsService->getBoolean('d3PdfDocumentsDocDeliveryNoteNoLogo', Constants::OXID_MODULE_ID)) {
+        if ($config->getConfigParam('d3PdfDocumentsDocDeliveryNoteNoLogo')) {
             $this->addGenerator(deliverynotewithoutlogoPdf::class);
         }
     }
