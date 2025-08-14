@@ -106,7 +106,7 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
      */
     public function getPaymentTerm(): int
     {
-        return Registry::getConfig()->getConfigParam('invoicePaymentTerm');
+        return (int) Registry::getConfig()->getConfigParam('invoicePaymentTerm');
     }
 
     /**
