@@ -413,7 +413,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @return null
      * @throws Exception
      */
-    protected function outputDev_stdout(Html2Pdf $pdf, array|string $filename, string $html)
+    protected function outputDev_stdout(Html2Pdf $pdf, $filename, string $html)
     {
         if (ob_get_contents()) {
             $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
@@ -444,7 +444,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @return null
      * @throws Exception
      */
-    protected function outputDev_download(Html2Pdf $pdf, array|string $filename, string $html)
+    protected function outputDev_download(Html2Pdf $pdf, $filename, string $html)
     {
         if (ob_get_contents()) {
             $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
@@ -480,7 +480,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      * @return null
      * @throws Exception
      */
-    public function outputDev_saveLocal(Html2Pdf $pdf, array|string $filename, string $html)
+    public function outputDev_saveLocal(Html2Pdf $pdf, $filename, string $html)
     {
         $f = fopen($filename, 'wb');
         if (!$f) {

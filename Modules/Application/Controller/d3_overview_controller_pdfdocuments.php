@@ -105,7 +105,8 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
                 );
 
             return (bool) $queryBuilder->execute()->fetchOne();
-        } catch (NotFoundExceptionInterface|ContainerExceptionInterface|DBALException|InvalidArgumentException) {
+        } catch (NotFoundExceptionInterface|ContainerExceptionInterface|DBALException|InvalidArgumentException $e) {
+            unset($e);
             return false;
         }
     }

@@ -59,7 +59,7 @@ abstract class registryAbstract implements registryGenericInterface
             throw $exception;
         }
 
-        $this->registry[$item::class] = $item;
+        $this->registry[get_class($item)] = $item;
     }
 
     /**

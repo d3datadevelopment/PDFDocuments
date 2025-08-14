@@ -13,9 +13,9 @@ PDF document generator for OXID eShop
 
 Create a wide variety of static or dynamic PDF documents at the touch of a button. The document content is created from templates (Smarty or Twig).
 
-At the orders of your OXID shop you have the option of creating an invoice and delivery note.
+At the orders of your OXID shop, you have the option of creating an invoice and delivery note.
 
-The module can be easily extended to adapt existing documents or add new ones. Even completely different document types (e.g. article data sheets or pick lists) are possible.
+The module can be easily extended to adapt existing documents or add new ones. Even completely different document types (e.g., article data sheets or pick lists) are possible.
 
 ## System requirements:
 
@@ -48,6 +48,6 @@ Detailed installation instructions can be found [online](https://docs.oxidmodule
 
 ## License
 
-This module is distributed under the GPL v3 License. For more information see the ./LICENSE file.
+This module is distributed under the GPL v3 License. For more information, see the ./LICENSE file.
  
 Copyright by D3 Data Development (Inh. Thomas Dartsch)

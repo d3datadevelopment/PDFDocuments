@@ -113,14 +113,15 @@ abstract class pdfdocumentsOrder extends pdfdocumentsGeneric implements orderInt
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function getPayableUntilDate(): false|int
+    public function getPayableUntilDate()
     {
         $startDate = $this->getOrder()->getFieldData('oxbilldate');
 
         try {
             Assert::that($startDate)->date('Y-m-d');
             $startDate = strtotime($startDate);
-        } catch (InvalidArgumentException) {
+        } catch (InvalidArgumentException $e) {
+            unset($e);
             $startDate = strtotime(date('Y-m-d'));
         }
 
