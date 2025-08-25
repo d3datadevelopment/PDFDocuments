@@ -1,5 +1,5 @@
 table{
-  font-family: "helvetica";
+  font-family: sans-serif, "helvetica";
 }
 
 .header {
@@ -10,8 +10,7 @@ table{
 }
 .header img.logo {
   float: right;
-  margin: 10mm;
-  margin-right: 0;
+  margin: 10mm 0 10mm 10mm;
 }
 
 .addressarea,
