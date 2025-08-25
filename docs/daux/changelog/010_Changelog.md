@@ -7,7 +7,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://git.d3data.de/D3Public/pdfdokumente/compare/2.0.2.0...rel_2.x)
+## [Unreleased](https://git.d3data.de/D3Public/pdfdokumente/compare/2.1.0.0...rel_2.x)
+
+## [2.1.0.0](https://git.d3data.de/D3Public/pdfdokumente/compare/2.0.2.0...2.1.0.0) - 2025-08-25
+### Added
+- OrderOverview controller show the PDF generator exception message
+- register shop host as allowed to prevent security check issues
+- can add basic auth credentials to load image file from protected shop
+- some template blocks
+- make payable until date configurable
+- select included documents for generating
+- make logo and background image configurable
+- add page depended header and footer layout 
+- can handle hidden header and footer on certain pages
+
+### Changed
+- sanitizing filenames from umlauts and accents
+- development mode ask for document type
 
 ## [2.0.2.0](https://git.d3data.de/D3Public/pdfdokumente/compare/2.0.1.1...2.0.2.0) - 2025-01-21
 ### Added
