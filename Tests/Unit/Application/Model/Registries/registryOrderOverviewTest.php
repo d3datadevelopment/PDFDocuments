@@ -14,13 +14,10 @@
 namespace D3\PdfDocuments\Tests\Unit\Application\Model\Registries;
 
 use D3\PdfDocuments\Application\Model\Constants;
-use D3\PdfDocuments\Application\Model\Documents\invoicePdf;
 use D3\PdfDocuments\Application\Model\Exceptions\wrongPdfGeneratorInterface;
 use D3\PdfDocuments\Application\Model\Registries\registryOrderoverview;
-use D3\PdfDocuments\Tests\Unit\Helpers\nonOrderDocument;
 use D3\PdfDocuments\Tests\Unit\Helpers\orderDocument;
 use D3\TestingTools\Development\CanAccessRestricted;
-use Exception;
 use Generator;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;

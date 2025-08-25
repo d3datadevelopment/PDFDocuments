@@ -23,7 +23,6 @@ use Doctrine\DBAL\Driver\Exception as DBALDriverException;
 use ErrorException;
 use Exception;
 use Doctrine\DBAL\Exception as DBALException;
-use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
@@ -91,7 +90,6 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
             Assert::that($sOrderId)->string()->notSame('-1');
             $viewNameGenerator = Registry::get(TableViewNameGenerator::class);
             $sTable            = $viewNameGenerator->getViewName("oxorderarticles");
-
             /** @var QueryBuilder $queryBuilder */
             $queryBuilder = ContainerFactory::getInstance()->getContainer()->get(QueryBuilderFactoryInterface::class)->create();
             $queryBuilder
@@ -100,10 +98,9 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
                 ->where(
                     $queryBuilder->expr()->and(
                         $queryBuilder->expr()->eq('oxorderid', $queryBuilder->createNamedParameter($sOrderId)),
-                        $queryBuilder->expr()->eq('oxstorno', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER))
+//                        $queryBuilder->expr()->eq('oxstorno', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER))
                     )
                 );
-
             return (bool) $queryBuilder->execute()->fetchOne();
         } catch (NotFoundExceptionInterface|ContainerExceptionInterface|DBALException|InvalidArgumentException $e) {
             unset($e);
