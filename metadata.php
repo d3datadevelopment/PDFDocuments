@@ -24,7 +24,7 @@ $aModule = [
         'de'        => '(D3) PDF-Dokumente',
         'en'        => '(D3) PDF documents',
     ],
-    'version'       => '1.0.4.0',
+    'version'       => '1.1.0.0',
     'author'        => 'D3 Data Development (Inh.: Thomas Dartsch)',
     'email'         => 'support@shopmodule.com',
     'url'           => 'https://www.oxidmodule.com/',
