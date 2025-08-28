@@ -1,5 +1,5 @@
 table{
-  font-family: sans-serif, "helvetica";
+  font-family: "helvetica";
 }
 
 .header {
