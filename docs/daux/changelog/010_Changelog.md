@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://git.d3data.de/D3Public/pdfdokumente/compare/2.1.0.0...rel_2.x)
 
+## [2.1.0.1](https://git.d3data.de/D3Public/pdfdokumente/compare/2.1.0.0...2.1.0.1) - 2025-10-13
+### Fixed
+- not includable font definition removed
+- switch between frontend and backend context
+
 ## [2.1.0.0](https://git.d3data.de/D3Public/pdfdokumente/compare/2.0.2.0...2.1.0.0) - 2025-08-25
 ### Added
 - OrderOverview controller show the PDF generator exception message
