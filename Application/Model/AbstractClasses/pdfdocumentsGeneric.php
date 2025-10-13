@@ -195,8 +195,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
      */
     public function getHTMLContent(int $language = 0): string
     {
-        $blCurrentRenderFromAdmin = self::$_blIsAdmin;
-        self::$_blIsAdmin = $this->renderTemplateFromAdmin();
+        $lastRenderFromAdmin = $this->setAdminContext($this->renderTemplateFromAdmin());
 
         $lang = Registry::getLang();
         $currTplLang = $lang->getTplLanguage();
@@ -209,9 +208,25 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
         $lang->setTplLanguage($currTplLang);
 
-        self::$_blIsAdmin = $blCurrentRenderFromAdmin;
+        $this->setAdminContext($lastRenderFromAdmin);
 
         return $this->addBasicAuth($content);
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function setAdminContext(bool $blAdmin): bool
+    {
+        $config = Registry::getConfig();
+        $isAdmin = $config->isAdmin();
+
+        if ($config->isAdmin() !== $blAdmin) {
+            $config->setAdminMode($blAdmin);
+            ContainerFactory::resetContainer();
+        }
+
+        return $isAdmin;
     }
 
     /**
