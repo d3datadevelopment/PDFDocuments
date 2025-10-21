@@ -18,7 +18,7 @@ use D3\PdfDocuments\Application\Model\Constants;
 // @codeCoverageIgnoreStart
 $basicAuthHelp = <<<HELP
     If the current shop is protected by a BasicAuth, the images cannot be loaded when the PDF is generated. Enter the access data here to view the images.  
-    HELP;
+HELP;
 
 return [
     'charset'                                            => 'utf-8',
