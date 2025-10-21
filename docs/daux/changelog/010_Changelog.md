@@ -7,13 +7,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://git.d3data.de/D3Public/pdfdokumente/compare/1.1.0.1...rel_1.x)
+## [Unreleased](https://git.d3data.de/D3Public/pdfdokumente/compare/1.1.0.2...rel_1.x)
 
-## [1.1.0.1](https://git.d3data.de/D3Public/pdfdokumente/compare/1.1.0.0...1.1.0.1) - 2025-10-21
+## [1.1.0.2](https://git.d3data.de/D3Public/pdfdokumente/compare/1.1.0.1...1.1.0.2) - 2025-10-21
 ### Fixed
-- gesamter Admin unerreichbar bei aktivem Modul
+- wegen inkompatiblem Code PHP 7 als Abhängigkeit entfernt, installierbar ausschließlich in PHP 8
+### removed
+- Support für PHP 7, Support für OXID 6.1 + 6.2
 
-## [1.1.0.0](https://git.d3data.de/D3Public/pdfdokumente/compare/1.0.4.0...1.1.0.0) - 2025-08-25
+## [1.1.0.1](https://git.d3data.de/D3Public/pdfdokumente/compare/1.1.0.0...1.1.0.1) removed - 2025-10-21
+### Fixed
+- Syntaxfehler in Übersetzungsdatei für Backend korrigiert
+
+## [1.1.0.0](https://git.d3data.de/D3Public/pdfdokumente/compare/1.0.4.0...1.1.0.0) removed - 2025-08-25
 ### Added
 - OrderOverview controller show the PDF generator exception message
 - register shop host as allowed to prevent security check issues
