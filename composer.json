@@ -52,7 +52,7 @@
     "phpstan": "./vendor/bin/phpstan --configuration=vendor/d3/pdfdocuments/phpstan.neon analyse",
     "phpstan-report": "./vendor/bin/phpstan --configuration=vendor/d3/pdfdocuments/phpstan.neon analyse --error-format=json > vendor/d3/pdfdocuments/Tests/phpstan.report.json",
 
-    "phpunit": "XDEBUG_MODE=off ./vendor/bin/phpunit --config=vendor/d3/pdfdocuments/Tests/",
+    "phpunit": "XDEBUG_MODE=off ./vendor/bin/phpunit --config=vendor/d3/pdfdocuments/Tests/ --no-coverage",
     "phpunit-line-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --config=vendor/d3/pdfdocuments/Tests/ --coverage-html=vendor/d3/pdfdocuments/Tests/result/coverage",
     "phpunit-path-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --config=vendor/d3/pdfdocuments/Tests/ --coverage-html=vendor/d3/pdfdocuments/Tests/result/coverage --path-coverage",
 
