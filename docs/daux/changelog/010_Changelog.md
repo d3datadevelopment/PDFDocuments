@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://git.d3data.de/D3Public/pdfdokumente/compare/2.1.0.0...rel_2.x)
 
+## [2.1.1.0](https://git.d3data.de/D3Public/pdfdokumente/compare/2.1.0.1...2.1.1.0) - 2026-02-06
+### Added
+- make installable in OXID 7.4
+
 ## [2.1.0.1](https://git.d3data.de/D3Public/pdfdokumente/compare/2.1.0.0...2.1.0.1) - 2025-10-13
 ### Fixed
 - not includable font definition removed
