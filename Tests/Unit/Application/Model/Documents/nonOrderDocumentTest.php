@@ -227,7 +227,7 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
         $sut->expects($getTypeInvocation)->method('getTypeForFilename')->willReturn('docType');
 
         if ($setFileName) {
-            $sut->setFileName($setFileName);
+            $sut->setFilename( $setFileName);
         }
 
         $this->assertSame(
@@ -414,8 +414,8 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
         ob_end_clean();
 
         $this->assertSame(
-            $output,
-            'htmlFixture'
+            'htmlFixture',
+            $output
         );
     }
 
@@ -489,8 +489,8 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
         ob_end_clean();
 
         $this->assertSame(
-            $output,
-            'htmlFixture'
+            'htmlFixture',
+            $output
         );
     }
 

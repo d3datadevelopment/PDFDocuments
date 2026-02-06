@@ -15,7 +15,7 @@ namespace D3\PdfDocuments\Tests\Unit\Helpers;
 
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric;
 
-class nonOrderDocument extends pdfDocumentsGeneric
+class nonOrderDocument extends pdfdocumentsGeneric
 {
     public function getRequestId(): string
     {

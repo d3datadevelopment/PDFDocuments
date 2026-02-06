@@ -33,6 +33,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\MyPdf;
 use Symfony\Component\String\UnicodeString;
 
 abstract class pdfdocumentsGeneric extends Base implements genericInterface
@@ -87,10 +88,12 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($language);
         $oPdf->writeHTML($htmlContent);
-        $oPdf->pdf->setAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
-        $oPdf->pdf->setTitle(Registry::getLang()->translateString($this->getTitleIdent()));
-        $oPdf->pdf->setCreator('D³ PDF Documents for OXID eShop');
-        $oPdf->pdf->setSubject(null);
+        /** @var MyPdf $myPdf */
+        $myPdf = $oPdf->pdf;
+        $myPdf->setAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
+        $myPdf->setTitle(Registry::getLang()->translateString($this->getTitleIdent()));
+        $myPdf->setCreator('D³ PDF Documents for OXID eShop');
+        $myPdf->setSubject(null);
         return $this->output($oPdf, $filename, $target, $htmlContent);
     }
 
@@ -213,9 +216,6 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         return $this->addBasicAuth($content);
     }
 
-    /**
-     * @throws Exception
-     */
     protected function setAdminContext(bool $blAdmin): bool
     {
         $config = Registry::getConfig();

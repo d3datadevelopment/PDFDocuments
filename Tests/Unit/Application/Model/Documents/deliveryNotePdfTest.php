@@ -19,7 +19,7 @@ use Generator;
 
 class deliveryNotePdfTest extends pdfDocumentsOrder
 {
-    protected string $sutClassName = deliveryNotePdf::class;
+    protected string $sutClassName = deliverynotePdf::class;
 
     public static function getFileNameDataProvider(): Generator
     {
