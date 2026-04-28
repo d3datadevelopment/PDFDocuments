@@ -31,6 +31,7 @@ use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use ReflectionClass;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\MyPdf;
@@ -223,7 +224,12 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
         if ($config->isAdmin() !== $blAdmin) {
             $config->setAdminMode($blAdmin);
-            ContainerFactory::resetContainer();
+
+            $refClass = new ReflectionClass(ContainerFactory::class);
+
+            $instanceProp = $refClass->getProperty('instance');
+            $instanceProp->setAccessible(true);
+            $instanceProp->setValue(null, null);
         }
 
         return $isAdmin;
