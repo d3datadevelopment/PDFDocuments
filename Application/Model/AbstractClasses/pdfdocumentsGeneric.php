@@ -53,6 +53,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public ?string $filename = null;
 
     protected bool $devMode = false;
+    private string $creator = '';
 
     public function setDevelopmentMode(bool $devMode): void
     {
@@ -93,9 +94,25 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $myPdf = $oPdf->pdf;
         $myPdf->setAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
         $myPdf->setTitle(Registry::getLang()->translateString($this->getTitleIdent()));
-        $myPdf->setCreator('D³ PDF Documents for OXID eShop');
+        $myPdf->setCreator($this->getCreator());
         $myPdf->setSubject(null);
         return $this->output($oPdf, $filename, $target, $htmlContent);
+    }
+
+    public function setCreator(string $creator): void
+    {
+        $this->creator = $creator;
+    }
+
+    protected function getCreator(): string
+    {
+        $creator = 'D³ PDF Documents for OXID eShop';
+
+        if ($this->creator) {
+            $creator .= ' + '.$this->creator;
+        }
+
+        return $creator;
     }
 
     protected function getHtml2Pdf(): Html2Pdf

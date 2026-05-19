@@ -23,6 +23,8 @@ interface pdfdocumentsGenericInterface
 
     public function getTitleIdent(): string;
 
+    public function setCreator(string $creator): void;
+
     public function getTemplate(): string;
 
     public function getHTMLContent(): string;
