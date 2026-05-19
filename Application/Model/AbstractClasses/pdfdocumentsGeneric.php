@@ -54,6 +54,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     protected bool $devMode = false;
     private string $creator = '';
+    private ?string $keywords = null;
+    private ?string $subject = null;
 
     public function setDevelopmentMode(bool $devMode): void
     {
@@ -95,7 +97,8 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $myPdf->setAuthor(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
         $myPdf->setTitle(Registry::getLang()->translateString($this->getTitleIdent()));
         $myPdf->setCreator($this->getCreator());
-        $myPdf->setSubject(null);
+        $myPdf->setKeywords($this->getKeywords());
+        $myPdf->setSubject($this->getSubject());
         return $this->output($oPdf, $filename, $target, $htmlContent);
     }
 
@@ -556,5 +559,35 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     protected function headersSent(): bool
     {
         return headers_sent();
+    }
+
+    public function setKeywords(?string $keywords): void
+    {
+        $this->keywords = $keywords;
+    }
+
+    public function addKeyword(string $keyword): void
+    {
+        $this->keywords = implode(',', array_filter(
+            [
+                $this->keywords,
+                $keyword
+            ]
+        ));
+    }
+
+    protected function getKeywords(): ?string
+    {
+        return $this->keywords;
+    }
+
+    public function setSubject(?string $subject): void
+    {
+        $this->subject = $subject;
+    }
+
+    protected function getSubject(): ?string
+    {
+        return $this->subject;
     }
 }

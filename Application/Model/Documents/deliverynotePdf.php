@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace D3\PdfDocuments\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
+use OxidEsales\Eshop\Core\Registry;
 
 /**
  * @codeCoverageIgnore
@@ -35,6 +36,22 @@ class deliverynotePdf extends pdfdocumentsOrder
     public function getTypeForFilename(): string
     {
         return 'delnote';
+    }
+
+    public function runPreAction(): void
+    {
+        parent::runPreAction();
+
+        $this->addKeyword('deliverynote');
+        $this->addKeyword('shop-'.str_replace(',', ' ', Registry::getConfig()->getActiveShop()->getFieldData('oxname')));
+        $this->addKeyword('orderdate-'.$this->getOrder()->getFieldData('oxorderdate'));
+        $this->addKeyword('ordernr-'.$this->getOrder()->getFieldData('oxordernr'));
+
+        $this->setSubject(sprintf(
+            Registry::getLang()->translateString('D3_PDFDOCUMENTS_ORDER_DELNOTE_FROM_AT', null, false),
+            $this->getOrder()->getFieldData('oxordernr'),
+            $this->getOrder()->getFieldData('oxorderdate')
+        ));
     }
 
     public function getTemplate(): string

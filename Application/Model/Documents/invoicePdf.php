@@ -17,6 +17,7 @@ namespace D3\PdfDocuments\Application\Model\Documents;
 
 use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsOrder;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsOrderinvoiceInterface;
+use OxidEsales\Eshop\Core\Registry;
 
 class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceInterface
 {
@@ -50,6 +51,18 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
     {
         parent::runPreAction();
 
+        $this->addKeyword('invoice');
+        $this->addKeyword('shop-'.str_replace(',', ' ', Registry::getConfig()->getActiveShop()->getFieldData('oxname')));
+        $this->addKeyword('orderdate-'.$this->getOrder()->getFieldData('oxorderdate'));
+        $this->addKeyword('ordernr-'.$this->getOrder()->getFieldData('oxordernr'));
+
+        $this->setSubject(sprintf(
+            Registry::getLang()->translateString('D3_PDFDOCUMENTS_ORDER_INVOICE_FROM_AT', null, false),
+            $this->getOrder()->getFieldData('oxbillnr'),
+            $this->getOrder()->getFieldData('oxordernr'),
+            $this->getOrder()->getFieldData('oxorderdate')
+        ));
+
         $this->setInvoiceNumber();
         $this->setInvoiceDate();
         $this->saveOrderOnChanges();
@@ -62,6 +75,8 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
 
             $this->orderIsChanged = true;
         }
+
+        $this->addKeyword('invoice-'.$this->getOrder()->getFieldData('oxbillnr'));
     }
 
     public function setInvoiceDate(): void
@@ -73,6 +88,8 @@ class invoicePdf extends pdfdocumentsOrder implements pdfdocumentsOrderinvoiceIn
 
             $this->orderIsChanged = true;
         }
+
+        $this->addKeyword('invoicedate-'.$this->getOrder()->getFieldData('oxbilldate'));
     }
 
     public function saveOrderOnChanges(): void

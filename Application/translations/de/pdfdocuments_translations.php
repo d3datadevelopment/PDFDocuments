@@ -43,6 +43,9 @@ return [
     'D3_PDFDOCUMENTS_ORDERNR'                            => 'Bestellnr.',
     'D3_PDFDOCUMENTS_ORDER_FROM_AT'                      => 'Ihre Bestellung vom %1$s bei "%2$s"',
 
+    'D3_PDFDOCUMENTS_ORDER_INVOICE_FROM_AT'              => 'Rechnung %1$s zur Bestellung %2$s vom %3$s',
+    'D3_PDFDOCUMENTS_ORDER_DELNOTE_FROM_AT'              => 'Lieferschein zur Bestellung %2$s vom %3$s',
+
     'D3_PDFDOCUMENTS_AMOUNT'                             => 'Menge',
     'D3_PDFDOCUMENTS_DESCRIPTION'                        => 'Beschreibung',
     'D3_PDFDOCUMENTS_USTPERCENTAGE'                      => 'Ust. %',
