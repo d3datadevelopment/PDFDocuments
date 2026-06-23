@@ -49,16 +49,24 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
         $this->addTplParam('d3PdfDocumentGeneratorList', $this->d3getGeneratorList());
 
         if ($this->doReload) {
+            $generatorError = json_encode(
+                $this->generatorError,
+                JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+            );
             $formReload = <<<HTML
                 <html lang="de">
                 <body>
+                <script type="application/json" id="generatorErrorPayload">
+                {$generatorError}
+                </script>
                 <script>
                 let form = top.basefrm.edit.document.getElementById("transfer");
                 let input = document.createElement("input");
+                const generatorError = JSON.parse(document.getElementById("generatorErrorPayload").textContent);
                 input.setAttribute("type", "hidden");
                 input.setAttribute("name", "generatorError");
                 input.setAttribute("id", "generatorError");
-                input.setAttribute("value", encodeURIComponent('$this->generatorError'));
+                input.value = generatorError;
                 form.appendChild(input);
                 form.submit();
                 </script>

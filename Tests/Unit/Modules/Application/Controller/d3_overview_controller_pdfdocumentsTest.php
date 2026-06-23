@@ -45,16 +45,42 @@ class d3_overview_controller_pdfdocumentsTest extends TestCase
      */
     public function testRenderReload(): void
     {
+        $generatorError = 'error "a" </script> & ü';
+        $expectedEncodedError = json_encode(
+            $generatorError,
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        );
+
         $utils = $this->getMockBuilder(Utils::class)
             ->onlyMethods(['showMessageAndExit'])
             ->getMock();
-        $utils->expects($this->once())->method('showMessageAndExit');
+        $utils->expects($this->once())
+            ->method('showMessageAndExit')
+            ->with($this->callback(
+                static function (string $message) use ($generatorError, $expectedEncodedError): bool {
+                    TestCase::assertStringContainsString(
+                        '<script type="application/json" id="generatorErrorPayload">',
+                        $message
+                    );
+                    TestCase::assertStringContainsString(
+                        $expectedEncodedError,
+                        $message
+                    );
+                    TestCase::assertStringNotContainsString(
+                        $generatorError,
+                        $message
+                    );
+
+                    return true;
+                }
+            ));
 
         Registry::set(Utils::class, $utils);
 
         $sut = oxNew(d3_overview_controller_pdfdocuments::class);
 
         $this->setValue($sut, 'doReload', true);
+        $this->setValue($sut, 'generatorError', $generatorError);
 
         $this->callMethod(
             $sut,
