@@ -224,7 +224,11 @@ abstract class pdfDocumentsOrder extends pdfDocumentsGeneric
     public function testGetPayableUntilDate($billdate, $expected): void
     {
         $order = oxNew(Order::class);
-        $order->assign(['oxbilldate' => $billdate]);
+        $order->assign([
+            'oxbilldate' => $billdate,
+            'oxorderdate' => '2020-01-01',
+            'oxsenddate' => '2020-01-01',
+        ]);
 
         $sut = $this->getMockBuilder($this->sutClassName)
             ->onlyMethods(['getOrder', 'getPaymentTerm'])

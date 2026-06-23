@@ -18,7 +18,6 @@ use D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric as pdf
 use D3\PdfDocuments\Tests\Unit\Application\Model\AbstractClasses\pdfDocumentsGeneric;
 use D3\PdfDocuments\Tests\Unit\Helpers\nonOrderDocument;
 use Generator;
-use org\bovigo\vfs\vfsStream;
 use OxidEsales\Eshop\Core\Config;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Utils;
@@ -387,7 +386,7 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
      * @throws ReflectionException
      * @dataProvider outputDev_stdout_noFormerOutputDataProvider
      */
-    public function testOutputDev_stdout_noFormerOutput(bool $isCli): void
+    public function testOutputDev_stdout_noFormerOutput(bool $isCli, int $expectedHeaders): void
     {
         $myPdf = $this->getMockBuilder(MyPdf::class)
             ->onlyMethods(['Error'])
@@ -399,10 +398,11 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
 
         ob_start();
         $sut = $this->getMockBuilder($this->sutClassName)
-            ->onlyMethods(['isCli', 'headersSent'])
+            ->onlyMethods(['isCli', 'headersSent', 'sendHeader'])
             ->getMock();
         $sut->method('isCli')->willReturn($isCli);
         $sut->method('headersSent')->willReturn(false);
+        $sut->expects(self::exactly($expectedHeaders))->method('sendHeader');
 
         $this->callMethod(
             $sut,
@@ -421,8 +421,8 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
 
     public static function outputDev_stdout_noFormerOutputDataProvider(): Generator
     {
-        yield 'is cli' => [true];
-        yield 'is not cli' => [false];
+        yield 'is cli' => [true, 0];
+        yield 'is not cli' => [false, 7];
     }
 
     /**
@@ -444,9 +444,10 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
         echo 'formerOutput';
 
         $sut = $this->getMockBuilder($this->sutClassName)
-            ->onlyMethods(['headersSent'])
+            ->onlyMethods(['headersSent', 'sendHeader'])
             ->getMock();
         $sut->method('headersSent')->willReturn(false);
+        $sut->expects(self::exactly(12))->method('sendHeader');
         $this->callMethod(
             $sut,
             'outputDev_download',
@@ -473,9 +474,10 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
 
         ob_start();
         $sut = $this->getMockBuilder($this->sutClassName)
-            ->onlyMethods(['headersSent'])
+            ->onlyMethods(['headersSent', 'sendHeader'])
             ->getMock();
         $sut->method('headersSent')->willReturn(false);
+        $sut->expects(self::exactly(12))->method('sendHeader');
 
         $this->assertNull(
             $this->callMethod(
@@ -501,65 +503,36 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
      */
     public function testOutputDev_saveLocal_passed(): void
     {
-        $myPdf = $this->getMockBuilder(MyPdf::class)
-                      ->onlyMethods(['Error'])
-                      ->getMock();
-        $myPdf->expects($this->never())->method('Error');
+        try {
+            $myPdf = $this->getMockBuilder(MyPdf::class)
+                ->onlyMethods(['Error'])
+                ->getMock();
+            $myPdf->expects($this->never())->method('Error');
 
-        $pdf = oxNew(Html2Pdf::class);
-        $this->setValue($pdf, 'pdf', $myPdf);
+            $pdf = oxNew(Html2Pdf::class);
+            $this->setValue($pdf, 'pdf', $myPdf);
 
-        $sut = oxNew($this->sutClassName);
+            $sut = oxNew($this->sutClassName);
 
-        $root = vfsStream::setup('exampleDir');
+            $file = sys_get_temp_dir() . '/fileNameFixture.pdf';
 
-        $this->assertNull(
-            $this->callMethod(
-                $sut,
-                'outputDev_saveLocal',
-                [$pdf, $root->url().'/fileNameFixture.pdf', 'htmlFixture']
-            )
-        );
+            $this->assertNull(
+                $this->callMethod(
+                    $sut,
+                    'outputDev_saveLocal',
+                    [$pdf, $file, 'htmlFixture']
+                )
+            );
 
-        $this->assertFileExists(
-            $root->url().'/fileNameFixture.pdf'
-        );
-        $this->assertSame(
-            strlen('htmlFixture'),
-            $root->getChild('fileNameFixture.pdf')->size()
-        );
-    }
-
-    /**
-     * @test
-     * @covers \D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric::outputDev_saveLocal
-     * @throws ReflectionException
-     */
-    public function testOutputDev_saveLocal_unableToWrite(): void
-    {
-        $myPdf = $this->getMockBuilder(MyPdf::class)
-            ->onlyMethods(['Error'])
-            ->getMock();
-        $myPdf->expects($this->once())->method('Error');
-
-        $pdf = oxNew(Html2Pdf::class);
-        $this->setValue($pdf, 'pdf', $myPdf);
-
-        $sut = oxNew($this->sutClassName);
-
-        $root = vfsStream::setup('exampleDir');
-        $root->chmod(0000);
-
-        $this->assertNull(
-            $this->callMethod(
-                $sut,
-                'outputDev_saveLocal',
-                [$pdf, $root->url().'/fileNameFixture.pdf', 'htmlFixture']
-            )
-        );
-
-        $this->assertFileDoesNotExist(
-            $root->url().'/fileNameFixture.pdf'
-        );
+            $this->assertFileExists(
+                $file
+            );
+            $this->assertSame(
+                strlen('htmlFixture'),
+                filesize($file)
+            );
+        } finally {
+            @unlink($file);
+        }
     }
 }

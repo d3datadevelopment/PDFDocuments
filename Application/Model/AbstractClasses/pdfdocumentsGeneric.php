@@ -471,18 +471,18 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
             $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
         }
         if (!$this->isCli()) {
-            header('Content-Type: text/html');
+            $this->sendHeader('Content-Type: text/html');
             // @codeCoverageIgnoreStart
             if ($this->headersSent()) {
                 $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
             }
             // @codeCoverageIgnoreEnd
-            header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
-            header('Pragma: public');
-            header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-            header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-            header('Content-Length: ' . strlen($html));
-            header('Content-Disposition: inline; filename="' . basename($filename) . '";');
+            $this->sendHeader('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
+            $this->sendHeader('Pragma: public');
+            $this->sendHeader('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+            $this->sendHeader('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+            $this->sendHeader('Content-Length: ' . strlen($html));
+            $this->sendHeader('Content-Disposition: inline; filename="' . basename($filename) . '";');
         }
         echo $html;
 
@@ -501,28 +501,36 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         if (ob_get_contents()) {
             $pdf->pdf->Error('Some data has already been output, can\'t send PDF file');
         }
-        header('Content-Description: File Transfer');
+        $this->sendHeader('Content-Description: File Transfer');
         // @codeCoverageIgnoreStart
         if ($this->headersSent()) {
             $pdf->pdf->Error('Some data has already been output to browser, can\'t send PDF file');
         }
         // @codeCoverageIgnoreEnd
-        header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
-        header('Pragma: public');
-        header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        $this->sendHeader('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
+        $this->sendHeader('Pragma: public');
+        $this->sendHeader('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        $this->sendHeader('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
         // force download dialog
-        header('Content-Type: application/force-download');
-        header('Content-Type: application/octet-stream', false);
-        header('Content-Type: application/download', false);
-        header('Content-Type: text/sgml', false);
+        $this->sendHeader('Content-Type: application/force-download');
+        $this->sendHeader('Content-Type: application/octet-stream', false);
+        $this->sendHeader('Content-Type: application/download', false);
+        $this->sendHeader('Content-Type: text/sgml', false);
         // use the Content-Disposition header to supply a recommended filename
-        header('Content-Disposition: attachment; filename="' . basename($filename) . '";');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: ' . strlen($html));
+        $this->sendHeader('Content-Disposition: attachment; filename="' . basename($filename) . '";');
+        $this->sendHeader('Content-Transfer-Encoding: binary');
+        $this->sendHeader('Content-Length: ' . strlen($html));
         echo $html;
 
         return null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function sendHeader(string $header): void
+    {
+        header($header);
     }
 
     /**

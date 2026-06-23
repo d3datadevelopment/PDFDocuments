@@ -38,17 +38,33 @@ class invoicePdfTest extends pdfDocumentsOrder
      */
     public function testPreAction(): void
     {
-        $sut = $this->getMockBuilder($this->sutClassName)
-            ->onlyMethods(['setInvoiceNumber', 'setInvoiceDate', 'saveOrderOnChanges'])
-            ->getMock();
-        $sut->expects($this->once())->method('setInvoiceNumber');
-        $sut->expects($this->once())->method('setInvoiceDate');
-        $sut->expects($this->once())->method('saveOrderOnChanges');
+        $orderFixture = oxNew(Order::class);
+        $orderFixture->assign([
+            'oxorderdate' => date('Y-m-d'),
+            'oxsenddate' => date('Y-m-d'),
+        ]);
+        $orderFixture->save();
 
-        $this->callMethod(
-            $sut,
-            'runPreAction',
-        );
+        try {
+            $loadedOrder = oxNew(Order::class);
+            $loadedOrder->load($orderFixture->getId());
+
+            /** @var invoicePdf $sut */
+            $sut = $this->getMockBuilder($this->sutClassName)
+                ->onlyMethods(['setInvoiceNumber', 'setInvoiceDate', 'saveOrderOnChanges'])
+                ->getMock();
+            $sut->expects($this->once())->method('setInvoiceNumber');
+            $sut->expects($this->once())->method('setInvoiceDate');
+            $sut->expects($this->once())->method('saveOrderOnChanges');
+            $sut->setOrder($loadedOrder);
+
+            $this->callMethod(
+                $sut,
+                'runPreAction',
+            );
+        } finally {
+            $orderFixture->delete();
+        }
     }
 
     /**

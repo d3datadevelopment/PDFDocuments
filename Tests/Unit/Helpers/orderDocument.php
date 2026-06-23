@@ -87,4 +87,20 @@ class orderDocument implements pdfdocumentsOrderInterface
     {
         return 'typeForFilename';
     }
+
+    public function setCreator(string $creator): void
+    {
+    }
+
+    public function setKeywords(?string $keywords): void
+    {
+    }
+
+    public function addKeyword(string $keyword): void
+    {
+    }
+
+    public function setSubject(?string $subject): void
+    {
+    }
 }
