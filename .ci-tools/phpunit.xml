@@ -17,7 +17,7 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd">
   <testsuites>
     <testsuite name="Unit">
-      <directory>Unit/</directory>
+      <directory>../Tests/Unit/</directory>
     </testsuite>
     <!--    <testsuite name="Integration">-->
     <!--      <directory>integration/</directory>-->
@@ -28,9 +28,8 @@
       <directory suffix=".php">../</directory>
     </include>
     <exclude>
-      <file>../.php-cs-fixer.php</file>
+      <file>./.php-cs-fixer.php</file>
       <file>../IntelliSenseHelper.php</file>
-      <file>../rector.php</file>
       <directory>../Tests/</directory>
     </exclude>
   </coverage>
