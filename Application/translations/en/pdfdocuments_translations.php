@@ -43,7 +43,7 @@ return [
     'D3_PDFDOCUMENTS_ORDER_FROM_AT'                      => 'Your order from %1$s at "%2$s"',
 
     'D3_PDFDOCUMENTS_ORDER_INVOICE_FROM_AT'              => 'Invoice %1$s relating to order %2$s dated %3$s',
-    'D3_PDFDOCUMENTS_ORDER_DELNOTE_FROM_AT'              => 'Delivery note relating to order %2$s vom %3$s',
+    'D3_PDFDOCUMENTS_ORDER_DELNOTE_FROM_AT'              => 'Delivery note relating to order %1$s vom %2$s',
 
     'D3_PDFDOCUMENTS_AMOUNT'                             => 'Amount',
     'D3_PDFDOCUMENTS_DESCRIPTION'                        => 'Description',
