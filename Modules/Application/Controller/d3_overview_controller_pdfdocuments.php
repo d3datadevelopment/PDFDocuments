@@ -174,7 +174,7 @@ class d3_overview_controller_pdfdocuments extends d3_overview_controller_pdfdocu
     public function d3getGeneratorList(): ?registryOrderoverview
     {
         try {
-            return ContainerFactory::getInstance()->getContainer()->get( registryOrderoverviewInterface::class );
+            return ContainerFactory::getInstance()->getContainer()->get(registryOrderoverviewInterface::class);
         } catch (Throwable $exception) {
             Registry::getUtilsView()->addErrorToDisplay($exception->getMessage());
         }

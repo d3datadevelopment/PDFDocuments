@@ -85,7 +85,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         $oPdf = $this->getHtml2Pdf();
         $oPdf->getSecurityService()->addAllowedHost(
-            parse_url(Registry::getConfig()->getConfigParam('sShopURL'))['host'],
+            parse_url(Registry::getConfig()->getConfigParam('sShopURL'))['host']
         );
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($language);
@@ -544,7 +544,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         $this->keywords = implode(',', array_filter(
             [
                 $this->keywords,
-                $keyword
+                $keyword,
             ]
         ));
     }

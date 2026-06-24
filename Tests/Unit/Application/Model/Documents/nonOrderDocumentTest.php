@@ -177,7 +177,7 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
         $sut->expects($getTypeInvocation)->method('getTypeForFilename')->willReturn('docType');
 
         if ($setFileName) {
-            $sut->setFilename( $setFileName);
+            $sut->setFilename($setFileName);
         }
 
         $this->assertSame(

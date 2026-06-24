@@ -99,36 +99,36 @@ $aModule = [
         [
             'group' => Constants::OXID_MODULE_ID.'contents',
             'name' => Constants::OXID_MODULE_ID.'LogoUrl',
-            'type' => 'str'
+            'type' => 'str',
         ],
         [
             'group' => Constants::OXID_MODULE_ID.'contents',
             'name' => Constants::OXID_MODULE_ID.'BackgroundUrl',
-            'type' => 'str'
+            'type' => 'str',
         ],
         [
             'group' => Constants::OXID_MODULE_ID.'documents',
             'name' => Constants::OXID_MODULE_ID.'DocInvoice',
             'type' => 'bool',
-            'value' => true
+            'value' => true,
         ],
         [
             'group' => Constants::OXID_MODULE_ID.'documents',
             'name' => Constants::OXID_MODULE_ID.'DocInvoiceNoLogo',
             'type' => 'bool',
-            'value' => true
+            'value' => true,
         ],
         [
             'group' => Constants::OXID_MODULE_ID.'documents',
             'name' => Constants::OXID_MODULE_ID.'DocDeliveryNote',
             'type' => 'bool',
-            'value' => true
+            'value' => true,
         ],
         [
             'group' => Constants::OXID_MODULE_ID.'documents',
             'name' => Constants::OXID_MODULE_ID.'DocDeliveryNoteNoLogo',
             'type' => 'bool',
-            'value' => true
+            'value' => true,
         ],
     ],
 ];

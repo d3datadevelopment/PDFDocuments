@@ -45,7 +45,7 @@ class orderOverviewPdfGenerator
             );
             $Pdf->setOrder($order);
             $Pdf->downloadPdf($iSelLang);
-        // @codeCoverageIgnoreStart
+            // @codeCoverageIgnoreStart
         } catch (Throwable $exception) {
             Registry::getLogger()->error($exception->getMessage());
             Registry::getUtilsView()->addErrorToDisplay($exception);
