@@ -16,8 +16,8 @@ declare(strict_types=1);
 namespace D3\PdfDocuments\Application\Model\AbstractClasses;
 
 use Assert\InvalidArgumentException;
-use D3\PdfDocuments\Application\Model\Constants;
 use D3\PdfDocuments\Application\Model\Interfaces\pdfdocumentsGenericInterface as genericInterface;
+use D3\PdfDocuments\Application\Model\Helpers\pdfdocumentsImageInlineRenderer;
 use Exception;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
@@ -25,8 +25,6 @@ use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Exception\ModuleConfigurationNotFoundException;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Exception\ModuleSettingNotFountException;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRenderer;
 use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
 use Psr\Container\ContainerExceptionInterface;
@@ -87,7 +85,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     {
         $oPdf = $this->getHtml2Pdf();
         $oPdf->getSecurityService()->addAllowedHost(
-            parse_url(Registry::getConfig()->getShopCurrentUrl())['host']
+            parse_url(Registry::getConfig()->getConfigParam('sShopURL'))['host'],
         );
         $oPdf->setTestIsImage(false);
         $htmlContent = $this->getHTMLContent($language);
@@ -213,8 +211,6 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
     /**
      * @throws ContainerExceptionInterface
-     * @throws ModuleConfigurationNotFoundException
-     * @throws ModuleSettingNotFountException
      * @throws NotFoundExceptionInterface
      */
     public function getHTMLContent(int $language = 0): string
@@ -234,7 +230,7 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
 
         $this->setAdminContext($lastRenderFromAdmin);
 
-        return $this->addBasicAuth($content);
+        return oxNew(pdfdocumentsImageInlineRenderer::class)->inlineImages($content);
     }
 
     protected function setAdminContext(bool $blAdmin): bool
@@ -253,39 +249,6 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
         }
 
         return $isAdmin;
-    }
-
-    /**
-     * @param string $content
-     * @return string
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     * @throws ModuleConfigurationNotFoundException
-     * @throws ModuleSettingNotFountException
-     */
-    protected function addBasicAuth(string $content): string
-    {
-        /** @var ModuleSettingService $settingsService */
-        $settingsService =  ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
-        $username = trim(
-            (string) $settingsService->getString('d3PdfDocumentsbasicAuthUserName', Constants::OXID_MODULE_ID)
-        );
-        $password = trim(
-            (string) $settingsService->getString('d3PdfDocumentsbasicAuthPassword', Constants::OXID_MODULE_ID)
-        );
-
-        if ($username && $password) {
-            $shopUrl  = parse_url(Registry::getConfig()->getShopCurrentUrl());
-            $pattern  = '/(["|\'])'.
-                        '(' . preg_quote($shopUrl['scheme'], '/') . ':\/\/)'.
-                        '(' . preg_quote($shopUrl['host'], '/') . '.*?)'.
-                        '\1/m';
-            $replace  = "$1$2" . urlencode($username). ":" . urlencode($password) . "@$3$1";
-
-            $content = preg_replace($pattern, $replace, $content);
-        }
-
-        return $content;
     }
 
     /**
@@ -356,7 +319,9 @@ abstract class pdfdocumentsGeneric extends Base implements genericInterface
     public function sanitizeFileName(string $filename): string
     {
         // replace transliterations (umlauts, accents ...)
-        $filename = mb_detect_encoding($filename) == 'UTF-8' ? (string) (new UnicodeString($filename))->ascii() : $filename;
+        $filename = mb_detect_encoding($filename) == 'UTF-8' ?
+            (string) (new UnicodeString($filename))->ascii() :
+            $filename;
 
         // sanitize filename
         $filename = preg_replace(

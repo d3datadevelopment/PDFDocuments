@@ -146,10 +146,9 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
         $templateRender->method('renderTemplate')->willReturn('htmlContentFixture');
 
         $sut = $this->getMockBuilder($this->sutClassName)
-            ->onlyMethods(['getTemplateRenderer', 'addBasicAuth'])
+            ->onlyMethods(['getTemplateRenderer'])
             ->getMock();
         $sut->method('getTemplateRenderer')->willReturn($templateRender);
-        $sut->method('addBasicAuth')->willReturnArgument(0);
 
         $this->assertSame(
             'htmlContentFixture',
@@ -158,54 +157,6 @@ class nonOrderDocumentTest extends pdfDocumentsGeneric
                 'getHTMLContent',
             )
         );
-    }
-
-    /**
-     * @test
-     * @covers \D3\PdfDocuments\Application\Model\AbstractClasses\pdfdocumentsGeneric::addBasicAuth
-     * @throws ReflectionException
-     * @dataProvider addBasicAuthDataProvider
-     */
-    public function testAddBasicAuth(string $credential, string $expected): void
-    {
-        $source = '<a href="https://www.test.dev/image.jpg">image</a>';
-
-        $settingService = $this->getMockBuilder(ModuleSettingService::class)
-            ->onlyMethods(['getString'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $settingService->method('getString')->willReturn(new UnicodeString($credential));
-
-        $config = $this->getMockBuilder(Config::class)
-            ->onlyMethods(['getShopCurrentUrl'])
-            ->getMock();
-        $config->method('getShopCurrentUrl')->willReturn('https://www.test.dev/index.php');
-
-        $this->addServiceMocks([ModuleSettingServiceInterface::class => $settingService]);
-        $currentConfig = Registry::getConfig();
-        Registry::set(Config::class, $config);
-
-        $sut = oxNew($this->sutClassName);
-
-        try {
-            $this->assertSame(
-                $expected,
-                $this->callMethod(
-                    $sut,
-                    'addBasicAuth',
-                    [ $source ]
-                )
-            );
-        } finally {
-            Registry::set(Config::class, $currentConfig);
-            ContainerFactory::resetContainer();
-        }
-    }
-
-    public static function addBasicAuthDataProvider(): Generator
-    {
-        yield 'no credential' => ['', '<a href="https://www.test.dev/image.jpg">image</a>'];
-        yield 'credential' => ['crd', '<a href="https://crd:crd@www.test.dev/image.jpg">image</a>'];
     }
 
     /**

@@ -89,16 +89,6 @@ $aModule = [
             'type' => 'bool',
             'value' => false,
         ],
-        [
-            'group' => Constants::OXID_MODULE_ID.'main',
-            'name' => Constants::OXID_MODULE_ID.'basicAuthUserName',
-            'type' => 'str',
-        ],
-        [
-            'group' => Constants::OXID_MODULE_ID.'main',
-            'name' => Constants::OXID_MODULE_ID.'basicAuthPassword',
-            'type' => 'password',
-        ],
 
         [
             'group' => Constants::OXID_MODULE_ID.'invoice',

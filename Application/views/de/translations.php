@@ -16,10 +16,6 @@ declare(strict_types=1);
 use D3\PdfDocuments\Application\Model\Constants;
 
 // @codeCoverageIgnoreStart
-$basicAuthHelp = <<<HELP
-    Befindet sich der aktuelle Shop hinter einem BasicAuth, können beim Generieren des PDFs die Bilder nicht geladen werden. Tragen Sie hier die Zugangsdaten ein, um die Bilder zu sehen.  
-    HELP;
-
 return [
     'charset'                                               => 'utf-8',
 
@@ -27,10 +23,6 @@ return [
     'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'        => 'Entwicklermodus',
     'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'bDev'   => 'Mit aktiviertem Entwicklermodus kann das Dokument im '.
                                     'SGML-Format ausgegeben werden. Inhaltliche Fehler können so besser nachvollzogen werden.',
-    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'        => 'BasicAuth des Shops - Benutzername (optional)',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthUserName'   => $basicAuthHelp,
-    'SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthPassword'        => 'BasicAuth des Shops - Passwort (optional)',
-    'HELP_SHOP_MODULE_'. Constants::OXID_MODULE_ID.'basicAuthPassword'   => $basicAuthHelp,
 
     'SHOP_MODULE_GROUP_'. Constants::OXID_MODULE_ID.'invoice'           => 'Rechnung',
     'SHOP_MODULE_invoicePaymentTerm'                                    => 'Zahlungsziel (in Tagen)',
